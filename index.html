@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tea Time English</title>
 <meta name="theme-color" content="#FFFFFF">
-<meta name="description" content="Exercices d'anglais du cours de Mrs Kokkinis">
+<meta name="description" content="Exercices d'anglais du cours de Miss Kokkinis">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -791,7 +791,7 @@ function explainBlock(a){
   <details class="d"><summary>Relire la fiche « ${esc(q.room&&s.rooms?s.rooms[q.room]:s.name)} »</summary>${q.room&&s.roomSheet?s.roomSheet[q.room]:s.sheet}</details>`;
 }
 
-const TN={eleanor:'Mrs Kokkinis',k:'Mrs Kokkinis'};
+const TN={eleanor:'Miss Kokkinis',k:'Miss Kokkinis'};
 const PRAISE=["Brilliant!","Spot on!","Lovely!","Well done!","Smashing!","Top marks!","Cracking!"];
 const OOPS=["Not quite…","So close!","Nearly there!","Oops, mind the gap!","Don't worry!"];
 const TIPS=["On dit « I am 36 », jamais « I have 36 ».","Après does / doesn't, le verbe reste à la base : she doesn't play.","There is = il y a (singulier) · There are = il y a (pluriel).","Their, there, they're : trois mots, une seule prononciation !","love, like, hate + verbe en -ing : I love cooking.","Pays et nationalités : toujours une majuscule en anglais.","half past nine = 9 h 30 · quarter to three = 2 h 45.","« Also » veut dire aussi, pas beaucoup !","some en phrase affirmative, any en négatif et en question.","many + ce qui se compte, much + ce qui ne se compte pas.","Test magique : enlève l'autre personne pour choisir entre I et me.","❌ advices, ❌ informations : ces mots ne prennent jamais de -s.","Au Royaume-Uni, the first floor = le 1er étage. Le rez-de-chaussée = the ground floor.","knife → knives · shelf → shelves : le f devient ves."];
@@ -854,15 +854,27 @@ function toast(m){
 
 /* ---------- la prof : petit dessin au stylo ---------- */
 function teacher(who,mood,size){
-  const mouth={happy:'M41 72 Q50 78 59 72',cheer:'M39 70 Q50 84 61 70 Z',think:'M43 74 L57 72',oops:'M42 77 Q50 70 58 77'}[mood]||'M41 72 Q50 78 59 72';
-  const brows=mood==='oops'?'M35 47 L45 50 M65 47 L55 50':mood==='think'?'M35 49 L45 49 M55 46 L65 49':'M35 49 Q40 46 45 49 M55 49 Q60 46 65 49';
-  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-label="Mrs Kokkinis" fill="none" stroke="#23262D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M22 60 C17 30 33 13 52 14 C72 15 85 32 79 62 C80 76 76 88 70 94 L30 94 C24 88 20 76 22 60Z" fill="#3B2B24" stroke="none"/>
-  <path d="M29 52 C29 74 39 87 50 87 C62 87 72 74 71 52 C63 38 52 31 46 30 C40 36 33 42 29 52Z" fill="#fff"/>
-  <path d="M30 50 C40 46 45 38 48 30 M48 31 C55 40 63 45 71 49" stroke="#3B2B24" stroke-width="3"/>
-  <path d="${brows}"/><circle cx="40" cy="57" r="2" fill="#23262D"/><circle cx="60" cy="57" r="2" fill="#23262D"/>
-  <path d="M50 60 L47.5 67 L51.5 67.5"/><path d="${mouth}" ${mood==='cheer'?'fill="#23262D"':''}/>
-  <path d="M30 94 C34 88 40 86 50 89 C60 86 66 88 70 94" stroke="#D7263D" stroke-width="3"/></svg>`;
+  const INK='#23262D',HAIR='#9C7753',HAIR2='#C09A6E',SKIN='#F8E6D6',TOP='#8E2A44';
+  const mouth={happy:'M42 66 Q50 73 58 66',cheer:'M41 65 Q50 79 59 65 Z',think:'M44 69 Q50 70 56 68',oops:'M43 71 Q50 65 57 71'}[mood]||'M42 66 Q50 73 58 66';
+  const browL=mood==='oops'?'M35 49 L45 45':mood==='think'?'M35 47 L45 47':'M35 47 Q40 44 45 47';
+  const browR=mood==='oops'?'M65 49 L55 45':mood==='think'?'M55 43 L65 47':'M55 47 Q60 44 65 47';
+  const teeth=mood==='cheer'?`<path d="M43.5 66.2 Q50 69 56.5 66.2 L57.2 67.6 Q50 70.6 42.8 67.6Z" fill="#fff" stroke="none"/>`:'';
+  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-label="Miss Kokkinis" fill="none" stroke="${INK}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M50 11 C29 11 20 28 21 50 C22 62 16 70 20 79 C23 86 18 91 23 97 L77 97 C82 91 77 86 80 79 C84 70 78 62 79 50 C80 28 71 11 50 11Z" fill="${HAIR}"/>
+  <path d="M43 76 L43 88 C46 91 54 91 57 88 L57 76Z" fill="${SKIN}"/>
+  <path d="M14 100 C16 90 30 85 43 86 C47 90 53 90 57 86 C70 85 84 90 86 100Z" fill="${TOP}"/>
+  <path d="M31 47 C31 68 40 79 50 79 C60 79 69 68 69 47 C69 31 60 23 50 23 C40 23 31 31 31 47Z" fill="${SKIN}"/>
+  <path d="M30 52 C28 33 38 21 50 21 C62 21 72 33 70 52 C67 42 59 33 51 28 C44 34 35 42 30 52Z" fill="${HAIR}"/>
+  <path d="M38 33 C42 29 46 28 50 27 M62 33 C58 29 54 28 50 27" stroke="${HAIR2}" stroke-width="1.6"/>
+  <path d="M27 58 C24 68 29 74 25 84 C23 90 27 93 26 97" stroke="${HAIR2}" stroke-width="1.8"/>
+  <path d="M73 58 C76 68 71 74 75 84 C77 90 73 93 74 97" stroke="${HAIR2}" stroke-width="1.8"/>
+  <circle cx="31" cy="62" r="2.2" stroke="#C9A24A" stroke-width="1.6"/>
+  <circle cx="38" cy="62" r="4" fill="#F2B8B0" stroke="none" opacity=".55"/><circle cx="62" cy="62" r="4" fill="#F2B8B0" stroke="none" opacity=".55"/>
+  <path d="${browL} ${browR}" stroke="#6B4C33"/>
+  <circle cx="42" cy="53" r="2" fill="${INK}" stroke="none"/><circle cx="58" cy="53" r="2" fill="${INK}" stroke="none"/>
+  <path d="M50 55 L48.4 60.5 L51.6 61"/>
+  <path d="${mouth}" ${mood==='cheer'?'fill="#B3243A"':''}/>${teeth}
+  </svg>`;
 }
 const bubble=(who,mood,en,fr,size)=>`<div class="say"><div class="tch">${teacher(who,mood,size||62)}</div><div class="bub"><span class="hand">${en}</span>${fr?`<small>${fr}</small>`:''}</div></div>`;
 
@@ -1009,8 +1021,8 @@ const pbar=(l,p,c)=>`<div class="prow2"><div class="r"><span>${l}</span><span>${
 
 function viewProfiles(){
   const ps=Object.values(DB.profiles).sort((a,b)=>b.created-a.created);
-  return `${SC}<div class="brand">Tea Time English</div><small>Les exercices du cours d'anglais de Mrs Kokkinis</small>
-  ${bubble('k','cheer',ps.length?'Hello again!':"Hello! I'm Mrs Kokkinis.",ps.length?"Qui fait ses exercices aujourd'hui ?":"Écris ton prénom : ta progression et tes erreurs seront gardées sur ce téléphone.")}
+  return `${SC}<div class="brand">Tea Time English</div><small>Les exercices du cours d'anglais de Miss Kokkinis</small>
+  ${bubble('k','cheer',ps.length?'Hello again!':"Hello! I'm Miss Kokkinis.",ps.length?"Qui fait ses exercices aujourd'hui ?":"Écris ton prénom : ta progression et tes erreurs seront gardées sur ce téléphone.")}
   ${ps.length?`<h2 class="h2">Qui joue ?</h2>${ps.map(p=>`<button class="card prow" data-act="login" data-id="${p.id}"><div><b>${esc(p.name)}</b><small>${rank(p.xp)} · ${p.xp} XP</small></div></button>`).join('')}`:''}
   <h2 class="h2">${ps.length?'Nouveau profil':'Ton prénom'}</h2>
   <input id="pname" class="inp" maxlength="16" placeholder="Ton prénom…" autocomplete="off" value="${esc(S.newName)}">
