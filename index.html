@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tea Time English</title>
+<meta name="theme-color" content="#FFFFFF">
+<meta name="description" content="Exercices d'anglais du cours de Mrs Kokkinis">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tea Time">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Gochi+Hand&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF;--ink:#23262D;--mute:#646B76;--line:#D8DDE4;--rule:#E3ECF6;--soft:#F4F6F8;--grey:#CDD1D7;
+  --blue:#1F4FB5;--red:#D7263D;--green:#2E7D32;--green-bg:#EAF5EA;--bad-bg:#FDECEE;--hl:#FFF27A;
+  color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 17px/1.5 Andika,"Comic Neue","Trebuchet MS",system-ui,sans-serif}
+button,input,textarea{font-family:inherit;color:inherit}
+small{display:block;color:var(--mute);font-size:14px;line-height:1.4}
+b{font-weight:700}
+.hand{font-family:"Gochi Hand","Segoe Print","Bradley Hand",cursive;font-weight:400}
+#app{max-width:540px;margin:0 auto;padding:0 18px 104px}
+.scal{height:30px;margin:0 -18px 4px;background:radial-gradient(circle at 50% 0,var(--grey) 0 20px,transparent 21px) center top/52px 30px repeat-x}
+.h2{font-size:18px;font-weight:700;margin:26px 0 10px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.mut{color:var(--mute);font-size:15px;margin:4px 0 10px}
+.lbl{margin:14px 0 6px;font-weight:700;font-size:15px}
+.warn{background:var(--bad-bg);border-left:3px solid var(--red);padding:10px 12px;font-size:15px;margin:12px 0}
+
+/* en-tête */
+.top{display:flex;justify-content:space-between;align-items:flex-end;padding:4px 0 10px;border-bottom:1.5px solid var(--line)}
+.top .nm{font-size:20px;font-weight:700;display:block;line-height:1.2}
+.lnk{background:none;border:0;color:var(--blue);font-weight:700;font-size:15px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
+
+/* boutons & cartes */
+.card{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px;width:100%;text-align:left;display:block}
+button.card{cursor:pointer}
+.btn{font-weight:700;font-size:17px;border:2px solid var(--ink);border-radius:10px;padding:12px 16px;cursor:pointer;background:#fff;color:var(--ink);margin:6px 0}
+.btn:active{transform:translateY(1px)}
+.btn.red{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.green{background:var(--green);border-color:var(--green);color:#fff}
+.btn.ghost{background:#fff}
+.btn.dng{color:var(--red);border-color:var(--red)}
+.btn.full{display:block;width:100%}
+.btn.big{padding:16px;font-size:19px}
+.btn[disabled]{opacity:.35;pointer-events:none}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px;box-shadow:0 0 0 5px var(--ink)}
+
+/* note de la prof */
+.say{display:flex;gap:12px;align-items:center;margin:14px 0 16px}
+.say .tch{flex:none;line-height:0}
+.bub{flex:1;border-left:2px solid var(--red);padding:2px 0 2px 12px}
+.bub .hand{font-size:25px;line-height:1.15;color:var(--red);display:block}
+.bub small{margin-top:4px;color:var(--ink);font-size:15px}
+
+/* accueil */
+.seg{display:flex;border:2px solid var(--ink);border-radius:10px;overflow:hidden;margin:4px 0 12px}
+.seg button{flex:1;border:0;border-right:2px solid var(--ink);background:#fff;padding:9px 4px;font-weight:700;font-size:14px;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--hl)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2 .card{margin:0}
+.game{border-top:5px solid var(--c,var(--blue))}
+.game b{display:block;font-size:17px;line-height:1.25}
+.game.wide{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;border:2px dashed var(--ink);border-top:2px dashed var(--ink)}
+.game.wide .hand{font-size:40px;color:var(--red);line-height:1;transform:rotate(-6deg)}
+
+.lastc{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;background:#fff;border:1.5px dashed var(--grey);border-radius:10px;padding:10px 14px;margin:4px 0 0;font-size:15px;cursor:pointer}
+.lastc.done{cursor:default}
+.lastc small{margin-top:2px}
+.lastc.done small{color:var(--green);font-weight:700}
+/* barres */
+.bar{height:10px;border-radius:5px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--lc,var(--blue));transition:width .4s}
+.prow2{margin:8px 0}
+.prow2 .r{display:flex;justify-content:space-between;font-weight:700;font-size:15px;margin-bottom:4px}
+.srow{display:flex;gap:12px;align-items:center;padding:12px 14px 12px 0;border-left:6px solid var(--lc)}
+.srow .tx{flex:1;padding-left:12px}
+.srow .tx b{display:block;line-height:1.25}
+.lv{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--mute)}
+
+/* jeu */
+.ph{display:flex;align-items:center;gap:12px;padding:14px 0 12px}
+.x{border:2px solid var(--ink);background:#fff;width:34px;height:34px;border-radius:50%;font-size:14px;cursor:pointer;flex:none}
+.tube{flex:1;display:flex;gap:3px}
+.tube i{flex:1;height:12px;border:1.5px solid var(--line);border-radius:2px}
+.tube i.d{background:var(--blue);border-color:var(--blue)}
+.tube i.ko{background:var(--red);border-color:var(--red)}
+.tube i.c{background:var(--hl);border:2px solid var(--ink)}
+.combo{font-weight:700;font-size:14px;min-width:42px;text-align:right;color:var(--red)}
+.tm{height:4px;background:var(--soft);margin:-4px 0 4px}
+.tm i{display:block;height:100%;background:var(--red);transition:width 1s linear}
+#tm{text-align:right}
+.tag{font-size:14px;color:var(--mute);margin:4px 0 4px;font-weight:700}
+.q{font-size:23px;line-height:1.35;font-weight:700;margin:6px 0 16px}
+.blank{display:inline-block;min-width:70px;border-bottom:2.5px solid var(--ink);margin:0 4px;height:1em;vertical-align:-2px}
+.ctx{background:var(--soft);border-radius:8px;padding:10px 12px;font-size:15px;margin:0 0 12px}
+.opt{display:block;width:100%;text-align:left;padding:13px 15px;margin:9px 0;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:18px;cursor:pointer}
+.opt.sel{background:var(--hl);border-color:var(--ink)}
+.opt.good{border-color:var(--green);background:var(--green-bg)}
+.opt.good::after{content:" ✓";color:var(--green);font-weight:700}
+.opt.wrong{border-color:var(--red);background:var(--bad-bg);text-decoration:line-through;text-decoration-color:var(--red)}
+.opt[disabled]{cursor:default}
+.inp{width:100%;padding:6px 2px;border:0;border-bottom:2.5px solid var(--ink);border-radius:0;background:transparent;font:400 28px/1.3 "Gochi Hand","Segoe Print",cursive;color:var(--blue)}
+.inp:focus{outline:none;border-bottom-color:var(--blue);background:linear-gradient(transparent 70%,#FFF8B0 70%)}
+.inp.small{font:400 18px Andika,system-ui,sans-serif;color:var(--ink)}
+.inp.code{font:400 12px/1.3 ui-monospace,Menlo,monospace;border:1.5px solid var(--line);border-radius:8px;padding:8px;min-height:80px;margin:8px 0;resize:vertical;color:var(--ink)}
+.spk{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.spk .btn{margin:0;padding:9px 14px;font-size:15px}
+.line{min-height:64px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding:10px 0;margin:10px 0;background:repeating-linear-gradient(transparent 0 49px,var(--rule) 49px 51px);border-bottom:2px solid var(--ink)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tile{padding:7px 12px;border:1.5px solid var(--ink);border-radius:6px;background:#fff;font-size:18px;cursor:pointer}
+.tile.in{background:var(--hl)}
+.mcols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mt{display:block;width:100%;padding:12px 8px;margin:0 0 10px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:16px;cursor:pointer;min-height:52px}
+.mt.sel{background:var(--hl);border-color:var(--ink)}
+.mt.done{border-color:var(--green);background:var(--green-bg);color:var(--green);pointer-events:none}
+.mt.bad{border-color:var(--red);background:var(--bad-bg)}
+.foot{margin-top:20px}
+.shake{animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* correction */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:3px solid var(--green);box-shadow:0 -6px 24px rgba(35,38,45,.12);padding:14px 18px calc(16px + env(safe-area-inset-bottom,0px));animation:up .2s ease-out}
+.sheet.bad{border-top-color:var(--red)}
+.sh-in{max-width:540px;margin:0 auto;max-height:76vh;overflow:auto}
+.sh-t{display:flex;gap:10px;align-items:center;margin-bottom:4px}
+.sh-t h3{margin:0;font:400 32px/1 "Gochi Hand","Segoe Print",cursive;color:var(--green)}
+.sheet.bad .sh-t h3{color:var(--red)}
+.ans{margin:6px 0 2px;font-size:18px}
+.mine{margin:0 0 6px;color:var(--mute);font-size:15px}
+.mine s{text-decoration-color:var(--red);text-decoration-thickness:2px}
+.diag{background:#FFF6D6;border-left:4px solid #E08A00;border-radius:6px;padding:10px 12px;margin:8px 0;font-size:16px}
+.diag>b,.why>b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;color:var(--mute)}
+.dif{font-size:19px;letter-spacing:.02em}
+mark{background:#FFD95A;color:inherit;border-bottom:2px solid var(--red);padding:0 1px}
+.why{background:var(--soft);border-radius:8px;padding:10px 12px;font-size:16px;margin:8px 0}
+.vt{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 10px}
+.vt td{border-bottom:1px solid var(--line);padding:6px 4px;vertical-align:top}
+.vt td:first-child{font-weight:700;width:52%}
+.vt small{display:inline;font-weight:400;font-size:12px}
+.us{font-size:15px;margin:6px 0 8px;padding-left:10px;border-left:3px solid var(--blue)}
+details.d{border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;font-size:16px;background:#fff}
+details.d summary{cursor:pointer;font-weight:700}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.ov{position:fixed;inset:0;background:rgba(35,38,45,.45);z-index:40;display:grid;place-items:center;padding:20px}
+.ov .card{max-width:380px;margin:0}
+
+/* navigation */
+.nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1.5px solid var(--line);display:flex;justify-content:space-around;padding:4px 8px calc(4px + env(safe-area-inset-bottom,0px));z-index:10}
+.nav button{background:none;border:0;font-weight:700;font-size:15px;padding:12px 10px;cursor:pointer;color:var(--mute)}
+.nav .on{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:3px;text-underline-offset:6px}
+
+/* résultat */
+.gradebox{text-align:center;margin:12px 0}
+.grade{display:inline-block;font:400 64px/1 "Gochi Hand","Segoe Print",cursive;color:var(--red);border:3px solid var(--red);border-radius:50%;padding:18px 26px 12px;transform:rotate(-5deg)}
+.pass{text-align:center;font:400 26px "Gochi Hand","Segoe Print",cursive;margin:8px 0}
+.pass.y{color:var(--green)}
+.pass.n{color:var(--red)}
+
+/* profils */
+.brand{font:400 44px/1 "Gochi Hand","Segoe Print",cursive;margin:10px 0 2px}
+.prow{display:flex;gap:12px;align-items:center}
+.prow b{font-size:19px}
+.sw{display:flex;gap:10px;align-items:center;margin-top:12px;font-weight:700}
+.sw input{width:22px;height:22px;accent-color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:15px;z-index:60;max-width:90%}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   1. CONTENU — les "lignes" (thèmes) et les questions.
+   Pour ajouter un cours : ajouter un thème dans SK (si nouveau) + des
+   questions plus bas. Dans les QCM, la 1re option est toujours la bonne
+   (elles sont mélangées à l'affichage).
+   ===================================================================== */
+const SK=[
+ {id:'num',lvl:1,name:'Nombres & objets',ic:'🔢',c:'#0098D4',sheet:"<p><b>13–19 = -teen</b> (accent à la fin : thir<b>TEEN</b>) · <b>20–90 = -ty</b> (accent au début : <b>NIN</b>ety).</p><p>⚠️ forty (40) s'écrit sans u. Les jours prennent une majuscule.</p><p>a pen · the door · a sofa · a window · a desk</p>"},
+ {id:'spell',lvl:1,name:'Épeler & dictée',ic:'🔤',c:'#9B0056',sheet:"<p><b>double + lettre</b> = la lettre deux fois (R-O-double S-I = Rossi).</p><p>Mots à retenir : Wednesday · exercise · teacher · journey · airport · yogurt.</p>"},
+ {id:'dlg',lvl:1,name:'Se présenter',ic:'👋',c:'#00A4A7',sheet:"<p>Hi! Are you a new student? — <b>Yes, I am.</b></p><p>Where are you from? — I'm from Italy.</p><p>Can you spell your name, please? · Sorry, can you repeat that? · Welcome to the class!</p><p>Réponse courte avec <i>to be</i> : jamais de contraction à la fin (❌ Yes, I'm).</p>"},
+ {id:'wh',lvl:1,name:'Questions en Wh-',ic:'❓',c:'#E86A10',sheet:"<p>How old are you? · What's your name? · Where are you from? · What's your phone number? · What do you do? / What's your job? · Can you spell your name? · How are you?</p>"},
+ {id:'ctry',lvl:1,name:'Pays & nationalités',ic:'🌍',c:'#00782A',sheet:"<p>Belgium → Belgian · Poland → Polish · Spain → Spanish · Germany → German · Ireland → Irish · Wales → Welsh.</p><p>Pays <b>et</b> nationalités : toujours une majuscule.</p>"},
+ {id:'tobe',lvl:1,name:'To be & my / your / his…',ic:'🙋',c:'#6950A1',sheet:"<p>I <b>am</b> · you <b>are</b> · he/she/it <b>is</b> · we <b>are</b> · they <b>are</b>.</p><p>my · your · <b>his</b> · <b>her</b> · its · our · their — ils s'accordent avec le <b>possesseur</b>.</p><p>a + consonne (a student) · an + voyelle (an engineer).</p>"},
+ {id:'this',lvl:1,name:'This / that / these / those',ic:'👉',c:'#F386A0',sheet:"<p><b>this / these</b> = proche (ici) · <b>that / those</b> = loin (là-bas).</p><p>Pluriels irréguliers : child → <b>children</b> · man → <b>men</b> · woman → <b>women</b>.</p>"},
+ {id:'hg',lvl:1,name:'Have got',ic:'🎒',c:'#B36305',sheet:"<p>I/you/we/they <b>have got</b> · he/she/it <b>has got</b>.</p><p>Négatif : <b>haven't / hasn't got</b>. Question : <b>Have/Has</b> + sujet + got ?</p><p>Réponse courte : Yes, they <b>have</b>. (sans got)</p>"},
+ {id:'fam',lvl:1,name:'La famille',ic:'👨‍👩‍👧',c:'#E32017',sheet:"<p>mother · father · son · daughter · brother · sister · uncle · aunt · niece · nephew · grandfather · granddaughter · daughter-in-law.</p>"},
+ {id:'pos',lvl:1,name:"Cas possessif 's",ic:'🔑',c:'#0019A8',sheet:"<p>Singulier : <b>'s</b> → my father's car · Charles's car.</p><p>Pluriel en -s : <b>'</b> seule → my parents' house.</p><p>Pluriel sans -s : <b>'s</b> → the children's toys.</p><p>Aussi pour les dates : tomorrow's meeting.</p><p>Avec un pronom : adjectif possessif (his car), jamais 's.</p>"},
+ {id:'time',lvl:1,name:"L'heure",ic:'🕒',c:'#7156A5',sheet:"<p>8:00 <b>eight o'clock</b> · 9:30 <b>half past nine</b> · 11:15 <b>quarter past eleven</b> · 2:45 <b>quarter to three</b> · 6:10 <b>ten past six</b> · 12:55 <b>five to one</b>.</p><p>past = après l'heure · to = avant l'heure suivante. Version digitale : ten thirty.</p>"},
+ {id:'ps',lvl:1,name:'Présent simple',ic:'🔁',c:'#00A4A7',sheet:"<p>I play / she <b>plays</b> · I don't play / she <b>doesn't</b> play · <b>Do</b> you play? / <b>Does</b> she play?</p><p>-s / -es à la 3e personne : watches · goes · studies.</p><p>Emplois : habitude · vérité générale · horaires officiels (The train leaves at 10).</p>"},
+ {id:'age',lvl:1,name:'Âge & être d’accord',ic:'🎂',c:'#EE7C0E',sheet:"<p>Âge avec <b>to be</b> : I <b>am</b> 36 (years old).</p><p><b>I agree</b> with you : pas d'auxiliaire be.</p>"},
+ {id:'there',lvl:2,name:'There is / There are',ic:'📍',c:'#E32017',sheet:"<p><b>There is / There's</b> = il y a (singulier ou indénombrable) : There is a cat in the garden.</p><p><b>There are</b> = il y a (pluriel) : There are three chairs around the table.</p><p>Négatif : there <b>isn't</b> / there <b>aren't</b>.</p><p>Énumération : le verbe suit le <b>premier nom</b> : There <b>is</b> a bathroom and two bedrooms / There <b>are</b> two bedrooms and a bathroom.</p>"},
+ {id:'its',lvl:2,name:"It's / They're",ic:'🎯',c:'#0019A8',sheet:"<p><b>It's</b> (= it is) = c'est : pronom pour quelque chose de <b>déjà identifié</b> — What's that noise? It's the neighbour's dog.</p><p><b>They're</b> (= they are) = ils/elles sont — Who are those people? They're my colleagues.</p><p><b>There is/are</b> annonce, <b>it's/they're</b> reprend.</p><p>⚠️ <b>Their</b> (leur) · <b>there</b> (il y a) · <b>they're</b> (ils sont) : même prononciation !</p>"},
+ {id:'like',lvl:2,name:'Goûts & préférences',ic:'❤️',c:'#F386A0',sheet:"<p>I <b>love</b> · I <b>really like</b> · I <b>like</b> · I <b>don't like</b> · I <b>really don't like</b> · I <b>hate</b> · I <b>prefer</b> (aussi : I enjoy…, I don't mind…).</p><p>Toujours suivi du verbe en <b>-ing</b> : I love cooking · I hate going to the park · I prefer watching TV.</p><p>Do you prefer swimming <b>or</b> running ?</p>"},
+ {id:'ing',lvl:2,name:'Orthographe en -ing',ic:'✍️',c:'#00782A',sheet:"<p>1) cas général : +ing → cooking, playing.</p><p>2) verbe en -e : on enlève le e → making, writing.</p><p>3) verbe court : on double la consonne → swimming, running, sitting.</p><p>4) -ie → -ying → lying, dying.</p><p>⚠️ visit → visiting · camp → camping (pas de doublement).</p>"},
+ {id:'voc',lvl:2,name:'Vocabulaire du cours',ic:'📒',c:'#E86A10',sheet:"<p><b>also</b> = aussi, également · <b>boring</b> = ennuyeux · <b>going</b> = aller · <b>flat</b> = appartement (UK) · <b>nearby</b> = tout près · <b>neighbour</b> = voisin · <b>often</b> = souvent.</p><p>there is/isn't = il y a (sg) · there are/aren't = il y a (pl).</p><p>⚠️ « beaucoup » = a lot of / much / many, <i>pas</i> also !</p>"},
+ {id:'some',lvl:2,name:'Some / Any',ic:'',c:'#1F4FB5',sheet:"<p>= du, de la, de, des, quelques.</p><p><b>some</b> → phrases affirmatives : There are some things on my list. · Let's go get some ice cream.</p><p><b>any</b> → négatives et questions : They don't buy any apples. · Do you need any strawberries?</p><p>Cas particuliers :</p><p>• <b>some</b> dans une question quand on <b>offre</b> ou demande poliment : Would you like some coffee? · Can I have some water, please?</p><p>• <b>any</b> en affirmatif = « n'importe quel » : Choose any book.</p><p>• <b>any</b> après if, unless, whether : If you have any questions, ask me.</p>"},
+ {id:'much',lvl:2,name:'Much / Many / A lot of',ic:'',c:'#D7263D',sheet:"<p><b>much / many / a lot of</b> = beaucoup · <b>how much / how many</b> = combien.</p><p><b>many</b> + dénombrable (apples, customers, friends) · <b>much</b> + indénombrable (money, toothpaste, water, time).</p><p><b>a lot of</b> marche avec les deux, surtout en phrase affirmative : Kate always buys a lot of bananas · They have a lot of broccoli.</p><p>Négatif : There aren't many customers today · We haven't got much toothpaste.</p><p>Question : How many tomatoes do you want? · How much time do you spend in the park?</p>"},
+ {id:'ime',lvl:2,name:'I ou me ?',ic:'',c:'#2E7D32',sheet:"<p><b>I</b> = sujet : celui qui fait l'action. <b>me</b> = complément : celui qui reçoit l'action, ou qui vient après une préposition.</p><p>I love music ↔ Music relaxes me · I call her ↔ She calls me.</p><p><b>Le test magique</b> : quand il y a deux personnes, enlève l'autre. Tom and ___ go to school → ___ go to school → <b>I</b> go. She invites Tom and ___ → She invites ___ → <b>me</b>.</p><p><b>I</b> : sujet (I work in an office) · sujet composé (My sister and I live together) · réponse courte (Yes, I do).</p><p><b>me</b> : COD (She loves me) · COI (Send me an email) · après to, for, with, about, from, between, like (This is for me) · complément composé (The teacher asks Anna and me) · après let et devant un infinitif (Let me explain · They want me to stay).</p><p>Politesse : on se cite <b>en dernier</b> → Sarah and I.</p>"},
+ {id:'count',lvl:2,name:'Dénombrables · a / an / some / any',ic:'',c:'#E08A00',sheet:"<p><b>Dénombrable (C)</b> : on peut compter → a chair, two books, an egg, three friends.</p><p><b>Indénombrable (U)</b> : pas de pluriel, pas de a/an → water, bread, money, rice, sugar, coffee, music, advice, information.</p><p>Test : peux-tu dire « two … » ? two apples ✓ → C · two waters ✗ → U.</p><p><b>a / an</b> → dénombrable au singulier (an devant un <b>son</b> voyelle : an orange, an hour).</p><p><b>some / any</b> → pluriel ou indénombrable. some = affirmatif et offre polie · any = négatif et question.</p><p>⚠️ Pièges pour un francophone : ❌ advices · ❌ informations · ❌ a bread → some advice, some information, some bread.</p>"}
+];
+SK.push({id:'house',lvl:2,name:'Vocabulaire : la maison',ic:'',c:'#7A4FB5',sheet:''});
+const SKM={};SK.forEach(s=>SKM[s.id]=s);
+
+const Q=[];
+const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)};
+const add=o=>{o.lvl=SKM[o.skill].lvl;o.id=o.skill+'_'+hash(o.type+(o.prompt||o.word||o.title)+(o.say||'')+(o.opts?o.opts[0]:'')+(o.acc?o.acc[0]:'')+(o.sentence||'')+(o.pairs?o.pairs[0][0]:''));Q.push(o)};
+const M=(skill,prompt,opts,why,x)=>add(Object.assign({type:'mcq',skill,prompt,opts,why},x));
+const G=(skill,prompt,acc,why,x)=>add(Object.assign({type:'gap',skill,prompt,acc,why},x));
+const O=(skill,prompt,sentence,why,x)=>add(Object.assign({type:'ord',skill,prompt,sentence,why},x));
+const D=(skill,word,why,x)=>add(Object.assign({type:'dict',skill,word,why,acc:[word]},x));
+const X=(skill,title,pairs,why)=>add({type:'match',skill,title,pairs,why});
+
+/* ---------- Niveau 1 ---------- */
+M('num',"The number after twelve →",["thirteen","fourteen","thirty","eleven"],"13 = <b>thirteen</b> (-teen, accent à la fin). <b>thirty</b> = 30 (accent au début). Même piège : fourteen / forty, fifteen / fifty.");
+G('num',"The day before Friday → ___",["thursday"],"<b>Thursday</b>. Les jours de la semaine prennent toujours une <b>majuscule</b> en anglais.");
+G('num',"You use it to write. → a ___",["pen"],"<b>a pen</b> = un stylo. Un crayon = a pencil.");
+M('num',"You open it to enter a room. →",["the door","the window","the sofa","the desk"],"<b>The door</b> = la porte. Window = fenêtre, sofa = canapé, desk = bureau.");
+G('num',"The number before nineteen → ___",["eighteen"],"<b>eighteen</b> : attention au « eigh- » (pas « eit »).");
+M('num',"You sit on it. →",["a sofa","a door","a pen","a window"],"<b>A sofa</b> = un canapé.",{us:"Aux États-Unis, on dit très souvent <i>a couch</i>."});
+G('num',"Écris en lettres : 15 →",["fifteen"],"<b>fifteen</b> (pas « fiveteen » !). Le 5 devient « fif- » dans fifteen et fifty.");
+M('num',"Lequel est le nombre 40 ?",["forty","fourty","fourteen","fortey"],"<b>forty</b> s'écrit SANS « u », contrairement à four et fourteen. Piège classique, même pour les natifs !");
+M('num',"🎧 Écoute et choisis le nombre.",["13","30","3","33"],"Tu as entendu <b>thirteen</b> (accent sur « teen », à la fin) = 13. Thirty = 30 (accent au début).",{say:"thirteen"});
+X('num',"Associe le mot et le chiffre",[["thirteen","13"],["forty","40"],["fifteen","15"],["ninety","90"],["eighteen","18"]],"-teen = 13 à 19 · -ty = 20, 30, 40… Forty : sans u !");
+
+D('spell',"Wednesday","<b>Wednesday</b> : le 1er « d » s'écrit mais ne se prononce pas (« wenz-day »). Astuce : Wed-nes-day.",{hint:"Le jour entre Tuesday et Thursday."});
+D('spell',"exercise","<b>exercise</b> : ex-er-cise. Se termine par -cise (jamais -cize).",{hint:"Un travail pour s'entraîner ou faire du sport."});
+D('spell',"teacher","<b>teacher</b> = tea + cher. Le « ea » se prononce comme dans <i>tea</i>.",{hint:"La personne qui enseigne."});
+D('spell',"journey","<b>journey</b> : j-o-u-r-n-e-y. Ni « journée », ni « ee » à la fin.",{hint:"Un (long) voyage."});
+D('spell',"airport","<b>airport</b> = air + port.",{hint:"Là où les avions décollent."});
+D('spell',"yogurt","<b>yogurt</b> (ou <b>yoghurt</b> en UK, avec un h muet). Les deux sont acceptés.",{acc:["yogurt","yoghurt"],hint:"Produit laitier qu'on mange à la cuillère."});
+G('spell',"Écris le mot épelé : B – double O – K →",["book"],"<b>double O</b> = la lettre O deux fois. B-O-O-K = book. Dans R-O-double S-I, double S = SS (Rossi).");
+M('spell',"Combien de lettres dans « R-O-double S-I » ?",["5","4","6","7"],"R-O-S-S-I = <b>5 lettres</b> : « double S » compte pour deux S.");
+
+O('dlg',"Traduis : « Peux-tu épeler ton nom, s'il te plaît ? »","Can you spell your name, please?","<b>Can you…?</b> pour demander poliment ; <b>please</b> adoucit la demande.");
+O('dlg',"Traduis : « D'où viens-tu ? »","Where are you from?","<b>Where are you from?</b> (to be + from). Réponse : I'm from Belgium.");
+O('dlg',"Traduis : « Désolé, peux-tu répéter ? »","Sorry, can you repeat that?","<b>Sorry, can you repeat that?</b> Très utile quand on ne comprend pas.");
+O('dlg',"Traduis : « Bienvenue dans la classe ! »","Welcome to the class!","<b>Welcome to</b> + lieu (pas « in »).");
+M('dlg',"Quelqu'un parle trop vite. Tu dis…",["Sorry, can you repeat that?","Where are you from?","Welcome to the class!","My surname is Rossi."],"<b>Sorry, can you repeat that?</b> (Désolé, peux-tu répéter ?)");
+M('dlg',"« Nice to meet you. » — Ta réponse :",["Nice to meet you too.","I'm fine, thanks.","Yes, of course.","It's Monday."],"On répond <b>Nice to meet you too.</b> « I'm fine » répond à « How are you? ».");
+M('dlg',"« Are you a new student? » — Réponds :",["Yes, I am.","Yes, I do.","Yes, I'm.","Yes, I have."],"Réponse courte avec <b>to be</b> : Yes, I am. On ne contracte jamais en fin de phrase (❌ Yes, I'm).");
+M('dlg',"« I'm from Italy, from Rome. ___ »",["And you?","And yours?","And me?","And your?"],"<b>And you?</b> pour renvoyer la question.");
+
+M('wh',"Q : ___ ? — A : I'm 32 years old.",["How old are you?","What age are you?","How many years have you?","Which age do you have?"],"<b>How old are you?</b> avec <b>to be</b> (jamais « have » pour l'âge).");
+M('wh',"A : My name is Sophia. — Q : ___",["What's your name?","How are you called?","Who is your name?","Where is your name?"],"<b>What's your name?</b> = What is your name?");
+M('wh',"A : I'm from Portugal. — Q : ___",["Where are you from?","What are you from?","Who are you from?","How are you from?"],"<b>Where</b> = où → lieu / origine.");
+M('wh',"A : My phone number is 0498 76 54 32. — Q : ___",["What's your phone number?","Which is your phone?","How is your phone number?","Who is your number?"],"<b>What's your phone number?</b>",{us:"Au Royaume-Uni : <i>mobile</i> ; aux États-Unis : <i>cell phone</i>."});
+M('wh',"A : I'm a mechanic. — Q : ___",["What do you do?","How are you?","Where are you?","Who is mechanic?"],"<b>What do you do?</b> ou <b>What's your job?</b> demandent la profession.");
+M('wh',"A : It's spelled J-O-N-E-S. — Q : ___",["Can you spell your name?","Can you say your name?","How is your name?","What is a name?"],"<b>Can you spell your name?</b> → It's spelled J-O-N-E-S.");
+M('wh',"A : I'm fine, thanks. — Q : ___",["How are you?","What are you?","Who are you?","Where are you?"],"<b>How are you?</b> → I'm fine, thanks.");
+
+M('ctry',"French – Spanish – Italy – British : lequel n'est PAS une nationalité ?",["Italy","French","Spanish","British"],"<b>Italy</b> est un pays. La nationalité = Italian.");
+M('ctry',"Japan – Brazil – Germany – American : lequel n'est PAS un pays ?",["American","Japan","Brazil","Germany"],"<b>American</b> est une nationalité. Le pays = the USA.");
+M('ctry',"Belgium – Chinese – Morocco – the UK : lequel n'est PAS un pays ?",["Chinese","Belgium","Morocco","the UK"],"<b>Chinese</b> est une nationalité. Le pays = China.");
+M('ctry',"Russian – Polish – Greek – Greece : lequel n'est PAS une nationalité ?",["Greece","Russian","Polish","Greek"],"<b>Greece</b> est un pays. La nationalité = Greek.");
+G('ctry',"A person from Poland is ___",["polish"],"<b>Polish</b>. Pays et nationalités prennent toujours une majuscule.");
+G('ctry',"A person from Spain is ___",["spanish"],"Spain → <b>Spanish</b>.");
+G('ctry',"A person from Germany is ___",["german"],"Germany → <b>German</b> (pas « Germanian »).");
+M('ctry',"He is from Ireland, so he is…",["Irish","Ireland","Irelandish","Irland"],"Ireland → <b>Irish</b>. Wales → Welsh. Scotland → Scottish.");
+X('ctry',"Associe le pays et la nationalité",[["Belgium","Belgian"],["Poland","Polish"],["Spain","Spanish"],["Germany","German"],["Ireland","Irish"]],"Les pays et les nationalités prennent toujours une majuscule.");
+
+G('tobe',"Hello! ___ name is Lisa.",["my"],"Adjectifs possessifs : <b>my, your, his, her, our, their</b>. Ils se placent devant le nom.");
+G('tobe',"I ___ from London. (to be)",["am"],"I <b>am</b> · you are · he/she/it is · we are · they are.");
+G('tobe',"Magda is ___ engineer.",["an"],"<b>an</b> devant un son voyelle (an engineer), <b>a</b> devant un son consonne (a student).");
+G('tobe',"My friend is Polish – ___ name is Magda. (she)",["her"],"Le possessif suit le <b>possesseur</b> : Magda = elle → <b>her</b> name.");
+G('tobe',"Magda and I are in the same class. ___ teacher is Mr Brown. (we)",["our"],"we → <b>our</b>.");
+G('tobe',"Mr Brown is from Ireland but ___ wife is from Wales. (he)",["his"],"he → <b>his</b>.");
+G('tobe',"Magda's parents live in Warsaw. ___ house is very big. (they)",["their"],"they → <b>their</b>. Attention : their / there / they're se prononcent pareil !");
+M('tobe',"Karl drives ___ car.",["his","her","he","him"],"Karl = he → <b>his</b>. <i>him</i> est un pronom complément, pas un possessif.");
+M('tobe',"Sarah loves ___ mother.",["her","his","she","hers"],"Sarah = she → <b>her</b> mother.");
+M('tobe',"We ___ in the same class.",["are","is","am","be"],"we → <b>are</b>.");
+
+M('this',"___ (ici) is my kitchen.",["This","That","These","Those"],"<b>this</b> = proche, singulier · <b>that</b> = loin, singulier · <b>these / those</b> = les pluriels.");
+G('this',"___ (ici) chairs are from my grandmother.",["these"],"Pluriel + proche → <b>these</b>.");
+G('this',"Look! ___ (là-bas) children are my cousins.",["those"],"Pluriel + loin → <b>those</b>.");
+G('this',"Pluriel de « child » →",["children"],"Pluriel irrégulier : child → <b>children</b> (❌ childs, ❌ childrens).");
+G('this',"Pluriel de « man » →",["men"],"man → <b>men</b>.");
+G('this',"Pluriel de « woman » →",["women"],"woman → <b>women</b> (prononcé « wimin »).");
+M('this',"___ (là-bas) is the bedroom of my sister.",["That","This","These","Those"],"Singulier + loin → <b>that</b>.");
+G('this',"___ (là-bas) shoes are hers.",["those"],"shoes = pluriel, loin → <b>those</b>.");
+
+G('hg',"Tom ✓ a car. → Tom ___ a car.",["has got"],"he / she / it → <b>has got</b> · I / you / we / they → <b>have got</b>.",{us:"En américain, on dit plutôt <i>Tom has a car</i> / <i>Does Tom have a car?</i> (sans got)."});
+G('hg',"Tom ✗ children. → Tom ___ children.",["hasn't got","has not got"],"Négatif : <b>hasn't got</b> (he/she/it) · <b>haven't got</b> (I/you/we/they).");
+G('hg',"Sara and Jim ✗ a car. → They ___ a car.",["haven't got","have not got"],"They → <b>haven't got</b>.");
+G('hg',"Sara and Jim ✓ a garden. → They ___ a garden.",["have got"],"They → <b>have got</b>.");
+G('hg',"My parents ✗ a dog. → My parents ___ a dog.",["haven't got","have not got"],"My parents = they → <b>haven't got</b>.");
+M('hg',"___ Tom got a garden? — No, he hasn't.",["Has","Have","Does","Is"],"Question : on inverse. <b>Has</b> + he/she/it · <b>Have</b> + I/you/we/they.");
+M('hg',"Have your parents got children? — Yes, they ___.",["have","have got","has","do"],"Réponse courte : <b>Yes, they have.</b> On ne répète pas « got ».");
+O('hg',"Traduis : « Sara et Jim n'ont pas de voiture. »","Sara and Jim haven't got a car.","Négation avec « they » : <b>haven't got</b>.",{more:["hasn't","has"]});
+O('hg',"Traduis : « Tom a-t-il un chien ? »","Has Tom got a dog?","Question : <b>Has</b> + sujet + got ?",{more:["have","does"]});
+
+const FAM="👨‍👩‍👧 John ❤ Mary → enfants : Peter et Lucy. Peter ❤ Anna → fille : Emma. Lucy est célibataire. John a un frère, Mike, marié à Susan.";
+G('fam',"Mary is Peter's ___.",["mother","mum","mom"],"Mary est la mère de Peter → <b>mother</b> (familier : mum / mom).",{ctx:FAM});
+G('fam',"Emma is John and Mary's ___.",["granddaughter"],"La fille de leur fils → <b>granddaughter</b>.",{ctx:FAM});
+M('fam',"Lucy is Peter's ___.",["sister","daughter","aunt","cousin"],"Lucy et Peter ont les mêmes parents → <b>sister</b>.",{ctx:FAM});
+G('fam',"Anna is John and Mary's ___.",["daughter-in-law"],"La femme de leur fils → <b>daughter-in-law</b>.",{ctx:FAM});
+M('fam',"Mike is Peter's ___.",["uncle","brother","cousin","grandfather"],"Mike = frère du père de Peter → <b>uncle</b>.",{ctx:FAM});
+M('fam',"Susan is Lucy's ___.",["aunt","niece","cousin","mother"],"Susan = femme de l'oncle Mike → <b>aunt</b>.",{ctx:FAM});
+G('fam',"Peter is Emma's ___.",["father","dad"],"<b>father</b> (familier : dad).",{ctx:FAM});
+G('fam',"John is Emma's ___.",["grandfather","grandad","granddad","grandpa"],"Le père de son père → <b>grandfather</b>.",{ctx:FAM});
+M('fam',"Emma is Lucy's ___.",["niece","nephew","cousin","sister"],"Emma = fille du frère de Lucy → <b>niece</b> (nièce). Nephew = neveu.",{ctx:FAM});
+G('fam',"How many children have John and Mary got? →",["two","2"],"<b>Two</b> : Peter and Lucy.",{ctx:FAM});
+X('fam',"Associe le mot et sa traduction",[["uncle","l'oncle"],["niece","la nièce"],["granddaughter","la petite-fille"],["daughter-in-law","la belle-fille"],["brother","le frère"]],"Famille : à connaître par cœur !");
+
+G('pos',"The car of Karl is red. → ___ car is red.",["karl's"],"Possesseur vivant → <b>'s</b>. Karl<b>'s</b> car.");
+O('pos',"Réécris : « Karl drives the car of him. »","Karl drives his car.","Avec un pronom (he) → <b>adjectif possessif</b> : his. Et n'oublie pas le <b>-s</b> de drive<b>s</b> !");
+G('pos',"The mother of Sarah is a doctor. → ___ mother is a doctor.",["sarah's"],"Sarah<b>'s</b> mother.");
+O('pos',"Réécris : « Sarah loves the mother of her. »","Sarah loves her mother.","Avec un pronom : <b>her</b> (pas de 's avec un pronom).",{more:["she's","hers"]});
+G('pos',"The children of Tom and Lisa go to school. → Tom and ___ children go to school.",["lisa's"],"Possession partagée : <b>'s</b> seulement sur le dernier nom.");
+G('pos',"The dog of my brother is big. → My ___ dog is big.",["brother's"],"Singulier → <b>'s</b> : my brother's dog.");
+G('pos',"The house of my parents is in Brussels. → My ___ house is in Brussels.",["parents'"],"Pluriel en -s → <b>apostrophe seule</b> : parents'.");
+M('pos',"Les jouets des enfants →",["the children's toys","the childrens' toys","the childrens toys","the children toys"],"<b>children</b> est un pluriel sans -s → on ajoute <b>'s</b>.");
+M('pos',"La voiture de Charles →",["Charles's car","Charles car","Charle's car","Charles's cars"],"Nom en -s au singulier : on ajoute quand même <b>'s</b> → Charles's car.");
+M('pos',"Laquelle est naturelle ?",["tomorrow's meeting","the meeting of tomorrow","meeting tomorrow's","tomorrow meeting's"],"Le cas possessif sert aussi pour les dates et durées : <b>tomorrow's meeting</b>, a week's holiday.");
+
+G('time',"8:00 →",["eight o'clock"],"Heure pile : <b>eight o'clock</b>.");
+M('time',"9:30 →",["half past nine","half to nine","nine half","half past ten"],"<b>half past nine</b> (ou digital : nine thirty).");
+M('time',"11:15 →",["quarter past eleven","quarter to eleven","fifteen to eleven","quarter past twelve"],"<b>quarter past eleven</b> (ou eleven fifteen).",{us:"Aux États-Unis : <i>a quarter after eleven</i>."});
+M('time',"2:45 →",["quarter to three","quarter past two","quarter to two","two to fifteen"],"2:45 → il manque 15 min pour 3 h : <b>quarter to THREE</b>. Avec <i>to</i>, on cite l'heure suivante.");
+G('time',"6:10 →",["ten past six","six ten"],"<b>ten past six</b> (classique) ou <b>six ten</b> (digital).");
+G('time',"12:55 →",["five to one","twelve fifty-five"],"12:55 → <b>five to one</b> (il manque 5 min pour 1 h) ou twelve fifty-five.");
+M('time',"🎧 Écoute et choisis l'heure.",["3:15","2:45","3:45","2:15"],"« quarter past three » = <b>3:15</b>. Past = après l'heure.",{say:"quarter past three"});
+M('time',"🎧 Écoute et choisis l'heure.",["4:30","3:30","4:15","5:30"],"« half past four » = <b>4:30</b>.",{say:"half past four"});
+
+G('ps',"She ___ (play) tennis on Sundays.",["plays"],"he / she / it + verbe → <b>-s</b> : she plays.");
+G('ps',"Karl ___ (drive) his car to work.",["drives"],"3e personne du singulier → <b>drives</b>. (Le -s oublié = erreur n°1 !)");
+G('ps',"He ___ (watch) TV every evening.",["watches"],"Verbes en -ch, -sh, -s, -x, -o → <b>-es</b> : watches, washes, goes.");
+G('ps',"She ___ (study) English.",["studies"],"Consonne + y → <b>-ies</b> : studies. (Mais play → plays.)");
+M('ps',"She ___ play the piano.",["doesn't","don't","isn't","hasn't"],"Négation : <b>do/does + not + verbe de base</b>. she → <b>doesn't</b>.");
+M('ps',"___ she play football?",["Does","Do","Is","Has"],"Question : <b>Does</b> (he/she/it) · <b>Do</b> (I/you/we/they) + sujet + verbe de base.",{us:"<i>Football</i> au Royaume-Uni = <i>soccer</i> aux États-Unis."});
+G('ps',"Does she ___ (play) tennis?",["play"],"Après <b>does</b>, le verbe reste à la base : le -s est déjà porté par « does ».");
+G('ps',"Cats ___ (not bark).",["don't bark","do not bark"],"Vérité générale → présent simple. Cats = they → <b>don't bark</b>.");
+M('ps',"The train ___ at 10 a.m.",["leaves","is leaving","leave","leaving"],"Horaires officiels → présent simple : <b>The train leaves at 10 a.m.</b>");
+M('ps',"Laquelle est correcte ?",["She doesn't like coffee.","She don't like coffee.","She doesn't likes coffee.","She not like coffee."],"Avec <b>doesn't</b>, le verbe reste à la base : like (pas de -s).");
+O('ps',"Traduis : « Elle ne joue pas au tennis. »","She doesn't play tennis.","<b>doesn't</b> + verbe de base (play).",{more:["don't","plays"]});
+
+M('age',"« J'ai 36 ans » →",["I am 36 years old.","I have 36 years.","I have 36 years old.","I am having 36 years."],"L'âge s'exprime avec <b>to be</b> : I am 36 (years old).");
+M('age',"« Je suis d'accord avec toi » →",["I agree with you.","I am agree with you.","I'm agree with you.","I have agree with you."],"<b>to agree</b> est un verbe normal : pas d'auxiliaire be.");
+G('age',"How old ___ you? — I'm 32.",["are"],"How old <b>are</b> you ? (to be)");
+G('age',"I ___ with you. (je suis d'accord)",["agree"],"I <b>agree</b> with you. (jamais « I am agree »)");
+
+/* ---------- Niveau 2 ---------- */
+M('there',"___ a dog sleeping in front of our door.",["There is","There are","It's","They're"],"On annonce l'existence de quelque chose, au singulier → <b>There is</b> (ou There's).");
+M('there',"___ twenty students in our class this year.",["There are","There is","It's","They're"],"Existence + pluriel → <b>There are</b>.");
+M('there',"___ a new student in our group today.",["There is","There are","It's","They're"],"Existence + singulier → <b>There is</b>.");
+M('there',"___ a message for you on the table.",["There is","There are","It's","They're"],"Existence + singulier → <b>There is</b>.");
+M('there',"This neighbourhood is lovely — ___ some nice parks nearby.",["there are","there is","it's","they're"],"Existence + pluriel → <b>there are</b>. <i>nearby</i> = tout près.",{us:"Orthographe américaine : <i>neighborhood</i> (sans u)."});
+M('there',"___ a bathroom and two bedrooms.",["There is","There are"],"Énumération : le verbe s'accorde avec le <b>premier nom</b> (a bathroom) → There <b>is</b>.");
+M('there',"___ two bedrooms and a bathroom.",["There are","There is"],"Premier nom = two bedrooms (pluriel) → There <b>are</b>.");
+G('there',"There ___ a cat in the garden. (négatif)",["isn't","is not"],"Négation : <b>There isn't</b> (singulier) · <b>There aren't</b> (pluriel).");
+G('there',"There ___ three chairs in the kitchen. (négatif)",["aren't","are not"],"Pluriel → <b>aren't</b>.");
+O('there',"Traduis : « Il y a un café près de la gare. »","There is a café near the station.","<b>There is</b> + singulier. <i>near</i> + lieu = près de · <i>nearby</i> = tout près (seul).",{more:["are","it's"]});
+O('there',"Traduis : « Il y a trois chaises autour de la table. »","There are three chairs around the table.","<b>There are</b> + pluriel.",{more:["is","they're"]});
+M('there',"Il y a des parcs →",["There are some parks","There is some parks","They're some parks","It's some parks"],"Pluriel → <b>There are</b> some parks.");
+
+M('its',"A : Where are my keys? B : ___ in your jacket pocket.",["They're","There are","It's","There is"],"Les clés sont <b>déjà identifiées</b> → pronom : <b>They're</b>. There are sert à annoncer qu'elles existent.");
+M('its',"Can you see those buildings? ___ very old.",["They're","There are","It's","There is"],"On parle de bâtiments précis → <b>They're</b> very old.");
+M('its',"___ very cold outside today. Don't forget your coat!",["It's","There is","They're","There are"],"Météo → <b>It's</b> cold / raining / sunny.");
+M('its',"A : Where are the children? B : ___ in the garden.",["They're","There are","It's","There is"],"Les enfants sont connus → <b>They're</b> in the garden.");
+M('its',"A : What's that noise? B : ___ the neighbour's dog.",["It's","There is","They're","There are"],"On identifie le bruit → <b>It's</b>.",{us:"Orthographe américaine : <i>neighbor's</i>."});
+M('its',"A : Who are those people? B : ___ my colleagues.",["They're","There are","It's","Their"],"On identifie des personnes → <b>They're</b>.");
+G('its',"How much is this bag? ___ twenty euros.",["it's"],"this bag = singulier identifié → <b>It's</b> (❌ They're).");
+G('its',"They're a good restaurant… → corrige : ___ a good restaurant on the main square.",["there is","there's"],"On annonce l'existence → <b>There is</b>.");
+G('its',"It's a lot of empty chairs… → corrige : ___ a lot of empty chairs in this room.",["there are"],"« a lot of » + pluriel → <b>There are</b>.");
+G('its',"Their a new café… → corrige : ___ a new café near the station.",["there is","there's"],"<b>Their</b> = leur. Existence → <b>There is</b>.");
+M('its',"___ house is very big. (leur maison)",["Their","There","They're","Them"],"<b>Their</b> = leur (possessif).");
+M('its',"Look at Anna and Tom: ___ very happy!",["They're","Their","There","Them"],"<b>They're</b> = they are.");
+M('its',"___ is a cat in the garden.",["There","Their","They're","It's"],"Existence → <b>There</b> is.");
+O('its',"Traduis : « Tu veux aller au cinéma ce soir ? »","Do you want to go to the cinema tonight?","Présent simple : <b>Do you want to…?</b>",{us:"Aux États-Unis : <i>the movies</i> / <i>a movie theater</i>."});
+G('its',"Traduis : « C'est une excellente idée ! »",["that's a great idea","it's a great idea","that's an excellent idea","it's an excellent idea","that's a good idea","it's a good idea"],"<b>That's a great idea!</b> N'oublie pas l'article <b>a</b> (❌ It's good idea).");
+
+M('like',"My sister (😠) ___ hiking.",["hates","likes","loves","doesn't like"],"😠 = le plus négatif → <b>hates</b>. Échelle : love › really like › like › don't like › really don't like › hate.");
+G('like',"My friends (😞) ___ swimming.",["don't like","do not like"],"My friends = they → <b>don't like</b>. (he / she → doesn't like)");
+G('like',"When I'm on holiday, I (🙂) ___ reading books.",["like"],"🙂 → <b>like</b> + verbe en -ing.");
+G('like',"My colleague (😍 she) ___ visiting museums.",["loves"],"she → <b>loves</b> (le -s de la 3e personne !).");
+G('like',"I (😠) ___ running on holiday.",["hate"],"😠 → <b>hate</b>. Avec I : pas de -s.");
+G('like',"My family and I (😍) ___ travelling in a campervan.",["love"],"We → <b>love</b>.",{us:"<i>Campervan</i> est britannique. Aux États-Unis : <i>RV</i> ou <i>camper</i>."});
+G('like',"He likes ___ (spend) time at home.",["spending"],"like + verbe en <b>-ing</b> : spending.");
+M('like',"I love ___ to the park.",["going","go","to going","goes"],"love / like / hate / prefer + verbe en <b>-ing</b> : I love going.");
+M('like',"She doesn't like ___ games.",["playing","play","plays","to playing"],"doesn't like + verbe en <b>-ing</b> : playing.");
+M('like',"I prefer ___ TV.",["watching","watch","watches","to watch"],"prefer + verbe en <b>-ing</b> : I prefer watching TV.");
+M('like',"« I don't mind cooking » signifie…",["Cuisiner ne me dérange pas","Je déteste cuisiner","J'adore cuisiner","Je ne sais pas cuisiner"],"<b>I don't mind…</b> = ça ne me dérange pas. Comme <i>I enjoy…</i>, suivi d'un verbe en -ing.");
+M('like',"Tu préfères nager ou courir ?",["Do you prefer swimming or running?","How do you prefer swimming or running?","What do you prefer swimming or running?","Do you prefer swimming than running?"],"<b>Do you prefer A or B ?</b> Pas de « How » (= comment) ni de « than ».");
+M('like',"Lequel exprime le plus FORT sentiment positif ?",["I love…","I like…","I really like…","I prefer…"],"<b>I love</b> est tout en haut de l'échelle.");
+O('like',"Traduis : « Je n'aime pas nager. »","I don't like swimming.","<b>don't like</b> + verbe en -ing.",{more:["doesn't","swim"]});
+O('like',"Traduis : « Elle adore visiter des musées. »","She loves visiting museums.","she → loves (-s) + <b>visiting</b>.",{more:["love","visit"]});
+O('like',"Traduis : « Je déteste aller au parc. »","I hate going to the park.","<b>hate</b> + going (-ing).",{more:["go","hates"]});
+
+G('ing',"cook + ing =",["cooking"],"Cas général : on ajoute -ing.");
+G('ing',"play + ing =",["playing"],"-y après une voyelle : rien ne change → playing.");
+G('ing',"camp + ing =",["camping"],"Deux consonnes à la fin (mp) → pas de doublement : camping.");
+G('ing',"make + ing =",["making"],"Verbe en -e : on enlève le e → <b>making</b>.");
+G('ing',"hike + ing =",["hiking"],"On enlève le e → <b>hiking</b>.");
+G('ing',"write + ing =",["writing"],"On enlève le e → <b>writing</b>.");
+G('ing',"run + ing =",["running"],"Verbe court (consonne-voyelle-consonne) → on double : <b>running</b>.");
+G('ing',"swim + ing =",["swimming"],"On double le m : <b>swimming</b>.");
+G('ing',"shop + ing =",["shopping"],"On double le p : <b>shopping</b>.");
+G('ing',"sit + ing =",["sitting"],"On double le t : <b>sitting</b>.");
+G('ing',"lie + ing =",["lying"],"-ie → <b>-y + ing</b> : lying.");
+G('ing',"die + ing =",["dying"],"-ie → <b>-y + ing</b> : dying.");
+G('ing',"visit + ing =",["visiting"],"Piège ! <b>visiting</b> : verbe de 2 syllabes accentué sur la 1re (VI-sit) → pas de doublement.");
+M('ing',"Laquelle est correcte ?",["running","runing","runneing","runningg"],"run → on double le n : <b>running</b>.");
+M('ing',"Laquelle est correcte ?",["dancing","danceing","dancting","danning"],"dance → on enlève le e → <b>dancing</b>.");
+
+X('voc',"Associe le mot et sa traduction",[["also","aussi"],["boring","ennuyeux"],["nearby","tout près"],["often","souvent"],["flat","appartement"]],"<b>also</b> = aussi (≠ beaucoup !). <b>flat</b> = appartement en anglais britannique.");
+X('voc',"Associe le mot et sa traduction",[["hiking","la randonnée"],["swimming","la natation"],["museum","le musée"],["holiday","les vacances"],["campervan","le camping-car"]],"Vocabulaire des vacances et des loisirs.");
+X('voc',"Associe l'anglais et le français",[["neighbour","le voisin"],["there is","il y a (singulier)"],["there are","il y a (pluriel)"],["I prefer","je préfère"],["I hate","je déteste"]],"Neighbour = voisin · there is / there are = il y a.");
+M('voc',"« Also » signifie…",["aussi / également","beaucoup","toujours","souvent"],"<b>also</b> = aussi, également (I also like tea). « Beaucoup » = <b>a lot</b> ou <b>very much</b>. Erreur fréquente !");
+M('voc',"« Boring » signifie…",["ennuyeux","intéressant","fatigué","drôle"],"<b>boring</b> = ennuyeux (qui ennuie). <i>bored</i> = qui s'ennuie.");
+M('voc',"« Souvent » se dit…",["often","also","nearby","sometimes"],"<b>often</b> = souvent · sometimes = parfois.");
+G('voc',"« Un appartement » (anglais britannique) →",["flat"],"<b>flat</b> en anglais britannique.",{us:"Aux États-Unis : <i>apartment</i>."});
+G('voc',"« Tout près » →",["nearby"],"<b>nearby</b> : There are some nice parks nearby.");
+M('voc',"« Neighbour » signifie…",["voisin","quartier","nouveau","ami"],"<b>neighbour</b> = voisin(e). Le quartier = <i>neighbourhood</i>.",{us:"Orthographe américaine : <i>neighbor</i>."});
+D('voc',"neighbour","<b>neighbour</b> (UK) : n-e-i-g-h-b-o-u-r. Le « gh » est muet.",{acc:["neighbour","neighbor"],hint:"Quelqu'un qui habite à côté de chez toi.",us:"<i>neighbor</i> (sans u) est l'orthographe américaine — acceptée aussi."});
+D('voc',"nearby","<b>nearby</b> = near + by.",{hint:"Tout près."});
+D('voc',"holiday","<b>holiday</b> = vacances (UK).",{hint:"Une période de repos, loin du travail.",us:"Aux États-Unis : <i>vacation</i>."});
+D('voc',"campervan","<b>campervan</b> = camper + van.",{hint:"Un véhicule dans lequel on dort en voyage.",us:"Aux États-Unis : <i>RV</i>."});
+
+
+/* ---------- Niveau 2 : some / any ---------- */
+M('some',"There are ___ things on my list.",["some","any","much","a"],"Phrase <b>affirmative</b> → <b>some</b>.");
+M('some',"They don't buy ___ apples.",["any","some","many a","a"],"Phrase <b>négative</b> → <b>any</b>.");
+M('some',"Do you need ___ strawberries?",["any","some","much","a lot"],"Question « normale » → <b>any</b>.");
+M('some',"Would you like ___ coffee? (tu offres)",["some","any","many","a"],"On <b>offre</b> quelque chose → <b>some</b>, même dans une question.");
+M('some',"Can I have ___ water, please?",["some","any","many","a"],"<b>Demande polie</b> : on attend un oui → <b>some</b>.");
+M('some',"Choose ___ book. (n'importe lequel)",["any","some","many","much"],"<b>any</b> en phrase affirmative = « n'importe quel » : choose any book.");
+M('some',"If you have ___ questions, ask me.",["any","some","many a","much"],"Après <b>if</b>, <b>unless</b>, <b>whether</b> → <b>any</b>.");
+G('some',"They don't spend ___ money.",["any"],"Négatif → <b>any</b>.");
+G('some',"Let's go get ___ ice cream.",["some"],"Affirmatif → <b>some</b> (ice cream est indénombrable : pas de « an »).");
+G('some',"There aren't ___ eggs in the fridge.",["any"],"Négatif (aren't) → <b>any</b>.");
+G('some',"Is there ___ milk in the fridge?",["any"],"Question → <b>any</b>.");
+G('some',"I've got ___ friends in London.",["some"],"Affirmatif → <b>some</b> = quelques.");
+M('some',"Laquelle est correcte ?",["I don't have any money.","I don't have some money.","I have any money.","I don't have no money."],"Négatif → <b>any</b>. ❌ « don't… no » : double négation interdite en anglais.");
+O('some',"Traduis : « Tu veux du café ? » (tu en offres)","Would you like some coffee?","Offre → <b>some</b> : Would you like some coffee?",{more:["any"]});
+O('some',"Traduis : « Ils n'achètent pas de pommes. »","They don't buy any apples.","Négatif → <b>any</b>.",{more:["some","doesn't"]});
+
+/* ---------- Niveau 2 : much / many / a lot of ---------- */
+M('much',"She also buys ___ oranges.",["many","much","any","how many"],"oranges = <b>dénombrable</b> (on peut les compter) → <b>many</b>.");
+M('much',"We haven't got ___ toothpaste.",["much","many","some","a"],"toothpaste = <b>indénombrable</b> → <b>much</b>.");
+M('much',"There aren't ___ customers today.",["many","much","any of","a"],"customers = dénombrable → <b>many</b>. (a lot of marche aussi)");
+M('much',"___ tomatoes do you want?",["How many","How much","How lot","How any"],"<b>Combien</b> + dénombrable → <b>How many</b>.");
+M('much',"___ time do you spend in the park?",["How much","How many","How lot","How some"],"time = indénombrable → <b>How much</b>.");
+M('much',"They have ___ broccoli.",["a lot of","many","how much","any"],"En phrase <b>affirmative</b>, on dit naturellement <b>a lot of</b>. Broccoli est indénombrable (donc pas « many »).");
+M('much',"Kate always buys ___ bananas.",["a lot of","much","any","how many"],"bananas = dénombrable, phrase affirmative → <b>a lot of</b> (ou many). Jamais « much » avec un dénombrable.");
+G('much',"How ___ money have you got?",["much"],"money = indénombrable → How <b>much</b>.");
+G('much',"How ___ brothers have you got?",["many"],"brothers = dénombrable → How <b>many</b>.");
+M('much',"Do you drink ___ water?",["much","many","how","a"],"water = indénombrable → <b>much</b> (ou a lot of).");
+M('much',"« Combien de livres as-tu ? »",["How many books have you got?","How much books have you got?","How many book have you got?","How lot of books have you got?"],"books = dénombrable (pluriel) → <b>How many</b> books.");
+M('much',"Lequel est indénombrable ?",["money","apples","customers","friends"],"<b>money</b> ne se compte pas (on compte des euros, pas « des argents ») → much money.");
+O('much',"Traduis : « Combien de tomates veux-tu ? »","How many tomatoes do you want?","Dénombrable → <b>How many</b>.",{more:["much"]});
+O('much',"Traduis : « Nous n'avons pas beaucoup de dentifrice. »","We haven't got much toothpaste.","Indénombrable + négatif → <b>much</b>.",{more:["many","hasn't"]});
+X('much',"Associe le mot et son quantifieur",[["apples","many"],["money","much"],["Do you need…","any"],["Would you like…","some"],["(combien) water","how much"]],"many + dénombrable · much + indénombrable · any en question · some pour offrir.");
+
+
+/* ---------- Niveau 2 : I ou me ? ---------- */
+G('ime',"___ am learning English.",["I"],"Le pronom fait l'action, il est devant le verbe : c'est le <b>sujet</b> → <b>I</b> (toujours avec une majuscule).");
+G('ime',"Can you help ___ ?",["me"],"C'est moi qui <b>reçois</b> l'aide → complément → <b>me</b>.");
+G('ime',"My brother and ___ live in London.",["I"],"Sujet composé. Test magique : « ___ live in London » → <b>I</b> live → My brother and <b>I</b>.");
+G('ime',"This gift is for ___.",["me"],"Après une <b>préposition</b> (for) → <b>me</b>.");
+G('ime',"Tom and ___ are best friends.",["I"],"Test magique : « ___ am Tom's friend » → <b>I</b>. Tom and I are best friends.");
+G('ime',"Please call ___ tomorrow.",["me"],"On m'appelle : je <b>reçois</b> l'action → <b>me</b>.");
+G('ime',"Come with ___!",["me"],"Après <b>with</b> (préposition) → <b>me</b>.");
+G('ime',"Between you and ___, I don't like this film.",["me"],"Après <b>between</b> (préposition) → <b>me</b>. « Between you and I » est une faute très répandue, même chez les Anglais.");
+G('ime',"They invited my parents and ___ to dinner.",["me"],"Test magique : « They invited ___ to dinner » → <b>me</b>. → my parents and me.");
+G('ime',"The teacher is asking Anna and ___ a question.",["me"],"Complément composé. Test magique : « The teacher is asking ___ a question » → <b>me</b>.");
+M('ime',"« Me and Sarah are going to the cinema. » Correcte ?",["Non → Sarah and I are going to the cinema.","Oui, elle est correcte.","Non → Sarah and me are going to the cinema."],"Le groupe fait l'action : sujet → <b>I</b>. Et par politesse, on se met <b>en dernier</b> : Sarah and I.",{wr:{"Oui, elle est correcte.":"Tu l'entendras souvent à l'oral, mais c'est fautif. Test magique : enlève Sarah → « Me am going » ✗ / « I am going » ✓.","Non → Sarah and me are going to the cinema.":"Bonne idée de changer l'ordre, mais « me » reste fautif : le groupe est <b>sujet</b> → Sarah and <b>I</b>."}});
+M('ime',"« She calls Paul and I every day. » Correcte ?",["Non → She calls Paul and me every day.","Oui, elle est correcte.","Non → She calls I and Paul every day."],"Paul et moi <b>recevons</b> l'appel : complément → <b>me</b>.",{wr:{"Oui, elle est correcte.":"Piège classique : « and I » sonne plus chic, mais ici le groupe reçoit l'action. Test magique : « She calls I » ✗ → She calls <b>me</b>.","Non → She calls I and Paul every day.":"Changer l'ordre ne règle rien : le groupe reçoit l'action, donc <b>me</b>. Test magique : « She calls I » ✗."}});
+M('ime',"« This is between you and I. » Correcte ?",["Non → This is between you and me.","Oui, elle est correcte."],"Après une préposition (<b>between</b>) → toujours <b>me</b>.",{wr:{"Oui, elle est correcte.":"Même des Anglais le disent, mais c'est fautif : <b>between</b> est une préposition, donc → me."}});
+M('ime',"« Give it to I. » Correcte ?",["Non → Give it to me.","Oui, elle est correcte."],"Après <b>to</b> (préposition) → <b>me</b>.",{wr:{"Oui, elle est correcte.":"« to » est une préposition : derrière, on met toujours <b>me</b>. Give it to me."}});
+M('ime',"« Me like chocolate. » Correcte ?",["Non → I like chocolate.","Oui, elle est correcte."],"C'est moi qui aime : je fais l'action → sujet → <b>I</b> like chocolate.",{wr:{"Oui, elle est correcte.":"En français on dit « moi, j'aime », mais en anglais le sujet est toujours <b>I</b>. « Me » ne peut jamais faire l'action."}});
+M('ime',"« My mum and I are cooking dinner. » Correcte ?",["Oui, elle est correcte.","Non → My mum and me are cooking dinner.","Non → Me and my mum are cooking dinner."],"Sujet composé → <b>I</b>, et on se cite en dernier. Rien à corriger !",{wr:{"Non → My mum and me are cooking dinner.":"Test magique : enlève « my mum » → « Me am cooking » ✗. Le groupe est sujet, donc <b>I</b> : la phrase de départ était juste.","Non → Me and my mum are cooking dinner.":"« Me » ne peut pas faire l'action. La phrase de départ (My mum and I) était déjà correcte."}});
+M('ime',"« They want I to come. » Correcte ?",["Non → They want me to come.","Oui, elle est correcte."],"Devant un <b>infinitif</b> (to come) → <b>me</b> : They want me to come.",{wr:{"Oui, elle est correcte.":"Ce sont eux qui veulent ; moi, je suis le complément de « want » → <b>me</b>. Pense à « Let me… », « They want me to… »."}});
+M('ime',"Music relaxes ___.",["me","I"],"La musique fait l'action, moi je la reçois → <b>me</b>.");
+M('ime',"Let ___ explain.",["me","I"],"Après <b>let</b> → toujours <b>me</b> : Let me explain, let me help.");
+M('ime',"Do you like coffee? — Yes, ___ do.",["I","me"],"Réponse courte : c'est un sujet → <b>Yes, I do.</b>");
+M('ime',"She's talking about ___.",["me","I"],"Après <b>about</b> (préposition) → <b>me</b>.");
+M('ime',"Send ___ an email, please.",["me","I"],"C'est moi qui reçois l'email (COI) → <b>me</b>.");
+O('ime',"Traduis : « Ma sœur et moi vivons ensemble. »","My sister and I live together.","Sujet composé → <b>I</b>, même si le français dit « moi ». On se cite en dernier.",{more:["me"]});
+O('ime',"Traduis : « Le prof interroge Anna et moi. »","The teacher asks Anna and me.","Complément composé → <b>me</b>. Et asks avec -s (the teacher = he/she).",{more:["I","ask"]});
+O('ime',"Traduis : « Elle m'appelle tous les jours. »","She calls me every day.","Je reçois l'action → <b>me</b>. Et n'oublie pas le -s de calls.",{more:["I","call"]});
+
+/* ---------- Niveau 2 : dénombrables + a / an / some / any ---------- */
+const CU=(w,c,why)=>M('count',"« "+w+" » : dénombrable ou indénombrable ?",c?["Dénombrable (C)","Indénombrable (U)"]:["Indénombrable (U)","Dénombrable (C)"],why);
+CU('water',0,"« two waters » ✗ : l'eau ne se compte pas → <b>U</b>. On compte les contenants : a glass of water.");
+CU('bread',0,"Piège ! En anglais <b>bread</b> ne se compte pas : ❌ a bread → some bread, a loaf of bread (une miche), a slice of bread.");
+CU('chair',1,"two chairs ✓ → <b>C</b>.");
+CU('book',1,"a book, two books ✓ → <b>C</b>.");
+CU('money',0,"On compte des euros, pas « des argents » → <b>U</b> : some money, much money.");
+CU('rice',0,"On ne compte pas les grains → <b>U</b> : some rice.");
+CU('apple',1,"an apple, two apples ✓ → <b>C</b>.");
+CU('sugar',0,"→ <b>U</b> : some sugar. On compte des morceaux : two lumps of sugar.");
+CU('car',1,"a car, three cars ✓ → <b>C</b>.");
+CU('advice',0,"Piège ! « un conseil » se compte en français, mais <b>advice</b> non : ❌ an advice, ❌ advices → some advice, a piece of advice.");
+CU('egg',1,"an egg, six eggs ✓ → <b>C</b>.");
+CU('information',0,"Piège ! ❌ informations n'existe pas en anglais → some information, a piece of information.");
+CU('coffee',0,"En général <b>U</b> : some coffee. Mais au café on commande « two coffees » = deux tasses.");
+CU('friend',1,"a friend, many friends ✓ → <b>C</b>.");
+CU('music',0,"→ <b>U</b> : some music. (Une chanson, a song, se compte.)");
+G('count',"I'd like ___ glass of water, please.",["a"],"On compte des <b>verres</b> : glass est dénombrable et au singulier → <b>a</b>.");
+G('count',"Is there ___ milk in the fridge?",["any"],"milk est indénombrable + c'est une <b>question</b> → <b>any</b>.");
+G('count',"I have ___ banana for lunch.",["a"],"Une seule banane, son consonne → <b>a</b>.");
+G('count',"We don't have ___ eggs left.",["any"],"Pluriel + phrase <b>négative</b> → <b>any</b>.");
+G('count',"There's ___ orange on the table.",["an"],"orange commence par un son voyelle → <b>an</b>.");
+G('count',"She buys ___ apples at the market.",["some"],"Pluriel + phrase affirmative → <b>some</b>.");
+G('count',"I need ___ bread to make a sandwich.",["some"],"bread est indénombrable (❌ a bread) + affirmatif → <b>some</b>.");
+G('count',"Do you have ___ friends in Paris?",["any"],"Pluriel + question → <b>any</b>.");
+G('count',"He hasn't got ___ money today.",["any"],"money est indénombrable + négatif → <b>any</b>.");
+G('count',"There's ___ book on the chair.",["a"],"Un seul livre → <b>a</b>.");
+G('count',"Une heure → ___ hour",["an"],"Le h de hour ne se prononce pas : on entend une voyelle → <b>an</b> hour. C'est le <b>son</b> qui compte, pas la lettre.");
+M('count',"Can you give me ___?",["some advice","an advice","advices","a advice"],"<b>advice</b> est indénombrable : ni « an advice », ni « advices » → some advice (ou a piece of advice).");
+M('count',"I need ___ about the course.",["some information","an information","informations","many informations"],"<b>information</b> ne prend jamais de -s ni de a/an → some information.");
+X('count',"Associe le français et l'anglais",[["une orange","an orange"],["du pain","some bread"],["des conseils","some advice"],["un œuf","an egg"],["de l'argent","some money"]],"an devant un son voyelle · some devant un indénombrable (bread, advice, money).");
+
+/* ---------- Niveau 2 : vocabulaire de la maison ---------- */
+const HOUSE={rooms:"Les pièces",kitchen:"La cuisine",living:"Le salon",bedroom:"La chambre",bathroom:"La salle de bains",around:"Autour de la maison"};
+const HW=[];const W=(room,en,fr,x)=>HW.push(Object.assign({room,en,fr},x||{}));
+W("rooms","the kitchen","la cuisine");
+W("rooms","the living room","le salon / le séjour");
+W("rooms","the bedroom","la chambre");
+W("rooms","the bathroom","la salle de bains",{tip:"bathroom = la salle de bains. Pour les WC, on dit plutôt the toilet."});
+W("rooms","the toilet / the WC","les toilettes / les WC",{us:"the restroom"});
+W("rooms","the dining room","la salle à manger");
+W("rooms","the hallway / the hall","le couloir / l'entrée");
+W("rooms","the study / the office","le bureau (la pièce)",{tip:"Le bureau-<b>pièce</b> = the study / the office. Le bureau-<b>meuble</b> = a desk."});
+W("rooms","the garden","le jardin",{us:"the yard"});
+W("rooms","the garage","le garage");
+W("rooms","the cellar / the basement","la cave / le sous-sol");
+W("rooms","the attic","le grenier");
+W("rooms","the stairs","l'escalier",{tip:"Toujours au pluriel en anglais : the stairs."});
+W("kitchen","a fridge","un réfrigérateur / un frigo");
+W("kitchen","a freezer","un congélateur");
+W("kitchen","an oven","un four",{tip:"<b>an</b> oven : le mot commence par un son voyelle."});
+W("kitchen","a microwave","un micro-ondes");
+W("kitchen","a cooker","une cuisinière",{tip:"Piège : <b>a cooker</b> = l'appareil. Le cuisinier (la personne) = <b>a cook</b>."});
+W("kitchen","a hob","une plaque de cuisson");
+W("kitchen","a dishwasher","un lave-vaisselle");
+W("kitchen","a kettle","une bouilloire",{tip:"L'objet le plus important d'une cuisine anglaise : pour le thé !"});
+W("kitchen","a toaster","un grille-pain");
+W("kitchen","a coffee machine","une cafetière");
+W("kitchen","a blender","un mixeur / un blender");
+W("kitchen","a sink","un évier",{tip:"Dans la cuisine : a sink. Dans la salle de bains : a washbasin."});
+W("kitchen","a tap","un robinet",{us:"a faucet"});
+W("kitchen","a worktop","un plan de travail",{us:"a countertop"});
+W("kitchen","a cupboard","un placard",{tip:"Prononciation piège : le p est muet → « keu-beud »."});
+W("kitchen","a shelf","une étagère",{tip:"Pluriel irrégulier : a shelf → two <b>shelves</b> (f → ves)."});
+W("kitchen","a kitchen table","une table de cuisine");
+W("kitchen","a pan","une poêle");
+W("kitchen","a pot / a saucepan","une casserole");
+W("kitchen","a knife","un couteau",{tip:"Le k ne se prononce pas (« naïf »). Pluriel : <b>knives</b>."});
+W("kitchen","a fork","une fourchette");
+W("kitchen","a spoon","une cuillère");
+W("kitchen","a plate","une assiette");
+W("kitchen","a bowl","un bol / une assiette creuse");
+W("kitchen","a glass","un verre",{tip:"Pluriel : glass<b>es</b> (-es après -ss)."});
+W("kitchen","a cup","une tasse");
+W("kitchen","a chopping board","une planche à découper",{us:"a cutting board"});
+W("living","a sofa","un canapé",{also:["a couch"],tip:"On dit aussi <b>a couch</b>."});
+W("living","an armchair","un fauteuil");
+W("living","a coffee table","une table basse",{tip:"Piège : ce n'est pas une table pour le café, c'est la table <b>basse</b> du salon."});
+W("living","a TV / a television","une télé / une télévision");
+W("living","a remote control","une télécommande");
+W("living","a lamp","une lampe");
+W("living","curtains","des rideaux");
+W("living","a carpet","une moquette / un grand tapis",{tip:"carpet = moquette ou grand tapis · rug = petit tapis."});
+W("living","a rug","un petit tapis / une carpette",{tip:"rug = petit tapis · carpet = moquette ou grand tapis."});
+W("living","a clock","une horloge",{tip:"Un réveil = an <b>alarm</b> clock."});
+W("living","a bookshelf / a bookcase","une bibliothèque (le meuble)",{tip:"Le meuble. Faux ami : la bibliothèque publique = a library, et une librairie = a bookshop."});
+W("living","a painting","un tableau / une peinture");
+W("living","pictures / photos","des cadres / des photos");
+W("living","a radio","une radio");
+W("living","a blanket","une couverture / un plaid");
+W("living","plants","des plantes");
+W("living","a fireplace","une cheminée");
+W("bedroom","a bed","un lit",{tip:"a single bed = lit simple · a double bed = lit double."});
+W("bedroom","a cot","un lit bébé / un berceau",{us:"a crib"});
+W("bedroom","a duvet","une couette");
+W("bedroom","sheets","des draps");
+W("bedroom","pillows","des oreillers");
+W("bedroom","a bedside table","une table de chevet");
+W("bedroom","a wardrobe","une armoire / une penderie",{us:"a closet"});
+W("bedroom","hangers","des cintres");
+W("bedroom","a desk","un bureau (le meuble)",{tip:"Le meuble = a desk. La pièce = the study / the office."});
+W("bedroom","an alarm clock","un réveil",{tip:"<b>an</b> alarm clock (son voyelle)."});
+W("bathroom","a washbasin / a basin","un lavabo",{us:"a sink"});
+W("bathroom","a bath / a bathtub","une baignoire",{tip:"bath = la baignoire (et le bain). bathroom = la pièce."});
+W("bathroom","a shower","une douche");
+W("bathroom","a toilet","les toilettes / la cuvette");
+W("bathroom","a mirror","un miroir");
+W("bathroom","a towel","une serviette (de bain)",{tip:"La serviette de table = a napkin."});
+W("bathroom","soap","du savon",{tip:"Indénombrable : some soap."});
+W("bathroom","toothpaste","du dentifrice",{tip:"Indénombrable : some toothpaste."});
+W("bathroom","a toothbrush","une brosse à dents");
+W("bathroom","shampoo","du shampoing");
+W("bathroom","shower gel","du gel douche");
+W("bathroom","a hairbrush","une brosse à cheveux");
+W("bathroom","a hairdryer","un sèche-cheveux",{also:["a hair dryer"]});
+W("bathroom","make-up","du maquillage",{also:["makeup"]});
+W("bathroom","a bin","une poubelle",{us:"a trash can"});
+W("around","a door","une porte");
+W("around","a window","une fenêtre");
+W("around","a wall","un mur");
+W("around","the floor","le sol / le plancher",{tip:"floor veut aussi dire « étage » : the first floor."});
+W("around","the ceiling","le plafond");
+W("around","the roof","le toit");
+W("around","a key","une clé");
+W("around","a radiator","un radiateur");
+W("around","a plug","une prise");
+W("around","a light switch","un interrupteur");
+W("around","a flat","un appartement",{us:"an apartment"});
+W("around","a lift","un ascenseur",{us:"an elevator"});
+W("around","the ground floor","le rez-de-chaussée",{us:"the first floor",tip:"Piège : au Royaume-Uni, <b>the first floor</b> = le 1er étage."});
+
+(function(){
+  const strip=s=>s.replace(/^(a|an|the)\s+/i,'');
+  const mix=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const add2=(o,room)=>add(Object.assign(o,{room}));
+  HW.forEach(w=>{
+    const forms=w.en.split(' / ').concat(w.also||[]);
+    const acc=[];forms.forEach(f=>[f,strip(f),'the '+strip(f)].forEach(v=>{if(!acc.includes(v))acc.push(v)}));
+    const tip=w.tip?' '+w.tip:'';
+    const x={room:w.room};
+    if(w.us){x.us="on dit <i>"+w.us+"</i>.";x.wr={};const u=strip(w.us);[w.us,u,'the '+u,'a '+u,'an '+u].forEach(k=>{x.wr[k]="C'est le mot <b>américain</b> ! Au Royaume-Uni, on dit <b>"+w.en+"</b>."})}
+    const others=mix(HW.filter(o=>o.room===w.room&&o.fr!==w.fr)).slice(0,3).map(o=>o.fr);
+    M('house',"« "+w.en+" » en français ?",[w.fr].concat(others),"<b>"+w.en+"</b> = "+w.fr+"."+tip,{room:w.room,us:x.us});
+    G('house',"Traduis en anglais : "+w.fr,acc,w.fr+" = <b>"+w.en+"</b>."+tip,x);
+  });
+  Object.keys(HOUSE).forEach(room=>{
+    const ws=HW.filter(w=>w.room===room);const n=Math.ceil(ws.length/5);
+    for(let k=0;k<n;k++){const part=ws.slice(Math.floor(k*ws.length/n),Math.floor((k+1)*ws.length/n));
+      add2({type:'match',skill:'house',title:"Associe : "+HOUSE[room].toLowerCase()+" ("+(k+1)+"/"+n+")",pairs:part.map(w=>[strip(w.en.split(' / ')[0]),w.fr.split(' / ')[0]]),why:"Vocabulaire : "+HOUSE[room].toLowerCase()+"."},room)}
+  });
+  const tbl=room=>'<table class="vt">'+HW.filter(w=>w.room===room).map(w=>'<tr><td>'+w.en+(w.us?' <small>US : '+w.us+'</small>':'')+'</td><td>'+w.fr+'</td></tr>').join('')+'</table>';
+  const s=SKM.house;s.rooms=HOUSE;s.roomSheet={};
+  Object.keys(HOUSE).forEach(r=>s.roomSheet[r]='<p class="lbl">'+HOUSE[r]+'</p>'+tbl(r));
+  s.sheet="<p>Le vocabulaire de la maison, pièce par pièce, en anglais britannique. Quand les Américains disent autrement, c'est noté <small style=\"display:inline\">US</small>.</p>"+Object.keys(HOUSE).map(r=>s.roomSheet[r]).join('');
+})();
+G('house',"un couteau → deux ___",["knives"],"Pluriel irrégulier : knife → <b>knives</b> (le f devient ves).",{room:'kitchen'});
+G('house',"une étagère → des ___",["shelves"],"Pluriel irrégulier : shelf → <b>shelves</b> (le f devient ves).",{room:'kitchen'});
+G('house',"un verre → des ___",["glasses"],"glass → glass<b>es</b> : on ajoute -es après -ss.",{room:'kitchen'});
+G('house',"You keep food cold in the ___.",["fridge","refrigerator","freezer"],"On garde la nourriture au frais dans le <b>fridge</b> (ou au congélateur : freezer).",{room:'kitchen'});
+G('house',"You boil water for your tea in a ___.",["kettle"],"<b>a kettle</b> = une bouilloire.",{room:'kitchen'});
+G('house',"You wash the dishes in the ___.",["sink","dishwasher"],"Dans l'évier (<b>sink</b>) ou le lave-vaisselle (<b>dishwasher</b>).",{room:'kitchen'});
+G('house',"You eat soup with a ___.",["spoon"],"<b>a spoon</b> = une cuillère.",{room:'kitchen'});
+G('house',"You sleep in a ___.",["bed"],"<b>a bed</b> = un lit.",{room:'bedroom'});
+G('house',"You hang your clothes in the ___.",["wardrobe"],"<b>a wardrobe</b> = une armoire.",{room:'bedroom',us:"on dit <i>closet</i>.",wr:{"closet":"C'est le mot <b>américain</b> ! Au Royaume-Uni : <b>wardrobe</b>.","a closet":"C'est le mot <b>américain</b> ! Au Royaume-Uni : <b>wardrobe</b>.","the closet":"C'est le mot <b>américain</b> ! Au Royaume-Uni : <b>wardrobe</b>."}});
+G('house',"In the morning, the alarm ___ wakes me up.",["clock"],"<b>an alarm clock</b> = un réveil.",{room:'bedroom'});
+G('house',"You dry your hair with a ___.",["hairdryer","hair dryer"],"<b>a hairdryer</b> = un sèche-cheveux.",{room:'bathroom'});
+G('house',"You open the door with a ___.",["key"],"<b>a key</b> = une clé.",{room:'around'});
+G('house',"You turn on the light with the light ___.",["switch"],"<b>a light switch</b> = un interrupteur.",{room:'around'});
+M('house',"Dans une maison anglaise, « the first floor », c'est…",["le 1er étage","le rez-de-chaussée","le grenier","la cave"],"Au Royaume-Uni : <b>ground floor</b> = rez-de-chaussée, <b>first floor</b> = 1er étage.",{room:'around',us:"<i>the first floor</i> = le rez-de-chaussée ! Attention en voyage."});
+M('house',"« a cooker », c'est…",["une cuisinière (l'appareil)","un cuisinier (la personne)","une casserole","un four à micro-ondes"],"<b>a cooker</b> = l'appareil. La personne qui cuisine = <b>a cook</b>.",{room:'kitchen'});
+M('house',"Un bureau (le meuble sur lequel on écrit) →",["a desk","the study","an office","a bureau"],"Le meuble = <b>a desk</b>. La pièce = the study / the office.",{room:'bedroom'});
+M('house',"Un bureau (la pièce de la maison) →",["the study","a desk","a bureau","a library"],"La pièce = <b>the study</b> (ou the office). Le meuble = a desk.",{room:'rooms'});
+M('house',"Une bibliothèque (le meuble du salon) →",["a bookcase","a library","a bookshop","a librarian"],"Le meuble = <b>a bookcase</b> (ou a bookshelf). Faux amis : a library = bibliothèque publique, a bookshop = librairie.",{room:'living'});
+M('house',"« carpet » ou « rug » ? Un petit tapis devant le canapé →",["a rug","a carpet"],"Petit tapis = <b>a rug</b>. Moquette ou grand tapis = a carpet.",{room:'living'});
+M('house',"There ___ two pillows on the bed.",["are","is"],"two pillows = pluriel → There <b>are</b>.",{room:'bedroom'});
+M('house',"Is there ___ microwave in the kitchen?",["a","any","some","an"],"microwave est dénombrable et au singulier → <b>a</b>, même dans une question.",{room:'kitchen'});
+M('house',"There isn't ___ toothpaste in the bathroom.",["any","a","some","many"],"toothpaste est indénombrable + phrase négative → <b>any</b>.",{room:'bathroom'});
+M('house',"I need ___ shampoo.",["some","a","an","many"],"shampoo est indénombrable → pas de a → <b>some</b>.",{room:'bathroom'});
+O('house',"Traduis : « Il y a un canapé et deux fauteuils dans le salon. »","There is a sofa and two armchairs in the living room.","Énumération : le verbe suit le <b>premier</b> nom (a sofa) → There <b>is</b>.",{room:'living',more:["are"]});
+O('house',"Traduis : « Les clés sont sur la table de cuisine. »","The keys are on the kitchen table.","Les clés, déjà connues → The keys <b>are</b>. Kitchen table : l'adjectif (kitchen) se place devant le nom.",{room:'kitchen',more:["is","there"]});
+O('house',"Traduis : « Nous n'avons pas de lave-vaisselle. »","We haven't got a dishwasher.","We → <b>haven't got</b> + a (dénombrable singulier).",{room:'kitchen',more:["hasn't","any"]});
+O('house',"Traduis : « Ma chambre est au premier étage. »","My bedroom is on the first floor.","Premier étage = <b>the first floor</b> (UK). On dit <b>on</b> the first floor.",{room:'around',more:["ground","in"]});
+D('house',"cupboard","<b>cupboard</b> : le p ne se prononce pas.",{room:'kitchen',hint:"Un placard."});
+D('house',"kettle","<b>kettle</b> : double t.",{room:'kitchen',hint:"On y fait bouillir l'eau du thé."});
+D('house',"knife","<b>knife</b> : le k est muet.",{room:'kitchen',hint:"Un couteau."});
+D('house',"ceiling","<b>ceiling</b> : c-e-i (et non c-i-e).",{room:'around',hint:"Le plafond."});
+D('house',"wardrobe","<b>wardrobe</b> = ward + robe.",{room:'bedroom',hint:"Une armoire."});
+D('house',"fireplace","<b>fireplace</b> = fire + place.",{room:'living',hint:"Une cheminée."});
+D('house',"mirror","<b>mirror</b> : double r.",{room:'bathroom',hint:"Un miroir."});
+D('house',"toothbrush","<b>toothbrush</b> = tooth + brush.",{room:'bathroom',hint:"Une brosse à dents."});
+D('house',"pillow","<b>pillow</b> : double l.",{room:'bedroom',hint:"Un oreiller."});
+
+/* Dernière leçon : à mettre à jour à chaque nouveau cours */
+const LAST={id:'2026-10-12b',skills:['ime','count','house'],label:'I ou me ? · Dénombrables · La maison'};
+
+/* =====================================================================
+   2. OUTILS
+   ===================================================================== */
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pickOne=a=>a[Math.floor(Math.random()*a.length)];
+const CONTR={"it's":"it is","that's":"that is","there's":"there is","what's":"what is","where's":"where is","who's":"who is","they're":"they are","we're":"we are","you're":"you are","i'm":"i am","he's":"he is","she's":"she is","haven't":"have not","hasn't":"has not","don't":"do not","doesn't":"does not","isn't":"is not","aren't":"are not"};
+function norm(s){
+  s=String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/-/g,' ').trim().replace(/[.!?,;:]+$/,'').replace(/\s+/g,' ');
+  return s.split(' ').map(w=>CONTR[w]||w).join(' ');
+}
+
+/* ---------- explications des fautes ----------
+   TRAP : « mauvaise réponse > bonne réponse » → explication ciblée de la confusion. */
+const TRAP={};
+const T=(w,r,html)=>[].concat(w).forEach(x=>[].concat(r).forEach(y=>{TRAP[norm(x)+'>'+norm(y)]=html}));
+T(["they're","it's"],["there is","there are"],"Tu as mis un <b>pronom</b> (it's = c'est, they're = ils sont). Mais ici on <b>annonce</b> qu'une chose existe → <b>there is / there are</b> (= il y a). Astuce : si tu dirais « il y a » en français, c'est there.");
+T(["there is","there are"],["they're","it's"],"Tu as mis <b>there is/are</b> (= il y a), mais la chose est <b>déjà connue</b> : on en a parlé juste avant. On la reprend avec un pronom → <b>it's</b> (une chose) / <b>they're</b> (plusieurs). Astuce : si tu dirais « c'est » ou « ils sont », ce n'est pas there.");
+T("there is","there are","Le nom qui suit est au <b>pluriel</b> (un -s, un nombre, a lot of…) → there <b>are</b>.");
+T("there are","there is","Le nom qui suit est au <b>singulier</b> (a, an, un seul) ou indénombrable → there <b>is</b>. Dans une énumération, c'est le <b>premier</b> nom qui décide.");
+T("it's","they're","Il y a <b>plusieurs</b> choses (des clés, des enfants…) → <b>they're</b>. It's = une seule.");
+T("they're","it's","Il n'y a qu'<b>une</b> chose (ou la météo, un prix, l'heure) → <b>it's</b>. They're = plusieurs.");
+T(["their","there"],"they're","Même son, trois sens : <b>they're</b> = ils sont · <b>their</b> = leur · <b>there</b> = il y a / là. Ici on veut « ils sont ».");
+T(["they're","there"],"their","Ici on veut « <b>leur</b> » (devant un nom) → <b>their</b>. They're = ils sont · there = il y a.");
+T(["their","they're"],["there","there is"],"Ici on veut « il y a » → <b>there</b>. Their = leur · they're = ils sont.");
+T("much","many","<b>many</b> va avec ce qui se <b>compte</b>. Test : peux-tu mettre « two » devant ? two oranges ✓ → many. <b>much</b> = ce qui ne se compte pas (water, money, time).");
+T("many","much","<b>much</b> va avec ce qui <b>ne se compte pas</b>. Test : « two waters » ✗ → indénombrable → much. <b>many</b> = ce qui se compte.");
+T("how much","how many","On demande « combien » de choses <b>qu'on peut compter</b> → <b>How many</b> + pluriel.");
+T("how many","how much","On demande « combien » d'une chose <b>qu'on ne compte pas</b> (time, money, water) → <b>How much</b>.");
+T("any","some","La phrase est <b>affirmative</b>, ou c'est une <b>offre / demande polie</b> (Would you like…? Can I have…?) → <b>some</b>. Any = négatif ou vraie question.");
+T("some","any","La phrase est <b>négative</b> (don't, isn't, hasn't…) ou c'est une <b>question</b> → <b>any</b>. Exception : quand on offre quelque chose → some.");
+T(["some","any"],["a","an"],"Le nom est <b>dénombrable et au singulier</b> (un seul : a glass, a banana) → <b>a / an</b>. Some / any = pluriel ou indénombrable.");
+T(["a","an"],["some","any"],"Le nom est au <b>pluriel</b> ou <b>indénombrable</b> (bread, milk, money, apples) : impossible de mettre a / an. Affirmatif → some · négatif ou question → any.");
+T("a","an","Le mot suivant commence par un <b>son voyelle</b> → <b>an</b> : an orange, an egg, an engineer. C'est le son qui compte : an hour (h muet).");
+T("an","a","Le mot suivant commence par un <b>son consonne</b> → <b>a</b> : a banana, a book. Attention : a university (on entend « you »).");
+T("me","i","Ici le pronom <b>fait l'action</b> (il est devant le verbe) : c'est le sujet → <b>I</b>. Test magique : enlève l'autre personne → « Me go… » ✗ / « I go… » ✓.");
+T("i","me","Ici le pronom <b>reçoit</b> l'action, ou vient après une préposition (for, with, to, between…) → <b>me</b>. Test magique : enlève l'autre personne → « They invited I » ✗ / « They invited me » ✓.");
+T("his","her","Le possesseur est une <b>femme</b> → <b>her</b>. En anglais, on regarde à qui est la chose, pas le genre de la chose (contrairement à son / sa).");
+T("her","his","Le possesseur est un <b>homme</b> → <b>his</b>. On regarde à qui est la chose, pas son genre.");
+T("don't","doesn't","Le sujet est <b>he / she / it</b> (ou une seule personne : Tom, my sister) → <b>doesn't</b>.");
+T("doesn't","don't","Le sujet est <b>I / you / we / they</b> (ou un pluriel : my friends) → <b>don't</b>.");
+T("do","does","Sujet he / she / it → <b>Does</b>. Le -s va sur l'auxiliaire, le verbe reste à la base.");
+T("does","do","Sujet I / you / we / they → <b>Do</b>.");
+T("have","has","Sujet he / she / it (Tom, my sister…) → <b>has</b>.");
+T("has","have","Sujet I / you / we / they (ou deux personnes : Sara and Jim) → <b>have</b>.");
+T("is","are","Le sujet est au <b>pluriel</b> (we, they, deux personnes) → <b>are</b>.");
+T("are","is","Le sujet est au <b>singulier</b> (he, she, it, une seule chose) → <b>is</b>.");
+T(["this","those"],"these","Plusieurs choses <b>proches</b> (ici) → <b>these</b>.");
+T(["that","these"],"those","Plusieurs choses <b>loin</b> (là-bas) → <b>those</b>.");
+T(["these","that"],"this","Une seule chose <b>proche</b> → <b>this</b>.");
+T(["those","this"],"that","Une seule chose <b>loin</b> → <b>that</b>.");
+
+function lev(a,b){const d=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;j<=b.length;j++)d[0][j]=j;
+  for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]}
+/* surligne dans la bonne réponse les lettres que tu n'as pas écrites */
+function diffHtml(g,r){
+  const a=g.toLowerCase(),bl=r.toLowerCase(),m=a.length,n=r.length;
+  const L=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for(let i=m-1;i>=0;i--)for(let j=n-1;j>=0;j--)L[i][j]=a[i]===bl[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  let i=0,j=0,out='';
+  while(j<n){if(i<m&&a[i]===bl[j]){out+=esc(r[j]);i++;j++}else if(i<m&&L[i+1][j]>=L[i][j+1])i++;else{out+='<mark>'+esc(r[j])+'</mark>';j++}}
+  return out;
+}
+const words=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,;:«»]/g,' ').trim().split(/\s+/).filter(Boolean);
+function diagnose(a){
+  const q=a.q,g=a.given||'';
+  if(/temps écoulé/.test(g))return "Le temps était écoulé. Relis la règle ci-dessous : à force de la revoir, la réponse viendra plus vite.";
+  if(q.type==='match')return "Quelques paires ont été inversées. Relis les associations ci-dessus : ce sont elles à retenir.";
+  if(q.wr){const k=Object.keys(q.wr).find(k=>norm(k)===norm(g));if(k)return q.wr[k]}
+  const rights=q.type==='mcq'?[q.opts[0]]:q.type==='ord'?[q.sentence]:q.acc;
+  const G=norm(g);
+  for(const r of rights){
+    const R=norm(r);
+    if(TRAP[G+'>'+R])return TRAP[G+'>'+R];
+    const gw=G.split(' '),rw=R.split(' ');
+    if(gw.length===rw.length){const d=gw.map((w,i)=>w!==rw[i]?i:-1).filter(i=>i>=0);if(d.length===1&&TRAP[gw[d[0]]+'>'+rw[d[0]]])return TRAP[gw[d[0]]+'>'+rw[d[0]]]}
+  }
+  if(q.type==='ord'){
+    const gw=words(g),rw=words(q.sentence);
+    const traps=(q.more||[]).filter(w=>gw.includes(w.toLowerCase()));
+    if(traps.length)return "Tu as utilisé « <b>"+esc(traps.join(' », « '))+"</b> » : c'est un mot piège qui n'a pas sa place dans cette phrase. Relis la règle pour voir pourquoi.";
+    if(gw.slice().sort().join(' ')===rw.slice().sort().join(' '))return "Tous les bons mots sont là : c'est <b>l'ordre</b> qui coince. Rappel : sujet + verbe + complément. Dans une question, l'auxiliaire (do, does, have, has, can…) passe <b>devant</b> le sujet.";
+    if(gw.length<rw.length)return "Il te manque des mots : la bonne phrase en compte "+rw.length+", tu en as utilisé "+gw.length+".";
+  }
+  if(q.type==='gap'||q.type==='dict'){
+    let best=rights[0],bd=1e9;rights.forEach(r=>{const d=lev(G,norm(r));if(d<bd){bd=d;best=r}});
+    const R=norm(best);
+    if(R===G+'s'||R===G+'es')return "Il manque juste le <b>-s</b> final : verbe avec he / she / it (she plays) ou nom au pluriel.";
+    if(G.replace(/'/g,'')===R.replace(/'/g,''))return "C'est l'<b>apostrophe</b> qui coince. Possessif : <b>'s</b> au singulier (Karl's), <b>'</b> seule après un pluriel en -s (my parents').";
+    if(bd<=2&&R.length>=4)return "Presque ! Ce n'est pas une erreur de grammaire, juste d'<b>orthographe</b>. En surligné, les lettres qui manquaient ou différaient : <span class=\"dif\">"+diffHtml(g,best)+"</span>";
+  }
+  return '';
+}
+function explainBlock(a){
+  const q=a.q,d=diagnose(a),s=SKM[q.skill];
+  return `<p class="ans"><b>Bonne réponse :</b> ${esc(ansText(q))}</p>
+  ${a.given&&q.type!=='match'?`<p class="mine">Ta réponse : <s>${esc(a.given)}</s></p>`:''}
+  ${d?`<div class="diag"><b>Ce qui coince</b><div>${d}</div></div>`:''}
+  <div class="why"><b>La règle</b><div>${q.why}</div></div>
+  <details class="d"><summary>Relire la fiche « ${esc(q.room&&s.rooms?s.rooms[q.room]:s.name)} »</summary>${q.room&&s.roomSheet?s.roomSheet[q.room]:s.sheet}</details>`;
+}
+
+const TN={eleanor:'Mrs Kokkinis',k:'Mrs Kokkinis'};
+const PRAISE=["Brilliant!","Spot on!","Lovely!","Well done!","Smashing!","Top marks!","Cracking!"];
+const OOPS=["Not quite…","So close!","Nearly there!","Oops, mind the gap!","Don't worry!"];
+const TIPS=["On dit « I am 36 », jamais « I have 36 ».","Après does / doesn't, le verbe reste à la base : she doesn't play.","There is = il y a (singulier) · There are = il y a (pluriel).","Their, there, they're : trois mots, une seule prononciation !","love, like, hate + verbe en -ing : I love cooking.","Pays et nationalités : toujours une majuscule en anglais.","half past nine = 9 h 30 · quarter to three = 2 h 45.","« Also » veut dire aussi, pas beaucoup !","some en phrase affirmative, any en négatif et en question.","many + ce qui se compte, much + ce qui ne se compte pas.","Test magique : enlève l'autre personne pour choisir entre I et me.","❌ advices, ❌ informations : ces mots ne prennent jamais de -s.","Au Royaume-Uni, the first floor = le 1er étage. Le rez-de-chaussée = the ground floor.","knife → knives · shelf → shelves : le f devient ves."];
+const RANKS=[[0,'Tourist'],[150,'Student'],[400,'Commuter'],[800,'Local'],[1500,'Londoner'],[3000,'Professor']];
+const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
+const GAMES=[
+ {k:'quiz',i:'⚡',n:'Quiz éclair',d:'QCM, réponds vite',t:['mcq'],n10:10},
+ {k:'gap',i:'🕳️',n:'Mind the gap',d:'Complète la phrase',t:['gap'],n10:10},
+ {k:'ord',i:'🧱',n:'Construis la phrase',d:'Remets les mots en ordre',t:['ord'],n10:8},
+ {k:'match',i:'🔗',n:'Associe',d:'Mots et traductions',t:['match'],n10:4},
+ {k:'dict',i:'🎧',n:'Dictée',d:'Écoute et écris',t:['dict'],n10:8},
+ {k:'errors',i:'🔁',n:'Mes erreurs',d:'',t:null,n10:10}
+];
+
+/* ---------- stockage (par appareil) ---------- */
+const KEY='teatime-english-v1';
+let storageOK=true,memCopy=null;
+function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){storageOK=false;return memCopy}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){storageOK=false;try{memCopy=JSON.parse(JSON.stringify(DB))}catch(_){}}}
+let DB=load()||{v:1,profiles:{},current:null};
+if(!DB.profiles)DB={v:1,profiles:{},current:null};
+Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor'});
+const cur=()=>DB.profiles[DB.current];
+function newProfile(name,teacher){
+  const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
+  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0};
+  DB.current=id;persist();
+}
+const dayStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+function streakNow(pr){const t=dayStr(new Date()),y=dayStr(new Date(Date.now()-864e5));return(pr.lastDay===t||pr.lastDay===y)?pr.streak:0}
+function touchStreak(pr){const t=dayStr(new Date());if(pr.lastDay===t)return;const y=dayStr(new Date(Date.now()-864e5));pr.streak=(pr.lastDay===y)?pr.streak+1:1;pr.lastDay=t}
+
+/* ---------- audio ---------- */
+function speak(t,rate){
+  try{
+    const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=rate||0.9;
+    const vs=speechSynthesis.getVoices();
+    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+    if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);
+  }catch(e){toast("Audio indisponible sur cet appareil.")}
+}
+let AC=null;
+function beep(ok){
+  const pr=cur();if(!pr||!pr.sound)return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const t=AC.currentTime;
+    (ok?[[660,0],[880,.12]]:[[240,0],[180,.14]]).forEach(([f,d])=>{
+      const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'triangle';o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.14,t+d+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d+.2);
+      o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.22);
+    });
+  }catch(e){}
+}
+let toastT=null;
+function toast(m){
+  let el=$('#toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';document.body.appendChild(el)}
+  el.textContent=m;el.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>{el.style.display='none'},2400);
+}
+
+/* ---------- la prof : petit dessin au stylo ---------- */
+function teacher(who,mood,size){
+  const mouth={happy:'M41 72 Q50 78 59 72',cheer:'M39 70 Q50 84 61 70 Z',think:'M43 74 L57 72',oops:'M42 77 Q50 70 58 77'}[mood]||'M41 72 Q50 78 59 72';
+  const brows=mood==='oops'?'M35 47 L45 50 M65 47 L55 50':mood==='think'?'M35 49 L45 49 M55 46 L65 49':'M35 49 Q40 46 45 49 M55 49 Q60 46 65 49';
+  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-label="Mrs Kokkinis" fill="none" stroke="#23262D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 60 C17 30 33 13 52 14 C72 15 85 32 79 62 C80 76 76 88 70 94 L30 94 C24 88 20 76 22 60Z" fill="#3B2B24" stroke="none"/>
+  <path d="M29 52 C29 74 39 87 50 87 C62 87 72 74 71 52 C63 38 52 31 46 30 C40 36 33 42 29 52Z" fill="#fff"/>
+  <path d="M30 50 C40 46 45 38 48 30 M48 31 C55 40 63 45 71 49" stroke="#3B2B24" stroke-width="3"/>
+  <path d="${brows}"/><circle cx="40" cy="57" r="2" fill="#23262D"/><circle cx="60" cy="57" r="2" fill="#23262D"/>
+  <path d="M50 60 L47.5 67 L51.5 67.5"/><path d="${mouth}" ${mood==='cheer'?'fill="#23262D"':''}/>
+  <path d="M30 94 C34 88 40 86 50 89 C60 86 66 88 70 94" stroke="#D7263D" stroke-width="3"/></svg>`;
+}
+const bubble=(who,mood,en,fr,size)=>`<div class="say"><div class="tch">${teacher(who,mood,size||62)}</div><div class="bub"><span class="hand">${en}</span>${fr?`<small>${fr}</small>`:''}</div></div>`;
+
+/* =====================================================================
+   3. MOTEUR
+   ===================================================================== */
+const S={screen:'home',play:null,res:null,course:null,newT:'eleanor',newName:'',code:'',msg:'',confirmDel:false};
+let tId=null;
+const stopTimer=()=>{if(tId){clearInterval(tId);tId=null}};
+
+let SKC=null;
+const skc=s=>{if(!SKC){SKC={};Q.forEach(q=>{SKC[q.skill]=(SKC[q.skill]||0)+1})}return SKC[s]||1};
+function weight(q){const r=cur().q[q.id];const b=!r?3:[6,3.5,2,1,.4][r.box];return b/Math.max(1,skc(q.skill)/30)}
+function pick(n,o){
+  o=o||{};const scope=o.scope||'mix';
+  let base=o.pool||Q.filter(q=>(!o.types||o.types.includes(q.type))&&(!o.skill||q.skill===o.skill)&&(!o.room||q.room===o.room));
+  const free=!o.pool&&!o.skill;
+  if(free&&scope==='1')base=base.filter(q=>q.lvl===1);
+  if(free&&scope==='2')base=base.filter(q=>q.lvl===2);
+  const byLvl={1:base.filter(q=>q.lvl===1),2:base.filter(q=>q.lvl===2)};
+  const out=[],used=new Set();
+  while(out.length<n){
+    let cand;
+    if(free&&scope==='mix'){
+      let lv=Math.random()<0.65?2:1;
+      if(!byLvl[lv].some(q=>!used.has(q.id)))lv=3-lv;
+      cand=byLvl[lv].filter(q=>!used.has(q.id));
+    }else cand=base.filter(q=>!used.has(q.id));
+    if(!cand.length)cand=base.filter(q=>!used.has(q.id));
+    if(!cand.length)break;
+    const tot=cand.reduce((s,q)=>s+weight(q),0);let r=Math.random()*tot,ch=cand[cand.length-1];
+    for(const q of cand){r-=weight(q);if(r<=0){ch=q;break}}
+    out.push(ch);used.add(ch.id);
+  }
+  return out;
+}
+function prep(q){
+  const it={q};
+  if(q.type==='mcq')it.opts=shuffle(q.opts.map((t,i)=>({t,ok:i===0})));
+  if(q.type==='ord'){it.bank=shuffle(q.sentence.split(' ').concat(q.more||[]).map((w,i)=>({w,i})));it.ans=[]}
+  if(q.type==='match'){it.left=q.pairs.map((p,i)=>({t:p[0],i}));it.right=shuffle(q.pairs.map((p,i)=>({t:p[1],i})));it.done=[];it.miss=0;it.sel=null;it.bad=null}
+  return it;
+}
+function errPool(){const p=cur().q;return Q.filter(q=>{const r=p[q.id];return r&&r.wrong>0&&r.box<3})}
+function startSession(mode,o){
+  o=o||{};const pr=cur();let qs=[],label='Entraînement',fb=true,timer=false;
+  if(mode==='train')qs=pick(10,{scope:pr.scope});
+  else if(mode==='game'){const g=GAMES.find(x=>x.k===o.g);label=g.n;qs=pick(g.n10,{scope:pr.scope,types:g.t})}
+  else if(mode==='exam'){label='Examen blanc';fb=false;timer=true;qs=pick(20,{scope:pr.scope,types:['mcq','gap','ord','dict']})}
+  else if(mode==='errors'){label='Mes erreurs';qs=pick(10,{pool:errPool()})}
+  else if(mode==='unit'){label=o.room?SKM[o.skill].rooms[o.room]:SKM[o.skill].name;qs=pick(10,{skill:o.skill,room:o.room})}
+  else if(mode==='last'){label='Dernière leçon';qs=pick(10,{pool:Q.filter(q=>LAST.skills.includes(q.skill))})}
+  if(!qs.length){toast(mode==='errors'?"Aucune erreur à revoir pour l'instant 🎉":"Pas de question disponible pour ce choix.");return}
+  S.play={mode,label,fb,timer,items:qs.map(prep),i:0,combo:0,maxCombo:0,xp:0,answers:[],phase:'ask',quit:false,unit:o.skill||null,room:o.room||null,g:o.g||null};
+  S.screen='play';render();startTimer();autoSay();
+}
+function startTimer(){
+  stopTimer();const P=S.play;if(!P||!P.timer||P.phase!=='ask')return;
+  const it=P.items[P.i];P.max=it.q.type==='mcq'?30:45;P.left=P.max;
+  tId=setInterval(()=>{
+    P.left--;const el=$('#tm'),b=$('#tmb');
+    if(el)el.textContent=P.left+' s';if(b)b.style.width=(P.left/P.max*100)+'%';
+    if(P.left<=0){stopTimer();submit(true)}
+  },1000);
+}
+function autoSay(){
+  const P=S.play;if(!P||P.phase!=='ask')return;const q=P.items[P.i].q;
+  if(q.type==='dict')setTimeout(()=>speak(q.word),350);
+  else if(q.type==='mcq'&&q.say)setTimeout(()=>speak(q.say),350);
+}
+function ansText(q){
+  if(q.type==='mcq')return q.opts[0];
+  if(q.type==='gap')return q.acc[0];
+  if(q.type==='ord')return q.sentence;
+  if(q.type==='dict')return q.word;
+  return q.pairs.map(p=>p[0]+' = '+p[1]).join(' · ');
+}
+const promptText=q=>q.type==='dict'?'🎧 Dictée : « '+q.word+' »':q.type==='match'?q.title:q.prompt;
+
+function submit(timeout){
+  const P=S.play;if(!P||P.phase!=='ask')return;
+  const it=P.items[P.i],q=it.q;let ok=false,given='';
+  if(timeout){given='⏱ temps écoulé'}
+  else if(q.type==='mcq'){if(it.sel==null)return;given=it.opts[it.sel].t;ok=it.opts[it.sel].ok}
+  else if(q.type==='gap'||q.type==='dict'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}ok=q.acc.map(norm).includes(norm(given))}
+  else if(q.type==='ord'){if(!it.ans.length)return;given=it.ans.map(t=>t.w).join(' ');ok=norm(given)===norm(q.sentence)}
+  else if(q.type==='match'){ok=it.miss<=1;given=it.miss?it.miss+' erreur'+(it.miss>1?'s':''):''}
+  stopTimer();
+  const pr=cur();
+  const r=pr.q[q.id]||(pr.q[q.id]={box:0,seen:0,wrong:0});
+  r.seen++;r.last=Date.now();
+  let gain=0;
+  if(ok){r.box=Math.min(4,r.box+1);P.combo++;P.maxCombo=Math.max(P.maxCombo,P.combo);gain=10+Math.min(P.combo-1,5)*2}
+  else{r.box=0;r.wrong++;r.lastWrong=Date.now();P.combo=0}
+  pr.xp+=gain;P.xp+=gain;
+  P.answers.push({q,ok,given,gain});persist();
+  beep(ok);
+  if(P.fb){P.phase='fb';render()}
+  else next();
+}
+function next(){
+  const P=S.play;stopTimer();P.i++;
+  if(P.i>=P.items.length){finish();return}
+  P.phase='ask';render();startTimer();autoSay();
+}
+function finish(){
+  stopTimer();const P=S.play,pr=cur();
+  const total=P.items.length,ok=P.answers.filter(a=>a.ok).length,pct=ok/total;
+  const bonus=20;pr.xp+=bonus;touchStreak(pr);
+  pr.hist.unshift({t:Date.now(),label:P.label,ok,total,exam:P.mode==='exam'});pr.hist=pr.hist.slice(0,30);
+  if(P.mode==='exam')pr.bestExam=Math.max(pr.bestExam||0,ok);
+  if(P.mode==='last')pr.lastDone=LAST.id;
+  persist();
+  S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok),unit:P.unit,room:P.room,g:P.g};
+  S.play=null;S.screen='result';render();
+}
+
+/* ---------- statistiques ---------- */
+function skillStat(sid){
+  const qs=Q.filter(q=>q.skill===sid),p=cur().q;let s=0,seen=0;
+  qs.forEach(q=>{const r=p[q.id];if(r){seen++;s+=Math.min(r.box,3)/3}});
+  return{n:qs.length,seen,pct:Math.round(s/qs.length*100)};
+}
+function lvlPct(l){
+  const qs=Q.filter(q=>q.lvl===l),p=cur().q;let s=0;
+  qs.forEach(q=>{const r=p[q.id];if(r)s+=Math.min(r.box,3)/3});
+  return Math.round(s/qs.length*100);
+}
+
+/* =====================================================================
+   4. VUES
+   ===================================================================== */
+const SC='<div class="scal" aria-hidden="true"></div>';
+function greet(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'}
+function hdr(){
+  const pr=cur();
+  return `<header class="top"><div><span class="nm">${esc(pr.name)}</span><small>${rank(pr.xp)} · ${pr.xp} XP · série de ${streakNow(pr)} j</small></div><button class="lnk" data-act="switch">Changer</button></header>`;
+}
+function nav(on){
+  const it=[['home','Jouer'],['course','Cours'],['progress','Progrès'],['settings','Profil']];
+  return `<nav class="nav">${it.map(([k,l])=>`<button class="${k===on?'on':''}" data-act="go" data-to="${k}">${l}</button>`).join('')}</nav>`;
+}
+const pbar=(l,p,c)=>`<div class="prow2"><div class="r"><span>${l}</span><span>${p} %</span></div><div class="bar" style="${c?'--lc:'+c:''}"><i style="width:${p}%"></i></div></div>`;
+
+function viewProfiles(){
+  const ps=Object.values(DB.profiles).sort((a,b)=>b.created-a.created);
+  return `${SC}<div class="brand">Tea Time English</div><small>Les exercices du cours d'anglais de Mrs Kokkinis</small>
+  ${bubble('k','cheer',ps.length?'Hello again!':"Hello! I'm Mrs Kokkinis.",ps.length?"Qui fait ses exercices aujourd'hui ?":"Écris ton prénom : ta progression et tes erreurs seront gardées sur ce téléphone.")}
+  ${ps.length?`<h2 class="h2">Qui joue ?</h2>${ps.map(p=>`<button class="card prow" data-act="login" data-id="${p.id}"><div><b>${esc(p.name)}</b><small>${rank(p.xp)} · ${p.xp} XP</small></div></button>`).join('')}`:''}
+  <h2 class="h2">${ps.length?'Nouveau profil':'Ton prénom'}</h2>
+  <input id="pname" class="inp" maxlength="16" placeholder="Ton prénom…" autocomplete="off" value="${esc(S.newName)}">
+  <button class="btn red full" data-act="create" style="margin-top:16px">Commencer</button>
+  ${storageOK?'':'<div class="warn">Ce navigateur bloque la sauvegarde : ouvre le lien dans Safari ou Chrome pour garder ta progression.</div>'}`;
+}
+const GC={quiz:'#1F4FB5',gap:'#D7263D',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
+function viewHome(){
+  const pr=cur(),sc=pr.scope,eN=errPool().length;
+  return `${bubble('k','happy',`${greet()}, ${esc(pr.name)}!`,pickOne(TIPS))}
+  <div class="seg" role="group" aria-label="Contenu">${[['mix','Mélange'],['2','Niveau 2'],['1','Niveau 1']].map(([k,l])=>`<button class="${sc===k?'on':''}" data-act="scope" data-k="${k}">${l}</button>`).join('')}</div>
+  <small>${sc==='mix'?'Surtout le niveau 2, avec des révisions du niveau 1.':sc==='2'?'Uniquement les leçons du niveau 2.':'Uniquement les révisions du niveau 1.'}</small>
+  <button class="btn red full big" data-act="play" data-m="train" style="margin-top:12px">Jouer 10 questions</button>
+  ${pr.lastDone===LAST.id
+    ?`<div class="lastc done"><span><b>Dernière leçon</b> · ${LAST.label}<small>✓ Révision faite</small></span><button class="lnk" data-act="play" data-m="last">Refaire</button></div>`
+    :`<button class="lastc" data-act="play" data-m="last"><span><b>Dernière leçon</b> · ${LAST.label}<small>10 questions pour revoir ce que tu viens d'apprendre</small></span><span class="hand" style="font-size:22px;color:var(--red)">à revoir</span></button>`}
+  <h2 class="h2">Les jeux</h2>
+  <div class="grid2">${GAMES.map(g=>g.k==='errors'
+     ?`<button class="card game" style="--c:${GC[g.k]}" data-act="play" data-m="errors"><b>${g.n}</b><small>${eN?eN+' à revoir':'Rien à revoir'}</small></button>`
+     :`<button class="card game" style="--c:${GC[g.k]}" data-act="game" data-g="${g.k}"><b>${g.n}</b><small>${g.d}</small></button>`).join('')}
+  <button class="card game wide" data-act="play" data-m="exam"><div><b>Examen blanc</b><small>20 questions chronométrées, corrigées à la fin. Il faut 17 pour réussir.${pr.bestExam?' Ton record : '+pr.bestExam+'/20.':''}</small></div><span class="hand">/20</span></button></div>
+  <h2 class="h2">Où j'en suis</h2>${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D7263D')}`;
+}
+function viewCourse(){
+  const row=s=>{const st=skillStat(s.id);return `<button class="card srow" style="--lc:${s.c}" data-act="sheet" data-id="${s.id}"><span class="tx"><b>${s.name}</b><small>${st.n} questions · acquis à ${st.pct} %</small></span><span aria-hidden="true">›</span></button>`};
+  return `${bubble('k','think','Your lessons',"Les fiches du cours. Relis une fiche, puis entraîne-toi dessus.")}
+  <h2 class="h2">Niveau 2</h2>${SK.filter(s=>s.lvl===2).map(row).join('')}
+  <h2 class="h2">Niveau 1 (révisions)</h2>${SK.filter(s=>s.lvl===1).map(row).join('')}`;
+}
+function viewSheet(){
+  const s=SKM[S.course];const st=skillStat(s.id);
+  return `<button class="lnk" data-act="back">‹ Toutes les fiches</button>
+  <h1 style="font-size:26px;margin:6px 0 12px;text-decoration:underline;text-decoration-color:${s.c};text-decoration-thickness:3px;text-underline-offset:6px">${s.name}</h1>
+  ${s.rooms?`<p class="lbl">S'entraîner pièce par pièce</p><div class="grid2" style="margin-bottom:14px">${Object.entries(s.rooms).map(([k,n])=>`<button class="btn" style="margin:0;font-size:15px" data-act="unit" data-id="${s.id}" data-room="${k}">${n}</button>`).join('')}</div>`:''}
+  <div class="card" style="border-left:6px solid ${s.c}">${s.sheet}</div>
+  ${pbar('Acquis',st.pct,s.c)}
+  <button class="btn red full" data-act="unit" data-id="${s.id}">M'entraîner sur cette fiche</button>`;
+}
+function viewProgress(){
+  const pr=cur();
+  const stats=SK.map(s=>Object.assign({s},skillStat(s.id)));
+  const weak=stats.filter(x=>x.seen>0&&x.pct<70).sort((a,b)=>a.pct-b.pct).slice(0,3);
+  const errs=Q.map(q=>({q,r:pr.q[q.id]})).filter(x=>x.r&&x.r.wrong>0).sort((a,b)=>(b.r.wrong-a.r.wrong)||((b.r.lastWrong||0)-(a.r.lastWrong||0))).slice(0,12);
+  return `${bubble('k',weak.length?'think':'happy',weak.length?'Let\'s work on this':'Keep going!',weak.length?'À retravailler : '+weak.map(w=>w.s.name).join(', ')+'.':'Joue quelques parties : tes points faibles apparaîtront ici.')}
+  ${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D7263D')}
+  <small>Une question compte comme acquise après 3 bonnes réponses d'affilée.</small>
+  <h2 class="h2">Par fiche</h2>
+  ${stats.map(x=>pbar(x.s.name+'<span class="lv">N'+x.s.lvl+'</span>',x.pct,x.s.c)).join('')}
+  <h2 class="h2">Mes erreurs</h2>
+  ${errs.length?errs.map(x=>`<details class="d"><summary>${esc(promptText(x.q))} <small style="display:inline">(ratée ${x.r.wrong} fois)</small></summary><p><b>Bonne réponse :</b> ${esc(ansText(x.q))}</p><div>${x.q.why}</div></details>`).join('')+`<button class="btn red full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:'<p class="mut">Aucune erreur pour l\'instant.</p>'}
+  <h2 class="h2">Dernières parties</h2>
+  ${pr.hist.length?pr.hist.slice(0,8).map(h=>`<div class="card" style="padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px"><div><b>${esc(h.label)}</b><small>${new Date(h.t).toLocaleDateString('fr-BE')}${h.exam?(h.ok>=17?' · réussi':' · à repasser'):''}</small></div><span class="hand" style="font-size:24px;color:var(--red)">${h.ok}/${h.total}</span></div>`).join(''):'<p class="mut">Pas encore de partie.</p>'}`;
+}
+function viewSettings(){
+  const pr=cur();
+  return `<h2 class="h2">Mon profil</h2>
+  <div class="card"><b>${esc(pr.name)}</b><small>${rank(pr.xp)} · ${pr.xp} XP</small>
+  <label class="sw"><input type="checkbox" data-act="snd" ${pr.sound?'checked':''}> Sons activés</label></div>
+  <h2 class="h2">Sauvegarde</h2>
+  <p class="mut">Ta progression est gardée sur ce téléphone. Pour la passer sur un autre appareil, génère un code et colle-le là-bas.</p>
+  <button class="btn ghost full" data-act="export">Générer mon code</button>
+  ${S.code?`<textarea class="inp code" readonly data-sel>${S.code}</textarea>`:''}
+  <p class="lbl">Restaurer un profil</p><textarea id="imp" class="inp code" placeholder="Colle ton code ici"></textarea>
+  <button class="btn ghost full" data-act="import">Importer</button>${S.msg?`<div class="warn">${esc(S.msg)}</div>`:''}
+  <h2 class="h2">Autre</h2>
+  <button class="btn ghost full" data-act="switch">Changer de profil</button><button class="btn dng full" data-act="askdel">Supprimer ce profil</button>
+  ${storageOK?'':'<div class="warn">Sauvegarde indisponible dans ce navigateur : ouvre le lien dans Safari ou Chrome.</div>'}
+  ${S.confirmDel?`<div class="ov"><div class="card"><b>Supprimer « ${esc(pr.name)} » ?</b><p class="mut">Toute la progression de ce profil sera effacée.</p><button class="btn dng full" data-act="del">Supprimer</button><button class="btn ghost full" data-act="nodel">Annuler</button></div></div>`:''}`;
+}
+
+const INSTR={mcq:'Choisis la bonne réponse',gap:'Complète',ord:'Remets les mots dans l\'ordre',dict:'Écoute et écris',match:'Associe les paires'};
+function viewPlay(){
+  const P=S.play,it=P.items[P.i],q=it.q,n=P.items.length,fb=P.phase==='fb';
+  const last=fb?P.answers[P.answers.length-1]:null;
+  const dots=P.items.map((_,i)=>{const a=P.answers[i];return `<i class="${i===P.i&&!fb?'c':a?(P.fb?(a.ok?'d':'ko'):'d'):''}"></i>`}).join('');
+  let h=`<div class="ph"><button class="x" data-act="askquit" aria-label="Quitter">✕</button><div class="tube" aria-label="Question ${P.i+1} sur ${n}">${dots}</div><span class="combo">${P.combo>1?'×'+P.combo:''}</span></div>`;
+  if(P.timer)h+=`<div class="tm"><i id="tmb" style="width:${P.left?P.left/P.max*100:100}%"></i></div><small id="tm">${P.left||''} s</small>`;
+  h+=`<div class="tag">${SKM[q.skill].name} — ${P.mode==='exam'?'question '+(P.i+1)+' / '+n:INSTR[q.type]}</div>`;
+  if(q.ctx)h+=`<div class="ctx">${q.ctx}</div>`;
+  if(q.type==='dict'){
+    h+=`<div class="q">Écoute et écris le mot.</div><div class="spk"><button class="btn" data-act="say">🔊 Écouter</button><button class="btn" data-act="slow">Plus lent</button><button class="btn" data-act="hint">Indice</button></div>${it.hint?`<div class="ctx">${esc(q.hint||'Pas d\'indice pour celui-ci.')}</div>`:''}`;
+  }else if(q.type==='match'){
+    h+=`<div class="q">${esc(q.title)}</div>`;
+  }else{
+    h+=`<div class="q">${esc(q.prompt).replace(/___/g,'<span class="blank"></span>')}</div>`;
+    if(q.say)h+=`<div class="spk"><button class="btn" data-act="say">🔊 Écouter</button><button class="btn" data-act="slow">Plus lent</button></div>`;
+  }
+  if(q.type==='mcq'){
+    h+=`<div>${it.opts.map((o,i)=>{let c='opt';if(fb){if(o.ok)c+=' good';else if(it.sel===i)c+=' wrong'}else if(it.sel===i)c+=' sel';return `<button class="${c}" data-act="pick" data-i="${i}" ${fb?'disabled':''}>${esc(o.t)}</button>`}).join('')}</div>`;
+  }else if(q.type==='gap'||q.type==='dict'){
+    h+=`<input class="inp" data-input autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="ta réponse…" value="${esc(it.val||'')}" ${fb?'disabled':''}>`;
+  }else if(q.type==='ord'){
+    h+=`<div class="line">${it.ans.map(t=>`<button class="tile in" data-act="untile" data-k="${t.i}">${esc(t.w)}</button>`).join('')}</div>
+    <div class="bank">${it.bank.filter(t=>!it.ans.some(a=>a.i===t.i)).map(t=>`<button class="tile" data-act="tile" data-k="${t.i}">${esc(t.w)}</button>`).join('')}</div>`;
+  }else if(q.type==='match'){
+    h+=`<div class="mcols"><div>${it.left.map(l=>`<button class="mt${it.done.includes(l.i)?' done':''}${it.sel===l.i?' sel':''}" data-act="mL" data-i="${l.i}">${esc(l.t)}</button>`).join('')}</div>
+    <div>${it.right.map(r=>`<button class="mt${it.done.includes(r.i)?' done':''}${it.bad===r.i?' bad':''}" data-act="mR" data-i="${r.i}">${esc(r.t)}</button>`).join('')}</div></div>`;
+  }
+  if(!fb&&q.type!=='match'){
+    const ready=q.type==='mcq'?it.sel!=null:true;
+    h+=`<div class="foot"><button class="btn red full" data-act="check" ${ready?'':'disabled'}>${P.fb?'Vérifier':(P.i+1>=n?'Terminer':'Valider')}</button></div>`;
+  }
+  if(fb)h+=sheetHtml(last,P);
+  if(P.quit)h+=`<div class="ov"><div class="card"><b>Quitter la partie ?</b><p class="mut">Les réponses déjà données restent comptées dans tes progrès.</p><button class="btn red full" data-act="quit">Quitter</button><button class="btn ghost full" data-act="noquit">Continuer</button></div></div>`;
+  return h;
+}
+function sheetHtml(a,P){
+  const q=a.q,end=P.i+1>=P.items.length;
+  return `<div class="sheet ${a.ok?'':'bad'}" role="status"><div class="sh-in">
+  <div class="sh-t">${teacher('k',a.ok?'cheer':'oops',46)}<div><h3>${a.ok?pickOne(PRAISE):pickOne(OOPS)}</h3>${a.ok?`<small>+${a.gain} XP${P.combo>2?' · '+P.combo+' bonnes réponses d\'affilée':''}</small>`:'<small>Regardons ça ensemble.</small>'}</div></div>
+  ${a.ok?`<details class="d"><summary>Pourquoi ?</summary>${q.why}</details>`:explainBlock(a)}
+  ${q.us?`<div class="us">Aux États-Unis : ${q.us}</div>`:''}
+  <button class="btn ${a.ok?'green':'red'} full" data-act="next">${end?'Terminer':'Continuer'}</button></div></div>`;
+}
+function viewResult(){
+  const R=S.res,p=R.pct;
+  const msg=p>=.9?['cheer',"Brilliant! Top marks.","Excellent travail."]:p>=.7?['happy',"Very good!","Quelques détails à revoir, c'est tout."]:p>=.4?['think',"Good effort.","Regardons tes erreurs ensemble."]:['oops',"Don't worry!","C'est comme ça qu'on apprend. Relis les corrections ci-dessous."];
+  const pass=R.mode==='exam'?(R.ok>=17):null;
+  return `${SC}${bubble('k',msg[0],msg[1],msg[2])}
+  <div class="gradebox"><span class="grade">${R.ok}/${R.total}</span></div>
+  ${pass===null?'':`<div class="pass ${pass?'y':'n'}">${pass?'Examen réussi !':'À repasser : il faut 17/20.'}</div>`}
+  <p class="mut" style="text-align:center">+${R.xp} XP${R.maxCombo>2?' · '+R.maxCombo+' bonnes réponses d\'affilée':''}</p>
+  ${R.wrong.length?`<h2 class="h2">Corrections (${R.wrong.length})</h2>${R.wrong.map(a=>`<div class="card"><b>${esc(promptText(a.q))}</b>${explainBlock(a)}${a.q.us?`<div class="us">Aux États-Unis : ${a.q.us}</div>`:''}</div>`).join('')}`:'<p class="mut" style="text-align:center">Aucune faute. Parfait !</p>'}
+  <button class="btn red full" data-act="again">Rejouer</button>
+  ${R.wrong.length&&R.mode!=='errors'?`<button class="btn ghost full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:''}
+  <button class="btn ghost full" data-act="go" data-to="home">Retour à l'accueil</button>`;
+}
+
+function render(){
+  if(S.screen!=='play')stopTimer();
+  if(!DB.current||!DB.profiles[DB.current])S.screen='profiles';
+  else if(S.screen==='profiles')S.screen='home';
+  let h='';
+  switch(S.screen){
+    case 'profiles':h=viewProfiles();break;
+    case 'home':h=SC+hdr()+viewHome()+nav('home');break;
+    case 'course':h=SC+hdr()+(S.course?viewSheet():viewCourse())+nav('course');break;
+    case 'progress':h=SC+hdr()+viewProgress()+nav('progress');break;
+    case 'settings':h=SC+hdr()+viewSettings()+nav('settings');break;
+    case 'play':h=viewPlay();break;
+    case 'result':h=viewResult();break;
+  }
+  app.innerHTML=h;
+  if(S.screen==='play'&&S.play.phase==='ask'){
+    const q=S.play.items[S.play.i].q;
+    if(q.type==='gap'||q.type==='dict'){const el=$('[data-input]');if(el)setTimeout(()=>{try{el.focus()}catch(e){}},60)}
+  }
+}
+function go(to){S.screen=to;S.course=null;S.code='';S.msg='';S.confirmDel=false;render();window.scrollTo(0,0)}
+
+/* =====================================================================
+   5. ÉVÉNEMENTS
+   ===================================================================== */
+const A={
+  go:d=>go(d.to),
+  login:d=>{DB.current=d.id;persist();S.screen='home';render();window.scrollTo(0,0)},
+  newT:d=>{const el=$('#pname');if(el)S.newName=el.value;S.newT=d.t;render()},
+  create:()=>{
+    const el=$('#pname'),name=((el&&el.value)||'').trim();
+    if(!name){toast('Écris ton prénom 🙂');if(el)el.focus();return}
+    newProfile(name,S.newT);S.newName='';S.screen='home';render();window.scrollTo(0,0);
+  },
+  scope:d=>{cur().scope=d.k;persist();render()},
+  play:d=>startSession(d.m),
+  game:d=>startSession('game',{g:d.g}),
+  unit:d=>startSession('unit',{skill:d.id,room:d.room}),
+  again:()=>{const R=S.res;if(R.mode==='unit')startSession('unit',{skill:R.unit,room:R.room});else if(R.mode==='game')startSession('game',{g:R.g});else startSession(R.mode)},
+  sheet:d=>{S.course=d.id;render();window.scrollTo(0,0)},
+  back:()=>{S.course=null;render()},
+  pick:d=>{const P=S.play;if(P.phase!=='ask')return;P.items[P.i].sel=+d.i;render()},
+  check:()=>submit(false),
+  next:()=>next(),
+  say:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word)},
+  slow:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word,.55)},
+  hint:()=>{const it=S.play.items[S.play.i];it.hint=true;render()},
+  tile:d=>{const P=S.play,it=P.items[P.i];if(P.phase!=='ask')return;const t=it.bank.find(x=>x.i===+d.k);if(t&&!it.ans.some(a=>a.i===t.i)){it.ans.push(t);render()}},
+  untile:d=>{const P=S.play,it=P.items[P.i];if(P.phase!=='ask')return;it.ans=it.ans.filter(a=>a.i!==+d.k);render()},
+  mL:d=>{const it=S.play.items[S.play.i];if(it.done.includes(+d.i))return;it.sel=+d.i;render()},
+  mR:d=>{
+    const P=S.play,it=P.items[P.i];if(it.sel==null||it.done.includes(+d.i))return;
+    if(+d.i===it.sel){it.done.push(it.sel);it.sel=null;render();if(it.done.length===it.q.pairs.length)setTimeout(()=>{if(S.play===P&&P.items[P.i]===it)submit(false)},500)}
+    else{it.miss++;it.bad=+d.i;it.sel=null;render();setTimeout(()=>{if(S.play===P){it.bad=null;render()}},450)}
+  },
+  askquit:()=>{S.play.quit=true;stopTimer();render()},
+  noquit:()=>{S.play.quit=false;render();startTimer()},
+  quit:()=>{stopTimer();S.play=null;go('home')},
+  myT:d=>{cur().teacher=d.t;persist();render()},
+  snd:()=>{const pr=cur();pr.sound=!pr.sound;persist();render()},
+  export:()=>{
+    try{S.code=btoa(unescape(encodeURIComponent(JSON.stringify(cur()))))}catch(e){S.code='';S.msg="Impossible de générer le code."}
+    render();
+  },
+  import:()=>{
+    const el=$('#imp'),v=((el&&el.value)||'').trim();
+    try{
+      const p=JSON.parse(decodeURIComponent(escape(atob(v))));
+      if(!p||typeof p.name!=='string'||typeof p.q!=='object')throw 0;
+      const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
+      p.id=id;p.created=Date.now();DB.profiles[id]=p;DB.current=id;persist();S.msg='';S.screen='home';render();toast('Profil importé ✔');
+    }catch(e){S.msg="Ce code n'est pas valide. Vérifie que tu l'as copié en entier.";render()}
+  },
+  switch:()=>{DB.current=null;persist();S.screen='profiles';render()},
+  askdel:()=>{S.confirmDel=true;render()},
+  nodel:()=>{S.confirmDel=false;render()},
+  del:()=>{delete DB.profiles[DB.current];DB.current=null;persist();S.confirmDel=false;S.screen='profiles';render()}
+};
+app.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]');if(!el||el.tagName==='TEXTAREA')return;
+  const f=A[el.dataset.act];if(f)f(el.dataset,e);
+});
+app.addEventListener('input',e=>{
+  if(e.target.matches('[data-input]')&&S.play){S.play.items[S.play.i].val=e.target.value}
+});
+app.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&e.target.matches('[data-input]')){e.preventDefault();submit(false)}
+  if(e.key==='Enter'&&e.target.id==='pname'){e.preventDefault();A.create()}
+});
+app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-sel]'))e.target.select()});
+
+if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
+render();
+window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm}; // utile pour les tests
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+</script>
+</body>
+</html>
