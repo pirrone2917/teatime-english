@@ -1,7 +1,7 @@
-// Tea Time English - version eb764b02
+// Tea Time English - version a5e0cdf6
 // Réseau d'abord (les nouveaux cours arrivent tout de suite), copie locale si hors-ligne.
 // La progression (localStorage) n'est jamais touchée par ce fichier.
-const C='tte-eb764b02';
+const C='tte-a5e0cdf6';
 const CORE=['./','index.html','manifest.webmanifest','icons/icon-192.png','icons/icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(CORE)).catch(()=>{}))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});

@@ -1189,6 +1189,124 @@ WQ.forEach(([w,r],i)=>{if(i%3===2)G('wh',"___ "+r,[w.toLowerCase()],"La réponse
 [['Are you a new student?','Yes, I am.',["Yes, I'm.","Yes, I do.","Yes, am."]],['Is she your sister?','Yes, she is.',["Yes, she's.","Yes, she does.","Yes, is she."]],['Are they from Spain?',"No, they aren't.",["No, they not.","No, they don't.","No, aren't."]],['Is it your bag?','Yes, it is.',["Yes, it's.","Yes, it does.","Yes, is."]],['Are you tired?',"No, I'm not.",["No, I amn't.","No, I don't.","No, I not."]],['Is he a teacher?',"No, he isn't.",["No, he not.","No, he doesn't.","No, isn't he."]]].forEach(([q,c,d])=>M('dlg',q+" — ___",[c].concat(d),"Réponse courte avec to be : <b>"+c+"</b> (pas de contraction à la fin d'un oui)."));
 })();
 
+/* ---------- Cours enseignés du niveau 2 (cours de Miss Kokkinis) ---------- */
+Object.assign(TEACH,{
+ there:[
+  Lc("There is a cat in the garden.","Il y a un chat dans le jardin.","<b>There is</b> (There's) = il y a, avec UN seul objet (ou quelque chose qu'on ne compte pas : milk, water)."),
+  Lc("There are three chairs around the table.","Il y a trois chaises autour de la table.","<b>There are</b> = il y a, avec PLUSIEURS objets."),
+  Qm('there',"There ___ two bedrooms in my flat.",["are","is","have","be"],"two bedrooms = pluriel → <b>There are</b>."),
+  Qm('there',"There ___ some milk in the fridge.",["is","are","have","has"],"milk ne se compte pas → <b>There is</b>."),
+  Lc("There isn't a lift. — There aren't any shops.","Il n'y a pas d'ascenseur. — Il n'y a pas de magasins.","Négatif : <b>there isn't</b> / <b>there aren't</b>."),
+  Lc("Is there a park near here? — Yes, there is.","Y a-t-il un parc près d'ici ? — Oui.","Question : on inverse → <b>Is there…? Are there…?</b>"),
+  Qo('there',"Traduis : « Y a-t-il une banque près d'ici ? »","Is there a bank near here?","Question : <b>Is there</b> + a + nom ?",["are"]),
+  Lc("There is a bathroom and two bedrooms.","Il y a une salle de bains et deux chambres.","Dans une liste, le verbe s'accorde avec le <b>premier</b> nom : There <b>is</b> a bathroom and two bedrooms."),
+  Qm('there',"There ___ a sofa and two armchairs.",["is","are"],"Premier nom = a sofa (singulier) → <b>There is</b>."),
+  Qf('there',"À toi ! Décris ta chambre : « There is … » ou « There are … »","^there (is|are) [\\p{L}0-9' ,-]{3,}$","There is a bed and a desk.","<b>There is</b> + un objet · <b>There are</b> + plusieurs objets.")
+ ],
+ its:[
+  Lc("What's that noise? — It's the neighbour's dog.","C'est quoi ce bruit ? — C'est le chien du voisin.","<b>It's</b> (it is) = c'est : on parle d'une chose déjà connue, identifiée."),
+  Lc("Who are those people? — They're my colleagues.","Qui sont ces gens ? — Ce sont mes collègues.","<b>They're</b> (they are) = ils sont / ce sont : plusieurs choses ou personnes connues."),
+  Qm('its',"Where are my keys? — ___ on the table.",["They're","There are","It's","Their"],"Les clés sont déjà connues → <b>They're</b>."),
+  Lc("There's a café near here. It's very nice.","Il y a un café près d'ici. Il est très sympa.","<b>There is</b> ANNONCE une chose nouvelle. <b>It's</b> en reparle ensuite."),
+  Qm('its',"___ a new shop in my street. It's great!",["There's","It's","They're","Their"],"On annonce une chose nouvelle → <b>There's</b>."),
+  Lc("their · there · they're","leur · il y a / là · ils sont","⚠️ Trois mots, la même prononciation ! <b>their</b> house (leur maison) · <b>there</b> is (il y a) · <b>they're</b> happy (ils sont heureux)."),
+  Qx('its',"Associe",[["their","leur"],["there is","il y a"],["they're","ils sont"]],"their = leur · there = il y a · they're = they are."),
+  Qm('its',"Look at Tom and Anna: ___ very happy!",["they're","their","there","them"],"they are → <b>they're</b>.")
+ ],
+ like:[
+  Lc("I love cooking.","J'adore cuisiner.","Après <b>love, like, hate, prefer, enjoy</b> : le verbe prend <b>-ing</b>."),
+  Lc("I like · I don't like · I hate","J'aime · Je n'aime pas · Je déteste","Du plus positif au plus négatif : <b>I love</b> ❤️ · I really like · I like · I don't mind 😐 · I don't like · I hate 😡."),
+  Qm('like',"She hates ___ up early.",["getting","get","to getting","gets"],"Après hate → <b>-ing</b> : getting up."),
+  Lc("Do you prefer swimming or running?","Tu préfères nager ou courir ?","<b>prefer</b> + -ing … <b>or</b> + -ing."),
+  Qg('like',"I enjoy ___ (read) in bed.",["reading"],"Après enjoy → <b>reading</b>."),
+  Lc("I don't mind waiting.","Ça ne me dérange pas d'attendre.","<b>I don't mind</b> = ça m'est égal, ça ne me dérange pas."),
+  Qm('like',"« Ça ne me dérange pas de conduire. » →",["I don't mind driving.","I don't mind to drive.","I'm not mind driving.","I don't care drive."],"<b>I don't mind</b> + -ing."),
+  DLG([["Ben","What do you like doing at the weekend?","Qu'est-ce que tu aimes faire le week-end ?"],["Lisa","I love hiking. And you?","J'adore la randonnée. Et toi ?"],["Ben","I prefer swimming. I hate walking in the rain!","Je préfère nager. Je déteste marcher sous la pluie !"]]),
+  Qf('like',"À toi ! Qu'est-ce que tu aimes faire ? « I love … » / « I like … » + -ing","^i (really )?(love|like|enjoy|prefer|hate|don't like|do not like|don't mind|do not mind) [\\p{L}' ,]*ing\\b.*$","I love cooking.","<b>I love / like / hate</b> + verbe en <b>-ing</b>.")
+ ],
+ ing:[
+  Lc("cook → cooking · play → playing","cuisiner · jouer","1) Cas général : on ajoute simplement <b>-ing</b>."),
+  Lc("make → making · write → writing","faire · écrire","2) Verbe en <b>-e</b> : on enlève le e, puis -ing."),
+  Qg('ing',"dance → ___",["dancing"],"Verbe en -e → on enlève le e : <b>dancing</b>."),
+  Lc("swim → swimming · run → running · sit → sitting","nager · courir · s'asseoir","3) Verbe court terminé par voyelle + consonne : on <b>double</b> la consonne."),
+  Qg('ing',"stop → ___",["stopping"],"Verbe court (st-o-p) → on double le p : <b>stopping</b>."),
+  Lc("lie → lying · die → dying","mentir · mourir","4) Verbe en <b>-ie</b> → <b>-ying</b>."),
+  Lc("visit → visiting · camp → camping","visiter · camper","⚠️ Pas de doublement ici : visit (accent au début) et camp (deux consonnes à la fin)."),
+  Qm('ing',"run → ?",["running","runing","runnning","runeing"],"Verbe court : on double le n → <b>running</b>.")
+ ],
+ voc:[
+  Lc("also","aussi, également","⚠️ also ≠ beaucoup ! « I also like tea » = j'aime aussi le thé. Beaucoup = a lot (of)."),
+  Lc("often · nearby","souvent · tout près","I often go to the park. There's a park nearby."),
+  Qm('voc',"« J'aime aussi le café. » →",["I also like coffee.","I like a lot coffee.","I like also much coffee.","I also much like coffee."],"<b>also</b> = aussi, avant le verbe : I <b>also</b> like."),
+  Lc("a flat · a neighbour","un appartement · un voisin","<b>flat</b> = appartement (UK). Aux États-Unis : apartment."),
+  Lc("boring","ennuyeux","The film is <b>boring</b> = le film est ennuyeux. (Je m'ennuie = I'm <b>bored</b>.)"),
+  Qx('voc',"Associe",[["often","souvent"],["nearby","tout près"],["boring","ennuyeux"],["flat","appartement"]],"Le vocabulaire du cours.")
+ ],
+ some:[
+  Lc("There are some apples.","Il y a des pommes.","<b>some</b> = du, de la, des, quelques… dans une phrase <b>affirmative</b>."),
+  Lc("There aren't any apples. — Are there any apples?","Il n'y a pas de pommes. — Y a-t-il des pommes ?","<b>any</b> dans une phrase <b>négative</b> ou une <b>question</b>."),
+  Qm('some',"We haven't got ___ bread.",["any","some","a","many"],"Phrase négative → <b>any</b>."),
+  Qm('some',"Do you need ___ help?",["any","some","a","many"],"Question → <b>any</b>."),
+  Lc("Would you like some tea?","Tu veux du thé ?","⚠️ Exception : quand on <b>offre</b> ou qu'on demande poliment, on garde <b>some</b>, même dans une question."),
+  Qm('some',"Can I have ___ water, please?",["some","any","a","many"],"Demande polie → <b>some</b>."),
+  Lc("Choose any book.","Choisis n'importe quel livre.","<b>any</b> en affirmatif = n'importe quel."),
+  Qf('some',"À toi ! Qu'y a-t-il dans ton frigo ? « There is some … » / « There are some … »","^there (is|are) (some|any|a lot of) [\\p{L}' ,-]{3,}$","There are some eggs.","<b>There is some</b> + indénombrable · <b>There are some</b> + pluriel.")
+ ],
+ much:[
+  Lc("many apples · many friends","beaucoup de pommes · beaucoup d'amis","<b>many</b> + ce qu'on peut compter (pluriel)."),
+  Lc("much money · much time","beaucoup d'argent · beaucoup de temps","<b>much</b> + ce qu'on ne compte pas."),
+  Qm('much',"There aren't ___ people here.",["many","much"],"people se compte → <b>many</b>."),
+  Lc("a lot of apples · a lot of money","beaucoup de…","<b>a lot of</b> marche avec les deux, surtout dans une phrase affirmative."),
+  Lc("How many chairs? — How much water?","Combien de chaises ? — Combien d'eau ?","<b>How many</b> + pluriel · <b>How much</b> + indénombrable (et aussi pour un prix : How much is it?)."),
+  Qm('much',"How ___ sugar do you want?",["much","many"],"sugar ne se compte pas → <b>How much</b>."),
+  Qm('much',"She has got ___ friends in London. (affirmatif)",["a lot of","much","any","a"],"Affirmatif → <b>a lot of</b>.")
+ ],
+ ime:[
+  Lc("I love music. — Music relaxes me.","J'aime la musique. — La musique me détend.","<b>I</b> = celui qui fait l'action (sujet). <b>me</b> = celui qui la reçoit (complément)."),
+  Qm('ime',"She calls ___ every day.",["me","I"],"Je reçois l'appel → <b>me</b>."),
+  Lc("This gift is for me.","Ce cadeau est pour moi.","Après une préposition (for, with, to, about…) → <b>me</b>."),
+  Lc("Sarah and I live together.","Sarah et moi habitons ensemble.","Le test magique : enlève l'autre personne. « I live together » ✓ → <b>I</b>. Et par politesse, on se met en dernier : Sarah and I."),
+  Qm('ime',"Tom and ___ are friends.",["I","me"],"Test : « ___ am friends… » → <b>I</b> (sujet). Tom and I."),
+  Qm('ime',"The teacher asks Anna and ___ a question.",["me","I"],"Test : « The teacher asks ___ » → <b>me</b>."),
+  Lc("Let me explain.","Laisse-moi t'expliquer.","Après <b>let</b> → me."),
+  Qg('ime',"Can you help ___? (moi)",["me"],"Complément → <b>me</b>.")
+ ],
+ count:[
+  Lc("an apple → two apples","une pomme → deux pommes","<b>Dénombrable</b> : on peut compter. On peut dire a / an, ou mettre au pluriel."),
+  Lc("water · bread · money · advice","de l'eau · du pain · de l'argent · des conseils","<b>Indénombrable</b> : on ne compte pas. Pas de a/an, pas de pluriel."),
+  Lc("Test : « two … » ?","Le test magique","two apples ✓ → dénombrable. two breads ✗ → indénombrable."),
+  Qm('count',"« bread » est…",["indénombrable","dénombrable"],"On ne dit pas two breads → <b>indénombrable</b> (some bread, a loaf of bread)."),
+  Lc("some advice · some information","des conseils · des informations","⚠️ Pièges pour un francophone : jamais « advices », jamais « informations »."),
+  Qm('count',"Can you give me some ___?",["advice","advices","an advice","many advice"],"advice est indénombrable → <b>some advice</b>."),
+  Qm('count',"I'd like ___ egg, please.",["an","a","some","any"],"egg est dénombrable, au singulier, son de voyelle → <b>an</b> egg.")
+ ],
+ house:[
+  Lc("the kitchen · the living room · the bedroom · the bathroom","la cuisine · le salon · la chambre · la salle de bains","Les pièces principales de la maison."),
+  Qx('house',"Associe les pièces",[["the kitchen","la cuisine"],["the living room","le salon"],["the bedroom","la chambre"],["the bathroom","la salle de bains"]],"Les 4 pièces de base."),
+  Lc("the ground floor · the first floor","le rez-de-chaussée · le 1er étage","⚠️ Piège : au Royaume-Uni, <b>the first floor</b> = le 1er étage. Aux États-Unis, c'est le rez-de-chaussée !"),
+  Lc("In the kitchen: a fridge, a cooker, a sink, a kettle","Dans la cuisine : un frigo, une cuisinière, un évier, une bouilloire","<b>a cooker</b> = l'appareil (a cook = la personne qui cuisine)."),
+  Qm('house',"On fait bouillir l'eau du thé dans a ___",["kettle","sink","fridge","cooker"],"<b>a kettle</b> = une bouilloire."),
+  Lc("In the living room: a sofa, an armchair, a bookcase, a rug","Dans le salon : un canapé, un fauteuil, une bibliothèque, un tapis",""),
+  Lc("In the bedroom: a bed, a pillow, a wardrobe","Dans la chambre : un lit, un oreiller, une armoire",""),
+  Qm('house',"On range ses vêtements dans a ___",["wardrobe","pillow","sink","rug"],"<b>a wardrobe</b> = une armoire."),
+  Lc("In the bathroom: a shower, a bath, a mirror, a toothbrush","Dans la salle de bains : une douche, une baignoire, un miroir, une brosse à dents",""),
+  Qf('house',"À toi ! Décris ta cuisine ou ton salon : « In my kitchen, there is … »","^(in my [\\p{L} ]{3,},? )?there (is|are) [\\p{L}0-9' ,-]{3,}$","In my kitchen, there is a big fridge.","<b>In my</b> + pièce, <b>there is / there are</b> + objets.")
+ ]
+});
+
+/* ---------- Pratique niveau 2 (générée) ---------- */
+(function(){
+[['a sofa','is'],['two armchairs','are'],['a big window','is'],['three bedrooms','are'],['some milk in the fridge','is'],['a lot of books','are'],['an old piano','is'],['four chairs','are'],['a garden behind the house','is'],['some apples on the table','are'],['a lot of noise','is'],['two bathrooms and a kitchen','are'],['a kitchen and two bathrooms','is'],['many shops nearby','are']].forEach(([x,v])=>G('there',"There ___ "+x+".",[v],(v==='is'?"singulier ou indénombrable":"pluriel")+" → <b>There "+v+"</b>."+(/ and /.test(x)?" (le verbe suit le premier nom)":"")));
+[["___ there a lift in your building?","Is"],["___ there any shops near here?","Are"],["How many students ___ there in your class?","are"],["There ___ any eggs. (négatif)","aren't"],["There ___ a supermarket in my street. (négatif)","isn't"],["___ there any milk?","Is"]].forEach(([p,c])=>{const all=['Is','Are',"isn't","aren't",'is','are'].filter(x=>x.toLowerCase()!==c.toLowerCase());M('there',p,[c].concat(all.filter((x,i,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===i).slice(0,3)),"<b>"+c+"</b> : "+(/is|isn/i.test(c)?"singulier ou indénombrable":"pluriel")+".")});
+[["Look at the sky! ___ beautiful today.","It's"],["I love these shoes. ___ so comfortable.","They're"],["___ a museum in the town centre.","There's"],["___ a lot of tourists in summer.","There are"],["My parents are in Spain. ___ on holiday.","They're"],["What time is it? ___ ten o'clock.","It's"],["Do you know my cousins? ___ very funny.","They're"],["___ some cake in the kitchen.","There's"]].forEach(([p,c])=>M('its',p,[c].concat(["It's","They're","There's","There are","Their"].filter(x=>x!==c).slice(0,3)),c==="It's"?"Une chose connue, ou l'heure, la météo → <b>It's</b>.":c==="They're"?"Plusieurs choses ou personnes connues → <b>They're</b>.":"On annonce l'existence de quelque chose → <b>"+c+"</b>."));
+[["I love ___ (cook).","cooking"],["She hates ___ (get) up early.","getting"],["They don't like ___ (swim).","swimming"],["Do you like ___ (dance)?","dancing"],["He enjoys ___ (read) in bed.","reading"],["We love ___ (travel).","travelling","traveling"],["I don't mind ___ (wait).","waiting"],["My kids like ___ (play) video games.","playing"],["I prefer ___ (watch) films at home.","watching"],["Do you enjoy ___ (run)?","running"]].forEach(([p,a,us])=>G('like',p,us?[a,us]:[a],"Après love / like / hate / enjoy / prefer / don't mind → verbe en <b>-ing</b> : "+a+".",us?{us:"on écrit <i>"+us+"</i> (un seul l)."}:undefined));
+[['make','making'],['swim','swimming'],['play','playing'],['lie','lying'],['write','writing'],['sit','sitting'],['dance','dancing'],['get','getting'],['travel','travelling'],['stop','stopping'],['die','dying'],['shop','shopping'],['take','taking'],['begin','beginning'],['visit','visiting'],['camp','camping'],['cook','cooking'],['come','coming']].forEach(([v,i])=>G('ing',v+" → ___ (-ing)",i==='travelling'?['travelling','traveling']:[i],"<b>"+i+"</b> : "+(i===v+'ing'?"on ajoute simplement -ing.":/ying$/.test(i)?"-ie devient -ying.":i.length===v.length+4?"verbe court : on double la consonne finale.":"verbe en -e : on enlève le e."),i==='travelling'?{us:"<i>traveling</i> (un seul l)."}:undefined));
+[["There are ___ apples on the table.","some"],["Are there ___ eggs in the fridge?","any"],["We haven't got ___ bread.","any"],["Would you like ___ tea?","some"],["I need ___ new shoes.","some"],["There isn't ___ milk.","any"],["Have you got ___ brothers?","any"],["Could I have ___ juice, please?","some"],["She doesn't have ___ friends here.","any"],["There is ___ cheese in the kitchen.","some"],["If you need ___ help, call me.","any"],["Let's buy ___ flowers for Mum.","some"]].forEach(([p,c])=>M('some',p,[c].concat(['some','any','a','many'].filter(x=>x!==c).slice(0,3)),c==='some'?(/would you|can i/i.test(p)?"Offre ou demande polie → <b>some</b>.":"Phrase affirmative → <b>some</b>."):(/^if/i.test(p)?"Après if → <b>any</b>.":/\?$/.test(p)?"Question → <b>any</b>.":"Phrase négative → <b>any</b>.")));
+[["How ___ sugar do you want?","much"],["How ___ chairs are there?","many"],["There isn't ___ time.","much"],["I haven't got ___ friends in London.","many"],["How ___ money have you got?","much"],["How ___ people are coming?","many"],["We don't have ___ homework today.","much"],["There aren't ___ cars in the street.","many"],["How ___ water do you drink?","much"],["Are there ___ shops in your village?","many"]].forEach(([p,c])=>M('much',p,c==='much'?['much','many']:['many','much'],c==='much'?"Indénombrable → <b>much</b>.":"Pluriel, on peut compter → <b>many</b>."));
+[["She drinks ___ coffee.","a lot of"],["There are ___ tourists in July.","a lot of"],["He has got ___ money.","a lot of"]].forEach(([p,c])=>M('much',p+" (affirmatif)",[c,'much','many','any'],"Phrase affirmative → <b>a lot of</b> (avec dénombrable ou indénombrable)."));
+[["___ love chocolate.","I"],["My mum calls ___ every Sunday.","me"],["Can you help ___?","me"],["Anna and ___ are in the same class.","I"],["This letter is for ___.","me"],["Paul and ___ live in Liège.","I"],["Come with ___!","me"],["The teacher asked Tom and ___ a question.","me"],["Let ___ help you.","me"],["Yesterday ___ went to the cinema.","I"]].forEach(([p,c])=>M('ime',p,c==='I'?['I','me']:['me','I'],c==='I'?"C'est moi qui fais l'action (sujet) → <b>I</b>.":"Je reçois l'action, ou après une préposition / let → <b>me</b>."));
+})();
+
 /* Dernière leçon : à mettre à jour à chaque nouveau cours */
 const LAST={id:'2026-10-12b',skills:['ime','count','house'],label:'I ou me ? · Dénombrables · La maison'};
 
