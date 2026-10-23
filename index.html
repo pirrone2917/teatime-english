@@ -238,6 +238,11 @@ details.d summary{cursor:pointer;font-weight:700}
 .gradebox .grade{animation:pop2 .55s .15s ease-out both}
 @keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 @keyframes pop2{0%{transform:scale(.5) rotate(-5deg);opacity:0}70%{transform:scale(1.08) rotate(-5deg)}100%{transform:scale(1) rotate(-5deg);opacity:1}}
+.node.lock{opacity:.72}.node.lock .c{border-color:var(--line);background:var(--soft);color:var(--mute);font-size:17px}.node.lock .st{color:var(--mute)}
+.plv{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:14px 0 6px}
+.choice .card{margin:0 0 10px;cursor:pointer}.choice .card b{display:block;font-size:17px}
+.choice .card.on{border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--hl)}
+.lrow.lock{opacity:.6}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -880,9 +885,9 @@ let DB=load()||{v:1,profiles:{},current:null};
 if(!DB.profiles)DB={v:1,profiles:{},current:null};
 Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor';if(!Array.isArray(p.days))p.days=p.lastDay?[p.lastDay]:[];if(!p.read)p.read={}});
 const cur=()=>DB.profiles[DB.current];
-function newProfile(name,teacher){
+function newProfile(name,teacher,mode){
   const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
-  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{}};
+  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{},mode:mode==='solo'?'solo':'class'};
   DB.current=id;persist();
 }
 const dayStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -961,7 +966,7 @@ const bubble=(who,mood,en,fr,size)=>`<div class="say"><div class="tch">${teacher
 /* =====================================================================
    3. MOTEUR
    ===================================================================== */
-const S={screen:'home',play:null,res:null,course:null,newT:'eleanor',newName:'',code:'',msg:'',confirmDel:false};
+const S={screen:'home',play:null,res:null,course:null,newT:'eleanor',newMode:'class',newName:'',code:'',msg:'',confirmDel:false};
 let tId=null;
 const stopTimer=()=>{if(tId){clearInterval(tId);tId=null}};
 
@@ -972,6 +977,7 @@ function pick(n,o){
   o=o||{};const scope=o.scope||'mix';
   let base=o.pool||Q.filter(q=>(!o.types||o.types.includes(q.type))&&(!o.skill||q.skill===o.skill)&&(!o.room||q.room===o.room));
   if(o.exclude)base=base.filter(q=>!o.exclude.has(q.id));
+  if(!o.pool&&!o.skill&&isSolo()){const U=new Set(PATHALL.filter(s=>unlocked(s.id)).map(s=>s.id));base=base.filter(q=>U.has(q.skill))}
   const free=!o.pool&&!o.skill;
   if(free&&scope==='1')base=base.filter(q=>q.lvl===1);
   if(free&&scope==='2')base=base.filter(q=>q.lvl===2);
@@ -1118,12 +1124,23 @@ function stepPct(sid,types){
   const qs=Q.filter(q=>q.skill===sid&&types.includes(q.type)),p=cur().q;if(!qs.length)return null;
   let s=0;qs.forEach(q=>{const r=p[q.id];if(r)s+=Math.min(r.box,2)/2});return Math.round(s/qs.length*100);
 }
-function focusSkill(){return PATH.find(s=>skillInfo(s.id).st!=='ok')||null}
+const PATHALL=L1.concat(PATH);
+const isSolo=()=>{const p=cur();return !!p&&p.mode==='solo'};
+const myPath=()=>isSolo()?PATHALL:PATH;
+// Parcours débutant : une leçon se débloque quand la précédente est réussie à 50 % (ou acquise).
+const UNLOCK=50;
+function unlocked(sid){
+  if(!isSolo())return true;
+  const i=PATHALL.findIndex(s=>s.id===sid);if(i<=0)return true;
+  const I=skillInfo(PATHALL[i-1].id);return I.st==='ok'||I.pct>=UNLOCK;
+}
+// Leçon du moment : la première pas encore réussie à 50 % ; au-delà, elle se consolide par les révisions.
+function focusSkill(){const P=myPath().filter(s=>unlocked(s.id));return P.find(s=>{const I=skillInfo(s.id);return I.st!=='ok'&&I.pct<UNLOCK})||P.find(s=>skillInfo(s.id).st!=='ok')||null}
 function isDue(q){const r=cur().q[q.id];if(!r)return false;const iv=[0,1,3,7,16][Math.min(r.box,4)];return Date.now()-(r.last||0)>=iv*DAYMS}
 const todayN=pr=>pr.dg&&pr.dg.d===dayStr(new Date())?pr.dg.n:0;
 function dayPlan(){
   const f=focusSkill(),fid=f&&f.id;
-  const recent=LAST.skills.filter(k=>k!==fid&&SKM[k]&&skillInfo(k).st!=='ok').slice(0,2);
+  const recent=isSolo()?[]:LAST.skills.filter(k=>k!==fid&&SKM[k]&&skillInfo(k).st!=='ok').slice(0,2);
   const due=Q.filter(q=>q.skill!==fid&&isDue(q));
   const err=errPool().filter(q=>q.skill!==fid);
   return{f,recent,due,err,nDue:Math.min(3,due.length),nErr:Math.min(2,err.length)};
@@ -1164,7 +1181,12 @@ function viewProfiles(){
   ${ps.length?`<h2 class="h2">Qui joue ?</h2>${ps.map(p=>`<button class="card prow" data-act="login" data-id="${p.id}"><div><b>${esc(p.name)}</b><small>${rank(p.xp)} · ${p.xp} XP</small></div></button>`).join('')}`:''}
   <h2 class="h2">${ps.length?'Nouveau profil':'Ton prénom'}</h2>
   <input id="pname" class="inp" maxlength="16" placeholder="Ton prénom…" autocomplete="off" value="${esc(S.newName)}">
-  <button class="btn red full" data-act="create" style="margin-top:16px">Commencer</button>
+  <p class="lbl" style="margin-top:18px">Ton parcours</p>
+  <div class="choice">
+  <button class="card${S.newMode==='class'?' on':''}" data-act="newMode" data-m="class"><b>Je suis le cours de Miss Kokkinis</b><small>Niveau 2, au rythme de la classe, avec des révisions du niveau 1.</small></button>
+  <button class="card${S.newMode==='solo'?' on':''}" data-act="newMode" data-m="solo"><b>Je commence l'anglais</b><small>Je pars du niveau 1 et je débloque les leçons une à une, jusqu'aux dernières.</small></button>
+  </div>
+  <button class="btn red full" data-act="create" style="margin-top:8px">Commencer</button>
   ${storageOK?'':'<div class="warn">Ce navigateur bloque la sauvegarde : ouvre le lien dans Safari ou Chrome pour garder ta progression.</div>'}`;
 }
 const GC={quiz:'#1F4FB5',gap:'#D7263D',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
@@ -1173,18 +1195,19 @@ const bd=st=>`<span class="bd ${st}">${BD[st]}</span>`;
 const OFF=[6,58,110,58];
 function pathHtml(list,fid){
   return '<div class="path">'+list.map((s,i)=>{
-    const I=skillInfo(s.id),isF=s.id===fid;
+    const I=skillInfo(s.id),isF=s.id===fid,lk=!unlocked(s.id);
+    if(lk)return `<button class="node lock" style="padding-left:${OFF[i%4]}px" data-act="lesson" data-id="${s.id}"><span class="c">🔒</span><span class="tx"><b>${s.name}</b><span class="st">Bloquée pour l'instant</span></span></button>`+(i<list.length-1?`<div class="link" style="margin-left:${OFF[(i+1)%4]+27}px"></div>`:'');
     const ic=isF?'▶':I.st==='ok'?'✓':I.st==='frag'?'!':(i+1);
     const lab=isF?(I.st==='new'?'À commencer':'En cours · '+I.pct+' %')
       :I.st==='ok'?'Acquis':I.st==='frag'?'Fragile · à revoir'
-      :I.st==='new'?(LAST.skills.includes(s.id)?'Vu en classe récemment':'Pas encore commencé'):'En cours · '+I.pct+' %';
+      :I.st==='new'?(!isSolo()&&LAST.skills.includes(s.id)?'Vu en classe récemment':'Pas encore commencé'):'En cours · '+I.pct+' %';
     return `<button class="node ${I.st}${isF?' focus':''}" style="padding-left:${OFF[i%4]}px" data-act="lesson" data-id="${s.id}"><span class="c">${ic}</span><span class="tx"><b>${s.name}</b><span class="st">${lab}</span></span></button>`
       +(i<list.length-1?`<div class="link" style="margin-left:${OFF[(i+1)%4]+27}px"></div>`:'');
   }).join('')+'</div>';
 }
 function homeMsg(f){
   const pr=cur(),nm=esc(pr.name);
-  if(!Object.keys(pr.q).length)return['happy',`Welcome, ${nm}!`,"Ta séance du jour te fait démarrer au début du cours. Quelques minutes par jour suffisent."];
+  if(!Object.keys(pr.q).length)return['happy',`Welcome, ${nm}!`,isSolo()?"On commence par le tout début du niveau 1. Quelques minutes par jour, et tu débloques les leçons une à une.":"Ta séance du jour te fait démarrer au début du cours. Quelques minutes par jour suffisent."];
   if(todayN(pr)>=GOAL)return['cheer','Well done today!',"Objectif du jour atteint. Tu peux t'arrêter là… ou continuer !"];
   const frag=SK.filter(s=>skillInfo(s.id).st==='frag').slice(0,2);
   if(frag.length)return['think',`${greet()}, ${nm}!`,`Tu as hésité sur <b>${frag.map(s=>s.name).join('</b> et <b>')}</b> dernièrement. On le revoit dans ta séance.`];
@@ -1208,15 +1231,16 @@ function viewHome(){
   if(P.nErr)items.push(P.nErr+' erreur'+(P.nErr>1?'s':'')+' à corriger');
   items.push(P.nDue?P.nDue+(P.nDue>1?' révisions qui reviennent':' révision qui revient')+" aujourd'hui":'Un peu de révision du niveau 1');
   return `${bubble('k',m[0],m[1],m[2])}
-  <button class="today${done?' done':''}" data-act="play" data-m="day"><b>${done?'Objectif du jour atteint ✓':'Ma séance du jour'}</b><span class="sub">${done?"Envie d'en refaire une ?":'12 questions · environ 8 minutes'}</span>
+  <button class="today${done?' done':''}" data-act="play" data-m="day"><b>${done?'Objectif du jour atteint ✓':'Ma séance du jour'}</b><span class="sub">${done?"Envie d'en refaire une ?":'Une dizaine de questions · environ 8 minutes'}</span>
   <ul>${items.map(t=>`<li><i></i>${t}</li>`).join('')}</ul><div class="go">${done?'Encore une séance':'Commencer'}</div></button>
   ${fwHtml()}
-  <h2 class="h2">Mon chemin · Niveau 2</h2><p class="mut">Les leçons dans l'ordre du cours de Miss Kokkinis. Touche une leçon pour l'ouvrir.</p>
-  ${pathHtml(PATH,f&&f.id)}
+  ${isSolo()
+    ?`<h2 class="h2">Mon chemin</h2><p class="mut">Du niveau 1 jusqu'aux dernières leçons. Chaque leçon se débloque quand la précédente est réussie à ${UNLOCK} %.</p><div class="plv">Niveau 1</div>${pathHtml(L1,f&&f.id)}<div class="plv">Niveau 2</div>${pathHtml(PATH,f&&f.id)}`
+    :`<h2 class="h2">Mon chemin · Niveau 2</h2><p class="mut">Les leçons dans l'ordre du cours de Miss Kokkinis. Touche une leçon pour l'ouvrir.</p>${pathHtml(PATH,f&&f.id)}`}
   <h2 class="h2">Entraînement libre</h2>
   <div class="seg" role="group" aria-label="Contenu">${[['mix','Mélange'],['2','Niveau 2'],['1','Niveau 1']].map(([k,l])=>`<button class="${sc===k?'on':''}" data-act="scope" data-k="${k}">${l}</button>`).join('')}</div>
   <button class="btn red full" data-act="play" data-m="train" style="margin-top:4px">10 questions au hasard</button>
-  ${pr.lastDone===LAST.id
+  ${isSolo()?'':pr.lastDone===LAST.id
     ?`<div class="lastc done"><span><b>Dernière leçon</b> · ${LAST.label}<small>✓ Révision faite</small></span><button class="lnk" data-act="play" data-m="last">Refaire</button></div>`
     :`<button class="lastc" data-act="play" data-m="last"><span><b>Dernière leçon</b> · ${LAST.label}<small>10 questions pour revoir ce que tu viens d'apprendre</small></span><span class="hand" style="font-size:22px;color:var(--red)">à revoir</span></button>`}
   <div class="grid2" style="margin-top:12px">${GAMES.map(g=>g.k==='errors'
@@ -1226,12 +1250,14 @@ function viewHome(){
 }
 function lessonRow(s){
   const I=skillInfo(s.id);
+  if(!unlocked(s.id))return `<button class="card lrow lock" style="border-left:6px solid var(--line)" data-act="lesson" data-id="${s.id}"><span><b>${s.name}</b><small>Se débloque après la leçon précédente</small></span><span aria-hidden="true">🔒</span></button>`;
   return `<button class="card lrow" style="border-left:6px solid ${s.c}" data-act="lesson" data-id="${s.id}"><span><b>${s.name}</b><small>${I.c.ok} / ${I.n} questions acquises</small></span>${bd(I.st)}</button>`;
 }
 function viewCourse(){
   return `${bubble('k','think','Your lessons',"Chaque leçon se travaille en étapes : le cours, je reconnais, puis je produis moi-même.")}
-  <h2 class="h2">Niveau 2</h2>${PATH.map(lessonRow).join('')}
-  <h2 class="h2">Niveau 1 (révisions)</h2>${L1.map(lessonRow).join('')}`;
+  ${isSolo()
+    ?`<h2 class="h2">Niveau 1</h2>${L1.map(lessonRow).join('')}<h2 class="h2">Niveau 2</h2>${PATH.map(lessonRow).join('')}`
+    :`<h2 class="h2">Niveau 2</h2>${PATH.map(lessonRow).join('')}<h2 class="h2">Niveau 1 (révisions)</h2>${L1.map(lessonRow).join('')}`}`;
 }
 const FMT={mcq:'QCM',match:'Associer',gap:'Compléter',ord:'Construire la phrase',dict:'Dictée'};
 function wordsHtml(s){
@@ -1291,6 +1317,9 @@ function viewSettings(){
   return `<h2 class="h2">Mon profil</h2>
   <div class="card"><b>${esc(pr.name)}</b><small>${rank(pr.xp)} · ${pr.xp} XP</small>
   <label class="sw"><input type="checkbox" data-act="snd" ${pr.sound?'checked':''}> Sons activés</label></div>
+  <h2 class="h2">Mon parcours</h2>
+  <div class="seg" role="group" aria-label="Parcours"><button class="${!isSolo()?'on':''}" data-act="myMode" data-m="class">Cours de Miss Kokkinis</button><button class="${isSolo()?'on':''}" data-act="myMode" data-m="solo">Depuis le niveau 1</button></div>
+  <small>${isSolo()?"Tu pars du niveau 1 et tu débloques les leçons une à une.":"Tu suis le niveau 2 au rythme de la classe."} Ta progression est gardée si tu changes.</small>
   <h2 class="h2">Sauvegarde</h2>
   <p class="mut">Ta progression est gardée sur ce téléphone. Pour la passer sur un autre appareil, génère un code et colle-le là-bas.</p>
   <button class="btn ghost full" data-act="export">Générer mon code</button>
@@ -1402,13 +1431,15 @@ const A={
   create:()=>{
     const el=$('#pname'),name=((el&&el.value)||'').trim();
     if(!name){toast('Écris ton prénom 🙂');if(el)el.focus();return}
-    newProfile(name,S.newT);S.newName='';S.screen='home';render();window.scrollTo(0,0);
+    newProfile(name,S.newT,S.newMode);S.newName='';S.screen='home';render();window.scrollTo(0,0);
   },
   scope:d=>{cur().scope=d.k;persist();render()},
   play:d=>startSession(d.m),
   game:d=>startSession('game',{g:d.g}),
   unit:d=>startSession('unit',{skill:d.id,room:d.room}),
-  lesson:d=>{S.screen='course';S.course=d.id;S.showSheet=false;render();window.scrollTo(0,0)},
+  newMode:d=>{const el=$('#pname');if(el)S.newName=el.value;S.newMode=d.m;render()},
+  myMode:d=>{cur().mode=d.m;persist();render();toast(d.m==='solo'?'Parcours : depuis le niveau 1':'Parcours : cours de Miss Kokkinis')},
+  lesson:d=>{if(!unlocked(d.id)){const i=PATHALL.findIndex(s=>s.id===d.id);toast('Réussis d\'abord « '+PATHALL[i-1].name+' » à '+UNLOCK+' %');return}S.screen='course';S.course=d.id;S.showSheet=false;render();window.scrollTo(0,0)},
   step:d=>{if(d.k==='read'){S.showSheet=!S.showSheet;render();return}startSession('unit',{skill:d.id,step:d.k})},
   read:d=>{const pr=cur();pr.read=pr.read||{};pr.read[d.id]=Date.now();persist();S.showSheet=false;render();toast('Cours lu ✓ Passe à l\'étape suivante.')},
   again:()=>{const R=S.res;if(R.mode==='day'){startSession('day');return}if(R.mode==='unit')startSession('unit',{skill:R.unit,room:R.room,step:R.step});else if(R.mode==='game')startSession('game',{g:R.g});else startSession(R.mode)},
@@ -1466,7 +1497,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 render();
-window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice}; // utile pour les tests
+window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill}; // utile pour les tests
 })();
 </script>
 <script>
