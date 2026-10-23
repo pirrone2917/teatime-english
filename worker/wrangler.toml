@@ -1,0 +1,8 @@
+name = "teatime-api"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "teatime"
+database_id = "de849373-36dd-4661-8631-3e4b868fe45a"
