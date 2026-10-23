@@ -173,6 +173,71 @@ details.d summary{cursor:pointer;font-weight:700}
 .sw{display:flex;gap:10px;align-items:center;margin-top:12px;font-weight:700}
 .sw input{width:22px;height:22px;accent-color:var(--blue)}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:15px;z-index:60;max-width:90%}
+
+/* v7 : accueil, chemin, leçons, fin de séance */
+:root{--amber:#B86E00}
+.top2{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:2px 0 8px;border-bottom:1.5px solid var(--line)}
+.top2 .nm{font-size:20px;font-weight:700;line-height:1.15}
+.top2 .lnk{font-size:13px;padding:2px 0}
+.chips{display:flex;gap:6px;flex:none}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:3px 10px 3px 8px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:5px;background:#fff;white-space:nowrap}
+.chip svg{width:24px;height:24px}
+.today{display:block;width:100%;text-align:left;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:14px 16px;cursor:pointer;margin:2px 0 4px;font:inherit}
+.today>b{font-size:21px;display:block;line-height:1.2}
+.today .sub{opacity:.88;font-size:14px}
+.today ul{margin:8px 0 12px;padding:0;list-style:none;font-size:15px}
+.today li{display:flex;gap:8px;align-items:center;margin:4px 0;line-height:1.3}
+.today li i{width:8px;height:8px;border-radius:50%;background:var(--hl);flex:none}
+.today .go{background:#fff;color:var(--blue);font-weight:700;border-radius:10px;padding:11px;text-align:center;font-size:17px}
+.today.done{background:var(--green)}.today.done .go{color:var(--green)}
+.today:active{transform:translateY(1px)}
+.fw{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 4px}
+.fw>div{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;line-height:1.35}
+.fw .t{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.path{padding:4px 0 2px}
+.node{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.node .c{width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);display:grid;place-items:center;font-weight:700;font-size:19px;background:#fff;flex:none;transition:transform .15s}
+.node:active .c{transform:scale(.94)}
+.node .tx b{display:block;font-size:16px;line-height:1.2}
+.node .st{font:400 18px/1.15 "Gochi Hand","Segoe Print",cursive}
+.node.ok .c{background:var(--green);border-color:var(--green);color:#fff}.node.ok .st{color:var(--green)}
+.node.frag .c{border-color:var(--amber);border-style:dashed;color:var(--amber)}.node.frag .st{color:var(--amber)}
+.node.cur .c{border-color:var(--blue);color:var(--blue)}.node.cur .st{color:var(--blue)}
+.node.new .c{border-color:var(--grey);color:var(--mute)}.node.new .st{color:var(--mute)}
+.node.focus .c{background:var(--hl);border-color:var(--ink);color:var(--ink);width:64px;height:64px;box-shadow:0 0 0 6px #FFF8C2;animation:pulse 2.4s ease-in-out infinite}
+.node.focus .st{color:var(--red)}
+@keyframes pulse{50%{box-shadow:0 0 0 10px #FFF8C2}}
+.link{height:16px;border-left:2.5px dashed var(--grey);margin:3px 0}
+.bd{font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap;display:inline-block}
+.bd.ok{background:var(--green-bg);color:var(--green)}.bd.frag{background:#FFF1DC;color:#8A5200}.bd.cur{background:#E8EEFA;color:var(--blue)}.bd.new{background:var(--soft);color:var(--mute)}
+.lrow{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.lrow b{display:block;line-height:1.25}
+.stp{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:inherit;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;cursor:pointer}
+.stp .n{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:700;flex:none}
+.stp b{display:block}.stp small{color:var(--mute);font-size:13.5px}
+.stp.done{background:var(--green-bg);border-color:#BFDDBF}.stp.done .n{background:var(--green);border-color:var(--green);color:#fff}
+.stp.now{border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--hl)}
+.stp.later{opacity:.6}
+.fm{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.fm span{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;background:#fff}
+.mini{height:6px;border-radius:3px;background:var(--soft);margin-top:7px;overflow:hidden}.mini i{display:block;height:100%;background:var(--blue)}
+.counts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 10px;text-align:center}
+.counts div{border:1.5px solid var(--line);border-radius:10px;padding:6px 2px}.counts b{display:block;font-size:20px}
+.wl{border:1.5px solid var(--line);border-radius:12px;padding:2px 12px;margin-bottom:8px;background:#fff}
+.wl summary{cursor:pointer;font-weight:700;padding:9px 0;display:flex;justify-content:space-between;gap:8px}
+.wrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:1px dashed var(--line);font-size:15px}
+.wrow small{display:inline;color:var(--mute)}
+.mv{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.mv:last-child{border:0}.mv .ar{color:var(--mute);margin:0 4px}
+.week{display:flex;gap:6px;justify-content:center;margin:10px 0 4px}
+.week span{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--mute)}
+.week span.y{background:var(--hl);border-color:var(--ink);color:var(--ink)}
+.week span.t{outline:2px dashed var(--red);outline-offset:2px}
+.hurra{text-align:center;margin:10px 0 0}
+.hurra .hand{display:block;font-size:46px;line-height:1;color:var(--red);animation:pop .5s ease-out both}
+.hurra .tch{display:inline-block;animation:pop .45s ease-out both}
+.gradebox .grade{animation:pop2 .55s .15s ease-out both}
+@keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes pop2{0%{transform:scale(.5) rotate(-5deg);opacity:0}70%{transform:scale(1.08) rotate(-5deg)}100%{transform:scale(1) rotate(-5deg);opacity:1}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -631,10 +696,10 @@ W("around","the ground floor","le rez-de-chaussée",{us:"the first floor",tip:"P
     const forms=w.en.split(' / ').concat(w.also||[]);
     const acc=[];forms.forEach(f=>[f,strip(f),'the '+strip(f)].forEach(v=>{if(!acc.includes(v))acc.push(v)}));
     const tip=w.tip?' '+w.tip:'';
-    const x={room:w.room};
+    const x={room:w.room,wd:w.en};
     if(w.us){x.us="on dit <i>"+w.us+"</i>.";x.wr={};const u=strip(w.us);[w.us,u,'the '+u,'a '+u,'an '+u].forEach(k=>{x.wr[k]="C'est le mot <b>américain</b> ! Au Royaume-Uni, on dit <b>"+w.en+"</b>."})}
     const others=mix(HW.filter(o=>o.room===w.room&&o.fr!==w.fr)).slice(0,3).map(o=>o.fr);
-    M('house',"« "+w.en+" » en français ?",[w.fr].concat(others),"<b>"+w.en+"</b> = "+w.fr+"."+tip,{room:w.room,us:x.us});
+    M('house',"« "+w.en+" » en français ?",[w.fr].concat(others),"<b>"+w.en+"</b> = "+w.fr+"."+tip,{room:w.room,us:x.us,wd:w.en});
     G('house',"Traduis en anglais : "+w.fr,acc,w.fr+" = <b>"+w.en+"</b>."+tip,x);
   });
   Object.keys(HOUSE).forEach(room=>{
@@ -813,11 +878,11 @@ function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):nul
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){storageOK=false;try{memCopy=JSON.parse(JSON.stringify(DB))}catch(_){}}}
 let DB=load()||{v:1,profiles:{},current:null};
 if(!DB.profiles)DB={v:1,profiles:{},current:null};
-Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor'});
+Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor';if(!Array.isArray(p.days))p.days=p.lastDay?[p.lastDay]:[];if(!p.read)p.read={}});
 const cur=()=>DB.profiles[DB.current];
 function newProfile(name,teacher){
   const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
-  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0};
+  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{}};
   DB.current=id;persist();
 }
 const dayStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -825,12 +890,27 @@ function streakNow(pr){const t=dayStr(new Date()),y=dayStr(new Date(Date.now()-8
 function touchStreak(pr){const t=dayStr(new Date());if(pr.lastDay===t)return;const y=dayStr(new Date(Date.now()-864e5));pr.streak=(pr.lastDay===y)?pr.streak+1:1;pr.lastDay=t}
 
 /* ---------- audio ---------- */
+let VOICE=null;
+function bestVoice(){
+  try{
+    const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(!vs.length)return null;
+    const sc=v=>{const n=v.name;let s=0;
+      if(/en[-_]GB/i.test(v.lang))s+=50;
+      if(/(Enhanced|Premium|Natural|Neural|Online)/i.test(n))s+=30;
+      if(/Google UK English Female/i.test(n))s+=25;
+      if(/(Serena|Kate|Martha|Stephanie|Sonia|Libby|Hazel|Google UK)/i.test(n))s+=15;
+      if(/(Daniel|Arthur|Oliver|George|Ryan)/i.test(n))s+=6;
+      if(/(compact|Eloquence|Fred|Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Wobble|Zarvox|Trinoids|Whisper|Jester|Organ|Superstar|Good News|Junior|Ralph|Kathy|Princess|Grandma|Grandpa|Rocko|Shelley|Flo|Reed|Sandy|Eddy)/i.test(n))s-=60;
+      return s};
+    return vs.sort((a,b)=>sc(b)-sc(a))[0];
+  }catch(e){return null}
+}
+try{VOICE=bestVoice();speechSynthesis.addEventListener('voiceschanged',()=>{VOICE=bestVoice()})}catch(e){}
 function speak(t,rate){
   try{
-    const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=rate||0.9;
-    const vs=speechSynthesis.getVoices();
-    const v=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
-    if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u);
+    const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=rate||0.8;
+    const v=VOICE||bestVoice();if(v){u.voice=v;u.lang=v.lang}
+    speechSynthesis.cancel();speechSynthesis.speak(u);
   }catch(e){toast("Audio indisponible sur cet appareil.")}
 }
 let AC=null;
@@ -891,6 +971,7 @@ function weight(q){const r=cur().q[q.id];const b=!r?3:[6,3.5,2,1,.4][r.box];retu
 function pick(n,o){
   o=o||{};const scope=o.scope||'mix';
   let base=o.pool||Q.filter(q=>(!o.types||o.types.includes(q.type))&&(!o.skill||q.skill===o.skill)&&(!o.room||q.room===o.room));
+  if(o.exclude)base=base.filter(q=>!o.exclude.has(q.id));
   const free=!o.pool&&!o.skill;
   if(free&&scope==='1')base=base.filter(q=>q.lvl===1);
   if(free&&scope==='2')base=base.filter(q=>q.lvl===2);
@@ -925,10 +1006,12 @@ function startSession(mode,o){
   else if(mode==='game'){const g=GAMES.find(x=>x.k===o.g);label=g.n;qs=pick(g.n10,{scope:pr.scope,types:g.t})}
   else if(mode==='exam'){label='Examen blanc';fb=false;timer=true;qs=pick(20,{scope:pr.scope,types:['mcq','gap','ord','dict']})}
   else if(mode==='errors'){label='Mes erreurs';qs=pick(10,{pool:errPool()})}
-  else if(mode==='unit'){label=o.room?SKM[o.skill].rooms[o.room]:SKM[o.skill].name;qs=pick(10,{skill:o.skill,room:o.room})}
+  else if(mode==='unit'){label=(o.room?SKM[o.skill].rooms[o.room]:SKM[o.skill].name)+(o.step==='rec'?' · Je reconnais':o.step==='prod'?' · Je produis':'');qs=pick(10,{skill:o.skill,room:o.room,types:o.step==='rec'?REC:o.step==='prod'?PROD:null});if(qs.length<6&&o.step)qs=qs.concat(pick(10-qs.length,{skill:o.skill,exclude:new Set(qs.map(q=>q.id))}))}
+  else if(mode==='day'){label='Séance du jour';qs=buildDay()}
   else if(mode==='last'){label='Dernière leçon';qs=pick(10,{pool:Q.filter(q=>LAST.skills.includes(q.skill))})}
   if(!qs.length){toast(mode==='errors'?"Aucune erreur à revoir pour l'instant 🎉":"Pas de question disponible pour ce choix.");return}
-  S.play={mode,label,fb,timer,items:qs.map(prep),i:0,combo:0,maxCombo:0,xp:0,answers:[],phase:'ask',quit:false,unit:o.skill||null,room:o.room||null,g:o.g||null};
+  const snap={};[...new Set(qs.map(q=>q.skill))].forEach(k=>{const I=skillInfo(k);snap[k]={st:I.st,ok:I.c.ok}});
+  S.play={mode,label,fb,timer,items:qs.map(prep),i:0,combo:0,maxCombo:0,xp:0,answers:[],phase:'ask',quit:false,unit:o.skill||null,room:o.room||null,g:o.g||null,step:o.step||null,snap};
   S.screen='play';render();startTimer();autoSay();
 }
 function startTimer(){
@@ -966,8 +1049,11 @@ function submit(timeout){
   const pr=cur();
   const r=pr.q[q.id]||(pr.q[q.id]={box:0,seen:0,wrong:0});
   r.seen++;r.last=Date.now();
+  const tday=dayStr(new Date());
+  if(!pr.dg||pr.dg.d!==tday)pr.dg={d:tday,n:0};pr.dg.n++;
   let gain=0;
-  if(ok){r.box=Math.min(4,r.box+1);P.combo++;P.maxCombo=Math.max(P.maxCombo,P.combo);gain=10+Math.min(P.combo-1,5)*2}
+  if(ok){if(r.d==null)r.d=r.box>=3?2:r.box>=1?1:0;if(r.ld!==tday){r.d++;r.ld=tday}
+    r.box=Math.min(4,r.box+1);r.hi=Math.max(r.hi||0,r.box);P.combo++;P.maxCombo=Math.max(P.maxCombo,P.combo);gain=10+Math.min(P.combo-1,5)*2}
   else{r.box=0;r.wrong++;r.lastWrong=Date.now();P.combo=0}
   pr.xp+=gain;P.xp+=gain;
   P.answers.push({q,ok,given,gain});persist();
@@ -984,11 +1070,13 @@ function finish(){
   stopTimer();const P=S.play,pr=cur();
   const total=P.items.length,ok=P.answers.filter(a=>a.ok).length,pct=ok/total;
   const bonus=20;pr.xp+=bonus;touchStreak(pr);
+  const tday=dayStr(new Date());if(!pr.days.includes(tday)){pr.days.push(tday);pr.days=pr.days.slice(-60)}
+  const moved=Object.keys(P.snap||{}).map(k=>{const I=skillInfo(k),b=P.snap[k];return{k,name:SKM[k].name,b:b.st,a:I.st,gain:I.c.ok-b.ok}});
   pr.hist.unshift({t:Date.now(),label:P.label,ok,total,exam:P.mode==='exam'});pr.hist=pr.hist.slice(0,30);
   if(P.mode==='exam')pr.bestExam=Math.max(pr.bestExam||0,ok);
   if(P.mode==='last')pr.lastDone=LAST.id;
   persist();
-  S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok),unit:P.unit,room:P.room,g:P.g};
+  S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok),unit:P.unit,room:P.room,g:P.g,step:P.step,moved};
   S.play=null;S.screen='result';render();
 }
 
@@ -1004,17 +1092,67 @@ function lvlPct(l){
   return Math.round(s/qs.length*100);
 }
 
+
+/* ---------- états d'apprentissage : Nouveau → En cours → Fragile → Acquis ---------- */
+const REC=['mcq','match'],PROD=['gap','ord','dict'];
+const DAYMS=864e5,GOAL=20;
+const PATH=SK.filter(s=>s.lvl===2),L1=SK.filter(s=>s.lvl===1);
+// Acquis = 3 bonnes réponses d'affilée, sur au moins 2 jours différents. Redevient fragile après 30 jours sans révision.
+function qState(r){
+  if(!r)return 'new';
+  if(r.box>=3){if(r.d!=null&&r.d<2)return 'cur';return(Date.now()-(r.last||0)>30*DAYMS)?'frag':'ok'}
+  const hadOk=(r.hi||0)>=2||(r.seen-r.wrong)>=2;
+  if(r.box<2&&r.wrong>0&&hadOk)return 'frag';
+  return 'cur';
+}
+function skillInfo(sid){
+  const qs=Q.filter(q=>q.skill===sid),p=cur().q,c={ok:0,frag:0,cur:0,new:0};
+  qs.forEach(q=>c[qState(p[q.id])]++);
+  const n=qs.length,seen=n-c.new;let st='cur';
+  if(!seen)st='new';
+  else if(c.ok>=0.7*n&&c.frag<=0.1*n)st='ok';
+  else if(c.frag>=Math.max(2,0.15*seen))st='frag';
+  return{n,seen,c,st,pct:skillStat(sid).pct};
+}
+function stepPct(sid,types){
+  const qs=Q.filter(q=>q.skill===sid&&types.includes(q.type)),p=cur().q;if(!qs.length)return null;
+  let s=0;qs.forEach(q=>{const r=p[q.id];if(r)s+=Math.min(r.box,2)/2});return Math.round(s/qs.length*100);
+}
+function focusSkill(){return PATH.find(s=>skillInfo(s.id).st!=='ok')||null}
+function isDue(q){const r=cur().q[q.id];if(!r)return false;const iv=[0,1,3,7,16][Math.min(r.box,4)];return Date.now()-(r.last||0)>=iv*DAYMS}
+const todayN=pr=>pr.dg&&pr.dg.d===dayStr(new Date())?pr.dg.n:0;
+function dayPlan(){
+  const f=focusSkill(),fid=f&&f.id;
+  const recent=LAST.skills.filter(k=>k!==fid&&SKM[k]&&skillInfo(k).st!=='ok').slice(0,2);
+  const due=Q.filter(q=>q.skill!==fid&&isDue(q));
+  const err=errPool().filter(q=>q.skill!==fid);
+  return{f,recent,due,err,nDue:Math.min(3,due.length),nErr:Math.min(2,err.length)};
+}
+function buildDay(){
+  const P=dayPlan(),out=[],used=new Set();
+  const take=a=>a.forEach(q=>{if(q&&!used.has(q.id)&&out.length<12){used.add(q.id);out.push(q)}});
+  if(P.f){const rec=stepPct(P.f.id,REC);take(pick(5,{skill:P.f.id,types:(rec===null||rec>=70)?PROD:REC,exclude:used}))}
+  P.recent.forEach(k=>take(pick(2,{skill:k,exclude:used})));
+  take(shuffle(P.err).slice(0,2));
+  const dues=shuffle(P.due).slice(0,3);take(dues);
+  if(dues.length<3)take(pick(3-dues.length,{scope:'1',exclude:used}));
+  if(out.length<12&&P.f)take(pick(12-out.length,{skill:P.f.id,exclude:used}));
+  if(out.length<12)take(pick(12-out.length,{scope:'mix',exclude:used}));
+  return shuffle(out);
+}
+
 /* =====================================================================
    4. VUES
    ===================================================================== */
 const SC='<div class="scal" aria-hidden="true"></div>';
 function greet(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'}
+function ring(p){const c=94.25;return `<svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" stroke="#E3E6EA" stroke-width="4" fill="none"/><circle cx="18" cy="18" r="15" stroke="#2E7D32" stroke-width="4" fill="none" stroke-dasharray="${Math.min(1,p)*c} ${c}" transform="rotate(-90 18 18)" stroke-linecap="round"/></svg>`}
 function hdr(){
-  const pr=cur();
-  return `<header class="top"><div><span class="nm">${esc(pr.name)}</span><small>${rank(pr.xp)} · ${pr.xp} XP · série de ${streakNow(pr)} j</small></div><button class="lnk" data-act="switch">Changer</button></header>`;
+  const pr=cur(),tn=todayN(pr);
+  return `<header class="top2"><div><div class="nm">${esc(pr.name)}</div><button class="lnk" data-act="switch">Changer de profil</button></div><div class="chips"><span class="chip" title="Jours d'affilée">🔥 ${streakNow(pr)} j</span><span class="chip" title="Objectif du jour : ${GOAL} réponses">${ring(tn/GOAL)} ${Math.min(tn,GOAL)}/${GOAL}</span></div></header>`;
 }
 function nav(on){
-  const it=[['home','Jouer'],['course','Cours'],['progress','Progrès'],['settings','Profil']];
+  const it=[['home','Accueil'],['course','Leçons'],['progress','Progrès'],['settings','Profil']];
   return `<nav class="nav">${it.map(([k,l])=>`<button class="${k===on?'on':''}" data-act="go" data-to="${k}">${l}</button>`).join('')}</nav>`;
 }
 const pbar=(l,p,c)=>`<div class="prow2"><div class="r"><span>${l}</span><span>${p} %</span></div><div class="bar" style="${c?'--lc:'+c:''}"><i style="width:${p}%"></i></div></div>`;
@@ -1030,36 +1168,108 @@ function viewProfiles(){
   ${storageOK?'':'<div class="warn">Ce navigateur bloque la sauvegarde : ouvre le lien dans Safari ou Chrome pour garder ta progression.</div>'}`;
 }
 const GC={quiz:'#1F4FB5',gap:'#D7263D',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
+const BD={ok:'Acquis',frag:'Fragile',cur:'En cours',new:'Nouveau'};
+const bd=st=>`<span class="bd ${st}">${BD[st]}</span>`;
+const OFF=[6,58,110,58];
+function pathHtml(list,fid){
+  return '<div class="path">'+list.map((s,i)=>{
+    const I=skillInfo(s.id),isF=s.id===fid;
+    const ic=isF?'▶':I.st==='ok'?'✓':I.st==='frag'?'!':(i+1);
+    const lab=isF?(I.st==='new'?'À commencer':'En cours · '+I.pct+' %')
+      :I.st==='ok'?'Acquis':I.st==='frag'?'Fragile · à revoir'
+      :I.st==='new'?(LAST.skills.includes(s.id)?'Vu en classe récemment':'Pas encore commencé'):'En cours · '+I.pct+' %';
+    return `<button class="node ${I.st}${isF?' focus':''}" style="padding-left:${OFF[i%4]}px" data-act="lesson" data-id="${s.id}"><span class="c">${ic}</span><span class="tx"><b>${s.name}</b><span class="st">${lab}</span></span></button>`
+      +(i<list.length-1?`<div class="link" style="margin-left:${OFF[(i+1)%4]+27}px"></div>`:'');
+  }).join('')+'</div>';
+}
+function homeMsg(f){
+  const pr=cur(),nm=esc(pr.name);
+  if(!Object.keys(pr.q).length)return['happy',`Welcome, ${nm}!`,"Ta séance du jour te fait démarrer au début du cours. Quelques minutes par jour suffisent."];
+  if(todayN(pr)>=GOAL)return['cheer','Well done today!',"Objectif du jour atteint. Tu peux t'arrêter là… ou continuer !"];
+  const frag=SK.filter(s=>skillInfo(s.id).st==='frag').slice(0,2);
+  if(frag.length)return['think',`${greet()}, ${nm}!`,`Tu as hésité sur <b>${frag.map(s=>s.name).join('</b> et <b>')}</b> dernièrement. On le revoit dans ta séance.`];
+  return['happy',`${greet()}, ${nm}!`,f?`Aujourd'hui, on avance sur <b>${f.name}</b>.`:"Tout ton chemin est acquis ! Ta séance garde tout bien frais."];
+}
+function fwHtml(){
+  const pr=cur();if(Object.keys(pr.q).length<15)return '';
+  const acc=sid=>{let n=0,w=0;Q.forEach(q=>{if(q.skill!==sid)return;const r=pr.q[q.id];if(r){n+=r.seen;w+=r.wrong}});return{n,a:n?(n-w)/n:0}};
+  const inf=SK.map(s=>Object.assign({s},skillInfo(s.id),{acc:acc(s.id)})).filter(x=>x.acc.n>=5);
+  const good=inf.filter(x=>x.st==='ok'||(x.acc.a>=.85&&x.acc.n>=8)).sort((a,b)=>b.acc.a-a.acc.a);
+  const weak=inf.filter(x=>x.st==='frag'||x.acc.a<.6).sort((a,b)=>a.acc.a-b.acc.a);
+  if(!good.length&&!weak.length)return '';
+  const ls=a=>a.length?a.slice(0,2).map(x=>x.s.name).join(' · '):'<span style="color:var(--mute)">Pas encore, ça vient.</span>';
+  return `<div class="fw"><div><div class="t" style="color:var(--green)">Tu maîtrises</div>${ls(good)}</div><div><div class="t" style="color:var(--amber)">À retravailler</div>${ls(weak)}</div></div>`;
+}
 function viewHome(){
-  const pr=cur(),sc=pr.scope,eN=errPool().length;
-  return `${bubble('k','happy',`${greet()}, ${esc(pr.name)}!`,pickOne(TIPS))}
+  const pr=cur(),sc=pr.scope,eN=errPool().length,f=focusSkill(),P=dayPlan(),m=homeMsg(f),done=todayN(pr)>=GOAL;
+  const items=[];
+  if(f)items.push('Suite du chemin : '+f.name);
+  if(P.recent.length)items.push('Vu en classe : '+P.recent.map(k=>SKM[k].name).join(', '));
+  if(P.nErr)items.push(P.nErr+' erreur'+(P.nErr>1?'s':'')+' à corriger');
+  items.push(P.nDue?P.nDue+(P.nDue>1?' révisions qui reviennent':' révision qui revient')+" aujourd'hui":'Un peu de révision du niveau 1');
+  return `${bubble('k',m[0],m[1],m[2])}
+  <button class="today${done?' done':''}" data-act="play" data-m="day"><b>${done?'Objectif du jour atteint ✓':'Ma séance du jour'}</b><span class="sub">${done?"Envie d'en refaire une ?":'12 questions · environ 8 minutes'}</span>
+  <ul>${items.map(t=>`<li><i></i>${t}</li>`).join('')}</ul><div class="go">${done?'Encore une séance':'Commencer'}</div></button>
+  ${fwHtml()}
+  <h2 class="h2">Mon chemin · Niveau 2</h2><p class="mut">Les leçons dans l'ordre du cours de Miss Kokkinis. Touche une leçon pour l'ouvrir.</p>
+  ${pathHtml(PATH,f&&f.id)}
+  <h2 class="h2">Entraînement libre</h2>
   <div class="seg" role="group" aria-label="Contenu">${[['mix','Mélange'],['2','Niveau 2'],['1','Niveau 1']].map(([k,l])=>`<button class="${sc===k?'on':''}" data-act="scope" data-k="${k}">${l}</button>`).join('')}</div>
-  <small>${sc==='mix'?'Surtout le niveau 2, avec des révisions du niveau 1.':sc==='2'?'Uniquement les leçons du niveau 2.':'Uniquement les révisions du niveau 1.'}</small>
-  <button class="btn red full big" data-act="play" data-m="train" style="margin-top:12px">Jouer 10 questions</button>
+  <button class="btn red full" data-act="play" data-m="train" style="margin-top:4px">10 questions au hasard</button>
   ${pr.lastDone===LAST.id
     ?`<div class="lastc done"><span><b>Dernière leçon</b> · ${LAST.label}<small>✓ Révision faite</small></span><button class="lnk" data-act="play" data-m="last">Refaire</button></div>`
     :`<button class="lastc" data-act="play" data-m="last"><span><b>Dernière leçon</b> · ${LAST.label}<small>10 questions pour revoir ce que tu viens d'apprendre</small></span><span class="hand" style="font-size:22px;color:var(--red)">à revoir</span></button>`}
-  <h2 class="h2">Les jeux</h2>
-  <div class="grid2">${GAMES.map(g=>g.k==='errors'
+  <div class="grid2" style="margin-top:12px">${GAMES.map(g=>g.k==='errors'
      ?`<button class="card game" style="--c:${GC[g.k]}" data-act="play" data-m="errors"><b>${g.n}</b><small>${eN?eN+' à revoir':'Rien à revoir'}</small></button>`
      :`<button class="card game" style="--c:${GC[g.k]}" data-act="game" data-g="${g.k}"><b>${g.n}</b><small>${g.d}</small></button>`).join('')}
-  <button class="card game wide" data-act="play" data-m="exam"><div><b>Examen blanc</b><small>20 questions chronométrées, corrigées à la fin. Il faut 17 pour réussir.${pr.bestExam?' Ton record : '+pr.bestExam+'/20.':''}</small></div><span class="hand">/20</span></button></div>
-  <h2 class="h2">Où j'en suis</h2>${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D7263D')}`;
+  <button class="card game wide" data-act="play" data-m="exam"><div><b>Examen blanc</b><small>20 questions chronométrées, corrigées à la fin. Il faut 17 pour réussir.${pr.bestExam?' Ton record : '+pr.bestExam+'/20.':''}</small></div><span class="hand">/20</span></button></div>`;
+}
+function lessonRow(s){
+  const I=skillInfo(s.id);
+  return `<button class="card lrow" style="border-left:6px solid ${s.c}" data-act="lesson" data-id="${s.id}"><span><b>${s.name}</b><small>${I.c.ok} / ${I.n} questions acquises</small></span>${bd(I.st)}</button>`;
 }
 function viewCourse(){
-  const row=s=>{const st=skillStat(s.id);return `<button class="card srow" style="--lc:${s.c}" data-act="sheet" data-id="${s.id}"><span class="tx"><b>${s.name}</b><small>${st.n} questions · acquis à ${st.pct} %</small></span><span aria-hidden="true">›</span></button>`};
-  return `${bubble('k','think','Your lessons',"Les fiches du cours. Relis une fiche, puis entraîne-toi dessus.")}
-  <h2 class="h2">Niveau 2</h2>${SK.filter(s=>s.lvl===2).map(row).join('')}
-  <h2 class="h2">Niveau 1 (révisions)</h2>${SK.filter(s=>s.lvl===1).map(row).join('')}`;
+  return `${bubble('k','think','Your lessons',"Chaque leçon se travaille en étapes : le cours, je reconnais, puis je produis moi-même.")}
+  <h2 class="h2">Niveau 2</h2>${PATH.map(lessonRow).join('')}
+  <h2 class="h2">Niveau 1 (révisions)</h2>${L1.map(lessonRow).join('')}`;
 }
-function viewSheet(){
-  const s=SKM[S.course];const st=skillStat(s.id);
-  return `<button class="lnk" data-act="back">‹ Toutes les fiches</button>
-  <h1 style="font-size:26px;margin:6px 0 12px;text-decoration:underline;text-decoration-color:${s.c};text-decoration-thickness:3px;text-underline-offset:6px">${s.name}</h1>
-  ${s.rooms?`<p class="lbl">S'entraîner pièce par pièce</p><div class="grid2" style="margin-bottom:14px">${Object.entries(s.rooms).map(([k,n])=>`<button class="btn" style="margin:0;font-size:15px" data-act="unit" data-id="${s.id}" data-room="${k}">${n}</button>`).join('')}</div>`:''}
-  <div class="card" style="border-left:6px solid ${s.c}">${s.sheet}</div>
-  ${pbar('Acquis',st.pct,s.c)}
-  <button class="btn red full" data-act="unit" data-id="${s.id}">M'entraîner sur cette fiche</button>`;
+const FMT={mcq:'QCM',match:'Associer',gap:'Compléter',ord:'Construire la phrase',dict:'Dictée'};
+function wordsHtml(s){
+  if(s.id!=='house'||typeof HW==='undefined')return '';
+  const p=cur().q;
+  const wst=w=>{const qs=Q.filter(q=>q.wd===w.en);const st=qs.map(q=>qState(p[q.id]));
+    if(st.every(x=>x==='new'))return 'new';if(st.includes('frag'))return 'frag';if(st.every(x=>x==='ok'))return 'ok';return 'cur'};
+  return `<h2 class="h2">Mes mots</h2>`+Object.keys(s.rooms).map(r=>{
+    const ws=HW.filter(w=>w.room===r),sts=ws.map(wst),nOk=sts.filter(x=>x==='ok').length;
+    return `<details class="wl"><summary><span>${s.rooms[r]}</span><span class="bd ${nOk===ws.length?'ok':nOk?'cur':'new'}">${nOk}/${ws.length} acquis</span></summary>${ws.map((w,i)=>`<div class="wrow"><span><b>${w.en}</b> <small>${w.fr}</small></span>${bd(sts[i])}</div>`).join('')}</details>`;
+  }).join('');
+}
+function viewLesson(){
+  const s=SKM[S.course],I=skillInfo(s.id),pr=cur();
+  const rec=stepPct(s.id,REC),prod=stepPct(s.id,PROD),read=!!(pr.read&&pr.read[s.id]);
+  const tps=t=>[...new Set(Q.filter(q=>q.skill===s.id&&t.includes(q.type)).map(q=>FMT[q.type]))];
+  const steps=[{k:'read',t:'Le cours de Miss Kokkinis',d:'Lire la fiche de la leçon, tranquillement.',done:read}];
+  if(rec!==null)steps.push({k:'rec',t:'Je reconnais',d:"Je comprends quand je le vois ou que je l'entends.",fm:tps(REC),pct:rec,done:rec>=70});
+  if(prod!==null)steps.push({k:'prod',t:'Je produis',d:"Je l'écris moi-même, sans réponses proposées.",fm:tps(PROD),pct:prod,done:prod>=70});
+  const now=steps.findIndex(x=>!x.done);
+  const msg=I.st==='ok'?['cheer','Well done!',"Leçon acquise. Elle reviendra de temps en temps dans ta séance du jour pour rester fraîche."]
+    :I.st==='frag'?['think',"Let's go over it again.","Tu commences à oublier certains points. Une petite révision et ce sera reparti."]
+    :now===0?['happy',"Let's start!","On commence par lire le cours, puis on s'entraîne jusqu'à ce que ce soit à toi."]
+    :['happy',"Keep going!","Continue l'étape en cours. Je te dirai quand c'est acquis."];
+  const stepHtml=(x,i)=>`<button class="stp ${x.done?'done':i===now?'now':'later'}" data-act="step" data-k="${x.k}" data-id="${s.id}"><span class="n">${x.done?'✓':i+1}</span><span style="flex:1"><b>${i+1} · ${x.t}</b><small>${x.d}</small>${x.fm?`<span class="fm">${x.fm.map(f=>`<span>${f}</span>`).join('')}</span>`:''}${x.pct!=null?`<span class="mini"><i style="width:${x.pct}%"></i></span><small>Réussi à ${x.pct} %${x.done?' · validé':' · validé à 70 %'}</small>`:''}</span></button>`
+    +(x.k==='read'&&S.showSheet?`<div class="card" style="border-left:6px solid ${s.c}">${s.sheet}<button class="btn green full" data-act="read" data-id="${s.id}">J'ai lu le cours ✓</button></div>`:'');
+  const cta=now===-1?['Réviser cette leçon','unit','']:steps[now].k==='read'?["Lire le cours",'step','read']:['Continuer · '+steps[now].t,'step',steps[now].k];
+  return `<button class="lnk" data-act="back">‹ Toutes les leçons</button>
+  <h1 style="font-size:26px;margin:6px 0 2px;text-decoration:underline;text-decoration-color:${s.c};text-decoration-thickness:3px;text-underline-offset:6px">${s.name}</h1>
+  <p class="mut">Niveau ${s.lvl} · ${I.n} questions · ${bd(I.st)}</p>
+  ${bubble('k',msg[0],msg[1],msg[2])}
+  ${steps.map(stepHtml).join('')}
+  <button class="btn red full" data-act="${cta[1]}" data-id="${s.id}" data-k="${cta[2]}">${cta[0]}</button>
+  <h2 class="h2">Où j'en suis</h2>
+  <div class="counts"><div><b style="color:var(--green)">${I.c.ok}</b>${bd('ok')}</div><div><b style="color:var(--blue)">${I.c.cur}</b>${bd('cur')}</div><div><b style="color:var(--amber)">${I.c.frag}</b>${bd('frag')}</div><div><b style="color:var(--mute)">${I.c.new}</b>${bd('new')}</div></div>
+  <small>Une question est acquise quand tu l'as réussie 3 fois d'affilée, sur au moins 2 jours différents. La leçon est acquise à 70 % de questions acquises.</small>
+  ${wordsHtml(s)}
+  ${s.rooms?`<p class="lbl" style="margin-top:16px">S'entraîner pièce par pièce</p><div class="grid2" style="margin-bottom:14px">${Object.entries(s.rooms).map(([k,n])=>`<button class="btn" style="margin:0;font-size:15px" data-act="unit" data-id="${s.id}" data-room="${k}">${n}</button>`).join('')}</div>`:''}`;
 }
 function viewProgress(){
   const pr=cur();
@@ -1070,7 +1280,7 @@ function viewProgress(){
   ${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D7263D')}
   <small>Une question compte comme acquise après 3 bonnes réponses d'affilée.</small>
   <h2 class="h2">Par fiche</h2>
-  ${stats.map(x=>pbar(x.s.name+'<span class="lv">N'+x.s.lvl+'</span>',x.pct,x.s.c)).join('')}
+  ${stats.map(x=>pbar(x.s.name+'<span class="lv">N'+x.s.lvl+'</span> '+bd(skillInfo(x.s.id).st),x.pct,x.s.c)).join('')}
   <h2 class="h2">Mes erreurs</h2>
   ${errs.length?errs.map(x=>`<details class="d"><summary>${esc(promptText(x.q))} <small style="display:inline">(ratée ${x.r.wrong} fois)</small></summary><p><b>Bonne réponse :</b> ${esc(ansText(x.q))}</p><div>${x.q.why}</div></details>`).join('')+`<button class="btn red full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:'<p class="mut">Aucune erreur pour l\'instant.</p>'}
   <h2 class="h2">Dernières parties</h2>
@@ -1137,20 +1347,29 @@ function sheetHtml(a,P){
   ${q.us?`<div class="us">Aux États-Unis : ${q.us}</div>`:''}
   <button class="btn ${a.ok?'green':'red'} full" data-act="next">${end?'Terminer':'Continuer'}</button></div></div>`;
 }
+function weekHtml(){
+  const pr=cur(),L=['D','L','M','M','J','V','S'],out=[];
+  for(let i=6;i>=0;i--){const d=new Date(Date.now()-i*DAYMS),k=dayStr(d),y=(pr.days||[]).includes(k);out.push(`<span class="${y?'y':''}${i===0?' t':''}">${y?'✓':L[d.getDay()]}</span>`)}
+  return `<div class="week">${out.join('')}</div>`;
+}
 function viewResult(){
-  const R=S.res,p=R.pct;
-  const msg=p>=.9?['cheer',"Brilliant! Top marks.","Excellent travail."]:p>=.7?['happy',"Very good!","Quelques détails à revoir, c'est tout."]:p>=.4?['think',"Good effort.","Regardons tes erreurs ensemble."]:['oops',"Don't worry!","C'est comme ça qu'on apprend. Relis les corrections ci-dessous."];
+  const R=S.res,p=R.pct,pr=cur(),tn=todayN(pr);
+  const msg=p>=.9?['cheer',"Brilliant!","Excellent travail."]:p>=.7?['happy',"Very good!","Quelques détails à revoir, c'est tout."]:p>=.4?['think',"Good effort.","Regardons tes erreurs ensemble."]:['oops',"Don't worry!","C'est comme ça qu'on apprend. Relis les corrections ci-dessous."];
   const pass=R.mode==='exam'?(R.ok>=17):null;
-  return `${SC}${bubble('k',msg[0],msg[1],msg[2])}
+  const mv=(R.moved||[]).filter(m=>m.a!==m.b||m.gain>0);
+  return `${SC}<div class="hurra"><span class="tch">${teacher('k',msg[0],86)}</span><span class="hand">${msg[1]}</span><small>${R.mode==='day'?'Séance du jour terminée':esc(R.label)} · ${msg[2]}</small></div>
   <div class="gradebox"><span class="grade">${R.ok}/${R.total}</span></div>
   ${pass===null?'':`<div class="pass ${pass?'y':'n'}">${pass?'Examen réussi !':'À repasser : il faut 17/20.'}</div>`}
-  <p class="mut" style="text-align:center">+${R.xp} XP${R.maxCombo>2?' · '+R.maxCombo+' bonnes réponses d\'affilée':''}</p>
+  <p class="mut" style="text-align:center">+${R.xp} XP${R.maxCombo>2?' · '+R.maxCombo+' bonnes réponses d\'affilée':''} · objectif du jour ${Math.min(tn,GOAL)}/${GOAL}${tn>=GOAL?' ✓':''}</p>
+  ${mv.length?`<h2 class="h2">Ce qui a bougé aujourd'hui</h2><div class="card" style="padding:4px 14px">${mv.map(m=>`<div class="mv"><b>${m.name}</b><span>${m.a!==m.b?bd(m.b)+'<span class="ar">→</span>'+bd(m.a):bd(m.a)}${m.gain>0?`<small style="display:block;text-align:right">+${m.gain} question${m.gain>1?'s':''} acquise${m.gain>1?'s':''}</small>`:''}</span></div>`).join('')}</div>`:''}
+  ${R.wrong.length?`<p class="mut">Les ${R.wrong.length} question${R.wrong.length>1?'s':''} ratée${R.wrong.length>1?'s':''} reviendront dans tes prochaines séances.</p>`:''}
+  <h2 class="h2">Ma série</h2>${weekHtml()}
+  <p class="mut" style="text-align:center">${streakNow(pr)} jour${streakNow(pr)>1?'s':''} d'affilée. Reviens demain pour garder ta série.</p>
   ${R.wrong.length?`<h2 class="h2">Corrections (${R.wrong.length})</h2>${R.wrong.map(a=>`<div class="card"><b>${esc(promptText(a.q))}</b>${explainBlock(a)}${a.q.us?`<div class="us">Aux États-Unis : ${a.q.us}</div>`:''}</div>`).join('')}`:'<p class="mut" style="text-align:center">Aucune faute. Parfait !</p>'}
-  <button class="btn red full" data-act="again">Rejouer</button>
-  ${R.wrong.length&&R.mode!=='errors'?`<button class="btn ghost full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:''}
-  <button class="btn ghost full" data-act="go" data-to="home">Retour à l'accueil</button>`;
+  <button class="btn red full" data-act="go" data-to="home">Retour à l'accueil</button>
+  <button class="btn ghost full" data-act="again">${R.mode==='day'?'Encore une séance':'Rejouer'}</button>
+  ${R.wrong.length&&R.mode!=='errors'?`<button class="btn ghost full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:''}`;
 }
-
 function render(){
   if(S.screen!=='play')stopTimer();
   if(!DB.current||!DB.profiles[DB.current])S.screen='profiles';
@@ -1159,7 +1378,7 @@ function render(){
   switch(S.screen){
     case 'profiles':h=viewProfiles();break;
     case 'home':h=SC+hdr()+viewHome()+nav('home');break;
-    case 'course':h=SC+hdr()+(S.course?viewSheet():viewCourse())+nav('course');break;
+    case 'course':h=SC+hdr()+(S.course&&SKM[S.course]?viewLesson():viewCourse())+nav('course');break;
     case 'progress':h=SC+hdr()+viewProgress()+nav('progress');break;
     case 'settings':h=SC+hdr()+viewSettings()+nav('settings');break;
     case 'play':h=viewPlay();break;
@@ -1189,14 +1408,17 @@ const A={
   play:d=>startSession(d.m),
   game:d=>startSession('game',{g:d.g}),
   unit:d=>startSession('unit',{skill:d.id,room:d.room}),
-  again:()=>{const R=S.res;if(R.mode==='unit')startSession('unit',{skill:R.unit,room:R.room});else if(R.mode==='game')startSession('game',{g:R.g});else startSession(R.mode)},
-  sheet:d=>{S.course=d.id;render();window.scrollTo(0,0)},
-  back:()=>{S.course=null;render()},
+  lesson:d=>{S.screen='course';S.course=d.id;S.showSheet=false;render();window.scrollTo(0,0)},
+  step:d=>{if(d.k==='read'){S.showSheet=!S.showSheet;render();return}startSession('unit',{skill:d.id,step:d.k})},
+  read:d=>{const pr=cur();pr.read=pr.read||{};pr.read[d.id]=Date.now();persist();S.showSheet=false;render();toast('Cours lu ✓ Passe à l\'étape suivante.')},
+  again:()=>{const R=S.res;if(R.mode==='day'){startSession('day');return}if(R.mode==='unit')startSession('unit',{skill:R.unit,room:R.room,step:R.step});else if(R.mode==='game')startSession('game',{g:R.g});else startSession(R.mode)},
+  sheet:d=>{S.screen='course';S.course=d.id;S.showSheet=true;render();window.scrollTo(0,0)},
+  back:()=>{S.course=null;S.showSheet=false;render();window.scrollTo(0,0)},
   pick:d=>{const P=S.play;if(P.phase!=='ask')return;P.items[P.i].sel=+d.i;render()},
   check:()=>submit(false),
   next:()=>next(),
   say:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word)},
-  slow:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word,.55)},
+  slow:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word,.6)},
   hint:()=>{const it=S.play.items[S.play.i];it.hint=true;render()},
   tile:d=>{const P=S.play,it=P.items[P.i];if(P.phase!=='ask')return;const t=it.bank.find(x=>x.i===+d.k);if(t&&!it.ans.some(a=>a.i===t.i)){it.ans.push(t);render()}},
   untile:d=>{const P=S.play,it=P.items[P.i];if(P.phase!=='ask')return;it.ans=it.ans.filter(a=>a.i!==+d.k);render()},
@@ -1244,7 +1466,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 render();
-window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm}; // utile pour les tests
+window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice}; // utile pour les tests
 })();
 </script>
 <script>
