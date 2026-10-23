@@ -969,6 +969,22 @@ let DB=load()||{v:1,profiles:{},current:null};
 if(!DB.profiles)DB={v:1,profiles:{},current:null};
 Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor';if(!Array.isArray(p.days))p.days=p.lastDay?[p.lastDay]:[];if(!p.read)p.read={};if(!p.stamps)p.stamps={}});
 const cur=()=>DB.profiles[DB.current];
+/* ---------- statistiques ANONYMES (aucun prénom : juste un numéro tiré au hasard par téléphone) ---------- */
+const API='https://teatime-api.francescopirrone037.workers.dev';
+const QKEY='teatime-stats-q';
+if(!DB.dev){DB.dev=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);persist()}
+let SQ=[];try{SQ=JSON.parse(localStorage.getItem(QKEY)||'[]')||[]}catch(e){SQ=[]}
+function saveQ(){try{localStorage.setItem(QKEY,JSON.stringify(SQ))}catch(e){}}
+function track(t,o){if(DB.noStats)return;SQ.push(Object.assign({t,ts:Date.now()},o||{}));if(SQ.length>400)SQ=SQ.slice(-400);saveQ()}
+function flush(){
+  if(DB.noStats||!SQ.length||navigator.onLine===false)return;
+  const batch=SQ.slice(0,300),pr=cur();
+  const body=JSON.stringify({d:DB.dev,m:pr&&pr.mode==='solo'?'solo':'class',ev:batch});
+  let sent=false;try{sent=!!(navigator.sendBeacon&&navigator.sendBeacon(API+'/e',new Blob([body],{type:'text/plain'})))}catch(e){}
+  if(!sent){try{fetch(API+'/e',{method:'POST',body,keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(()=>{})}catch(e){}}
+  SQ=SQ.slice(batch.length);saveQ();
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush()});
 function newProfile(name,teacher,mode){
   const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
   DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{},stamps:{},mode:mode==='solo'?'solo':'class'};
@@ -1117,7 +1133,8 @@ function startSession(mode,o){
   else if(mode==='last'){label='Dernière leçon';qs=pick(10,{pool:Q.filter(q=>LAST.skills.includes(q.skill))})}
   if(!qs.length){toast(mode==='errors'?"Aucune erreur à revoir pour l'instant 🎉":"Pas de question disponible pour ce choix.");return}
   const snap={};[...new Set(qs.map(q=>q.skill))].forEach(k=>{const I=skillInfo(k);snap[k]={st:I.st,ok:I.c.ok}});
-  S.play={mode,label,fb,timer,items:qs.map(prep),i:0,combo:0,maxCombo:0,xp:0,answers:[],phase:'ask',quit:false,unit:o.skill||null,room:o.room||null,g:o.g||null,step:o.step||null,snap};
+  const mk=mode==='game'?'game:'+o.g:mode==='unit'?(o.step?'unit:'+o.step:'unit'):mode;track('start',{k:mk});
+  S.play={mk,t0:Date.now(),mode,label,fb,timer,items:qs.map(prep),i:0,combo:0,maxCombo:0,xp:0,answers:[],phase:'ask',quit:false,unit:o.skill||null,room:o.room||null,g:o.g||null,step:o.step||null,snap};
   S.screen='play';render();startTimer();autoSay();
 }
 function startTimer(){
@@ -1163,6 +1180,7 @@ function submit(timeout){
   else{r.box=0;r.wrong++;r.lastWrong=Date.now();P.combo=0}
   pr.xp+=gain;P.xp+=gain;
   P.answers.push({q,ok,given,gain});persist();
+  track('ans',{k:q.skill,q:q.id,qt:q.type,ok,p:String(promptText(q)).replace(/<[^>]+>/g,'').slice(0,110)});
   beep(ok);
   if(P.fb){P.phase='fb';render()}
   else next();
@@ -1184,6 +1202,7 @@ function finish(){
   if(P.mode==='last')pr.lastDone=LAST.id;
   persist();
   S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok),unit:P.unit,room:P.room,g:P.g,step:P.step,moved,newStamps};
+  track('end',{k:P.mk,a:ok,b:total,p:String(Math.round((Date.now()-P.t0)/1000))});newStamps.forEach(k=>track('stamp',{k}));flush();
   S.play=null;S.screen='result';render();
 }
 
@@ -1293,6 +1312,7 @@ function viewProfiles(){
   <button class="card${S.newMode==='solo'?' on':''}" data-act="newMode" data-m="solo"><b>Je commence l'anglais</b><small>Je pars du niveau 1 et je débloque les leçons une à une, jusqu'aux dernières.</small></button>
   </div>
   <button class="btn red full" data-act="create" style="margin-top:8px">Commencer</button>
+  <small style="text-align:center;margin-top:8px">Des statistiques anonymes (jamais ton prénom) aident à améliorer l'appli. Désactivable dans Profil.</small>
   ${storageOK?'':'<div class="warn">Ce navigateur bloque la sauvegarde : ouvre le lien dans Safari ou Chrome pour garder ta progression.</div>'}`;
 }
 const GC={quiz:'#1F4FB5',gap:'#D7263D',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
@@ -1488,6 +1508,9 @@ function viewSettings(){
   <h2 class="h2">Mon parcours</h2>
   <div class="seg" role="group" aria-label="Parcours"><button class="${!isSolo()?'on':''}" data-act="myMode" data-m="class">Cours de Miss Kokkinis</button><button class="${isSolo()?'on':''}" data-act="myMode" data-m="solo">Depuis le niveau 1</button></div>
   <small>${isSolo()?"Tu pars du niveau 1 et tu débloques les leçons une à une.":"Tu suis le niveau 2 au rythme de la classe."} Ta progression est gardée si tu changes.</small>
+  <h2 class="h2">Statistiques anonymes</h2>
+  <label class="sw"><input type="checkbox" data-act="stats" ${DB.noStats?'':'checked'}> Aider à améliorer l'appli</label>
+  <small>Envoie des chiffres d'utilisation <b>anonymes</b> : jamais ton prénom, juste ce qu'on utilise et ce qui est difficile. Ta progression reste sur ce téléphone.</small>
   <h2 class="h2">Sauvegarde</h2>
   <p class="mut">Ta progression est gardée sur ce téléphone. Pour la passer sur un autre appareil, génère un code et colle-le là-bas.</p>
   <button class="btn ghost full" data-act="export">Générer mon code</button>
@@ -1618,9 +1641,9 @@ const A={
   unit:d=>startSession('unit',{skill:d.id,room:d.room}),
   newMode:d=>{const el=$('#pname');if(el)S.newName=el.value;S.newMode=d.m;render()},
   myMode:d=>{cur().mode=d.m;persist();render();toast(d.m==='solo'?'Parcours : depuis le niveau 1':'Parcours : cours de Miss Kokkinis')},
-  lesson:d=>{if(!unlocked(d.id)){const i=PATHALL.findIndex(s=>s.id===d.id);toast('Réussis d\'abord « '+PATHALL[i-1].name+' » à '+UNLOCK+' %');return}S.screen='course';S.course=d.id;S.showSheet=false;render();window.scrollTo(0,0)},
+  lesson:d=>{if(!unlocked(d.id)){const i=PATHALL.findIndex(s=>s.id===d.id);toast('Réussis d\'abord « '+PATHALL[i-1].name+' » à '+UNLOCK+' %');return}track('lesson',{k:d.id});S.screen='course';S.course=d.id;S.showSheet=false;render();window.scrollTo(0,0)},
   step:d=>{if(d.k==='read'){S.showSheet=!S.showSheet;render();return}startSession('unit',{skill:d.id,step:d.k})},
-  read:d=>{const pr=cur();pr.read=pr.read||{};pr.read[d.id]=Date.now();persist();S.showSheet=false;render();toast('Cours lu ✓ Passe à l\'étape suivante.')},
+  read:d=>{const pr=cur();pr.read=pr.read||{};pr.read[d.id]=Date.now();persist();track('read',{k:d.id});S.showSheet=false;render();toast('Cours lu ✓ Passe à l\'étape suivante.')},
   again:()=>{const R=S.res;if(R.mode==='day'){startSession('day');return}if(R.mode==='unit')startSession('unit',{skill:R.unit,room:R.room,step:R.step});else if(R.mode==='game')startSession('game',{g:R.g});else startSession(R.mode)},
   sheet:d=>{S.screen='course';S.course=d.id;S.showSheet=true;render();window.scrollTo(0,0)},
   back:()=>{S.course=null;S.showSheet=false;render();window.scrollTo(0,0)},
@@ -1640,8 +1663,9 @@ const A={
   },
   askquit:()=>{S.play.quit=true;stopTimer();render()},
   noquit:()=>{S.play.quit=false;render();startTimer()},
-  quit:()=>{stopTimer();S.play=null;go('home')},
+  quit:()=>{stopTimer();if(S.play)track('quit',{k:S.play.mk,a:S.play.i});flush();S.play=null;go('home')},
   myT:d=>{cur().teacher=d.t;persist();render()},
+  stats:()=>{DB.noStats=!DB.noStats;if(DB.noStats){SQ=[];saveQ()}persist();render()},
   snd:()=>{const pr=cur();pr.sound=!pr.sound;persist();render()},
   export:()=>{
     try{S.code=btoa(unescape(encodeURIComponent(JSON.stringify(cur()))))}catch(e){S.code='';S.msg="Impossible de générer le code."}
@@ -1675,8 +1699,9 @@ app.addEventListener('keydown',e=>{
 app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-sel]'))e.target.select()});
 
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
+track('open');setTimeout(flush,4000);
 render();
-window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill}; // utile pour les tests
+window.__app={S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush}; // utile pour les tests
 })();
 </script>
 <script>
