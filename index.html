@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Gochi+Hand&display=swap">
 <style>
 :root{
-  --bg:#FFFFFF;--ink:#23262D;--mute:#646B76;--line:#D8DDE4;--rule:#E3ECF6;--soft:#F4F6F8;--grey:#CDD1D7;
-  --blue:#1F4FB5;--red:#D7263D;--green:#2E7D32;--green-bg:#EAF5EA;--bad-bg:#FDECEE;--hl:#FFF27A;
+  --bg:#F6EFE2;--card:#FFFDF8;--navy:#1C2E5E;--line1:#1F57B5;--line2:#D02B27;--ink:#1F2430;--mute:#6B6F7A;--line:#E2D8C6;--rule:#EDE3D2;--soft:#EFE7D8;--grey:#CFC6B5;
+  --blue:#1F4FB5;--red:#D7263D;--amber:#B86E00;--green:#2E7D32;--green-bg:#EAF5EA;--bad-bg:#FDECEE;--hl:#FFF27A;
   color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -30,7 +30,7 @@ b{font-weight:700}
 .hand{font-family:"Gochi Hand","Segoe Print","Bradley Hand",cursive;font-weight:400}
 #app{max-width:540px;margin:0 auto;padding:0 18px 104px}
 .scal{height:30px;margin:0 -18px 4px;background:radial-gradient(circle at 50% 0,var(--grey) 0 20px,transparent 21px) center top/52px 30px repeat-x}
-.h2{font-size:18px;font-weight:700;margin:26px 0 10px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.h2{font-size:18px;font-weight:700;margin:24px 0 6px}
 .mut{color:var(--mute);font-size:15px;margin:4px 0 10px}
 .lbl{margin:14px 0 6px;font-weight:700;font-size:15px}
 .warn{background:var(--bad-bg);border-left:3px solid var(--red);padding:10px 12px;font-size:15px;margin:12px 0}
@@ -41,7 +41,7 @@ b{font-weight:700}
 .lnk{background:none;border:0;color:var(--blue);font-weight:700;font-size:15px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
 
 /* boutons & cartes */
-.card{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px;width:100%;text-align:left;display:block}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px;width:100%;text-align:left;display:block}
 button.card{cursor:pointer}
 .btn{font-weight:700;font-size:17px;border:2px solid var(--ink);border-radius:10px;padding:12px 16px;cursor:pointer;background:#fff;color:var(--ink);margin:6px 0}
 .btn:active{transform:translateY(1px)}
@@ -243,6 +243,90 @@ details.d summary{cursor:pointer;font-weight:700}
 .choice .card{margin:0 0 10px;cursor:pointer}.choice .card b{display:block;font-size:17px}
 .choice .card.on{border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--hl)}
 .lrow.lock{opacity:.6}
+
+/* ================= v9 : Tea Time Underground ================= */
+.say{display:flex;gap:10px;align-items:center;margin:12px 0 12px}
+.say .tch{flex:none;line-height:0;border-radius:50%;box-shadow:0 0 0 3px var(--card)}
+.bub{flex:1;background:var(--card);border:0;border-radius:14px;padding:8px 12px;position:relative;box-shadow:0 1px 0 var(--line)}
+.bub:before{content:"";position:absolute;left:-7px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:var(--card);border-left:0}
+.bub .hand{font-size:22px;line-height:1.1;color:var(--red);display:block}
+.bub small{margin-top:3px;color:var(--ink);font-size:14.5px}
+.top2{border-bottom:0;padding:12px 0 8px}
+.chip{background:var(--card);border-color:var(--line)}
+.hero{position:relative;height:230px;border-radius:18px;overflow:hidden;background:#2A2E36;margin:2px 0 0}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.hero.anim .train{animation:arrive 2.4s cubic-bezier(.16,.84,.3,1) .2s both}
+.hero.anim .doorL{animation:openL .6s ease-out 2.7s both}.hero.anim .doorR{animation:openR .6s ease-out 2.7s both}
+.hero:not(.anim) .doorL{transform:translateX(-30px)}.hero:not(.anim) .doorR{transform:translateX(30px)}
+@keyframes arrive{from{transform:translateX(-860px)}to{transform:none}}
+@keyframes openL{to{transform:translateX(-30px)}}@keyframes openR{to{transform:translateX(30px)}}
+.blink{animation:blink 1.4s steps(2) infinite}@keyframes blink{50%{opacity:.25}}
+.board{display:block;width:100%;text-align:left;font:inherit;border:0;cursor:pointer;background:var(--navy);color:#fff;border-radius:16px;padding:14px 16px;position:relative;overflow:hidden;margin:2px 0 4px}
+.board>b{font-size:20px;display:block;line-height:1.2}.board .s{opacity:.8;font-size:13.5px}
+.board ul{list-style:none;margin:8px 0 12px;padding:0;font-size:14.5px}.board li{display:flex;gap:8px;align-items:center;margin:4px 0;line-height:1.3}
+.board li i{width:9px;height:9px;border-radius:50%;flex:none}
+.board .go{display:block;background:var(--hl);color:var(--ink);text-align:center;font-weight:700;font-size:17px;border-radius:11px;padding:11px}
+.board.done{background:var(--green)}
+.board:active{transform:translateY(1px)}
+.ticket{position:absolute;right:-8px;top:16px;width:104px;height:30px;background:#F2C230;color:var(--ink);transform:rotate(14deg);border-radius:6px;font-weight:700;font-size:10px;display:grid;place-items:center;letter-spacing:.06em}
+.lmap{margin:6px 0 0;padding-left:2px}
+.stn{display:flex;align-items:center;gap:12px;min-height:52px;position:relative;width:100%;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.stn .dot{width:26px;height:26px;border-radius:50%;background:#fff;border:5px solid var(--lc);position:relative;z-index:2;flex:none;margin-left:7px;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff}
+.stn .nm{font-weight:700;font-size:15.5px;line-height:1.15;display:block}
+.stn .tg{font-size:12.5px;color:var(--mute);display:block}
+.lseg{position:absolute;left:15px;top:38px;height:28px;width:10px;background:var(--lc);z-index:1}
+.lseg.dash{background:repeating-linear-gradient(var(--grey) 0 7px,transparent 7px 12px)}
+.stn.ok .dot{background:var(--lc)}
+.stn.frag .dot{background:#C27A12;border-color:#C27A12}
+.stn.now .dot{width:40px;height:40px;margin-left:0;border-color:var(--ink);background:var(--hl);animation:pulse2 2s infinite}
+.stn.now .lseg{top:44px;height:22px}
+@keyframes pulse2{0%,100%{box-shadow:0 0 0 4px rgba(255,226,122,.5)}50%{box-shadow:0 0 0 10px rgba(255,226,122,.2)}}
+.stn.lock .nm{color:#9A9488}.stn.lock .dot{border-color:var(--grey);background:var(--soft);font-size:11px}
+.stn.new .dot{background:#fff}
+.stamp{margin-left:auto;font-weight:700;font-size:10px;letter-spacing:.06em;color:var(--green);border:2px solid var(--green);border-radius:6px;padding:1px 6px;transform:rotate(-8deg);opacity:.85;white-space:nowrap;flex:none}
+.stamp.f{color:#B06A0C;border-color:#C27A12}
+.ptag{margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;flex:none;background:#E3ECFA;color:var(--line1)}
+.ptag.g{background:var(--soft);color:#7D7768}
+.xchg{display:flex;align-items:center;gap:10px;width:100%;margin:8px 0 0;padding:10px 12px;background:var(--card);border:0;border-radius:12px;font:inherit;font-size:14px;text-align:left;cursor:pointer;color:inherit}
+.xchg .l{width:30px;height:10px;border-radius:5px;flex:none}
+.sign{margin:8px 0 4px;background:var(--navy);border-radius:10px;padding:14px 12px;text-align:center;color:#fff;box-shadow:inset 0 0 0 4px var(--navy),inset 0 0 0 6px #F4E9D2}
+.sign small{display:block;font-size:11px;letter-spacing:.2em;color:#fff;opacity:.8}.sign b{font-size:24px;letter-spacing:.1em;line-height:1.2;display:block}
+.trip{background:var(--card);border-radius:16px;padding:10px 14px;margin:10px 0}
+.leg{display:flex;gap:12px;position:relative;padding:8px 0;width:100%;background:none;border:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.leg .d{width:22px;height:22px;border-radius:50%;border:4px solid var(--line2);background:#fff;flex:none;margin-top:2px;z-index:2}
+.leg.ok .d{background:var(--line2)}
+.leg.now .d{border-color:var(--ink);background:var(--hl);width:28px;height:28px;margin-left:-3px;margin-right:-3px}
+.leg:not(:last-child):after{content:"";position:absolute;left:8px;top:28px;bottom:-10px;width:6px;background:var(--line2);z-index:1}
+.leg.todo:not(:last-child):after,.leg.now:not(:last-child):after{background:repeating-linear-gradient(var(--line2) 0 6px,transparent 6px 11px)}
+.leg b{display:block;font-size:15.5px}.leg small{font-size:13px}
+.leg .fm{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.leg .fm span{font-size:11.5px;background:var(--soft);border:0;border-radius:99px;padding:1px 8px}
+.mbar{display:block;height:6px;background:#EEE6D6;border-radius:3px;margin-top:6px;overflow:hidden}.mbar i{display:block;height:100%;background:var(--line2)}
+.passport{margin:12px auto 0;max-width:320px;min-height:200px;background:#FBF6EC;border-radius:10px;position:relative;box-shadow:0 2px 0 var(--line),inset 0 0 0 1px #EADFCB;background-image:repeating-linear-gradient(#FBF6EC 0 27px,#EFE6D5 27px 28px);overflow:hidden}
+.passport .pt{position:absolute;left:14px;top:8px;font-size:10.5px;letter-spacing:.18em;color:var(--mute);font-weight:700}
+.bigstamp{position:absolute;left:50%;top:54%;width:200px;margin-left:-100px;transform:translateY(-50%) rotate(-9deg);border:5px solid var(--red);border-radius:14px;color:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;background:rgba(208,43,39,.05);text-align:center;animation:thud .5s cubic-bezier(.3,1.6,.6,1) .5s both}
+.bigstamp b{font-size:21px;letter-spacing:.06em;line-height:1.15}.bigstamp small{font-size:10px;letter-spacing:.2em;font-weight:700;color:var(--red)}
+@keyframes thud{0%{transform:translateY(-50%) rotate(-9deg) scale(2.2);opacity:0}100%{transform:translateY(-50%) rotate(-9deg) scale(1);opacity:1}}
+.oldst{position:absolute;font-size:9px;font-weight:700;letter-spacing:.08em;padding:4px 7px;border:2.5px solid;border-radius:50%;opacity:.55;white-space:nowrap}
+.pp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.pp div{aspect-ratio:1.25;border-radius:10px;display:grid;place-items:center;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:4px;line-height:1.2}
+.pp .y{border:3px solid var(--c);color:var(--c);transform:rotate(var(--r));background:rgba(255,255,255,.4)}
+.pp .y small{font-size:9px;color:inherit;opacity:.8;margin:0}
+.pp .n{border:2px dashed var(--grey);color:#A59E90}
+.pot{animation:hop 1.2s ease-in-out .9s 2 both;transform-origin:50% 100%}
+@keyframes hop{0%,100%{transform:none}40%{transform:translateY(-14px) rotate(-4deg)}60%{transform:translateY(0) rotate(3deg)}}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.confetti i{position:absolute;width:8px;height:12px;top:-20px;animation:fall 2.6s linear both}
+@keyframes fall{90%{opacity:1}to{transform:translateY(110vh) rotate(540deg);opacity:0}}
+.rewhead{text-align:center;margin-top:10px}
+.rewhead .hand{display:block;font-size:42px;line-height:1;color:var(--red);animation:pop .5s ease-out both}
+.potrow{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+.potrow .hand{font-size:46px;color:var(--red);line-height:1}
+.brand2{text-align:center;margin:18px 0 0}
+.brand2 .brand{margin:6px 0 0}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:12px;padding:8px 10px}
+.nav button svg{width:24px;height:24px}
+.nav .on{text-decoration:none;color:var(--red)}
+.nav{background:var(--card);border-top-color:var(--line)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -883,11 +967,11 @@ function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):nul
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){storageOK=false;try{memCopy=JSON.parse(JSON.stringify(DB))}catch(_){}}}
 let DB=load()||{v:1,profiles:{},current:null};
 if(!DB.profiles)DB={v:1,profiles:{},current:null};
-Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor';if(!Array.isArray(p.days))p.days=p.lastDay?[p.lastDay]:[];if(!p.read)p.read={}});
+Object.values(DB.profiles).forEach(p=>{p.teacher='eleanor';if(!Array.isArray(p.days))p.days=p.lastDay?[p.lastDay]:[];if(!p.read)p.read={};if(!p.stamps)p.stamps={}});
 const cur=()=>DB.profiles[DB.current];
 function newProfile(name,teacher,mode){
   const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
-  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{},mode:mode==='solo'?'solo':'class'};
+  DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{},stamps:{},mode:mode==='solo'?'solo':'class'};
   DB.current=id;persist();
 }
 const dayStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -937,29 +1021,45 @@ function toast(m){
   el.textContent=m;el.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>{el.style.display='none'},2400);
 }
 
-/* ---------- la prof : petit dessin au stylo ---------- */
+/* ---------- la prof : Miss Kokkinis, en formes simples ---------- */
+let TCN=0;
 function teacher(who,mood,size){
-  const INK='#23262D',HAIR='#9C7753',HAIR2='#C09A6E',SKIN='#F8E6D6',TOP='#8E2A44';
-  const mouth={happy:'M42 66 Q50 73 58 66',cheer:'M41 65 Q50 79 59 65 Z',think:'M44 69 Q50 70 56 68',oops:'M43 71 Q50 65 57 71'}[mood]||'M42 66 Q50 73 58 66';
-  const browL=mood==='oops'?'M35 49 L45 45':mood==='think'?'M35 47 L45 47':'M35 47 Q40 44 45 47';
-  const browR=mood==='oops'?'M65 49 L55 45':mood==='think'?'M55 43 L65 47':'M55 47 Q60 44 65 47';
-  const teeth=mood==='cheer'?`<path d="M43.5 66.2 Q50 69 56.5 66.2 L57.2 67.6 Q50 70.6 42.8 67.6Z" fill="#fff" stroke="none"/>`:'';
-  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" role="img" aria-label="Miss Kokkinis" fill="none" stroke="${INK}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M50 11 C29 11 20 28 21 50 C22 62 16 70 20 79 C23 86 18 91 23 97 L77 97 C82 91 77 86 80 79 C84 70 78 62 79 50 C80 28 71 11 50 11Z" fill="${HAIR}"/>
-  <path d="M43 76 L43 88 C46 91 54 91 57 88 L57 76Z" fill="${SKIN}"/>
-  <path d="M14 100 C16 90 30 85 43 86 C47 90 53 90 57 86 C70 85 84 90 86 100Z" fill="${TOP}"/>
-  <path d="M31 47 C31 68 40 79 50 79 C60 79 69 68 69 47 C69 31 60 23 50 23 C40 23 31 31 31 47Z" fill="${SKIN}"/>
-  <path d="M30 52 C28 33 38 21 50 21 C62 21 72 33 70 52 C67 42 59 33 51 28 C44 34 35 42 30 52Z" fill="${HAIR}"/>
-  <path d="M38 33 C42 29 46 28 50 27 M62 33 C58 29 54 28 50 27" stroke="${HAIR2}" stroke-width="1.6"/>
-  <path d="M27 58 C24 68 29 74 25 84 C23 90 27 93 26 97" stroke="${HAIR2}" stroke-width="1.8"/>
-  <path d="M73 58 C76 68 71 74 75 84 C77 90 73 93 74 97" stroke="${HAIR2}" stroke-width="1.8"/>
-  <circle cx="31" cy="62" r="2.2" stroke="#C9A24A" stroke-width="1.6"/>
-  <circle cx="38" cy="62" r="4" fill="#F2B8B0" stroke="none" opacity=".55"/><circle cx="62" cy="62" r="4" fill="#F2B8B0" stroke="none" opacity=".55"/>
-  <path d="${browL} ${browR}" stroke="#6B4C33"/>
-  <circle cx="42" cy="53" r="2" fill="${INK}" stroke="none"/><circle cx="58" cy="53" r="2" fill="${INK}" stroke="none"/>
-  <path d="M50 55 L48.4 60.5 L51.6 61"/>
-  <path d="${mouth}" ${mood==='cheer'?'fill="#B3243A"':''}/>${teeth}
-  </svg>`;
+  const id='tk'+(TCN++);
+  const eyes=(mood==='think'||mood==='oops')
+    ?'<circle cx="-20" cy="4" r="6" fill="#2A2420"/><circle cx="20" cy="4" r="6" fill="#2A2420"/><circle cx="-18" cy="2" r="2" fill="#fff"/><circle cx="22" cy="2" r="2" fill="#fff"/>'
+    :'<path d="M-28 6Q-20 -2 -12 6M12 6Q20 -2 28 6" stroke="#2A2420" stroke-width="5" fill="none" stroke-linecap="round"/>';
+  const brows=mood==='oops'?'<path d="M-30 -14L-12 -18M30 -14L12 -18" stroke="#7A5638" stroke-width="4" stroke-linecap="round"/>'
+    :mood==='think'?'<path d="M-30 -12L-12 -12M12 -18L30 -12" stroke="#7A5638" stroke-width="4" stroke-linecap="round"/>':'';
+  const mouth=mood==='cheer'?'<path d="M-18 28Q0 52 18 28Q0 34 -18 28Z" fill="#B3243A" stroke="#B3243A" stroke-width="3" stroke-linejoin="round"/><path d="M-12 31Q0 35 12 31L11 34Q0 37 -11 34Z" fill="#fff"/>'
+    :mood==='think'?'<path d="M-10 34Q2 36 12 31" stroke="#B3243A" stroke-width="4.5" fill="none" stroke-linecap="round"/>'
+    :mood==='oops'?'<path d="M-12 36Q0 28 12 36" stroke="#B3243A" stroke-width="4.5" fill="none" stroke-linecap="round"/>'
+    :'<path d="M-15 29Q0 43 15 29" stroke="#B3243A" stroke-width="5" fill="none" stroke-linecap="round"/>';
+  return `<svg viewBox="-128 -128 256 256" width="${size}" height="${size}" role="img" aria-label="Miss Kokkinis"><circle r="128" fill="#E8D3C6"/><clipPath id="${id}"><circle r="128"/></clipPath><g clip-path="url(#${id})">
+<path d="M-74 -10C-80 -96 80 -96 74 -10C78 40 70 100 84 140H-84C-70 100 -78 40 -74 -10Z" fill="#A27A55"/>
+<path d="M-110 150C-104 92 -60 78 0 78C60 78 104 92 110 150Z" fill="#8E2A44"/><path d="M-16 74V92Q0 100 16 92V74Z" fill="#EDCDB6"/>
+<ellipse cx="0" cy="0" rx="50" ry="60" fill="#F6DFCF"/>
+<path d="M-56 18C-62 -50 -24 -76 0 -66C24 -76 62 -50 56 18C50 -18 30 -40 4 -50C-20 -36 -44 -18 -56 18Z" fill="#A27A55"/>
+<path d="M-60 10C-66 50 -56 80 -66 120M60 10C66 50 56 80 66 120" stroke="#C8A27A" stroke-width="5" fill="none" stroke-linecap="round"/>
+${eyes}${brows}
+<ellipse cx="-30" cy="22" rx="9" ry="5" fill="#EFA59B" opacity=".7"/><ellipse cx="30" cy="22" rx="9" ry="5" fill="#EFA59B" opacity=".7"/>
+${mouth}<circle cx="-50" cy="30" r="5" fill="none" stroke="#D1A93A" stroke-width="3"/></g></svg>`;
+}
+/* ---------- Earl Grey, la théière mascotte ---------- */
+function teapot(sz,hop){
+  return `<svg viewBox="-135 -110 270 240" width="${sz}" height="${Math.round(sz*240/270)}" class="${hop?'pot':''}" role="img" aria-label="Earl Grey, la théière">
+<ellipse cx="0" cy="112" rx="88" ry="10" fill="#000" opacity=".1"/>
+<path d="M-62 10C-92 4 -104 -24 -118 -30C-124 -32 -126 -26 -122 -22C-108 -6 -104 30 -66 44Z" fill="#F8F5EE"/>
+<path d="M66 -18C112 -24 116 50 64 52" stroke="#F8F5EE" stroke-width="16" fill="none" stroke-linecap="round"/>
+<ellipse cx="0" cy="22" rx="84" ry="78" fill="#FBF9F4"/><path d="M-84 22a84 78 0 0 0 168 0" fill="#F1ECE2"/>
+<path d="M-80 52Q0 74 80 52" stroke="#22408F" stroke-width="7" fill="none"/>
+<g fill="#22408F"><circle cx="-50" cy="70" r="4"/><circle cx="-16" cy="78" r="4"/><circle cx="18" cy="78" r="4"/><circle cx="52" cy="70" r="4"/></g>
+<ellipse cx="0" cy="-52" rx="52" ry="12" fill="#22408F"/><path d="M-40 -56Q0 -92 40 -56Z" fill="#FBF9F4"/><circle cx="0" cy="-86" r="11" fill="#D7263D"/>
+<path d="M-38 6Q-26 -6 -14 6M14 6Q26 -6 38 6" stroke="#23262D" stroke-width="6" fill="none" stroke-linecap="round"/>
+<circle cx="-26" cy="8" r="17" fill="none" stroke="#8E2A44" stroke-width="4"/><circle cx="26" cy="8" r="17" fill="none" stroke="#8E2A44" stroke-width="4"/><path d="M-9 6Q0 0 9 6" stroke="#8E2A44" stroke-width="4" fill="none"/>
+<ellipse cx="-46" cy="30" rx="10" ry="6" fill="#F2A7A0" opacity=".8"/><ellipse cx="46" cy="30" rx="10" ry="6" fill="#F2A7A0" opacity=".8"/>
+<path d="M-16 30Q0 50 16 30Z" fill="#B3243A"/>
+<path d="M-126 -44c-8-12 6-16 -2-28M-110 -50c-8-12 6-16 -2-28" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M94 -40l6 -12 6 12 -12 -6h12z" fill="#F2C230"/><path d="M-96 -90l4 -8 4 8 -8 -4h8z" fill="#F2C230"/></svg>`;
 }
 const bubble=(who,mood,en,fr,size)=>`<div class="say"><div class="tch">${teacher(who,mood,size||62)}</div><div class="bub"><span class="hand">${en}</span>${fr?`<small>${fr}</small>`:''}</div></div>`;
 
@@ -1078,11 +1178,12 @@ function finish(){
   const bonus=20;pr.xp+=bonus;touchStreak(pr);
   const tday=dayStr(new Date());if(!pr.days.includes(tday)){pr.days.push(tday);pr.days=pr.days.slice(-60)}
   const moved=Object.keys(P.snap||{}).map(k=>{const I=skillInfo(k),b=P.snap[k];return{k,name:SKM[k].name,b:b.st,a:I.st,gain:I.c.ok-b.ok}});
+  pr.stamps=pr.stamps||{};const newStamps=moved.filter(m=>m.a==='ok'&&!pr.stamps[m.k]).map(m=>{pr.stamps[m.k]=Date.now();return m.k});
   pr.hist.unshift({t:Date.now(),label:P.label,ok,total,exam:P.mode==='exam'});pr.hist=pr.hist.slice(0,30);
   if(P.mode==='exam')pr.bestExam=Math.max(pr.bestExam||0,ok);
   if(P.mode==='last')pr.lastDone=LAST.id;
   persist();
-  S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok),unit:P.unit,room:P.room,g:P.g,step:P.step,moved};
+  S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok),unit:P.unit,room:P.room,g:P.g,step:P.step,moved,newStamps};
   S.play=null;S.screen='result';render();
 }
 
@@ -1161,22 +1262,27 @@ function buildDay(){
 /* =====================================================================
    4. VUES
    ===================================================================== */
-const SC='<div class="scal" aria-hidden="true"></div>';
+const SC='';
 function greet(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'}
 function ring(p){const c=94.25;return `<svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" stroke="#E3E6EA" stroke-width="4" fill="none"/><circle cx="18" cy="18" r="15" stroke="#2E7D32" stroke-width="4" fill="none" stroke-dasharray="${Math.min(1,p)*c} ${c}" transform="rotate(-90 18 18)" stroke-linecap="round"/></svg>`}
 function hdr(){
   const pr=cur(),tn=todayN(pr);
   return `<header class="top2"><div><div class="nm">${esc(pr.name)}</div><button class="lnk" data-act="switch">Changer de profil</button></div><div class="chips"><span class="chip" title="Jours d'affilée">🔥 ${streakNow(pr)} j</span><span class="chip" title="Objectif du jour : ${GOAL} réponses">${ring(tn/GOAL)} ${Math.min(tn,GOAL)}/${GOAL}</span></div></header>`;
 }
+const NAVI={
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/></svg>',
+ course:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v18M18 3v18M6 9h12M6 15h12"/></svg>',
+ progress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="11" r="3.5"/><path d="M8 17h8"/></svg>',
+ settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 15-5 16 0"/></svg>'};
 function nav(on){
-  const it=[['home','Accueil'],['course','Leçons'],['progress','Progrès'],['settings','Profil']];
-  return `<nav class="nav">${it.map(([k,l])=>`<button class="${k===on?'on':''}" data-act="go" data-to="${k}">${l}</button>`).join('')}</nav>`;
+  const it=[['home','Accueil'],['course','Lignes'],['progress','Passeport'],['settings','Profil']];
+  return `<nav class="nav">${it.map(([k,l])=>`<button class="${k===on?'on':''}" data-act="go" data-to="${k}">${NAVI[k]}${l}</button>`).join('')}</nav>`;
 }
 const pbar=(l,p,c)=>`<div class="prow2"><div class="r"><span>${l}</span><span>${p} %</span></div><div class="bar" style="${c?'--lc:'+c:''}"><i style="width:${p}%"></i></div></div>`;
 
 function viewProfiles(){
   const ps=Object.values(DB.profiles).sort((a,b)=>b.created-a.created);
-  return `${SC}<div class="brand">Tea Time English</div><small>Les exercices du cours d'anglais de Miss Kokkinis</small>
+  return `<div class="brand2">${teapot(130,true)}<div class="brand">Tea Time English</div><small>Les cours d'anglais de Miss Kokkinis, en jeu</small></div>
   ${bubble('k','cheer',ps.length?'Hello again!':"Hello! I'm Miss Kokkinis.",ps.length?"Qui fait ses exercices aujourd'hui ?":"Écris ton prénom : ta progression et tes erreurs seront gardées sur ce téléphone.")}
   ${ps.length?`<h2 class="h2">Qui joue ?</h2>${ps.map(p=>`<button class="card prow" data-act="login" data-id="${p.id}"><div><b>${esc(p.name)}</b><small>${rank(p.xp)} · ${p.xp} XP</small></div></button>`).join('')}`:''}
   <h2 class="h2">${ps.length?'Nouveau profil':'Ton prénom'}</h2>
@@ -1190,19 +1296,68 @@ function viewProfiles(){
   ${storageOK?'':'<div class="warn">Ce navigateur bloque la sauvegarde : ouvre le lien dans Safari ou Chrome pour garder ta progression.</div>'}`;
 }
 const GC={quiz:'#1F4FB5',gap:'#D7263D',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
-const BD={ok:'Acquis',frag:'Fragile',cur:'En cours',new:'Nouveau'};
+const BD={ok:'Acquise',frag:'Fragile',cur:'En cours',new:'Nouvelle'};
 const bd=st=>`<span class="bd ${st}">${BD[st]}</span>`;
-const OFF=[6,58,110,58];
-function pathHtml(list,fid){
-  return '<div class="path">'+list.map((s,i)=>{
-    const I=skillInfo(s.id),isF=s.id===fid,lk=!unlocked(s.id);
-    if(lk)return `<button class="node lock" style="padding-left:${OFF[i%4]}px" data-act="lesson" data-id="${s.id}"><span class="c">🔒</span><span class="tx"><b>${s.name}</b><span class="st">Bloquée pour l'instant</span></span></button>`+(i<list.length-1?`<div class="link" style="margin-left:${OFF[(i+1)%4]+27}px"></div>`:'');
-    const ic=isF?'▶':I.st==='ok'?'✓':I.st==='frag'?'!':(i+1);
-    const lab=isF?(I.st==='new'?'À commencer':'En cours · '+I.pct+' %')
-      :I.st==='ok'?'Acquis':I.st==='frag'?'Fragile · à revoir'
-      :I.st==='new'?(!isSolo()&&LAST.skills.includes(s.id)?'Vu en classe récemment':'Pas encore commencé'):'En cours · '+I.pct+' %';
-    return `<button class="node ${I.st}${isF?' focus':''}" style="padding-left:${OFF[i%4]}px" data-act="lesson" data-id="${s.id}"><span class="c">${ic}</span><span class="tx"><b>${s.name}</b><span class="st">${lab}</span></span></button>`
-      +(i<list.length-1?`<div class="link" style="margin-left:${OFF[(i+1)%4]+27}px"></div>`:'');
+const short=sid=>SKM[sid].name.split(' · ')[0];
+const lineColor=s=>s.lvl===1?'var(--line1)':'var(--line2)';
+/* ---------- la station et la rame (illustration) ---------- */
+function heroHtml(f){
+  const P=myPath().filter(s=>unlocked(s.id));
+  const nxt=f?P.slice(P.indexOf(f)+1).find(s=>skillInfo(s.id).st!=='ok'):null;
+  const l1=(f?short(f.id):'Révisions').slice(0,18),l2=nxt?short(nxt.id).slice(0,18):'Terminus';
+  const anim=!S.heroSeen;S.heroSeen=true;
+  return `<div class="hero${anim?' anim':''}" aria-hidden="true"><svg viewBox="0 60 800 520" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="hwl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9A988"/><stop offset=".3" stop-color="#E9DFC8"/><stop offset="1" stop-color="#F1E9D6"/></linearGradient>
+<pattern id="htl" width="44" height="22" patternUnits="userSpaceOnUse"><path d="M0 21.5H44M43.5 0V22" stroke="#D8CBAE" stroke-width="1"/></pattern>
+<linearGradient id="hgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B4A60"/><stop offset="1" stop-color="#1E2633"/></linearGradient>
+<linearGradient id="hbd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9D8D2"/><stop offset=".18" stop-color="#F7F6F1"/><stop offset="1" stop-color="#E9E7E0"/></linearGradient>
+<linearGradient id="hrf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".45" stop-color="#fff" stop-opacity=".22"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<filter id="hled"><feGaussianBlur stdDeviation="1.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<clipPath id="htc"><path d="M-40 400Q-40 352 10 352L640 352Q712 352 742 410L772 470Q784 495 784 530V676H-40Z"/></clipPath></defs>
+<rect width="800" height="700" fill="url(#hwl)"/><rect width="800" height="700" fill="url(#htl)"/>
+<path d="M0 0H800V120C640 40 160 40 0 120Z" fill="#2A2E36"/>
+<rect x="152" y="80" width="96" height="9" rx="4.5" fill="#FFF7DF"/><rect x="552" y="80" width="96" height="9" rx="4.5" fill="#FFF7DF"/>
+<rect y="318" width="800" height="16" fill="#2F5D4E"/><rect y="338" width="800" height="5" fill="#8E2A44"/>
+<g transform="translate(262 196)"><rect width="276" height="62" rx="6" fill="#1C2E5E"/><rect x="4" y="4" width="268" height="54" rx="4" fill="none" stroke="#F4E9D2" stroke-width="2"/><text x="138" y="42" font-size="30" font-weight="700" text-anchor="middle" fill="#fff" letter-spacing="5" font-family="Andika,sans-serif">TEA TIME</text></g>
+<g transform="translate(270 112)"><path d="M40 -40V0M220 -40V0" stroke="#3A3F49" stroke-width="3"/><rect width="260" height="60" rx="6" fill="#111317"/><rect x="5" y="5" width="250" height="50" rx="3" fill="#050607"/>
+<g filter="url(#hled)" fill="#FFA21A" font-family="'Courier New',monospace" font-weight="700"><text x="16" y="25" font-size="14">1  ${esc(l1)}</text><text x="244" y="25" font-size="14" text-anchor="end" class="blink">due</text><text x="16" y="45" font-size="12" opacity=".85">2  ${esc(l2)}</text><text x="244" y="45" font-size="12" text-anchor="end" opacity=".85">next</text></g></g>
+<g transform="translate(46 150)"><rect width="150" height="150" rx="4" fill="#1C1F25"/><rect x="6" y="6" width="138" height="138" fill="#F4E9D2"/><circle cx="75" cy="64" r="40" fill="#D7263D"/><path d="M52 52h40v18a20 20 0 0 1-40 0z" fill="#fff"/><path d="M92 56a9 9 0 0 1 0 16" stroke="#fff" stroke-width="5" fill="none"/><rect x="44" y="86" width="56" height="5" rx="2.5" fill="#fff"/><text x="75" y="122" font-size="15" font-weight="700" text-anchor="middle" fill="#1C1F25" font-family="Andika,sans-serif">TEA TIME</text></g>
+<g transform="translate(604 150)"><rect width="150" height="150" rx="4" fill="#1C1F25"/><rect x="6" y="6" width="138" height="138" fill="#24447A"/><circle cx="110" cy="40" r="16" fill="#F2C230"/><g fill="#F4E9D2"><rect x="58" y="44" width="30" height="96"/><path d="M58 44 73 14 88 44Z"/><rect x="20" y="104" width="38" height="36"/><rect x="88" y="96" width="44" height="44"/></g><circle cx="73" cy="62" r="8" fill="#24447A"/></g>
+<g class="train"><g clip-path="url(#htc)">
+<rect x="-40" y="340" width="840" height="340" fill="url(#hbd)"/><rect x="-40" y="352" width="840" height="20" fill="#C9C8C1"/>
+<rect x="-40" y="604" width="840" height="76" fill="#22408F"/>
+<rect x="0" y="420" width="104" height="110" rx="14" fill="url(#hgl)"/><rect x="296" y="420" width="104" height="110" rx="14" fill="url(#hgl)"/>
+<g stroke="#E8B923" stroke-width="4"><path d="M76 420V530M352 420V530"/></g>
+<g fill="#141B26"><circle cx="38" cy="476" r="15"/><path d="M14 530c0-28 12-38 24-38s24 10 24 38z"/><circle cx="338" cy="470" r="14"/><path d="M314 530c0-28 12-40 24-40s24 12 24 40z"/></g>
+<rect x="0" y="420" width="104" height="110" rx="14" fill="url(#hrf)"/><rect x="296" y="420" width="104" height="110" rx="14" fill="url(#hrf)"/>
+<rect x="126" y="392" width="146" height="212" fill="#111"/>
+<g class="doorL"><rect x="126" y="392" width="72" height="212" fill="#D02B27"/><rect x="140" y="414" width="44" height="118" rx="8" fill="url(#hgl)"/></g>
+<g class="doorR"><rect x="200" y="392" width="72" height="212" fill="#D02B27"/><rect x="214" y="414" width="44" height="118" rx="8" fill="url(#hgl)"/></g>
+<rect x="426" y="392" width="146" height="212" fill="#D02B27"/><rect x="440" y="414" width="44" height="118" rx="8" fill="url(#hgl)"/><rect x="514" y="414" width="44" height="118" rx="8" fill="url(#hgl)"/><path d="M499 392V604" stroke="#1C1F25" stroke-width="4"/>
+<path d="M640 352Q712 352 742 410L772 470Q784 495 784 530V604H700V352Z" fill="#F4F3EE"/>
+<path d="M700 380H726Q740 392 750 412L766 446Q770 456 760 460H700Z" fill="url(#hgl)"/>
+<rect x="700" y="470" width="70" height="20" rx="3" fill="#0B0C0E"/><text x="735" y="485" font-size="11" text-anchor="middle" fill="#FFA21A" font-family="'Courier New',monospace" font-weight="700">TEA TIME</text>
+<ellipse cx="768" cy="560" rx="10" ry="7" fill="#FFF3B0"/><path d="M700 604H784V680H700Z" fill="#D02B27"/></g>
+<path d="M-40 400Q-40 352 10 352L640 352Q712 352 742 410L772 470Q784 495 784 530" fill="none" stroke="#9E9D96" stroke-width="3"/></g>
+<rect y="664" width="800" height="14" fill="#14161A"/><rect y="676" width="800" height="40" fill="#C9C0AF"/><rect y="676" width="800" height="16" fill="#F2C230"/>
+</svg></div>`;
+}
+/* ---------- plan de ligne ---------- */
+const TRAIN_IC='<svg viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="5" width="18" height="12" rx="4" fill="#D02B27"/><rect x="6" y="8" width="5" height="4" rx="1" fill="#fff"/><rect x="13" y="8" width="5" height="4" rx="1" fill="#fff"/><circle cx="8" cy="19" r="1.8" fill="#1F2430"/><circle cx="16" cy="19" r="1.8" fill="#1F2430"/></svg>';
+function lineHtml(list,fid){
+  const st=list.map(s=>{const lk=!unlocked(s.id);const I=lk?null:skillInfo(s.id);return{s,lk,I,now:!lk&&s.id===fid}});
+  return '<div class="lmap">'+st.map((x,i)=>{
+    const s=x.s,c=lineColor(s),nx=st[i+1];
+    const cls=x.lk?'lock':x.now?'now':x.I.st;
+    const dot=x.lk?'🔒':x.now?TRAIN_IC:x.I.st==='ok'?'✓':x.I.st==='frag'?'!':'';
+    const tag=x.lk?'Se débloque après la station précédente'
+      :x.now?(x.I.st==='new'?'Tu es ici · à commencer':'Tu es ici · '+x.I.pct+' %')
+      :x.I.st==='cur'?'En cours · '+x.I.pct+' %'
+      :x.I.st==='new'?'Pas encore commencée':'';
+    const right=x.lk?'':x.I.st==='ok'?'<span class="stamp">ACQUISE</span>':x.I.st==='frag'?'<span class="stamp f">À REVOIR</span>'
+      :(!isSolo()&&LAST.skills.includes(s.id)&&x.I.st!=='ok')?'<span class="ptag">vu en classe</span>':'';
+    const seg=nx?`<span class="lseg${nx.lk?' dash':''}" style="--lc:${c}"></span>`:'';
+    return `<button class="stn ${cls}" style="--lc:${c}" data-act="lesson" data-id="${s.id}">${seg}<span class="dot">${dot}</span><span><span class="nm">${s.name}</span>${tag?`<span class="tg">${tag}</span>`:''}</span>${right}</button>`;
   }).join('')+'</div>';
 }
 function homeMsg(f){
@@ -1226,17 +1381,20 @@ function fwHtml(){
 function viewHome(){
   const pr=cur(),sc=pr.scope,eN=errPool().length,f=focusSkill(),P=dayPlan(),m=homeMsg(f),done=todayN(pr)>=GOAL;
   const items=[];
-  if(f)items.push('Suite du chemin : '+f.name);
-  if(P.recent.length)items.push('Vu en classe : '+P.recent.map(k=>SKM[k].name).join(', '));
-  if(P.nErr)items.push(P.nErr+' erreur'+(P.nErr>1?'s':'')+' à corriger');
-  items.push(P.nDue?P.nDue+(P.nDue>1?' révisions qui reviennent':' révision qui revient')+" aujourd'hui":'Un peu de révision du niveau 1');
-  return `${bubble('k',m[0],m[1],m[2])}
-  <button class="today${done?' done':''}" data-act="play" data-m="day"><b>${done?'Objectif du jour atteint ✓':'Ma séance du jour'}</b><span class="sub">${done?"Envie d'en refaire une ?":'Une dizaine de questions · environ 8 minutes'}</span>
-  <ul>${items.map(t=>`<li><i></i>${t}</li>`).join('')}</ul><div class="go">${done?'Encore une séance':'Commencer'}</div></button>
+  if(f)items.push(['#FFE27A',f.name+' : '+(skillInfo(f.id).st==='new'?'on commence':'suite de la leçon')]);
+  if(P.recent.length)items.push(['#9FC3FF','Vu en classe : '+P.recent.map(k=>short(k)).join(', ')]);
+  if(P.nErr)items.push(['#F28C7E',P.nErr+' erreur'+(P.nErr>1?'s':'')+' à corriger']);
+  items.push(['#B9E3C6',P.nDue?P.nDue+(P.nDue>1?' révisions qui reviennent':' révision qui revient'):'Un peu de révision du niveau 1']);
+  const lines=isSolo()
+    ?`<h2 class="h2">Ligne Niveau 1</h2><p class="mut">Chaque station se débloque quand la précédente est réussie à ${UNLOCK} %.</p>${lineHtml(L1,f&&f.id)}<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,f&&f.id)}`
+    :`<h2 class="h2">Ligne Niveau 2</h2><p class="mut">Les stations du cours de Miss Kokkinis, dans l'ordre. Touche une station pour l'ouvrir.</p>${lineHtml(PATH,f&&f.id)}
+      <button class="xchg" data-act="go" data-to="course"><span class="l" style="background:var(--line1)"></span><b>Correspondance · Ligne Niveau 1</b><span style="margin-left:auto;color:var(--mute)">${L1.length} stations ›</span></button>`;
+  return `${heroHtml(f)}
+  ${bubble('k',m[0],m[1],m[2])}
+  <button class="board${done?' done':''}" data-act="play" data-m="day"><span class="ticket">${done?'RETURN':'SINGLE · 8 MIN'}</span><b>${done?'Objectif du jour atteint ✓':'Monter dans le train'}</b><span class="s">${done?"Envie d'un autre trajet ?":'Ta séance du jour · une dizaine de questions'}</span>
+  <ul>${items.map(t=>`<li><i style="background:${t[0]}"></i>${t[1]}</li>`).join('')}</ul><span class="go">${done?'Encore un trajet ›':'All aboard! ›'}</span></button>
   ${fwHtml()}
-  ${isSolo()
-    ?`<h2 class="h2">Mon chemin</h2><p class="mut">Du niveau 1 jusqu'aux dernières leçons. Chaque leçon se débloque quand la précédente est réussie à ${UNLOCK} %.</p><div class="plv">Niveau 1</div>${pathHtml(L1,f&&f.id)}<div class="plv">Niveau 2</div>${pathHtml(PATH,f&&f.id)}`
-    :`<h2 class="h2">Mon chemin · Niveau 2</h2><p class="mut">Les leçons dans l'ordre du cours de Miss Kokkinis. Touche une leçon pour l'ouvrir.</p>${pathHtml(PATH,f&&f.id)}`}
+  ${lines}
   <h2 class="h2">Entraînement libre</h2>
   <div class="seg" role="group" aria-label="Contenu">${[['mix','Mélange'],['2','Niveau 2'],['1','Niveau 1']].map(([k,l])=>`<button class="${sc===k?'on':''}" data-act="scope" data-k="${k}">${l}</button>`).join('')}</div>
   <button class="btn red full" data-act="play" data-m="train" style="margin-top:4px">10 questions au hasard</button>
@@ -1248,16 +1406,12 @@ function viewHome(){
      :`<button class="card game" style="--c:${GC[g.k]}" data-act="game" data-g="${g.k}"><b>${g.n}</b><small>${g.d}</small></button>`).join('')}
   <button class="card game wide" data-act="play" data-m="exam"><div><b>Examen blanc</b><small>20 questions chronométrées, corrigées à la fin. Il faut 17 pour réussir.${pr.bestExam?' Ton record : '+pr.bestExam+'/20.':''}</small></div><span class="hand">/20</span></button></div>`;
 }
-function lessonRow(s){
-  const I=skillInfo(s.id);
-  if(!unlocked(s.id))return `<button class="card lrow lock" style="border-left:6px solid var(--line)" data-act="lesson" data-id="${s.id}"><span><b>${s.name}</b><small>Se débloque après la leçon précédente</small></span><span aria-hidden="true">🔒</span></button>`;
-  return `<button class="card lrow" style="border-left:6px solid ${s.c}" data-act="lesson" data-id="${s.id}"><span><b>${s.name}</b><small>${I.c.ok} / ${I.n} questions acquises</small></span>${bd(I.st)}</button>`;
-}
 function viewCourse(){
-  return `${bubble('k','think','Your lessons',"Chaque leçon se travaille en étapes : le cours, je reconnais, puis je produis moi-même.")}
+  const f=focusSkill(),fid=f&&f.id;
+  return `${bubble('k','think','Your lines',"Chaque station se travaille en 3 arrêts : le cours, je reconnais, puis je produis moi-même.")}
   ${isSolo()
-    ?`<h2 class="h2">Niveau 1</h2>${L1.map(lessonRow).join('')}<h2 class="h2">Niveau 2</h2>${PATH.map(lessonRow).join('')}`
-    :`<h2 class="h2">Niveau 2</h2>${PATH.map(lessonRow).join('')}<h2 class="h2">Niveau 1 (révisions)</h2>${L1.map(lessonRow).join('')}`}`;
+    ?`<h2 class="h2">Ligne Niveau 1</h2>${lineHtml(L1,fid)}<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,fid)}`
+    :`<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,fid)}<h2 class="h2">Ligne Niveau 1 · révisions</h2>${lineHtml(L1,fid)}`}`;
 }
 const FMT={mcq:'QCM',match:'Associer',gap:'Compléter',ord:'Construire la phrase',dict:'Dictée'};
 function wordsHtml(s){
@@ -1272,37 +1426,51 @@ function wordsHtml(s){
 }
 function viewLesson(){
   const s=SKM[S.course],I=skillInfo(s.id),pr=cur();
+  const line=s.lvl===1?L1:PATH,num=line.indexOf(s)+1;
   const rec=stepPct(s.id,REC),prod=stepPct(s.id,PROD),read=!!(pr.read&&pr.read[s.id]);
   const tps=t=>[...new Set(Q.filter(q=>q.skill===s.id&&t.includes(q.type)).map(q=>FMT[q.type]))];
-  const steps=[{k:'read',t:'Le cours de Miss Kokkinis',d:'Lire la fiche de la leçon, tranquillement.',done:read}];
-  if(rec!==null)steps.push({k:'rec',t:'Je reconnais',d:"Je comprends quand je le vois ou que je l'entends.",fm:tps(REC),pct:rec,done:rec>=70});
-  if(prod!==null)steps.push({k:'prod',t:'Je produis',d:"Je l'écris moi-même, sans réponses proposées.",fm:tps(PROD),pct:prod,done:prod>=70});
+  const steps=[{k:'read',t:'Le cours de Miss Kokkinis',d:read?'Lu le '+new Date(pr.read[s.id]).toLocaleDateString('fr-BE',{day:'numeric',month:'long'}):'Lire la fiche de la leçon, tranquillement.',done:read}];
+  if(rec!==null)steps.push({k:'rec',t:'Je reconnais',d:"Je comprends quand je le vois ou que je l'entends",fm:tps(REC),pct:rec,done:rec>=70});
+  if(prod!==null)steps.push({k:'prod',t:'Je produis',d:"Je l'écris moi-même, sans réponses proposées",fm:tps(PROD),pct:prod,done:prod>=70});
   const now=steps.findIndex(x=>!x.done);
-  const msg=I.st==='ok'?['cheer','Well done!',"Leçon acquise. Elle reviendra de temps en temps dans ta séance du jour pour rester fraîche."]
+  const msg=I.st==='ok'?['cheer','Well done!',"Station acquise. Elle reviendra de temps en temps dans ta séance du jour pour rester fraîche."]
     :I.st==='frag'?['think',"Let's go over it again.","Tu commences à oublier certains points. Une petite révision et ce sera reparti."]
     :now===0?['happy',"Let's start!","On commence par lire le cours, puis on s'entraîne jusqu'à ce que ce soit à toi."]
-    :['happy',"Keep going!","Continue l'étape en cours. Je te dirai quand c'est acquis."];
-  const stepHtml=(x,i)=>`<button class="stp ${x.done?'done':i===now?'now':'later'}" data-act="step" data-k="${x.k}" data-id="${s.id}"><span class="n">${x.done?'✓':i+1}</span><span style="flex:1"><b>${i+1} · ${x.t}</b><small>${x.d}</small>${x.fm?`<span class="fm">${x.fm.map(f=>`<span>${f}</span>`).join('')}</span>`:''}${x.pct!=null?`<span class="mini"><i style="width:${x.pct}%"></i></span><small>Réussi à ${x.pct} %${x.done?' · validé':' · validé à 70 %'}</small>`:''}</span></button>`
-    +(x.k==='read'&&S.showSheet?`<div class="card" style="border-left:6px solid ${s.c}">${s.sheet}<button class="btn green full" data-act="read" data-id="${s.id}">J'ai lu le cours ✓</button></div>`:'');
-  const cta=now===-1?['Réviser cette leçon','unit','']:steps[now].k==='read'?["Lire le cours",'step','read']:['Continuer · '+steps[now].t,'step',steps[now].k];
-  return `<button class="lnk" data-act="back">‹ Toutes les leçons</button>
-  <h1 style="font-size:26px;margin:6px 0 2px;text-decoration:underline;text-decoration-color:${s.c};text-decoration-thickness:3px;text-underline-offset:6px">${s.name}</h1>
-  <p class="mut">Niveau ${s.lvl} · ${I.n} questions · ${bd(I.st)}</p>
+    :steps[now]&&steps[now].k==='prod'?['happy',"Let's go on!","Tu reconnais bien cette leçon. Maintenant, écris-la toi-même."]
+    :['happy',"Keep going!","Continue l'arrêt en cours. Je te dirai quand la station est acquise."];
+  const legHtml=(x,i)=>`<button class="leg ${x.done?'ok':i===now?'now':'todo'}" data-act="step" data-k="${x.k}" data-id="${s.id}"><span class="d"></span><span style="flex:1"><b>${x.t}</b><small>${x.d}</small>${x.fm?`<span class="fm">${x.fm.map(f=>`<span>${f}</span>`).join('')}</span>`:''}${x.pct!=null?`<span class="mbar"><i style="width:${x.pct}%"></i></span><small>Réussi à ${x.pct} %${x.done?' · validé':' · validé à 70 %'}</small>`:''}</span></button>`
+    +(x.k==='read'&&S.showSheet?`<div class="card" style="border-left:6px solid ${s.c};margin:4px 0 8px">${s.sheet}<button class="btn green full" data-act="read" data-id="${s.id}">J'ai lu le cours ✓</button></div>`:'');
+  const cta=now===-1?['Réviser cette station','unit','']:steps[now].k==='read'?["Lire le cours",'step','read']:['Continuer · '+steps[now].t,'step',steps[now].k];
+  return `<button class="lnk" data-act="back">‹ Toutes les lignes</button>
+  <div class="sign" style="${s.lvl===1?'background:#1F57B5;box-shadow:inset 0 0 0 4px #1F57B5,inset 0 0 0 6px #F4E9D2':''}"><small>LIGNE NIVEAU ${s.lvl} · STATION ${num}</small><b>${esc(short(s.id)).toUpperCase()}</b></div>
   ${bubble('k',msg[0],msg[1],msg[2])}
-  ${steps.map(stepHtml).join('')}
+  <div class="trip">${steps.map(legHtml).join('')}</div>
   <button class="btn red full" data-act="${cta[1]}" data-id="${s.id}" data-k="${cta[2]}">${cta[0]}</button>
-  <h2 class="h2">Où j'en suis</h2>
+  <h2 class="h2">Où j'en suis · ${bd(I.st)}</h2>
   <div class="counts"><div><b style="color:var(--green)">${I.c.ok}</b>${bd('ok')}</div><div><b style="color:var(--blue)">${I.c.cur}</b>${bd('cur')}</div><div><b style="color:var(--amber)">${I.c.frag}</b>${bd('frag')}</div><div><b style="color:var(--mute)">${I.c.new}</b>${bd('new')}</div></div>
-  <small>Une question est acquise quand tu l'as réussie 3 fois d'affilée, sur au moins 2 jours différents. La leçon est acquise à 70 % de questions acquises.</small>
+  <small>Sur ${I.n} questions. Une question est acquise quand tu l'as réussie 3 fois d'affilée, sur au moins 2 jours différents. La station est acquise à 70 %.</small>
   ${wordsHtml(s)}
   ${s.rooms?`<p class="lbl" style="margin-top:16px">S'entraîner pièce par pièce</p><div class="grid2" style="margin-bottom:14px">${Object.entries(s.rooms).map(([k,n])=>`<button class="btn" style="margin:0;font-size:15px" data-act="unit" data-id="${s.id}" data-room="${k}">${n}</button>`).join('')}</div>`:''}`;
+}
+/* ---------- passeport ---------- */
+const STC=['#2E6E4F','#1F57B5','#8E2A44','#D02B27','#B06A0C'];
+function passportHtml(){
+  const pr=cur(),stp=pr.stamps||{};
+  const list=isSolo()?PATHALL:PATH.concat(L1);
+  return `<div class="pp">${list.map((s,i)=>{
+    const ok=stp[s.id]||skillInfo(s.id).st==='ok';
+    return ok?`<div class="y" style="--c:${STC[i%5]};--r:${(i*37%15)-7}deg">${esc(short(s.id)).toUpperCase()}<small>${stp[s.id]>0?new Date(stp[s.id]).toLocaleDateString('fr-BE',{day:'numeric',month:'short'}):'ACQUISE'}</small></div>`
+      :`<div class="n">${esc(short(s.id))}</div>`;
+  }).join('')}</div>`;
 }
 function viewProgress(){
   const pr=cur();
   const stats=SK.map(s=>Object.assign({s},skillStat(s.id)));
   const weak=stats.filter(x=>x.seen>0&&x.pct<70).sort((a,b)=>a.pct-b.pct).slice(0,3);
   const errs=Q.map(q=>({q,r:pr.q[q.id]})).filter(x=>x.r&&x.r.wrong>0).sort((a,b)=>(b.r.wrong-a.r.wrong)||((b.r.lastWrong||0)-(a.r.lastWrong||0))).slice(0,12);
-  return `${bubble('k',weak.length?'think':'happy',weak.length?'Let\'s work on this':'Keep going!',weak.length?'À retravailler : '+weak.map(w=>w.s.name).join(', ')+'.':'Joue quelques parties : tes points faibles apparaîtront ici.')}
+  const nSt=(isSolo()?PATHALL:PATH.concat(L1)).filter(x=>(pr.stamps||{})[x.id]||skillInfo(x.id).st==='ok').length;
+  return `<h2 class="h2">Mon passeport · ${nSt} tampon${nSt>1?'s':''}</h2><p class="mut">Un tampon par station acquise.</p>${passportHtml()}
+  ${bubble('k',weak.length?'think':'happy',weak.length?'Let\'s work on this':'Keep going!',weak.length?'À retravailler : '+weak.map(w=>w.s.name).join(', ')+'.':'Joue quelques parties : tes points faibles apparaîtront ici.')}
   ${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D7263D')}
   <small>Une question compte comme acquise après 3 bonnes réponses d'affilée.</small>
   <h2 class="h2">Par fiche</h2>
@@ -1381,22 +1549,33 @@ function weekHtml(){
   for(let i=6;i>=0;i--){const d=new Date(Date.now()-i*DAYMS),k=dayStr(d),y=(pr.days||[]).includes(k);out.push(`<span class="${y?'y':''}${i===0?' t':''}">${y?'✓':L[d.getDay()]}</span>`)}
   return `<div class="week">${out.join('')}</div>`;
 }
+function confettiHtml(){const c=['#D02B27','#F2C230','#1F57B5','#2E6E4F','#8E2A44'];let h='<div class="confetti" aria-hidden="true">';for(let i=0;i<28;i++)h+=`<i style="left:${(i*37)%100}%;background:${c[i%5]};animation-delay:${.5+(i%7)*.13}s"></i>`;return h+'</div>'}
 function viewResult(){
   const R=S.res,p=R.pct,pr=cur(),tn=todayN(pr);
   const msg=p>=.9?['cheer',"Brilliant!","Excellent travail."]:p>=.7?['happy',"Very good!","Quelques détails à revoir, c'est tout."]:p>=.4?['think',"Good effort.","Regardons tes erreurs ensemble."]:['oops',"Don't worry!","C'est comme ça qu'on apprend. Relis les corrections ci-dessous."];
   const pass=R.mode==='exam'?(R.ok>=17):null;
   const mv=(R.moved||[]).filter(m=>m.a!==m.b||m.gain>0);
-  return `${SC}<div class="hurra"><span class="tch">${teacher('k',msg[0],86)}</span><span class="hand">${msg[1]}</span><small>${R.mode==='day'?'Séance du jour terminée':esc(R.label)} · ${msg[2]}</small></div>
-  <div class="gradebox"><span class="grade">${R.ok}/${R.total}</span></div>
+  const ns=R.newStamps||[];
+  const others=Object.keys(pr.stamps||{}).filter(k=>!ns.includes(k)&&SKM[k]).slice(-4);
+  const pos=[['left:16px;top:34px','12deg'],['right:14px;top:30px','-14deg'],['left:20px;bottom:14px','-6deg'],['right:18px;bottom:16px','9deg']];
+  const head=ns.length
+    ?`<div class="rewhead"><span class="hand">Station acquise!</span><small>${R.mode==='day'?'Séance du jour terminée':esc(R.label)}</small></div>
+      <div class="passport"><span class="pt">PASSPORT · TEA TIME UNDERGROUND</span>${others.map((k,i)=>`<span class="oldst" style="${pos[i][0]};color:${STC[i]};transform:rotate(${pos[i][1]})">${esc(short(k)).toUpperCase().slice(0,12)}</span>`).join('')}
+      <div class="bigstamp"><small>TEA TIME UNDERGROUND</small><b>${esc(short(ns[0])).toUpperCase()}</b><small>${new Date().toLocaleDateString('fr-BE',{day:'numeric',month:'short',year:'numeric'}).toUpperCase()}</small></div></div>
+      ${ns.length>1?`<p class="mut" style="text-align:center">+ ${ns.slice(1).map(k=>short(k)).join(', ')}</p>`:''}`
+    :`<div class="rewhead"><span class="hand">${msg[1]}</span><small>${R.mode==='day'?'Séance du jour terminée':esc(R.label)} · ${msg[2]}</small></div>`;
+  const party=ns.length||p>=.9||pass;
+  return `${party?confettiHtml():''}${head}
+  <div class="potrow">${p>=.7||pass?teapot(110,true):teacher('k',msg[0],86)}<div><div class="hand">${R.ok}/${R.total}</div><small>${p>=.7?'Earl Grey est fier de toi !':'Miss Kokkinis t\'explique tout en dessous.'}</small></div></div>
   ${pass===null?'':`<div class="pass ${pass?'y':'n'}">${pass?'Examen réussi !':'À repasser : il faut 17/20.'}</div>`}
   <p class="mut" style="text-align:center">+${R.xp} XP${R.maxCombo>2?' · '+R.maxCombo+' bonnes réponses d\'affilée':''} · objectif du jour ${Math.min(tn,GOAL)}/${GOAL}${tn>=GOAL?' ✓':''}</p>
   ${mv.length?`<h2 class="h2">Ce qui a bougé aujourd'hui</h2><div class="card" style="padding:4px 14px">${mv.map(m=>`<div class="mv"><b>${m.name}</b><span>${m.a!==m.b?bd(m.b)+'<span class="ar">→</span>'+bd(m.a):bd(m.a)}${m.gain>0?`<small style="display:block;text-align:right">+${m.gain} question${m.gain>1?'s':''} acquise${m.gain>1?'s':''}</small>`:''}</span></div>`).join('')}</div>`:''}
-  ${R.wrong.length?`<p class="mut">Les ${R.wrong.length} question${R.wrong.length>1?'s':''} ratée${R.wrong.length>1?'s':''} reviendront dans tes prochaines séances.</p>`:''}
+  ${R.wrong.length?`<p class="mut">Les ${R.wrong.length} question${R.wrong.length>1?'s':''} ratée${R.wrong.length>1?'s':''} reviendront dans tes prochains trajets.</p>`:''}
   <h2 class="h2">Ma série</h2>${weekHtml()}
-  <p class="mut" style="text-align:center">${streakNow(pr)} jour${streakNow(pr)>1?'s':''} d'affilée. Reviens demain pour garder ta série.</p>
+  <p class="mut" style="text-align:center">${streakNow(pr)} jour${streakNow(pr)>1?'s':''} d'affilée. Prochain train demain !</p>
   ${R.wrong.length?`<h2 class="h2">Corrections (${R.wrong.length})</h2>${R.wrong.map(a=>`<div class="card"><b>${esc(promptText(a.q))}</b>${explainBlock(a)}${a.q.us?`<div class="us">Aux États-Unis : ${a.q.us}</div>`:''}</div>`).join('')}`:'<p class="mut" style="text-align:center">Aucune faute. Parfait !</p>'}
-  <button class="btn red full" data-act="go" data-to="home">Retour à l'accueil</button>
-  <button class="btn ghost full" data-act="again">${R.mode==='day'?'Encore une séance':'Rejouer'}</button>
+  <button class="btn red full" data-act="go" data-to="home">Retour à la station</button>
+  <button class="btn ghost full" data-act="again">${R.mode==='day'?'Encore un trajet':'Rejouer'}</button>
   ${R.wrong.length&&R.mode!=='errors'?`<button class="btn ghost full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:''}`;
 }
 function render(){
