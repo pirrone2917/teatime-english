@@ -62,10 +62,11 @@ export async function speak(env, v, text) {
   return new Response(bytes, { headers: { 'Content-Type': mime, 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Cache': hit, 'Access-Control-Allow-Origin': '*' } });
 }
 
-// ---------- Voix de l'appli : Draco ----------
+// ---------- Voix de l'appli : Draco (par défaut) et Pandora (personnages féminins) ----------
 // Liste blanche : seules les phrases publiées dans tts.json (fabriqué avec le site) peuvent être générées.
+// Format : "texte" = Draco, "pandora|texte" = Pandora.
 const LIST_URL = 'https://pirrone2917.github.io/teatime-english/tts.json';
-const APP_VOICE = 'draco';
+const APP_VOICES = ['draco', 'pandora'];
 let LIST = null, LIST_AT = 0;
 async function getList() {
   if (LIST && Date.now() - LIST_AT < 10 * 60 * 1000) return LIST;
@@ -75,6 +76,7 @@ async function getList() {
   } catch (e) {}
   return LIST || [];
 }
+const parse = (item) => { const m = item.match(/^(pandora)\|(.*)$/s); return m ? [m[1], m[2]] : ['draco', item]; };
 
 async function cached(env, v, text) {
   const k = await key(v + '|' + text);
@@ -90,16 +92,17 @@ export async function ttsRoute(url, env) {
   await initTts(env.DB);
   if (url.pathname === '/tts/etat') {
     const list = await getList(), have = await cachedKeys(env); let n = 0, rest = 0;
-    for (const t of list) { if (have.has(await key(APP_VOICE + '|' + t))) n++; else rest += t.length; }
+    for (const it of list) { const [v, t] = parse(it); if (have.has(await key(v + '|' + t))) n++; else rest += t.length; }
     return new Response(JSON.stringify({ phrases: list.length, pretes: n, caracteres_restants: rest }), { headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' } });
   }
   const t = (url.searchParams.get('t') || '').slice(0, 1500);
+  const v = APP_VOICES.includes(url.searchParams.get('v')) ? url.searchParams.get('v') : 'draco';
   if (!t) return new Response('?', { status: 400 });
-  if (!(await cached(env, APP_VOICE, t))) {
+  if (!(await cached(env, v, t))) {
     const list = await getList();
-    if (!list.includes(t)) return new Response('Phrase inconnue', { status: 404, headers: { 'Access-Control-Allow-Origin': '*' } });
+    if (!list.includes(v === 'draco' ? t : v + '|' + t)) return new Response('Phrase inconnue', { status: 404, headers: { 'Access-Control-Allow-Origin': '*' } });
   }
-  try { return await speak(env, APP_VOICE, t); }
+  try { return await speak(env, v, t); }
   catch (e) { return new Response('Voix indisponible', { status: 503, headers: { 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' } }); }
 }
 
@@ -107,12 +110,13 @@ export async function ttsRoute(url, env) {
 export async function warm(env, maxChars = 3200, maxItems = 30) {
   await initTts(env.DB);
   const list = await getList(), have = await cachedKeys(env); let chars = 0, items = 0;
-  for (const t of list) {
+  for (const it of list) {
+    const [v, t] = parse(it);
     if (items >= maxItems || chars + t.length > maxChars) break;
-    const k = await key(APP_VOICE + '|' + t);
+    const k = await key(v + '|' + t);
     if (have.has(k)) continue;
     try {
-      const bytes = await generate(env, APP_VOICE, t);
+      const bytes = await generate(env, v, t);
       await env.DB.prepare('INSERT OR REPLACE INTO tts(k, mime, data, chars, ts) VALUES(?,?,?,?,?)').bind(k, 'audio/mpeg', bytes, t.length, Date.now()).run();
       chars += t.length; items++;
     } catch (e) { break; }

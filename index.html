@@ -1513,31 +1513,43 @@ function bestVoice(){
   }catch(e){return null}
 }
 try{VOICE=bestVoice();speechSynthesis.addEventListener('voiceschanged',()=>{VOICE=bestVoice()})}catch(e){}
-function speakPhone(t,rate){
+function speakPhone(t,rate,onend){
   try{
     const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=rate||0.8;
     const v=VOICE||bestVoice();if(v){u.voice=v;u.lang=v.lang}
+    if(onend)u.onend=onend;
     speechSynthesis.cancel();speechSynthesis.speak(u);
   }catch(e){toast("Audio indisponible sur cet appareil.")}
 }
-/* Voix naturelle « Draco » fabriquée par le serveur (mise en cache) ; voix du téléphone en secours */
-let AU=null,AUid=0;
+/* Voix naturelles fabriquées par le serveur (mises en cache) : Draco (homme), Pandora (femme pour les personnages féminins).
+   Voix du téléphone en secours. */
+const FEM=/^(Anna|Kate|Sofia|Emma|Mia|Lisa|Sarah|Lily|Julia|Sophie|Lucy|Miss Kokkinis)$/;
+const voiceOf=name=>FEM.test(name)?'pandora':'draco';
+let AU=null,AUid=0,SEQ=0;
 function audioEl(){if(!AU){try{AU=new Audio();AU.preload='auto'}catch(e){}}return AU}
-function stopSpeak(){AUid++;try{AU&&AU.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}
-function speak(t,rate){
-  rate=rate||0.8;stopSpeak();
+function stopSpeak(){AUid++;SEQ++;try{AU&&AU.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}
+function speak(t,rate,v,onend,inSeq){
+  rate=rate||0.8;
+  if(inSeq){AUid++;try{AU&&AU.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}else stopSpeak();
   const a=!DB.phoneVoice&&navigator.onLine!==false&&audioEl();
-  if(!a)return speakPhone(t,rate);
+  if(!a)return speakPhone(t,rate,onend);
   const id=AUid;let done=false;
-  const fail=()=>{if(done||id!==AUid)return;done=true;try{a.pause()}catch(e){}speakPhone(t,rate)};
+  const fail=()=>{if(done||id!==AUid)return;done=true;try{a.pause()}catch(e){}speakPhone(t,rate,onend)};
   const tm=setTimeout(fail,4500);
   a.onplaying=()=>{if(id===AUid){done=true;clearTimeout(tm)}};
+  a.onended=()=>{if(id===AUid&&onend)onend()};
   a.onerror=()=>{clearTimeout(tm);fail()};
   try{
-    a.src=API+'/tts?t='+encodeURIComponent(t);
+    a.src=API+'/tts?t='+encodeURIComponent(t)+(v==='pandora'?'&v=pandora':'');
     a.playbackRate=a.defaultPlaybackRate=rate<0.7?0.75:0.95;try{a.preservesPitch=true}catch(e){}
     const pr=a.play();if(pr&&pr.catch)pr.catch(()=>{clearTimeout(tm);fail()});
   }catch(e){clearTimeout(tm);fail()}
+}
+/* un dialogue entier : chaque réplique avec la voix de son personnage, l'une après l'autre */
+function speakSeq(lines){
+  stopSpeak();const my=SEQ;
+  const step=i=>{if(my!==SEQ||i>=lines.length)return;speak(lines[i][0],.8,lines[i][1],()=>setTimeout(()=>step(i+1),350),true)};
+  step(0);
 }
 /* iOS : on « débloque » le lecteur audio au premier toucher pour pouvoir lire les phrases automatiquement ensuite */
 (function(){const un=()=>{removeEventListener('touchend',un,true);removeEventListener('click',un,true);
@@ -2259,8 +2271,8 @@ const A={
   learnNext:()=>{const P=S.play,it=P.items[P.i];it.res='seen';stopSpeak();next()},
   sayl:()=>{const it=S.play.items[S.play.i];speak(it.learn.en,.8)},
   sayls:()=>{const it=S.play.items[S.play.i];speak(it.learn.en,.55)},
-  sayline:d=>{const it=S.play.items[S.play.i];speak(it.dialog[+d.i][1],.8)},
-  sayall:()=>{const it=S.play.items[S.play.i];speak(it.dialog.map(l=>l[1]).join(' … '),.8)},
+  sayline:d=>{const it=S.play.items[S.play.i],l=it.dialog[+d.i];speak(l[1],.8,voiceOf(l[0]))},
+  sayall:()=>{const it=S.play.items[S.play.i];speakSeq(it.dialog.map(l=>[l[1],voiceOf(l[0])]))},
   etape:d=>{const i=ETAPES.findIndex(e=>e.k===d.k);if(i>etOf(d.id)){toast("Termine d'abord l'étape « "+ETAPES[etOf(d.id)].n+" »");return}startSession('etape',{skill:d.id,k:d.k})},
   cont:()=>startSession('day'),
   lesson:d=>{if(!unlocked(d.id)){const i=PATHALL.findIndex(s=>s.id===d.id);toast('Réussis d\'abord « '+PATHALL[i-1].name+' » à '+UNLOCK+' %');return}track('lesson',{k:d.id});S.screen='course';S.course=d.id;S.showSheet=false;render();window.scrollTo(0,0)},
@@ -2327,7 +2339,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 track('open');setTimeout(flush,4000);
 render();
-window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck}; // utile pour les tests
+window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,speakSeq,voiceOf}; // utile pour les tests
 })();
 </script>
 <script>
