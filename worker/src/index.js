@@ -60,7 +60,7 @@ const SKILL = {
   count: 'Dénombrables', house: 'La maison',
 };
 const MODE = {
-  day: 'Séance du jour', train: '10 questions au hasard', exam: 'Examen blanc', errors: 'Mes erreurs', last: 'Dernière leçon',
+  day: 'Séance du jour (Monter dans le train)', etape: 'Étape choisie dans une station', train: '10 questions au hasard', exam: 'Examen blanc', errors: 'Mes erreurs', last: 'Dernière leçon',
   'unit:rec': 'Station · Je reconnais', 'unit:prod': 'Station · Je produis', unit: 'Station · révision',
   'game:quiz': 'Jeu · Quiz éclair', 'game:gap': 'Jeu · Mind the gap', 'game:ord': 'Jeu · Construis la phrase',
   'game:match': 'Jeu · Associe', 'game:dict': 'Jeu · Dictée',
@@ -71,11 +71,14 @@ const bars = (rows, label, val, max, suffix = '', color = '#1C2E5E') => {
   return rows.map((r) => `<div class="br"><span class="bl">${label(r)}</span><span class="bt"><i style="width:${Math.max(2, (val(r) / m) * 100)}%;background:${color}"></i></span><span class="bv">${val(r)}${suffix}</span></div>`).join('');
 };
 
-async function dashboard(env) {
+const SEGS = { all: 'Tout le monde', class: 'Cours de Miss Kokkinis', solo: 'Débutants (depuis le niveau 1)' };
+async function dashboard(env, seg) {
   const db = env.DB, now = Date.now(), D = 864e5;
+  const f = seg === 'class' ? " AND COALESCE(pm,'class')='class'" : seg === 'solo' ? " AND pm='solo'" : '';
   const t30 = now - 30 * D, t7 = now - 7 * D, t1 = now - D, t14 = now - 14 * D;
-  const one = async (sql, ...p) => (await db.prepare(sql).bind(...p).first()) || {};
-  const all = async (sql, ...p) => (await db.prepare(sql).bind(...p).all()).results || [];
+  const q = (sql) => sql.replace(/ts>\?/g, 'ts>?' + f);
+  const one = async (sql, ...p) => (await db.prepare(q(sql)).bind(...p).first()) || {};
+  const all = async (sql, ...p) => (await db.prepare(q(sql)).bind(...p).all()).results || [];
   const [a1, a7, a30, ret, modes, daily, sess, skills, worst, qtypes, hours, misc] = await Promise.all([
     one('SELECT COUNT(DISTINCT dev) n FROM ev WHERE ts>?', t1),
     one('SELECT COUNT(DISTINCT dev) n FROM ev WHERE ts>?', t7),
@@ -113,9 +116,11 @@ h1{margin:0;font-size:24px}h2{font-size:16px;margin:0 0 10px}.sub{color:var(--mu
 .cols{display:flex;align-items:flex-end;gap:4px;height:130px;margin-top:6px}.cols div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:10px;color:var(--mute)}
 .cols i{display:block;width:100%;background:var(--navy);border-radius:4px 4px 0 0;min-height:2px}.cols em{font-style:normal;font-weight:700;color:var(--ink);font-size:11px}
 table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;border-bottom:1px dashed var(--line);text-align:left;vertical-align:top}th{color:var(--mute);font-weight:600;font-size:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:-6px 0 16px}.tabs a{padding:7px 12px;border-radius:99px;background:var(--card);color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;border:1.5px solid var(--line)}.tabs a.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .r{text-align:right;white-space:nowrap}.bad{color:var(--red);font-weight:700}.note{color:var(--mute);font-size:13px}
 </style><div class="w">
 <h1>Tea Time English · Tableau de bord</h1><p class="sub">Statistiques anonymes des 30 derniers jours · aucun prénom n'est collecté · mis à jour en direct</p>
+<div class="tabs">${Object.entries(SEGS).map(([k, l]) => `<a href="/dash?seg=${k}" class="${k === seg ? 'on' : ''}">${l}</a>`).join('')}</div>
 ${empty ? '<div class="c"><b>Pas encore de données.</b><p class="note">Dès que quelqu\'un ouvre l\'appli et fait une séance, les chiffres apparaissent ici.</p></div>' : ''}
 <div class="grid">
 <div class="k"><b>${a1.n || 0}</b><span>joueurs aujourd'hui (24 h)</span></div>
@@ -163,12 +168,13 @@ export default {
       const good = await sha('tt:' + env.DASH_KEY);
       if (req.method === 'POST') {
         const f = await req.formData();
-        if ((f.get('key') || '') === env.DASH_KEY) return new Response(null, { status: 303, headers: { Location: '/dash', 'Set-Cookie': `tt=${good}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax` } });
+        if ((f.get('key') || '') === env.DASH_KEY) return new Response(null, { status: 303, headers: { Location: '/dash' + (url.search || ''), 'Set-Cookie': `tt=${good}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax` } });
         return html(loginPage('Mot de passe incorrect.'));
       }
       const ck = (req.headers.get('Cookie') || '').match(/(?:^|;\s*)tt=([a-f0-9]+)/);
       if (!ck || ck[1] !== good) return html(loginPage('Entre le mot de passe pour voir les statistiques.'));
-      return html(await dashboard(env));
+      const seg = ['class', 'solo'].includes(url.searchParams.get('seg')) ? url.searchParams.get('seg') : 'all';
+      return html(await dashboard(env, seg));
     }
     return new Response('Tea Time API', { status: 404 });
   },
