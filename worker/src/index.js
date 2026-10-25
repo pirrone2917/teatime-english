@@ -1,7 +1,7 @@
 // Tea Time English — petit serveur de statistiques ANONYMES.
 // Reçoit des événements d'usage (aucun prénom, juste un numéro de téléphone tiré au hasard)
 // et affiche un tableau de bord global, protégé par le mot de passe DASH_KEY.
-import { voixRoute } from './tts.js';
+import { voixRoute, ttsRoute, warm } from './tts.js';
 const ORIGINS = ['https://pirrone2917.github.io', 'http://localhost:8781'];
 const TZ = 'Europe/Brussels';
 let ready = false;
@@ -165,6 +165,7 @@ export default {
     await init(env.DB);
     if (url.pathname === '/e' && req.method === 'POST') return collect(req, env);
     if (url.pathname.startsWith('/voix')) return voixRoute(url, env);
+    if (url.pathname === '/tts' || url.pathname === '/tts/etat') return ttsRoute(url, env);
     if (url.pathname === '/dash' || url.pathname === '/') {
       if (!env.DASH_KEY) return html(loginPage("Le mot de passe n'est pas encore configuré : ajoute la variable secrète <b>DASH_KEY</b> dans Cloudflare."));
       const good = await sha('tt:' + env.DASH_KEY);
@@ -179,5 +180,8 @@ export default {
       return html(await dashboard(env, seg));
     }
     return new Response('Tea Time API', { status: 404 });
+  },
+  async scheduled(ev, env, ctx) {
+    ctx.waitUntil(warm(env));
   },
 };

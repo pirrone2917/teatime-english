@@ -62,6 +62,64 @@ export async function speak(env, v, text) {
   return new Response(bytes, { headers: { 'Content-Type': mime, 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Cache': hit, 'Access-Control-Allow-Origin': '*' } });
 }
 
+// ---------- Voix de l'appli : Draco ----------
+// Liste blanche : seules les phrases publiées dans tts.json (fabriqué avec le site) peuvent être générées.
+const LIST_URL = 'https://pirrone2917.github.io/teatime-english/tts.json';
+const APP_VOICE = 'draco';
+let LIST = null, LIST_AT = 0;
+async function getList() {
+  if (LIST && Date.now() - LIST_AT < 10 * 60 * 1000) return LIST;
+  try {
+    const r = await fetch(LIST_URL, { cf: { cacheTtl: 300 } });
+    if (r.ok) { LIST = await r.json(); LIST_AT = Date.now(); }
+  } catch (e) {}
+  return LIST || [];
+}
+
+async function cached(env, v, text) {
+  const k = await key(v + '|' + text);
+  return env.DB.prepare('SELECT k FROM tts WHERE k=?').bind(k).first();
+}
+// Toutes les clés déjà fabriquées, en une seule requête (D1 gratuit = 50 requêtes max par appel)
+async function cachedKeys(env) {
+  const r = await env.DB.prepare('SELECT k FROM tts').all();
+  return new Set((r.results || []).map((x) => x.k));
+}
+
+export async function ttsRoute(url, env) {
+  await initTts(env.DB);
+  if (url.pathname === '/tts/etat') {
+    const list = await getList(), have = await cachedKeys(env); let n = 0, rest = 0;
+    for (const t of list) { if (have.has(await key(APP_VOICE + '|' + t))) n++; else rest += t.length; }
+    return new Response(JSON.stringify({ phrases: list.length, pretes: n, caracteres_restants: rest }), { headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' } });
+  }
+  const t = (url.searchParams.get('t') || '').slice(0, 1500);
+  if (!t) return new Response('?', { status: 400 });
+  if (!(await cached(env, APP_VOICE, t))) {
+    const list = await getList();
+    if (!list.includes(t)) return new Response('Phrase inconnue', { status: 404, headers: { 'Access-Control-Allow-Origin': '*' } });
+  }
+  try { return await speak(env, APP_VOICE, t); }
+  catch (e) { return new Response('Voix indisponible', { status: 503, headers: { 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' } }); }
+}
+
+// Chaque nuit (après la remise à zéro du quota gratuit), on prépare d'avance les phrases pas encore fabriquées.
+export async function warm(env, maxChars = 3200, maxItems = 30) {
+  await initTts(env.DB);
+  const list = await getList(), have = await cachedKeys(env); let chars = 0, items = 0;
+  for (const t of list) {
+    if (items >= maxItems || chars + t.length > maxChars) break;
+    const k = await key(APP_VOICE + '|' + t);
+    if (have.has(k)) continue;
+    try {
+      const bytes = await generate(env, APP_VOICE, t);
+      await env.DB.prepare('INSERT OR REPLACE INTO tts(k, mime, data, chars, ts) VALUES(?,?,?,?,?)').bind(k, 'audio/mpeg', bytes, t.length, Date.now()).run();
+      chars += t.length; items++;
+    } catch (e) { break; }
+  }
+  return { items, chars };
+}
+
 export async function voixRoute(url, env) {
   if (url.pathname === '/voix/a') {
     const i = +url.searchParams.get('i'), v = url.searchParams.get('v');

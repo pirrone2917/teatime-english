@@ -1482,13 +1482,36 @@ function bestVoice(){
   }catch(e){return null}
 }
 try{VOICE=bestVoice();speechSynthesis.addEventListener('voiceschanged',()=>{VOICE=bestVoice()})}catch(e){}
-function speak(t,rate){
+function speakPhone(t,rate){
   try{
     const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=rate||0.8;
     const v=VOICE||bestVoice();if(v){u.voice=v;u.lang=v.lang}
     speechSynthesis.cancel();speechSynthesis.speak(u);
   }catch(e){toast("Audio indisponible sur cet appareil.")}
 }
+/* Voix naturelle « Draco » fabriquée par le serveur (mise en cache) ; voix du téléphone en secours */
+let AU=null,AUid=0;
+function audioEl(){if(!AU){try{AU=new Audio();AU.preload='auto'}catch(e){}}return AU}
+function stopSpeak(){AUid++;try{AU&&AU.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}
+function speak(t,rate){
+  rate=rate||0.8;stopSpeak();
+  const a=!DB.phoneVoice&&navigator.onLine!==false&&audioEl();
+  if(!a)return speakPhone(t,rate);
+  const id=AUid;let done=false;
+  const fail=()=>{if(done||id!==AUid)return;done=true;try{a.pause()}catch(e){}speakPhone(t,rate)};
+  const tm=setTimeout(fail,4500);
+  a.onplaying=()=>{if(id===AUid){done=true;clearTimeout(tm)}};
+  a.onerror=()=>{clearTimeout(tm);fail()};
+  try{
+    a.src=API+'/tts?t='+encodeURIComponent(t);
+    a.playbackRate=a.defaultPlaybackRate=rate<0.7?0.75:0.95;try{a.preservesPitch=true}catch(e){}
+    const pr=a.play();if(pr&&pr.catch)pr.catch(()=>{clearTimeout(tm);fail()});
+  }catch(e){clearTimeout(tm);fail()}
+}
+/* iOS : on « débloque » le lecteur audio au premier toucher pour pouvoir lire les phrases automatiquement ensuite */
+(function(){const un=()=>{removeEventListener('touchend',un,true);removeEventListener('click',un,true);
+  const a=audioEl();if(!a||!a.paused||a.src)return;try{a.src='data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAACAAAA/oAR0dHR0dHR0dHR0dHYmJiYmJiYmJiYmJifHx8fHx8fHx8fHx8fJaWlpaWlpaWlpaWlrGxsbGxsbGxsbGxsbHLy8vLy8vLy8vLy8vl5eXl5eXl5eXl5eXl////////////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQC1AAAAAAAAAP6yysejgAAAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsSjAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';a.play().catch(()=>{})}catch(e){}};
+  addEventListener('touchend',un,true);addEventListener('click',un,true)})();
 let AC=null;
 function beep(ok){
   const pr=cur();if(!pr||!pr.sound)return;
@@ -2020,6 +2043,9 @@ function viewSettings(){
   <h2 class="h2">Mon parcours</h2>
   <div class="seg" role="group" aria-label="Parcours"><button class="${!isSolo()?'on':''}" data-act="myMode" data-m="class">Cours de Miss Kokkinis</button><button class="${isSolo()?'on':''}" data-act="myMode" data-m="solo">Depuis le niveau 1</button></div>
   <small>${isSolo()?"Tu pars du niveau 1 et tu débloques les leçons une à une.":"Tu suis le niveau 2 au rythme de la classe."} Ta progression est gardée si tu changes.</small>
+  <h2 class="h2">Voix</h2>
+  <label class="sw"><input type="checkbox" data-act="voice" ${DB.phoneVoice?'':'checked'}> Voix naturelle (Draco)</label>
+  <small>Une vraie voix anglaise, bien plus claire. Sans internet, l'appli utilise la voix du téléphone.</small>
   <h2 class="h2">Statistiques anonymes</h2>
   <label class="sw"><input type="checkbox" data-act="stats" ${DB.noStats?'':'checked'}> Aider à améliorer l'appli</label>
   <small>Envoie des chiffres d'utilisation <b>anonymes</b> : jamais ton prénom, juste ce qu'on utilise et ce qui est difficile. Ta progression reste sur ce téléphone.</small>
@@ -2183,7 +2209,7 @@ const A={
   unit:d=>startSession('unit',{skill:d.id,room:d.room}),
   newMode:d=>{const el=$('#pname');if(el)S.newName=el.value;S.newMode=d.m;render()},
   myMode:d=>{cur().mode=d.m;persist();render();toast(d.m==='solo'?'Parcours : depuis le niveau 1':'Parcours : cours de Miss Kokkinis')},
-  learnNext:()=>{const P=S.play,it=P.items[P.i];it.res='seen';try{speechSynthesis.cancel()}catch(e){}next()},
+  learnNext:()=>{const P=S.play,it=P.items[P.i];it.res='seen';stopSpeak();next()},
   sayl:()=>{const it=S.play.items[S.play.i];speak(it.learn.en,.8)},
   sayls:()=>{const it=S.play.items[S.play.i];speak(it.learn.en,.55)},
   sayline:d=>{const it=S.play.items[S.play.i];speak(it.dialog[+d.i][1],.8)},
@@ -2214,6 +2240,7 @@ const A={
   noquit:()=>{S.play.quit=false;render();startTimer()},
   quit:()=>{stopTimer();if(S.play)track('quit',{k:S.play.mk,a:S.play.i});flush();S.play=null;go('home')},
   myT:d=>{cur().teacher=d.t;persist();render()},
+  voice:()=>{DB.phoneVoice=!DB.phoneVoice;persist();render();speak("Hello! Let's have a cup of tea.")},
   stats:()=>{DB.noStats=!DB.noStats;if(DB.noStats){SQ=[];saveQ()}persist();render()},
   snd:()=>{const pr=cur();pr.sound=!pr.sound;persist();render()},
   export:()=>{
@@ -2250,7 +2277,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 track('open');setTimeout(flush,4000);
 render();
-window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush}; // utile pour les tests
+window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak}; // utile pour les tests
 })();
 </script>
 <script>
