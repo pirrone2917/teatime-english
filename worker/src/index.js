@@ -2,7 +2,7 @@
 // Reçoit des événements d'usage (aucun prénom, juste un numéro de téléphone tiré au hasard)
 // et affiche un tableau de bord global, protégé par le mot de passe DASH_KEY.
 import { voixRoute, ttsRoute, warm } from './tts.js';
-import { leagueRoute } from './league.js';
+import { leagueRoute, leagueAdmin, leagueDelete } from './league.js';
 import { icsRoute } from './ics.js';
 import { transferRoute } from './transfer.js';
 const ORIGINS = ['https://pirrone2917.github.io', 'http://localhost:8781'];
@@ -177,13 +177,17 @@ export default {
       const good = await sha('tt:' + env.DASH_KEY);
       if (req.method === 'POST') {
         const f = await req.formData();
+        const ck0 = (req.headers.get('Cookie') || '').match(/(?:^|;\s*)tt=([a-f0-9]+)/);
+        if (f.get('lgdel') && ck0 && ck0[1] === good) { await leagueDelete(env, f.get('lgdel')); return new Response(null, { status: 303, headers: { Location: '/dash' + (url.search || '') + '#ligue' } }); }
         if ((f.get('key') || '') === env.DASH_KEY) return new Response(null, { status: 303, headers: { Location: '/dash' + (url.search || ''), 'Set-Cookie': `tt=${good}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax` } });
         return html(loginPage('Mot de passe incorrect.'));
       }
       const ck = (req.headers.get('Cookie') || '').match(/(?:^|;\s*)tt=([a-f0-9]+)/);
       if (!ck || ck[1] !== good) return html(loginPage('Entre le mot de passe pour voir les statistiques.'));
       const seg = ['class', 'solo'].includes(url.searchParams.get('seg')) ? url.searchParams.get('seg') : 'all';
-      return html(await dashboard(env, seg));
+      const lg = await leagueAdmin(env);
+      const lgHtml = `<div class="c" id="ligue"><h2>Ligue de la semaine (pseudos)</h2>${lg.length ? `<table><tr><th>Pseudo</th><th>Ligue</th><th class="r">XP</th><th></th></tr>${lg.map((r) => `<tr><td>${esc(r.nick)}</td><td>${r.mode === 'solo' ? 'Débutants' : r.mode === 'class' ? 'Cours' : esc(r.mode.slice(2))}</td><td class="r">${r.xp}</td><td class="r"><form method="post" style="margin:0" onsubmit="return confirm('Retirer ce pseudo de la ligue ?')"><input type="hidden" name="lgdel" value="${esc(r.id)}"><button style="border:1px solid #D02B27;color:#D02B27;background:#fff;border-radius:6px;padding:2px 8px">Retirer</button></form></td></tr>`).join('')}</table>` : '<p class="note">Personne dans la ligue cette semaine.</p>'}<p class="note">Un pseudo retiré disparaît du classement (la personne peut se réinscrire avec un autre pseudo).</p></div>`;
+      return html((await dashboard(env, seg)).replace('</div>\n</div></html>', lgHtml + '</div>\n</div></html>'));
     }
     return new Response('Tea Time API', { status: 404 });
   },
