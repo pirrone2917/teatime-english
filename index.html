@@ -110,7 +110,7 @@ button.card{cursor:pointer}
 .opt.wrong{border-color:var(--red);background:var(--bad-bg);text-decoration:line-through;text-decoration-color:var(--red)}
 .opt[disabled]{cursor:default}
 .inp{width:100%;padding:8px 2px;border:0;border-bottom:2.5px solid var(--ink);border-radius:0;background:transparent;font:600 22px/1.3 Figtree,system-ui,sans-serif;color:var(--blue)}
-.inp:focus{outline:none;border-bottom-color:var(--blue);background:linear-gradient(transparent 70%,#FFF8B0 70%)}
+.inp:focus,.inp:focus-visible{outline:none;box-shadow:none;border-bottom-color:var(--blue);background:linear-gradient(transparent 70%,#FFF8B0 70%)}
 .inp.small{font:400 18px Figtree,system-ui,sans-serif;color:var(--ink)}
 .inp.code{font:400 12px/1.3 ui-monospace,Menlo,monospace;border:1.5px solid var(--line);border-radius:8px;padding:8px;min-height:80px;margin:8px 0;resize:vertical;color:var(--ink)}
 .spk{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
@@ -1374,11 +1374,12 @@ const FREE_BAD=[
 ];
 const FREE_LEAD=/^(hi|hello|hey|well|yes|no|ok|okay|oh|so|nice to meet you( too)?|thank you|thanks)( [\p{L}-]+[,.!]|[,.!]?) /u;
 const FREE_PLACE=/^(in|at|on) (my|the|our) [\p{L} ]{2,25}, ?/u;
+const FREE_TIME=/^(every (day|morning|evening|night|week|weekend|monday|tuesday|wednesday|thursday|friday|saturday|sunday)|on (mondays|tuesdays|wednesdays|thursdays|fridays|saturdays|sundays)|in the (morning|afternoon|evening)|at the weekend|at weekends|usually|normally|sometimes|often),? /;
 /* réponses courtes justes (« Belgium », « 33 »…) : acceptées, avec la phrase complète en exemple */
 const SHORT={dlg:[/^([\p{L}'-]{2,20})$/u,"My name is {}."],ctry:[/^(?:from )?([\p{L}' -]{3,25})$/u,"I'm from {}."],age:[/^([0-9]{1,3}|[\p{L} -]{3,20})(?: years old)?$/u,"I'm {}."],wh:[/^(?:in )?([\p{L}' -]{3,25})$/u,"I live in {}."],time:[/^(?:at )?([\p{L}0-9:.' ]{1,20})$/u,"I get up at {}."]};
 function freeCands(q,g){
   const out=[];const add=x=>{x=x.replace(/[,.!?]? (and you|what about you|how about you)$/,'').replace(/[.!?,;:]+$/,'').trim();if(x&&!out.includes(x))out.push(x)};
-  [g].concat(g.split(/[.!?]+\s*/)).forEach(x=>{x=x.trim();for(let i=0;i<3&&FREE_LEAD.test(x);i++)x=x.replace(FREE_LEAD,'');add(x);if(FREE_PLACE.test(x))add(x.replace(FREE_PLACE,''))});
+  [g].concat(g.split(/[.!?]+\s*/)).forEach(x=>{x=x.trim();for(let i=0;i<3&&FREE_LEAD.test(x);i++)x=x.replace(FREE_LEAD,'');add(x);if(FREE_PLACE.test(x))add(x.replace(FREE_PLACE,''));if(FREE_TIME.test(x))add(x.replace(FREE_TIME,''))});
   return out;
 }
 function freeCheck(q,given){
@@ -1401,7 +1402,9 @@ function capNote(q,given,ok){if(!ok||!(q.type==='gap'||q.type==='dict'))return '
 /* ---------- explications des fautes ----------
    TRAP : « mauvaise réponse > bonne réponse » → explication ciblée de la confusion. */
 const TRAP={};
-const T=(w,r,html)=>[].concat(w).forEach(x=>[].concat(r).forEach(y=>{TRAP[norm(x)+'>'+norm(y)]=html}));
+const TRAPSK={};
+const T=(w,r,html,sk)=>[].concat(w).forEach(x=>[].concat(r).forEach(y=>{TRAP[norm(x)+'>'+norm(y)]=html;if(sk)TRAPSK[norm(x)+'>'+norm(y)]=sk}));
+const trap=(q,k)=>TRAP[k]&&(!TRAPSK[k]||TRAPSK[k]===q.skill)?TRAP[k]:'';
 T(["they're","it's"],["there is","there are"],"Tu as mis un <b>pronom</b> (it's = c'est, they're = ils sont). Mais ici on <b>annonce</b> qu'une chose existe → <b>there is / there are</b> (= il y a). Astuce : si tu dis « il y a » en français, c'est there.");
 T(["there is","there are"],["they're","it's"],"Tu as mis <b>there is/are</b> (= il y a), mais la chose est <b>déjà connue</b> : on en a parlé juste avant. On la reprend avec un pronom → <b>it's</b> (une chose) / <b>they're</b> (plusieurs). Astuce : si tu dis « c'est » ou « ils sont », ce n'est pas there.");
 T("there is","there are","Le nom qui suit est au <b>pluriel</b> (un -s, un nombre, a lot of…) → there <b>are</b>.");
@@ -1433,10 +1436,10 @@ T("have","has","Sujet he / she / it (Tom, my sister…) → <b>has</b>.");
 T("has","have","Sujet I / you / we / they (ou deux personnes : Sara and Jim) → <b>have</b>.");
 T("is","are","Le sujet est au <b>pluriel</b> (we, they, deux personnes) → <b>are</b>.");
 T("are","is","Le sujet est au <b>singulier</b> (he, she, it, une seule chose) → <b>is</b>.");
-T(["this","those"],"these","Plusieurs choses <b>proches</b> (ici) → <b>these</b>.");
-T(["that","these"],"those","Plusieurs choses <b>loin</b> (là-bas) → <b>those</b>.");
-T(["these","that"],"this","Une seule chose <b>proche</b> → <b>this</b>.");
-T(["those","this"],"that","Une seule chose <b>loin</b> → <b>that</b>.");
+T(["this","those"],"these","Plusieurs choses <b>proches</b> (ici) → <b>these</b>.",'this');
+T(["that","these"],"those","Plusieurs choses <b>loin</b> (là-bas) → <b>those</b>.",'this');
+T(["these","that"],"this","Une seule chose <b>proche</b> → <b>this</b>.",'this');
+T(["those","this"],"that","Une seule chose <b>loin</b> → <b>that</b>.",'this');
 
 function lev(a,b){const d=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;j<=b.length;j++)d[0][j]=j;
   for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]}
@@ -1450,6 +1453,29 @@ function diffHtml(g,r){
   return out;
 }
 const words=s=>String(s).toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,;:«»]/g,' ').trim().split(/\s+/).filter(Boolean);
+/* Diagnostic mot à mot pour les réponses de plusieurs mots : on aligne SANS développer les contractions */
+const rawW=x=>String(x).toLowerCase().replace(/[’‘`]/g,"'").replace(/[^\p{L}0-9' -]/gu,' ').replace(/-/g,' ').split(/\s+/).filter(Boolean);
+function alignW(a,b){const n=a.length,m=b.length,L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)L[i][j]=a[i]===b[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const ops=[];let i=0,j=0;while(i<n||j<m){if(i<n&&j<m&&a[i]===b[j]){i++;j++}else if(j<m&&(i>=n||L[i][j+1]>=L[i+1][j])){ops.push({t:'miss',w:b[j],at:i});j++}else{ops.push({t:'extra',w:a[i],at:i});i++}}
+  /* une absence + un mot en trop au même endroit = une substitution */
+  const out=[];for(let k=0;k<ops.length;k++){const o=ops[k],p=ops[k+1];if(p&&o.at===p.at&&o.t!==p.t){out.push({t:'sub',g:o.t==='extra'?o.w:p.w,r:o.t==='miss'?o.w:p.w});k++}else out.push(o)}
+  return out}
+function wordDiag(q,given,right){
+  const gw=rawW(given),rw=rawW(right);if(rw.length<2&&gw.length<2)return '';
+  const ops=alignW(gw,rw);if(!ops.length)return '';
+  if(ops.length>4)return q.type==='dict'?"La phrase entendue a <b>"+rw.length+" mots</b>, tu en as écrit "+gw.length+". Réécoute avec « Plus lent », phrase par phrase : la bonne réponse est juste au-dessus.":'';
+  const msg=[];
+  for(const o of ops){
+    if(o.t==='sub'){const t=trap(q,norm(o.g)+'>'+norm(o.r));
+      if(t){msg.push(t);continue}
+      if(o.r.startsWith(o.g)&&/^'(re|s|m|ve|ll|d|t)$/.test(o.r.slice(o.g.length))){msg.push("Il manque la fin <b>"+esc(o.r.slice(o.g.length))+"</b> : <b>"+esc(o.r)+"</b> = "+esc(norm(o.r))+".");continue}
+      if(lev(o.g,o.r)<=2&&o.r.length>=4){msg.push("Orthographe : « "+esc(o.g)+" » → <b>"+esc(o.r)+"</b>.");continue}
+      msg.push("« "+esc(o.g)+" » → <b>"+esc(o.r)+"</b>.")}
+    else if(o.t==='miss'){msg.push(/^(a|an)$/.test(o.w)?"Il manque <b>"+o.w+"</b> : devant un nom au singulier qu'on peut compter, l'anglais met toujours a / an (a café, an idea).":/^(the)$/.test(o.w)?"Il manque <b>the</b>.":"Il manque le mot <b>"+esc(o.w)+"</b>.")}
+    else msg.push("Mot en trop : « "+esc(o.w)+" ».")}
+  return msg.slice(0,3).join(' ');
+}
 function diagnose(a){
   const q=a.q,g=a.given||'';
   if(/temps écoulé/.test(g))return "Le temps était écoulé. Relis la règle ci-dessous : à force de la revoir, la réponse viendra plus vite.";
@@ -1459,9 +1485,9 @@ function diagnose(a){
   const G=norm(g);
   for(const r of rights){
     const R=norm(r);
-    if(TRAP[G+'>'+R])return TRAP[G+'>'+R];
+    if(trap(q,G+'>'+R))return trap(q,G+'>'+R);
     const gw=G.split(' '),rw=R.split(' ');
-    if(gw.length===rw.length){const d=gw.map((w,i)=>w!==rw[i]?i:-1).filter(i=>i>=0);if(d.length===1&&TRAP[gw[d[0]]+'>'+rw[d[0]]])return TRAP[gw[d[0]]+'>'+rw[d[0]]]}
+    if(gw.length===rw.length){const d=gw.map((w,i)=>w!==rw[i]?i:-1).filter(i=>i>=0);if(d.length===1&&trap(q,gw[d[0]]+'>'+rw[d[0]]))return trap(q,gw[d[0]]+'>'+rw[d[0]])}
   }
   if(q.type==='ord'){
     const gw=words(g),rw=words(q.sentence);
@@ -1473,6 +1499,7 @@ function diagnose(a){
   if(q.type==='gap'||q.type==='dict'){
     let best=rights[0],bd=1e9;rights.forEach(r=>{const d=lev(G,norm(r));if(d<bd){bd=d;best=r}});
     const R=norm(best);
+    const wd=wordDiag(q,g,best);if(wd)return wd;
     if(R===G+'s'||R===G+'es')return "Il manque juste le <b>-s</b> final : verbe avec he / she / it (she plays) ou nom au pluriel.";
     if(G.replace(/'/g,'')===R.replace(/'/g,''))return "C'est l'<b>apostrophe</b> qui coince. Possessif : <b>'s</b> au singulier (Karl's), <b>'</b> seule après un pluriel en -s (my parents').";
     if(bd<=2&&R.length>=4)return "Presque ! Ce n'est pas une erreur de grammaire, juste d'<b>orthographe</b>. En surligné, les lettres qui manquaient ou différaient : <span class=\"dif\">"+diffHtml(g,best)+"</span>";
@@ -1519,23 +1546,30 @@ const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
     if(it.en.split(' ').length<=9)D(it.sid,it.en,"Tu as entendu : <b>"+esc(it.en)+"</b> ("+esc(it.fr)+")",{aud:1,sayw:it.who||'',hint:"En français : "+it.fr});
   });
   /* dialogues joués : faux choix PLAUSIBLES = la bonne réplique avec une faute typique, ou une autre réplique du même dialogue */
-  const MUT=[[/\bI'm (\d+)\b/,"I have $1 years."],[/\bYes, I am\b/,"Yes, I'm"],[/\bYes, (he|she|it) is\b/,"Yes, $1's"],[/\bNo, I'm not\b/,"No, I not"],
+  const MUT=[[/\bI'm (\d+)\b/,"I have $1 years."],[/\bI'm (one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty)\b/,"I have $1 years"],[/\bNice to meet you, (\w+)/,"Nice to meet you to, $1"],[/\bYes, I am\b/,"Yes, I'm"],[/\bYes, (he|she|it) is\b/,"Yes, $1's"],[/\bNo, I'm not\b/,"No, I not"],
     [/\bNice to meet you too\b/,"Nice to meet you also"],[/\bMy name is\b/,"My name it's"],[/\bI'm from\b/,"I am of"],[/\bI live in\b/,"I live at"],
     [/\bHow are you\?/,"How you are?"],[/\bWhat's your name\?/,"What is you name?"],[/\bthanks\b/,"thanks you"],[/\b(He|She) (\w+)s\b/,"$1 $2"],
     [/\bI love (\w+ing)\b/,"I love to $1"],[/\bI prefer (\w+ing)\b/,"I prefer to $1"],[/\bThere is\b/,"It is"],[/\bThere are\b/,"They are"],[/\bThere's\b/,"It's"],
     [/\bI've got\b/,"I've"],[/\bhave got\b/,"have get"],[/\bsome\b/,"any"],[/\bany\b/,"some"],[/\bdoesn't (\w+)\b/,"doesn't $1s"],[/\bdon't\b/,"doesn't"],[/\bis\b/,"are"],[/\bare\b/,"is"]];
   const mutate=t=>{const out=[];for(const [re,rep] of MUT){if(re.test(t)){const m=t.replace(re,rep);if(m!==t&&!out.includes(m))out.push(m)}if(out.length>=2)break}return out};
   dlgs.forEach((g,gi)=>{for(let j=1;j<g.d.length;j++){const prev=g.d[j-1],l=g.d[j];
-    const d=mutate(l[1]).slice(0,1);
-    g.d.forEach((x,k)=>{if(d.length<2&&k!==j&&k!==j-1&&x[0]===l[0]&&x[1]!==l[1])d.push(x[1])});
-    g.d.forEach((x,k)=>{if(d.length<2&&k>j&&x[1]!==l[1]&&!d.includes(x[1]))d.push(x[1])});
-    mutate(l[1]).slice(1).forEach(m=>{if(d.length<2&&!d.includes(m))d.push(m)});
+    /* même forme que la bonne réponse (question ↔ question, réponse ↔ réponse) : on ne peut pas l'éliminer à la forme */
+    const isQ=t=>/\?\s*$/.test(t),sameForm=t=>isQ(t)===isQ(l[1]);
+    const d=mutate(l[1]).slice(0,2);
+    g.d.forEach((x,k)=>{if(d.length<2&&k!==j&&k!==j-1&&x[1]!==l[1]&&sameForm(x[1])&&!d.includes(x[1]))d.push(x[1])});
+    dlgs.forEach((o,oi)=>{if(oi!==gi)o.d.forEach((x,k)=>{if(d.length<2&&k>0&&sameForm(x[1])&&x[1]!==l[1]&&!d.includes(x[1])&&lv(o.sid)===lv(g.sid))d.push(x[1])})});
     if(d.length<2)continue;
     M(g.sid,"Dialogue : que répond "+l[0]+" ?",[l[1]].concat(d.slice(0,2)),"La réponse logique à « "+esc(prev[1])+" » : <b>"+esc(l[1])+"</b> ("+esc(l[2])+")",{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1});
     /* version à taper : on masque la réplique (répliques courtes seulement) */
-    if(l[1].split(' ').length<=8)G(g.sid,"Dialogue : réponds comme "+l[0]+". (En français : « "+l[2]+" »)",[l[1]],"<b>"+l[0]+"</b> : "+esc(l[1]),{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1,loose:1});
+    const core=t=>{const v=[t];let x=t;for(let k=0;k<2;k++){const y=x.replace(/^(Hi|Hello|Hey|Yes|No|Oh|Well|Cool|OK|Okay)( [A-Z][a-z]+)?[!,.]? */,'');if(y!==x&&y){x=y;v.push(x)}}
+      v.slice().forEach(z=>{const w=z.replace(/[,.]? *And you\?$/,'').trim();if(w&&w!==z)v.push(w)});
+      v.slice().forEach(z=>{if(/My name is (\w+)/.test(z))v.push(z.replace(/My name is (\w+)/,"I'm $1"));if(/I'm ([A-Z]\w+)/.test(z))v.push(z.replace(/I'm ([A-Z]\w+)/,"My name is $1"))});
+      return [...new Set(v)]};
+    if(l[1].split(' ').length<=8)G(g.sid,"Dialogue : réponds comme "+l[0]+". (En français : « "+l[2]+" »)",core(l[1]),"<b>"+l[0]+"</b> : "+esc(l[1]),{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1,loose:1});
   }});
 })();
+/* « C'est … » se traduit aussi par « This is … » : on l'accepte partout */
+Q.forEach(q=>{if(q.type==='gap'&&/^Traduis/.test(q.prompt)&&/« C'est/.test(q.prompt)){q.acc.slice().forEach(x=>{const m=x.match(/^(it's|that's|it is|that is) (.*)$/i);if(m){const v='this is '+m[2];if(!q.acc.includes(v))q.acc.push(v)}})}});
 const GAMES=[
  {k:'quiz',i:'⚡',n:'Quiz éclair',d:'QCM, réponds vite',t:['mcq'],n10:10},
  {k:'gap',i:'🕳️',n:'Mind the gap',d:'Complète la phrase',t:['gap'],n10:10},
@@ -1586,7 +1620,7 @@ function lgCard(){const pr=cur();
   if(!pr.lg)return `<button class="card lgc" data-act="go" data-to="league"><span class="lgi">${IC.cup}</span><div><b>Ligue de la semaine</b><small>Défie les autres avec un pseudo. Volontaire, désactivable.</small></div><span class="ar">›</span></button>`;
   if((!LG||LG.pid!==pr.id||Date.now()-LG.at>300000)&&!LGload)lgSync().then(()=>{if(S.screen==='home')render()});
   const k=lgRank();
-  return `<button class="card lgc" data-act="go" data-to="league"><span class="lgi">${IC.cup}</span><div><b>${k?(k.r===1?'1er':k.r+'e')+' sur '+k.n+' cette semaine':'Ligue de la semaine'}</b><small>${esc(pr.lg.nick)} · ${wxp(pr)} XP cette semaine</small></div><span class="ar">›</span></button>`}
+  return `<button class="card lgc" data-act="go" data-to="league"><span class="lgi">${IC.cup}</span><div><b>${k&&k.n>1?(k.r===1?'1er':k.r+'e')+' sur '+k.n+' cette semaine':k?'Ligue : invite tes camarades':'Ligue de la semaine'}</b><small>${esc(pr.lg.nick)} · ${wxp(pr)} XP cette semaine</small></div><span class="ar">›</span></button>`}
 function viewLeague(){const pr=cur();
   if(!pr.lg)return `${bubble('k','cheer','Ready for a challenge?',"Chaque semaine, on compte les XP gagnés. Le classement repart à zéro le lundi.")}
   <h2 class="h2">Rejoindre la ligue</h2>
@@ -1601,7 +1635,8 @@ function viewLeague(){const pr=cur();
   return `<h2 class="h2">Ligue de la semaine · ${esc(lgName(pr))}</h2>
   <p class="mut">Tu as <b>${wxp(pr)} XP</b> cette semaine. Le classement repart à zéro lundi.</p>
   <div class="card lgt">${rows?(rows.length?rows.map((r,i)=>`<div class="lgr${r.me?' me':''}"><span class="n${i<3?' m'+i:''}">${i+1}</span><span class="nm">${esc(r.nick)}${r.me?' (toi)':''}</span><span class="xp">${r.xp} XP</span></div>`).join(''):'<p class="mut">Personne encore cette semaine : à toi de lancer la course !</p>'):(LG&&LG.err&&!LGload?'<p class="mut">Classement indisponible (pas de connexion ?). Réessaie plus tard.</p>':'<p class="mut">Chargement du classement…</p>')}</div>
-  <p class="mut" style="margin-top:14px">Ton pseudo : <b>${esc(pr.lg.nick)}</b></p>
+  ${rows&&rows.length===1?`<div class="card wchd"><b>Tu es seul${pr.lg.grp?'':'(e)'} dans cette ligue pour l'instant</b><small>${pr.lg.grp?`Partage le code <b>${esc(pr.lg.grp)}</b> à tes camarades : ils l'entrent en rejoignant la ligue.`:`Invite tes camarades : ils rejoignent la ligue depuis leur appli. Avec un code de groupe, vous serez entre vous.`}</small><button class="btn ghost full" data-act="lgShare" style="margin-top:8px">Inviter</button></div>`:''}
+  <p class="mut" style="margin-top:14px">Ton pseudo : <b>${esc(pr.lg.nick)}</b>${pr.lg.grp?` · code de groupe : <b>${esc(pr.lg.grp)}</b>`:''}</p>
   <button class="lnk" data-act="lgLeave">Quitter la ligue</button>`}
 function newProfile(name,teacher,mode){
   const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
@@ -1797,7 +1832,7 @@ function pick(n,o){
   if(free&&scope==='1')base=base.filter(q=>q.lvl===1);
   if(free&&scope==='2')base=base.filter(q=>q.lvl===2);
   const byLvl={1:base.filter(q=>q.lvl===1),2:base.filter(q=>q.lvl===2)};
-  const out=[],used=new Set();
+  const out=[],used=new Set();let hN=0;
   while(out.length<n){
     let cand;
     if(free&&scope==='mix'){
@@ -1805,11 +1840,13 @@ function pick(n,o){
       if(!byLvl[lv].some(q=>!used.has(q.id)))lv=3-lv;
       cand=byLvl[lv].filter(q=>!used.has(q.id));
     }else cand=base.filter(q=>!used.has(q.id));
+    if(free&&hN>=3)cand=cand.filter(q=>q.skill!=='house'); /* la maison : 3 questions max par séance */
+    if(!cand.length)cand=base.filter(q=>!used.has(q.id)&&!(free&&hN>=3&&q.skill==='house'));
     if(!cand.length)cand=base.filter(q=>!used.has(q.id));
     if(!cand.length)break;
     const tot=cand.reduce((s,q)=>s+weight(q),0);let r=Math.random()*tot,ch=cand[cand.length-1];
     for(const q of cand){r-=weight(q);if(r<=0){ch=q;break}}
-    out.push(ch);used.add(ch.id);
+    out.push(ch);used.add(ch.id);if(ch.skill==='house')hN++;
   }
   return out;
 }
@@ -1846,12 +1883,15 @@ function buildEtape(sid,k){
     const extra=TEACH[sid]?[]:pickFresh(5,T(REC));
     return cards.concat(extra.map(q=>({q})));
   }
-  const AUD=all.filter(q=>q.aud&&q.type==='mcq'),ROLE=all.filter(q=>q.role&&q.type==='mcq'),ROLET=all.filter(q=>q.role&&q.type==='gap'),SDICT=all.filter(q=>q.aud&&q.type==='dict'),base=t=>T(t).filter(q=>!q.aud&&!q.role);
+  const multi=q=>/[.!?] +[A-Z]/.test(q.word||''),AUD=all.filter(q=>q.aud&&q.type==='mcq'),ROLE=all.filter(q=>q.role&&q.type==='mcq'),ROLET=all.filter(q=>q.role&&q.type==='gap'),SDICT=all.filter(q=>q.aud&&q.type==='dict'&&!multi(q)),MDICT=all.filter(q=>q.aud&&q.type==='dict'&&multi(q)),base=t=>T(t).filter(q=>!q.aud&&!q.role);
   if(k==='train'){take(pickFresh(2,AUD));take(pickFresh(ROLE.length?2:0,ROLE,used));take(pickFresh(7-out.length,base(['mcq','match']),used));take(pickFresh(10-out.length,base(['gap','free']),used));}
   if(k==='write'){take(pickFresh(2,SDICT));take(pickFresh(ROLET.length?1:0,ROLET,used));take(pickFresh(9-out.length,base(['gap','ord','dict','free']),used));}
-  if(k==='defi'){take(pickFresh(1,AUD));take(pickFresh(7-out.length,all.filter(q=>!q.aud&&!q.role),used));const prev=myPath().filter(x=>x.id!==sid&&etOf(x.id)>=4);take(pickFresh(3,Q.filter(q=>prev.some(x=>x.id===q.skill)),used));}
-  if(out.length<6)take(pickFresh(8-out.length,all,used));
-  return shuffle(out).map(q=>({q}));
+  if(k==='defi'){take(pickFresh(1,AUD));take(pickFresh(MDICT.length?1:0,MDICT,used));take(pickFresh(7-out.length,all.filter(q=>!q.aud&&!q.role),used));const prev=myPath().filter(x=>x.id!==sid&&etOf(x.id)>=4);take(pickFresh(3,Q.filter(q=>prev.some(x=>x.id===q.skill)),used));}
+  if(out.length<6)take(pickFresh(8-out.length,all.filter(q=>k!=='write'||!multi(q)),used));
+  const res=shuffle(out).map(q=>({q}));
+  /* fin de station : on parle (au micro, si le téléphone le permet) */
+  if(k==='defi'){const fq=SRc&&TEACH[sid]&&TEACH[sid].map(c=>c.q).filter(q=>q&&q.type==='free').pop();if(fq)res.push({speak:{q:fq,end:1}})}
+  return res;
 }
 function startSession(mode,o){
   o=o||{};const pr=cur();let qs=[],label='Entraînement',fb=true,timer=false;
@@ -1895,10 +1935,20 @@ function autoSay(){
   if(q.type==='dict')setTimeout(()=>speak(q.word,undefined,vv),350);
   else if((q.type==='mcq'||q.role)&&q.say)setTimeout(()=>speak(q.say,undefined,vv),350);
 }
+/* la bonne réponse affichée : la variante la plus proche de l'énoncé, avec majuscule et ponctuation */
+function prettyAcc(q){
+  const A=q.acc;let best=A[0];
+  if(A.length>1&&/^Traduis/.test(q.prompt)){const P=flat(q.prompt).split(' ').filter(w=>w.length>=4).map(w=>w.slice(0,5));let bs=-1;
+    A.forEach(x=>{const sc=flat(x).split(' ').filter(w=>w.length>=4&&P.includes(w.slice(0,5))).length;if(sc>bs){bs=sc;best=x}})}
+  let t=String(best).replace(/\bi\b/g,'I').replace(/\bi'(m|ve|ll|d)\b/g,"I'$1");
+  if(/^(Traduis|Dialogue)/.test(q.prompt)||/^___/.test(q.prompt))t=t.charAt(0).toUpperCase()+t.slice(1);
+  if(/^Traduis/.test(q.prompt)&&!/[.!?]$/.test(t)){const m=q.prompt.match(/«\s*([^»]*?)\s*»/);const pn=m&&m[1].trim().slice(-1);if(pn&&/[.!?]/.test(pn))t+=pn;else t+='.'}
+  return t;
+}
 function ansText(q){
   if(q.type==='free')return q.acc[0];
   if(q.type==='mcq')return q.opts[0];
-  if(q.type==='gap')return q.acc[0];
+  if(q.type==='gap')return prettyAcc(q);
   if(q.type==='ord')return q.sentence;
   if(q.type==='dict')return q.word;
   return q.pairs.map(p=>p[0]+' = '+p[1]).join(' · ');
@@ -2020,7 +2070,7 @@ function isDue(q){const r=cur().q[q.id];if(!r)return false;const iv=IV[Math.min(
 function dueList(excl){const p=cur().q,now=Date.now();return Q.filter(q=>(!excl||q.skill!==excl)&&isDue(q)).map(q=>{const r=p[q.id];return{q,k:(now-(r.last||0))/(Math.max(.5,IV[Math.min(r.box,4)])*DAYMS)+Math.random()*.1}}).sort((a,b)=>b.k-a.k).map(x=>x.q)}
 const BIGDUE=25;
 /* varier les révisions : pas plus de k questions d'une même station (la maison ne prend pas toute la place) */
-function spread(list,n,k){const c={},out=[];for(const q of list){if(out.length>=n)break;if((c[q.skill]||0)<k){c[q.skill]=(c[q.skill]||0)+1;out.push(q)}}for(const q of list){if(out.length>=n)break;if(!out.includes(q))out.push(q)}return out}
+function spread(list,n,k){const c={},out=[];for(const q of list){if(out.length>=n)break;if((c[q.skill]||0)<Math.min(k,q.skill==='house'?3:k)){c[q.skill]=(c[q.skill]||0)+1;out.push(q)}}for(const q of list){if(out.length>=n)break;if(!out.includes(q))out.push(q)}return out}
 const needReview=pr=>{const n=dueList().length;return n>=BIGDUE&&pr.rv!==dayStr(new Date())};
 const todayN=pr=>pr.dg&&pr.dg.d===dayStr(new Date())?pr.dg.n:0;
 function dayPlan(){
@@ -2327,6 +2377,7 @@ function viewSettings(){
   <p class="lbl">Récupérer ma progression</p><input id="imp" class="inp" autocomplete="off" autocapitalize="characters" placeholder="Ex : K7P-4QX">
   <button class="btn ghost full" data-act="import">Récupérer</button>${S.msg?`<div class="warn">${esc(S.msg)}</div>`:''}
   <h2 class="h2">Autre</h2>
+  <small>Version de l'appli : 25/10/2026 14:54 · ebc1e5b5</small>
   <small>Icônes des objets : <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji</a> (licence CC BY-SA 4.0). Voix : Deepgram Aura via Cloudflare.</small>
   <button class="btn ghost full" data-act="switch">Changer de profil</button><button class="btn dng full" data-act="askdel">Supprimer ce profil</button>
   ${storageOK?'':'<div class="warn">Sauvegarde indisponible dans ce navigateur : ouvre le lien dans Safari ou Chrome.</div>'}
@@ -2335,6 +2386,7 @@ function viewSettings(){
 
 const INSTR={free:'Réponds avec tes mots',mcq:'Choisis la bonne réponse',gap:'Complète',ord:'Remets les mots dans l\'ordre',dict:'Écoute et écris',match:'Associe les paires'};
 
+const instrOf=q=>q.role?(q.type==='gap'?'Dialogue · réponds':'Dialogue'):/^Traduis/.test(q.prompt||'')?'Traduis':/^Il y a une faute/.test(q.prompt||'')?'Corrige':q.type==='dict'&&/ /.test(q.word)?'Dictée':q.aud?'Écoute':INSTR[q.type];
 function learnView(P,it){
   const n=P.items.length;
   const dots=P.items.map((x,i)=>`<i class="${i===P.i?'c':x.res==='ko'?'ko':x.res?'d':''}"></i>`).join('');
@@ -2345,7 +2397,7 @@ function learnView(P,it){
     <button class="btn full" data-act="sayall">${IC.spk} Écouter tout le dialogue</button>`;
   }else if(it.speak){
     const K=it.speak;
-    h+=`<div class="tag">À l'oral · fin de la découverte</div>
+    h+=`<div class="tag">À l'oral · ${K.end?'fin de la station':'fin de la découverte'}</div>
     <div class="lcard2"><div class="lhead">${teacher('k','happy',54)}<span class="hand">Your turn!</span></div>
     <div class="len" style="font-size:20px">${esc(K.q.prompt.replace(/^À toi ! /,''))}</div>
     <div class="lfr">Réponds à voix haute, au micro. Exemple : « ${esc(K.q.acc[0])} »</div>
@@ -2371,7 +2423,7 @@ function viewPlay(){
   const dots=P.items.map((x,i)=>`<i class="${i===P.i&&!fb?'c':x.res?(P.fb?(x.res==='ko'?'ko':'d'):'d'):''}"></i>`).join('');
   let h=`<div class="ph"><button class="x" data-act="askquit" aria-label="Quitter">✕</button><div class="tube" aria-label="Question ${P.i+1} sur ${n}">${dots}</div><span class="combo">${P.combo>1?'×'+P.combo:''}</span></div>`;
   if(P.timer)h+=`<div class="tm"><i id="tmb" style="width:${P.left?P.left/P.max*100:100}%"></i></div><small id="tm">${P.left||''} s</small>`;
-  h+=`<div class="tag">${it.rt?'On revoit ton erreur — ':''}${SKM[q.skill].name} — ${P.mode==='exam'?'question '+(P.i+1)+' / '+n:INSTR[q.type]}</div>`;
+  h+=`<div class="tag">${it.rt?'On revoit ton erreur — ':''}${SKM[q.skill].name} — ${P.mode==='exam'?'question '+(P.i+1)+' / '+n:instrOf(q)}</div>`;
   if(q.ctx)h+=`<div class="ctx">${q.ctx}</div>`;
   if(q.wd&&OMI[q.wd]&&(q.pic||q.type==='gap'))h+=`<div class="omw">${omImg(q.wd,'omi')}</div>`;
   if(q.type==='dict'){
@@ -2489,7 +2541,7 @@ const A={
     const el=$('#pname'),name=((el&&el.value)||'').trim();
     if(!name){toast('Écris ton prénom');if(el)el.focus();return}
     if(!S.newMode){S.newName=name;toast('Choisis ton parcours');return}
-    newProfile(name,S.newT,S.newMode);S.newName='';S.screen=(!isStandalone()&&!DB.noInstall)?'install':'home';render();window.scrollTo(0,0);
+    newProfile(name,S.newT,S.newMode);S.newName='';S.newMode='';S.screen=(!isStandalone()&&!DB.noInstall)?'install':'home';render();window.scrollTo(0,0);
   },
   scope:d=>{cur().scope=d.k;persist();render()},
   play:d=>startSession(d.m),
@@ -2536,6 +2588,8 @@ const A={
   lgJoin:()=>{const el=$('#lgnick'),n=((el&&el.value)||'').replace(/[<>&"]/g,'').trim().slice(0,16);if(n.length<2){toast('Choisis un pseudo (2 lettres minimum)');if(el)el.focus();return}
     const ge=$('#lggrp'),grp=((ge&&ge.value)||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,10);if(grp&&grp.length<3){toast('Le code de groupe fait au moins 3 caractères.');return}
     const pr=cur();pr.lg={nick:n,since:Date.now(),grp:grp||''};persist();LG=null;S.lgNick='';track('lg',{k:'join'});render();lgSync().then(()=>{if(S.screen==='league')render()})},
+  lgShare:()=>{const pr=cur(),u=location.origin+location.pathname,t="Viens jouer à Tea Time English avec moi !"+(pr.lg&&pr.lg.grp?" Dans la ligue, entre le code de groupe "+pr.lg.grp+".":"")+" "+u;
+    if(navigator.share)navigator.share({title:'Tea Time English',text:t}).catch(()=>{});else{try{navigator.clipboard.writeText(t);toast('Message copié : colle-le à tes camarades.')}catch(e){toast(t)}}},
   lgLeave:()=>{const pr=cur();if(!pr.lg)return;lgPost({id:lgId(pr),leave:1,mode:lgMode(pr)}).catch(()=>{});delete pr.lg;LG=null;persist();track('lg',{k:'leave'});toast('Tu as quitté la ligue.');render()},
   remSet:()=>{track('rem',{});DB.remAsked=true;persist();setTimeout(()=>{if(S.screen==='result')render()},800)},
   remNo:()=>{DB.remAsked=true;persist();render()},
@@ -2584,7 +2638,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 track('open');setTimeout(flush,4000);
 render();
-window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,looseEq,speakSeq,voiceOf,render,prep}; // utile pour les tests
+window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,looseEq,diagnose,ansText,instrOf,pick,speakSeq,voiceOf,render,prep}; // utile pour les tests
 })();
 </script>
 <script>
