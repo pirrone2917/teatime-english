@@ -18,7 +18,7 @@
 <style>
 :root{
   --bg:#F6EFE2;--card:#FFFDF8;--navy:#1C2E5E;--line1:#1F57B5;--line2:#D02B27;--ink:#1F2430;--mute:#6B6F7A;--line:#E2D8C6;--rule:#EDE3D2;--soft:#EFE7D8;--grey:#CFC6B5;
-  --blue:#1F4FB5;--red:#D7263D;--amber:#B86E00;--green:#2E7D32;--green-bg:#EAF5EA;--bad-bg:#FDECEE;--hl:#FFF27A;
+  --blue:#1F4FB5;--red:#D02B27;--amber:#B86E00;--green:#2E7D32;--green-bg:#EAF5EA;--bad-bg:#FDECEE;--hl:#FFF27A;
   color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -85,14 +85,14 @@ button.card{cursor:pointer}
 .srow{display:flex;gap:12px;align-items:center;padding:12px 14px 12px 0;border-left:6px solid var(--lc)}
 .srow .tx{flex:1;padding-left:12px}
 .srow .tx b{display:block;line-height:1.25}
-.lv{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--mute)}
+.lv{font-size:13px;font-weight:700;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--mute)}
 
 /* jeu */
 .ph{display:flex;align-items:center;gap:12px;padding:14px 0 12px}
 .x{border:2px solid var(--ink);background:#fff;width:34px;height:34px;border-radius:50%;font-size:14px;cursor:pointer;flex:none}
 .tube{flex:1;display:flex;gap:3px}
 .tube i{flex:1;height:12px;border:1.5px solid var(--line);border-radius:2px}
-.tube i.d{background:var(--blue);border-color:var(--blue)}
+.tube i.d{background:var(--green);border-color:var(--green)}
 .tube i.ko{background:var(--red);border-color:var(--red)}
 .tube i.c{background:var(--hl);border:2px solid var(--ink)}
 .combo{font-weight:700;font-size:14px;min-width:42px;text-align:right;color:var(--red)}
@@ -146,7 +146,7 @@ mark{background:#FFD95A;color:inherit;border-bottom:2px solid var(--red);padding
 .vt{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 10px}
 .vt td{border-bottom:1px solid var(--line);padding:6px 4px;vertical-align:top}
 .vt td:first-child{font-weight:700;width:52%}
-.vt small{display:inline;font-weight:400;font-size:12px}
+.vt small{display:inline;font-weight:400;font-size:13.5px}
 .us{font-size:15px;margin:6px 0 8px;padding-left:10px;border-left:3px solid var(--blue)}
 details.d{border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;font-size:16px;background:#fff}
 details.d summary{cursor:pointer;font-weight:700}
@@ -193,7 +193,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .today:active{transform:translateY(1px)}
 .fw{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 4px}
 .fw>div{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-size:14px;line-height:1.35}
-.fw .t{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.fw .t{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
 .path{padding:4px 0 2px}
 .node{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
 .node .c{width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);display:grid;place-items:center;font-weight:700;font-size:19px;background:#fff;flex:none;transition:transform .15s}
@@ -208,7 +208,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .node.focus .st{color:var(--red)}
 @keyframes pulse{50%{box-shadow:0 0 0 10px #FFF8C2}}
 .link{height:16px;border-left:2.5px dashed var(--grey);margin:3px 0}
-.bd{font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap;display:inline-block}
+.bd{font-size:13px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap;display:inline-block}
 .bd.ok{background:var(--green-bg);color:var(--green)}.bd.frag{background:#FFF1DC;color:#8A5200}.bd.cur{background:#E8EEFA;color:var(--blue)}.bd.new{background:var(--soft);color:var(--mute)}
 .lrow{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .lrow b{display:block;line-height:1.25}
@@ -218,7 +218,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .stp.done{background:var(--green-bg);border-color:#BFDDBF}.stp.done .n{background:var(--green);border-color:var(--green);color:#fff}
 .stp.now{border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--hl)}
 .stp.later{opacity:.6}
-.fm{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.fm span{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;background:#fff}
+.fm{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.fm span{font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:1px 8px;background:#fff}
 .mini{height:6px;border-radius:3px;background:var(--soft);margin-top:7px;overflow:hidden}.mini i{display:block;height:100%;background:var(--blue)}
 .counts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 10px;text-align:center}
 .counts div{border:1.5px solid var(--line);border-radius:10px;padding:6px 2px}.counts b{display:block;font-size:20px}
@@ -273,7 +273,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .stn{display:flex;align-items:center;gap:12px;min-height:52px;position:relative;width:100%;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
 .stn .dot{width:26px;height:26px;border-radius:50%;background:#fff;border:5px solid var(--lc);position:relative;z-index:2;flex:none;margin-left:7px;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff}
 .stn .nm{font-weight:700;font-size:15.5px;line-height:1.15;display:block}
-.stn .tg{font-size:12.5px;color:var(--mute);display:block}
+.stn .tg{font-size:14px;color:var(--mute);display:block}
 .lseg{position:absolute;left:15px;top:38px;height:28px;width:10px;background:var(--lc);z-index:1}
 .lseg.dash{background:repeating-linear-gradient(var(--grey) 0 7px,transparent 7px 12px)}
 .stn.ok .dot{background:var(--lc)}
@@ -283,9 +283,9 @@ details.d summary{cursor:pointer;font-weight:700}
 @keyframes pulse2{0%,100%{box-shadow:0 0 0 4px rgba(255,226,122,.5)}50%{box-shadow:0 0 0 10px rgba(255,226,122,.2)}}
 .stn.lock .nm{color:#9A9488}.stn.lock .dot{border-color:var(--grey);background:var(--soft);font-size:11px}
 .stn.new .dot{background:#fff}
-.stamp{margin-left:auto;font-weight:700;font-size:10px;letter-spacing:.06em;color:var(--green);border:2px solid var(--green);border-radius:6px;padding:1px 6px;transform:rotate(-8deg);opacity:.85;white-space:nowrap;flex:none}
+.stamp{margin-left:auto;font-weight:700;font-size:11px;letter-spacing:.06em;color:var(--green);border:2px solid var(--green);border-radius:6px;padding:1px 6px;transform:rotate(-8deg);opacity:.85;white-space:nowrap;flex:none}
 .stamp.f{color:#B06A0C;border-color:#C27A12}
-.ptag{margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;flex:none;background:#E3ECFA;color:var(--line1)}
+.ptag{margin-left:auto;font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;flex:none;background:#E3ECFA;color:var(--line1)}
 .ptag.g{background:var(--soft);color:#7D7768}
 .xchg{display:flex;align-items:center;gap:10px;width:100%;margin:8px 0 0;padding:10px 12px;background:var(--card);border:0;border-radius:12px;font:inherit;font-size:14px;text-align:left;cursor:pointer;color:inherit}
 .xchg .l{width:30px;height:10px;border-radius:5px;flex:none}
@@ -299,7 +299,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .leg:not(:last-child):after{content:"";position:absolute;left:8px;top:28px;bottom:-10px;width:6px;background:var(--line2);z-index:1}
 .leg.todo:not(:last-child):after,.leg.now:not(:last-child):after{background:repeating-linear-gradient(var(--line2) 0 6px,transparent 6px 11px)}
 .leg b{display:block;font-size:15.5px}.leg small{font-size:13px}
-.leg .fm{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.leg .fm span{font-size:11.5px;background:var(--soft);border:0;border-radius:99px;padding:1px 8px}
+.leg .fm{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.leg .fm span{font-size:13.5px;background:var(--soft);border:0;border-radius:99px;padding:1px 8px}
 .mbar{display:block;height:6px;background:#EEE6D6;border-radius:3px;margin-top:6px;overflow:hidden}.mbar i{display:block;height:100%;background:var(--line2)}
 .passport{margin:12px auto 0;max-width:320px;min-height:200px;background:#FBF6EC;border-radius:10px;position:relative;box-shadow:0 2px 0 var(--line),inset 0 0 0 1px #EADFCB;background-image:repeating-linear-gradient(#FBF6EC 0 27px,#EFE6D5 27px 28px);overflow:hidden}
 .passport .pt{position:absolute;left:14px;top:8px;font-size:10.5px;letter-spacing:.18em;color:var(--mute);font-weight:700}
@@ -308,7 +308,7 @@ details.d summary{cursor:pointer;font-weight:700}
 @keyframes thud{0%{transform:translateY(-50%) rotate(-9deg) scale(2.2);opacity:0}100%{transform:translateY(-50%) rotate(-9deg) scale(1);opacity:1}}
 .oldst{position:absolute;font-size:9px;font-weight:700;letter-spacing:.08em;padding:4px 7px;border:2.5px solid;border-radius:50%;opacity:.55;white-space:nowrap}
 .pp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
-.pp div{aspect-ratio:1.25;border-radius:10px;display:grid;place-items:center;text-align:center;font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:4px;line-height:1.2}
+.pp div{aspect-ratio:1.25;border-radius:10px;display:grid;place-items:center;text-align:center;font-size:12px;font-weight:700;letter-spacing:.04em;padding:4px;line-height:1.2}
 .pp .y{border:3px solid var(--c);color:var(--c);transform:rotate(var(--r));background:rgba(255,255,255,.4)}
 .pp .y small{font-size:9px;color:inherit;opacity:.8;margin:0}
 .pp .n{border:2px dashed var(--grey);color:#A59E90}
@@ -340,11 +340,12 @@ details.d summary{cursor:pointer;font-weight:700}
 .dlgbox{display:flex;flex-direction:column;gap:8px;margin:6px 0 10px}
 .dl{background:var(--card);border-radius:14px 14px 14px 4px;padding:9px 12px 9px 12px;max-width:88%;position:relative}
 .dl.r{align-self:flex-end;background:#E8EEFA;border-radius:14px 14px 4px 14px}
-.dl b{font-size:12px;color:var(--mute);display:block}.dl .en{font-size:17px;font-weight:700;display:block;padding-right:30px}.dl small{font-size:13.5px}
+.dl b{font-size:13px;color:var(--mute);display:block}.dl .en{font-size:17px;font-weight:700;display:block;padding-right:30px}.dl small{font-size:13.5px}
 .spk1{position:absolute;right:6px;top:6px;border:0;background:none;font-size:18px;cursor:pointer}
 .etdots{display:flex;gap:6px;justify-content:center;margin:8px 0}
 .etdots span{width:44px;height:8px;border-radius:4px;background:var(--grey)}.etdots span.y{background:var(--green)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+.inst{border:2px dashed var(--red);background:#FFF8EC;margin-top:12px}.inst ol{margin:8px 0 6px;padding-left:20px;font-size:15px;line-height:1.45}.inst .lnk{display:block;margin:6px auto 0}
 </style>
 </head>
 <body>
@@ -360,7 +361,7 @@ details.d summary{cursor:pointer;font-weight:700}
    (elles sont mélangées à l'affichage).
    ===================================================================== */
 const SK=[
- {id:'dlg',lvl:1,name:'Hello! Se présenter',ic:'👋',c:'#00A4A7',sheet:"<p>Hi! Are you a new student? — <b>Yes, I am.</b></p><p>Where are you from? — I'm from Italy.</p><p>Can you spell your name, please? · Sorry, can you repeat that? · Welcome to the class!</p><p>Réponse courte avec <i>to be</i> : jamais de contraction à la fin (❌ Yes, I'm).</p>"},
+ {id:'dlg',lvl:1,name:'Hello! Se présenter',ic:'👋',c:'#00A4A7',sheet:"<p>Hi! Are you a new student? — <b>Yes, I am.</b></p><p>Where are you from? — I'm from Italy.</p><p>Can you spell your name, please? · Sorry, can you repeat that? · Welcome to the class!</p><p>Réponse courte avec <i>to be</i> : pas de contraction dans un <b>oui</b> (❌ Yes, I'm → ✅ Yes, I am). Dans un <b>non</b>, on contracte : No, I'm not · No, she isn't.</p>"},
  {id:'tobe',lvl:1,name:'To be & my / your / his…',ic:'🙋',c:'#6950A1',sheet:"<p>I <b>am</b> · you <b>are</b> · he/she/it <b>is</b> · we <b>are</b> · they <b>are</b>.</p><p>my · your · <b>his</b> · <b>her</b> · its · our · their — ils s'accordent avec le <b>possesseur</b>.</p><p>a + consonne (a student) · an + voyelle (an engineer).</p>"},
  {id:'ctry',lvl:1,name:'Pays & nationalités',ic:'🌍',c:'#00782A',sheet:"<p>Belgium → Belgian · Poland → Polish · Spain → Spanish · Germany → German · Ireland → Irish · Wales → Welsh.</p><p>Pays <b>et</b> nationalités : toujours une majuscule.</p>"},
  {id:'num',lvl:1,name:'Nombres & objets',ic:'🔢',c:'#0098D4',sheet:"<p><b>13–19 = -teen</b> (accent à la fin : thir<b>TEEN</b>) · <b>20–90 = -ty</b> (accent au début : <b>NIN</b>ety).</p><p>⚠️ forty (40) s'écrit sans u. Les jours prennent une majuscule.</p><p>a pen · the door · a sofa · a window · a desk</p>"},
@@ -374,12 +375,12 @@ const SK=[
  {id:'time',lvl:1,name:"L'heure",ic:'🕒',c:'#7156A5',sheet:"<p>8:00 <b>eight o'clock</b> · 9:30 <b>half past nine</b> · 11:15 <b>quarter past eleven</b> · 2:45 <b>quarter to three</b> · 6:10 <b>ten past six</b> · 12:55 <b>five to one</b>.</p><p>past = après l'heure · to = avant l'heure suivante. Version digitale : ten thirty.</p>"},
  {id:'ps',lvl:1,name:'Présent simple',ic:'🔁',c:'#00A4A7',sheet:"<p>I play / she <b>plays</b> · I don't play / she <b>doesn't</b> play · <b>Do</b> you play? / <b>Does</b> she play?</p><p>-s / -es à la 3e personne : watches · goes · studies.</p><p>Emplois : habitude · vérité générale · horaires officiels (The train leaves at 10).</p>"},
  {id:'there',lvl:2,name:'There is / There are',ic:'📍',c:'#E32017',sheet:"<p><b>There is / There's</b> = il y a (singulier ou indénombrable) : There is a cat in the garden.</p><p><b>There are</b> = il y a (pluriel) : There are three chairs around the table.</p><p>Négatif : there <b>isn't</b> / there <b>aren't</b>.</p><p>Énumération : le verbe suit le <b>premier nom</b> : There <b>is</b> a bathroom and two bedrooms / There <b>are</b> two bedrooms and a bathroom.</p>"},
- {id:'its',lvl:2,name:"It's · They're · There",ic:'🎯',c:'#0019A8',sheet:"<p><b>It's</b> (= it is) = c'est : pronom pour quelque chose de <b>déjà identifié</b> — What's that noise? It's the neighbour's dog.</p><p><b>They're</b> (= they are) = ils/elles sont — Who are those people? They're my colleagues.</p><p><b>There is/are</b> annonce, <b>it's/they're</b> reprend.</p><p>⚠️ <b>Their</b> (leur) · <b>there</b> (il y a) · <b>they're</b> (ils sont) : même prononciation !</p>"},
- {id:'like',lvl:2,name:'Goûts & préférences',ic:'❤️',c:'#F386A0',sheet:"<p>I <b>love</b> · I <b>really like</b> · I <b>like</b> · I <b>don't like</b> · I <b>really don't like</b> · I <b>hate</b> · I <b>prefer</b> (aussi : I enjoy…, I don't mind…).</p><p>Toujours suivi du verbe en <b>-ing</b> : I love cooking · I hate going to the park · I prefer watching TV.</p><p>Do you prefer swimming <b>or</b> running ?</p>"},
- {id:'ing',lvl:2,name:'Orthographe en -ing',ic:'✍️',c:'#00782A',sheet:"<p>1) cas général : +ing → cooking, playing.</p><p>2) verbe en -e : on enlève le e → making, writing.</p><p>3) verbe court : on double la consonne → swimming, running, sitting.</p><p>4) -ie → -ying → lying, dying.</p><p>⚠️ visit → visiting · camp → camping (pas de doublement).</p>"},
- {id:'voc',lvl:2,name:'Vocabulaire du cours',ic:'📒',c:'#E86A10',sheet:"<p><b>also</b> = aussi, également · <b>boring</b> = ennuyeux · <b>going</b> = aller · <b>flat</b> = appartement (UK) · <b>nearby</b> = tout près · <b>neighbour</b> = voisin · <b>often</b> = souvent.</p><p>there is/isn't = il y a (sg) · there are/aren't = il y a (pl).</p><p>⚠️ « beaucoup » = a lot of / much / many, <i>pas</i> also !</p>"},
+ {id:'its',lvl:2,name:"It's / They're / There",ic:'🎯',c:'#0019A8',sheet:"<p><b>It's</b> (= it is) = c'est : pronom pour quelque chose de <b>déjà identifié</b> — What's that noise? It's the neighbour's dog.</p><p><b>They're</b> (= they are) = ils/elles sont — Who are those people? They're my colleagues.</p><p><b>There is/are</b> annonce, <b>it's/they're</b> reprend.</p><p>⚠️ <b>Their</b> (leur) · <b>there</b> (il y a) · <b>they're</b> (ils sont) : même prononciation !</p>"},
+ {id:'like',lvl:2,name:'Goûts & préférences',ic:'❤️',c:'#F386A0',sheet:"<p>I <b>love</b> · I <b>really like</b> · I <b>like</b> · I <b>don't like</b> · I <b>really don't like</b> · I <b>hate</b> · I <b>prefer</b> (aussi : I enjoy…, I don't mind…).</p><p>Suivi du verbe en <b>-ing</b> : I love cooking · I hate going to the park · I prefer watching TV.</p><p>Avec love, like, hate, prefer, on peut aussi dire <b>to</b> + verbe (I like to swim) : c'est correct, mais -ing est le plus courant pour parler de ses goûts. Après <b>enjoy</b> et <b>don't mind</b> : -ing <b>obligatoire</b>.</p><p>Do you prefer swimming <b>or</b> running ?</p>"},
+ {id:'ing',lvl:2,name:'Orthographe en -ing',ic:'✍️',c:'#00782A',sheet:"<p>1) cas général : +ing → cooking, playing.</p><p>2) verbe en -e : on enlève le e → making, writing.</p><p>3) verbe court (voyelle + consonne) : on double la consonne → swimming, running, sitting. Aussi quand l'accent est sur la fin : be<b>GIN</b> → beginning. En anglais britannique, le l final double : travelling.</p><p>4) -ie → -ying → lying, dying.</p><p>⚠️ visit → visiting · camp → camping (pas de doublement).</p>"},
+ {id:'voc',lvl:2,name:'Vocabulaire du cours',ic:'📒',c:'#E86A10',sheet:"<p><b>also</b> = aussi, également · <b>boring</b> = ennuyeux · <b>going</b> (go + -ing) = en train d'aller : I'm going home · <b>flat</b> = appartement (UK) · <b>nearby</b> = tout près · <b>neighbour</b> = voisin · <b>often</b> = souvent.</p><p>there is/isn't = il y a (sg) · there are/aren't = il y a (pl).</p><p>⚠️ « beaucoup » = a lot of / much / many, <i>pas</i> also !</p>"},
  {id:'some',lvl:2,name:'Some / Any',ic:'',c:'#1F4FB5',sheet:"<p>= du, de la, de, des, quelques.</p><p><b>some</b> → phrases affirmatives : There are some things on my list. · Let's go get some ice cream.</p><p><b>any</b> → négatives et questions : They don't buy any apples. · Do you need any strawberries?</p><p>Cas particuliers :</p><p>• <b>some</b> dans une question quand on <b>offre</b> ou demande poliment : Would you like some coffee? · Can I have some water, please?</p><p>• <b>any</b> en affirmatif = « n'importe quel » : Choose any book.</p><p>• <b>any</b> après if, unless, whether : If you have any questions, ask me.</p>"},
- {id:'much',lvl:2,name:'Much / Many / A lot of',ic:'',c:'#D7263D',sheet:"<p><b>much / many / a lot of</b> = beaucoup · <b>how much / how many</b> = combien.</p><p><b>many</b> + dénombrable (apples, customers, friends) · <b>much</b> + indénombrable (money, toothpaste, water, time).</p><p><b>a lot of</b> marche avec les deux, surtout en phrase affirmative : Kate always buys a lot of bananas · They have a lot of broccoli.</p><p>Négatif : There aren't many customers today · We haven't got much toothpaste.</p><p>Question : How many tomatoes do you want? · How much time do you spend in the park?</p>"},
+ {id:'much',lvl:2,name:'Much / Many / A lot of',ic:'',c:'#D02B27',sheet:"<p><b>much / many / a lot of</b> = beaucoup · <b>how much / how many</b> = combien.</p><p><b>many</b> + dénombrable (apples, customers, friends) · <b>much</b> + indénombrable (money, toothpaste, water, time).</p><p><b>a lot of</b> marche avec les deux, surtout en phrase affirmative : Kate always buys a lot of bananas · They have a lot of broccoli.</p><p>Négatif : There aren't many customers today · We haven't got much toothpaste.</p><p>Question : How many tomatoes do you want? · How much time do you spend in the park?</p>"},
  {id:'ime',lvl:2,name:'I ou me ?',ic:'',c:'#2E7D32',sheet:"<p><b>I</b> = sujet : celui qui fait l'action. <b>me</b> = complément : celui qui reçoit l'action, ou qui vient après une préposition.</p><p>I love music ↔ Music relaxes me · I call her ↔ She calls me.</p><p><b>Le test magique</b> : quand il y a deux personnes, enlève l'autre. Tom and ___ go to school → ___ go to school → <b>I</b> go. She invites Tom and ___ → She invites ___ → <b>me</b>.</p><p><b>I</b> : sujet (I work in an office) · sujet composé (My sister and I live together) · réponse courte (Yes, I do).</p><p><b>me</b> : COD (She loves me) · COI (Send me an email) · après to, for, with, about, from, between, like (This is for me) · complément composé (The teacher asks Anna and me) · après let et devant un infinitif (Let me explain · They want me to stay).</p><p>Politesse : on se cite <b>en dernier</b> → Sarah and I.</p>"},
  {id:'count',lvl:2,name:'Dénombrables · a / an / some / any',ic:'',c:'#E08A00',sheet:"<p><b>Dénombrable (C)</b> : on peut compter → a chair, two books, an egg, three friends.</p><p><b>Indénombrable (U)</b> : pas de pluriel, pas de a/an → water, bread, money, rice, sugar, coffee, music, advice, information.</p><p>Test : peux-tu dire « two … » ? two apples ✓ → C · two waters ✗ → U.</p><p><b>a / an</b> → dénombrable au singulier (an devant un <b>son</b> voyelle : an orange, an hour).</p><p><b>some / any</b> → pluriel ou indénombrable. some = affirmatif et offre polie · any = négatif et question.</p><p>⚠️ Pièges pour un francophone : ❌ advices · ❌ informations · ❌ a bread → some advice, some information, some bread.</p>"}
 ];
@@ -461,7 +462,7 @@ G('this',"Look! ___ (là-bas) children are my cousins.",["those"],"Pluriel + loi
 G('this',"Pluriel de « child » →",["children"],"Pluriel irrégulier : child → <b>children</b> (❌ childs, ❌ childrens).");
 G('this',"Pluriel de « man » →",["men"],"man → <b>men</b>.");
 G('this',"Pluriel de « woman » →",["women"],"woman → <b>women</b> (prononcé « wimin »).");
-M('this',"___ (là-bas) is the bedroom of my sister.",["That","This","These","Those"],"Singulier + loin → <b>that</b>.");
+M('this',"___ (là-bas) is my sister's bedroom.",["That","This","These","Those"],"Singulier + loin → <b>that</b>.");
 G('this',"___ (là-bas) shoes are hers.",["those"],"shoes = pluriel, loin → <b>those</b>.");
 
 G('hg',"Tom ✓ a car. → Tom ___ a car.",["has got"],"he / she / it → <b>has got</b> · I / you / we / they → <b>have got</b>.",{us:"En américain, on dit plutôt <i>Tom has a car</i> / <i>Does Tom have a car?</i> (sans got)."});
@@ -515,7 +516,7 @@ M('ps',"She ___ play the piano.",["doesn't","don't","isn't","hasn't"],"Négation
 M('ps',"___ she play football?",["Does","Do","Is","Has"],"Question : <b>Does</b> (he/she/it) · <b>Do</b> (I/you/we/they) + sujet + verbe de base.",{us:"<i>Football</i> au Royaume-Uni = <i>soccer</i> aux États-Unis."});
 G('ps',"Does she ___ (play) tennis?",["play"],"Après <b>does</b>, le verbe reste à la base : le -s est déjà porté par « does ».");
 G('ps',"Cats ___ (not bark).",["don't bark","do not bark"],"Vérité générale → présent simple. Cats = they → <b>don't bark</b>.");
-M('ps',"The train ___ at 10 a.m.",["leaves","is leaving","leave","leaving"],"Horaires officiels → présent simple : <b>The train leaves at 10 a.m.</b>");
+M('ps',"The train ___ at 10 a.m. every day.",["leaves","is leaving","leave","leaving"],"Horaires officiels → présent simple : <b>The train leaves at 10 a.m.</b>");
 M('ps',"Laquelle est correcte ?",["She doesn't like coffee.","She don't like coffee.","She doesn't likes coffee.","She not like coffee."],"Avec <b>doesn't</b>, le verbe reste à la base : like (pas de -s).");
 O('ps',"Traduis : « Elle ne joue pas au tennis. »","She doesn't play tennis.","<b>doesn't</b> + verbe de base (play).",{more:["don't","plays"]});
 
@@ -551,7 +552,7 @@ G('its',"Their a new café… → corrige : ___ a new café near the station.",[
 M('its',"___ house is very big. (leur maison)",["Their","There","They're","Them"],"<b>Their</b> = leur (possessif).");
 M('its',"Look at Anna and Tom: ___ very happy!",["They're","Their","There","Them"],"<b>They're</b> = they are.");
 M('its',"___ is a cat in the garden.",["There","Their","They're","It's"],"Existence → <b>There</b> is.");
-O('its',"Traduis : « Tu veux aller au cinéma ce soir ? »","Do you want to go to the cinema tonight?","Présent simple : <b>Do you want to…?</b>",{us:"Aux États-Unis : <i>the movies</i> / <i>a movie theater</i>."});
+O('like',"Traduis : « Tu veux aller au cinéma ce soir ? »","Do you want to go to the cinema tonight?","Présent simple : <b>Do you want to…?</b>",{us:"Aux États-Unis : <i>the movies</i> / <i>a movie theater</i>."});
 G('its',"Traduis : « C'est une excellente idée ! »",["that's a great idea","it's a great idea","that's an excellent idea","it's an excellent idea","that's a good idea","it's a good idea"],"<b>That's a great idea!</b> N'oublie pas l'article <b>a</b> (❌ It's good idea).");
 
 M('like',"My sister (😠) ___ hiking.",["hates","likes","loves","doesn't like"],"😠 = le plus négatif → <b>hates</b>. Échelle : love › really like › like › don't like › really don't like › hate.");
@@ -560,10 +561,10 @@ G('like',"When I'm on holiday, I (🙂) ___ reading books.",["like"],"🙂 → <
 G('like',"My colleague (😍 she) ___ visiting museums.",["loves"],"she → <b>loves</b> (le -s de la 3e personne !).");
 G('like',"I (😠) ___ running on holiday.",["hate"],"😠 → <b>hate</b>. Avec I : pas de -s.");
 G('like',"My family and I (😍) ___ travelling in a campervan.",["love"],"We → <b>love</b>.",{us:"<i>Campervan</i> est britannique. Aux États-Unis : <i>RV</i> ou <i>camper</i>."});
-G('like',"He likes ___ (spend) time at home.",["spending"],"like + verbe en <b>-ing</b> : spending.");
-M('like',"I love ___ to the park.",["going","go","to going","goes"],"love / like / hate / prefer + verbe en <b>-ing</b> : I love going.");
+G('like',"He likes ___ (spend) time at home.",["spending","to spend"],"like + verbe en <b>-ing</b> : spending. (<i>to spend</i> est aussi correct.)");
+M('like',"I love ___ to the park.",["going","go","to going","goes"],"love / like / hate / prefer + verbe en <b>-ing</b> : I love going. (<i>I love to go</i> est aussi correct, mais jamais « to going ».)");
 M('like',"She doesn't like ___ games.",["playing","play","plays","to playing"],"doesn't like + verbe en <b>-ing</b> : playing.");
-M('like',"I prefer ___ TV.",["watching","watch","watches","to watch"],"prefer + verbe en <b>-ing</b> : I prefer watching TV.");
+M('like',"I prefer ___ TV.",["watching","watch","watches","to watching"],"prefer + verbe en <b>-ing</b> : I prefer watching TV. (<i>I prefer to watch</i> est aussi correct.)");
 M('like',"« I don't mind cooking » signifie…",["Cuisiner ne me dérange pas","Je déteste cuisiner","J'adore cuisiner","Je ne sais pas cuisiner"],"<b>I don't mind…</b> = ça ne me dérange pas. Comme <i>I enjoy…</i>, suivi d'un verbe en -ing.");
 M('like',"Tu préfères nager ou courir ?",["Do you prefer swimming or running?","How do you prefer swimming or running?","What do you prefer swimming or running?","Do you prefer swimming than running?"],"<b>Do you prefer A or B ?</b> Pas de « How » (= comment) ni de « than ».");
 M('like',"Lequel exprime le plus FORT sentiment positif ?",["I love…","I like…","I really like…","I prefer…"],"<b>I love</b> est tout en haut de l'échelle.");
@@ -659,7 +660,7 @@ M('ime',"Music relaxes ___.",["me","I"],"La musique fait l'action, moi je la re�
 M('ime',"Let ___ explain.",["me","I"],"Après <b>let</b> → toujours <b>me</b> : Let me explain, let me help.");
 M('ime',"Do you like coffee? — Yes, ___ do.",["I","me"],"Réponse courte : c'est un sujet → <b>Yes, I do.</b>");
 M('ime',"She's talking about ___.",["me","I"],"Après <b>about</b> (préposition) → <b>me</b>.");
-M('ime',"Send ___ an email, please.",["me","I"],"C'est moi qui reçois l'email (COI) → <b>me</b>.");
+M('ime',"Send ___ an email, please.",["me","I"],"C'est moi qui reçois l'email → <b>me</b>.");
 O('ime',"Traduis : « Ma sœur et moi vivons ensemble. »","My sister and I live together.","Sujet composé → <b>I</b>, même si le français dit « moi ». On se cite en dernier.",{more:["me"]});
 O('ime',"Traduis : « Le prof interroge Anna et moi. »","The teacher asks Anna and me.","Complément composé → <b>me</b>. Et asks avec -s (the teacher = he/she).",{more:["I","ask"]});
 O('ime',"Traduis : « Elle m'appelle tous les jours. »","She calls me every day.","Je reçois l'action → <b>me</b>. Et n'oublie pas le -s de calls.",{more:["I","call"]});
@@ -751,7 +752,7 @@ W("living","a rug","un petit tapis / une carpette",{tip:"rug = petit tapis · ca
 W("living","a clock","une horloge",{tip:"Un réveil = an <b>alarm</b> clock."});
 W("living","a bookshelf / a bookcase","une bibliothèque (le meuble)",{tip:"Le meuble. Faux ami : la bibliothèque publique = a library, et une librairie = a bookshop."});
 W("living","a painting","un tableau / une peinture");
-W("living","pictures / photos","des cadres / des photos");
+W("living","pictures / photos","des tableaux / des photos");
 W("living","a radio","une radio");
 W("living","a blanket","une couverture / un plaid");
 W("living","plants","des plantes");
@@ -789,7 +790,7 @@ W("around","the ceiling","le plafond");
 W("around","the roof","le toit");
 W("around","a key","une clé");
 W("around","a radiator","un radiateur");
-W("around","a plug","une prise");
+W("around","a plug","une prise (la fiche électrique)");
 W("around","a light switch","un interrupteur");
 W("around","a flat","un appartement",{us:"an apartment"});
 W("around","a lift","un ascenseur",{us:"an elevator"});
@@ -843,7 +844,7 @@ M('house',"Is there ___ microwave in the kitchen?",["a","any","some","an"],"micr
 M('house',"There isn't ___ toothpaste in the bathroom.",["any","a","some","many"],"toothpaste est indénombrable + phrase négative → <b>any</b>.",{room:'bathroom'});
 M('house',"I need ___ shampoo.",["some","a","an","many"],"shampoo est indénombrable → pas de a → <b>some</b>.",{room:'bathroom'});
 O('house',"Traduis : « Il y a un canapé et deux fauteuils dans le salon. »","There is a sofa and two armchairs in the living room.","Énumération : le verbe suit le <b>premier</b> nom (a sofa) → There <b>is</b>.",{room:'living',more:["are"]});
-O('house',"Traduis : « Les clés sont sur la table de cuisine. »","The keys are on the kitchen table.","Les clés, déjà connues → The keys <b>are</b>. Kitchen table : l'adjectif (kitchen) se place devant le nom.",{room:'kitchen',more:["is","there"]});
+O('house',"Traduis : « Les clés sont sur la table de cuisine. »","The keys are on the kitchen table.","Les clés, déjà connues → The keys <b>are</b>. Kitchen table : le nom qui précise (kitchen) se place devant, comme un adjectif.",{room:'kitchen',more:["is","there"]});
 O('house',"Traduis : « Nous n'avons pas de lave-vaisselle. »","We haven't got a dishwasher.","We → <b>haven't got</b> + a (dénombrable singulier).",{room:'kitchen',more:["hasn't","any"]});
 O('house',"Traduis : « Ma chambre est au premier étage. »","My bedroom is on the first floor.","Premier étage = <b>the first floor</b> (UK). On dit <b>on</b> the first floor.",{room:'around',more:["ground","in"]});
 D('house',"cupboard","<b>cupboard</b> : le p ne se prononce pas.",{room:'kitchen',hint:"Un placard."});
@@ -861,7 +862,7 @@ D('house',"pillow","<b>pillow</b> : double l.",{room:'bedroom',hint:"Un oreiller
    COURS ENSEIGNÉS — Miss Kokkinis montre AVANT de demander.
    Cartes : learn (phrase + voix + traduction + explication), dialog, et questions (q).
    ===================================================================== */
-const NAME_RE="^(my name is|i am|im) [\\p{L}' ]{2,}$";
+const NAME_RE="^(my name is|i am|im|it is) [\\p{L}' ]{2,}$";
 const TQ=(skill,o)=>Object.assign({teach:true,skill,lvl:SKM[skill].lvl,id:'t_'+hash(skill+(o.prompt||o.title||'')+(o.type||''))},o);
 const TEACH={
  dlg:[
@@ -872,7 +873,7 @@ const TEACH={
   {q:TQ('dlg',{type:'mcq',prompt:"« Je m'appelle Paul. » →",opts:["My name is Paul.","I call me Paul.","Me name is Paul.","I am call Paul."],why:"<b>My name is Paul.</b> (mon nom est Paul). « I call me » n'existe pas en anglais."})},
   {learn:{en:"What's your name?",fr:"Comment tu t'appelles ?",note:"<b>What's</b> = What is. Mot à mot : « quel est ton nom ? ». En anglais, <i>you / your</i> sert pour tu ET vous."}},
   {q:TQ('dlg',{type:'ord',prompt:"Remets dans l'ordre : « Comment tu t'appelles ? »",sentence:"What's your name?",more:["you"],why:"<b>What's your name?</b> : question (What's) + your + name."})},
-  {q:TQ('dlg',{type:'free',prompt:"À toi ! What's your name? (réponds avec TON prénom)",re:NAME_RE,acc:["My name is Anna."],why:"On répond <b>My name is …</b> ou <b>I'm …</b> + ton prénom. Exemple : My name is Anna."})},
+  {q:TQ('dlg',{type:'free',prompt:"À toi ! What's your name? (réponds avec TON prénom)",re:NAME_RE,bare:true,acc:["My name is Anna."],why:"On répond <b>My name is …</b> ou <b>I'm …</b> + ton prénom. Exemple : My name is Anna."})},
   {learn:{en:"Nice to meet you.",fr:"Enchanté(e).",note:"Quand on rencontre quelqu'un pour la première fois. L'autre répond : <b>Nice to meet you too.</b> (moi aussi)"}},
   {q:TQ('dlg',{type:'mcq',prompt:"Anna : « Nice to meet you! » — Toi : ___",opts:["Nice to meet you too.","Yes, I am.","Goodbye.","My name is nice."],why:"On renvoie la politesse : <b>Nice to meet you too.</b>"})},
   {learn:{en:"How are you? — I'm fine, thanks. And you?",fr:"Comment vas-tu ? — Je vais bien, merci. Et toi ?",note:"<b>fine</b> = bien · <b>thanks</b> = merci (plus court que thank you)."}},
@@ -880,7 +881,7 @@ const TEACH={
   {learn:{en:"Goodbye! See you tomorrow!",fr:"Au revoir ! À demain !",note:"Plus court et plus courant : <b>Bye!</b> ou <b>See you!</b>"}},
   {dialog:[["Tom","Hello! I'm Tom. What's your name?","Bonjour ! Je suis Tom. Comment tu t'appelles ?"],["Anna","Hi Tom! My name is Anna.","Salut Tom ! Je m'appelle Anna."],["Tom","Nice to meet you, Anna.","Enchanté, Anna."],["Anna","Nice to meet you too. How are you?","Enchantée aussi. Comment vas-tu ?"],["Tom","I'm fine, thanks. And you?","Je vais bien, merci. Et toi ?"],["Anna","I'm fine. Bye, see you tomorrow!","Je vais bien. Salut, à demain !"]]},
   {q:TQ('dlg',{type:'mcq',prompt:"Tom : « How are you? » — Toi : ___",opts:["I'm fine, thanks. And you?","I'm Tom.","Nice to meet you.","My name is fine."],why:"À <b>How are you?</b> on répond comment on va : <b>I'm fine, thanks.</b>"})},
-  {q:TQ('dlg',{type:'free',prompt:"Hello! I'm Miss Kokkinis. Nice to meet you! Présente-toi avec ton prénom.",re:NAME_RE,acc:["I'm Anna."],why:"Tu peux dire <b>I'm …</b> ou <b>My name is …</b>. Et pour être poli : Nice to meet you too!"})}
+  {q:TQ('dlg',{type:'free',prompt:"Hello! I'm Miss Kokkinis. Nice to meet you! Présente-toi avec ton prénom.",re:NAME_RE,bare:true,acc:["I'm Anna."],why:"Tu peux dire <b>I'm …</b> ou <b>My name is …</b>. Et pour être poli : Nice to meet you too!"})}
  ]
 };
 /* pratique supplémentaire : Hello! */
@@ -1216,7 +1217,7 @@ Object.assign(TEACH,{
   Qm('its',"Look at Tom and Anna: ___ very happy!",["they're","their","there","them"],"they are → <b>they're</b>.")
  ],
  like:[
-  Lc("I love cooking.","J'adore cuisiner.","Après <b>love, like, hate, prefer, enjoy</b> : le verbe prend <b>-ing</b>."),
+  Lc("I love cooking.","J'adore cuisiner.","Après <b>love, like, hate, prefer</b> : le verbe prend <b>-ing</b> (le plus courant ; « to cook » est aussi correct). Après <b>enjoy</b> et <b>don't mind</b> : toujours -ing."),
   Lc("I like · I don't like · I hate","J'aime · Je n'aime pas · Je déteste","Du plus positif au plus négatif : <b>I love</b> ❤️ · I really like · I like · I don't mind 😐 · I don't like · I hate 😡."),
   Qm('like',"She hates ___ up early.",["getting","get","to getting","gets"],"Après hate → <b>-ing</b> : getting up."),
   Lc("Do you prefer swimming or running?","Tu préfères nager ou courir ?","<b>prefer</b> + -ing … <b>or</b> + -ing."),
@@ -1224,7 +1225,7 @@ Object.assign(TEACH,{
   Lc("I don't mind waiting.","Ça ne me dérange pas d'attendre.","<b>I don't mind</b> = ça m'est égal, ça ne me dérange pas."),
   Qm('like',"« Ça ne me dérange pas de conduire. » →",["I don't mind driving.","I don't mind to drive.","I'm not mind driving.","I don't care drive."],"<b>I don't mind</b> + -ing."),
   DLG([["Ben","What do you like doing at the weekend?","Qu'est-ce que tu aimes faire le week-end ?"],["Lisa","I love hiking. And you?","J'adore la randonnée. Et toi ?"],["Ben","I prefer swimming. I hate walking in the rain!","Je préfère nager. Je déteste marcher sous la pluie !"]]),
-  Qf('like',"À toi ! Qu'est-ce que tu aimes faire ? « I love … » / « I like … » + -ing","^i (really )?(love|like|enjoy|prefer|hate|don't like|do not like|don't mind|do not mind) [\\p{L}' ,]*ing\\b.*$","I love cooking.","<b>I love / like / hate</b> + verbe en <b>-ing</b>.")
+  Qf('like',"À toi ! Qu'est-ce que tu aimes faire ? « I love … » / « I like … » + verbe en -ing","^i (really )?((love|like|enjoy|prefer|hate|do not like|do not mind) [\\p{L}' ,]*ing\\b.*|(love|like|prefer|hate|do not like) to [\\p{L}' ,]{2,})$","I love cooking.","<b>I love / like / hate</b> + verbe en <b>-ing</b>.")
  ],
  ing:[
   Lc("cook → cooking · play → playing","cuisiner · jouer","1) Cas général : on ajoute simplement <b>-ing</b>."),
@@ -1301,11 +1302,11 @@ Object.assign(TEACH,{
 [['a sofa','is'],['two armchairs','are'],['a big window','is'],['three bedrooms','are'],['some milk in the fridge','is'],['a lot of books','are'],['an old piano','is'],['four chairs','are'],['a garden behind the house','is'],['some apples on the table','are'],['a lot of noise','is'],['two bathrooms and a kitchen','are'],['a kitchen and two bathrooms','is'],['many shops nearby','are']].forEach(([x,v])=>G('there',"There ___ "+x+".",[v],(v==='is'?"singulier ou indénombrable":"pluriel")+" → <b>There "+v+"</b>."+(/ and /.test(x)?" (le verbe suit le premier nom)":"")));
 [["___ there a lift in your building?","Is"],["___ there any shops near here?","Are"],["How many students ___ there in your class?","are"],["There ___ any eggs. (négatif)","aren't"],["There ___ a supermarket in my street. (négatif)","isn't"],["___ there any milk?","Is"]].forEach(([p,c])=>{const all=['Is','Are',"isn't","aren't",'is','are'].filter(x=>x.toLowerCase()!==c.toLowerCase());M('there',p,[c].concat(all.filter((x,i,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===i).slice(0,3)),"<b>"+c+"</b> : "+(/is|isn/i.test(c)?"singulier ou indénombrable":"pluriel")+".")});
 [["Look at the sky! ___ beautiful today.","It's"],["I love these shoes. ___ so comfortable.","They're"],["___ a museum in the town centre.","There's"],["___ a lot of tourists in summer.","There are"],["My parents are in Spain. ___ on holiday.","They're"],["What time is it? ___ ten o'clock.","It's"],["Do you know my cousins? ___ very funny.","They're"],["___ some cake in the kitchen.","There's"]].forEach(([p,c])=>M('its',p,[c].concat(["It's","They're","There's","There are","Their"].filter(x=>x!==c).slice(0,3)),c==="It's"?"Une chose connue, ou l'heure, la météo → <b>It's</b>.":c==="They're"?"Plusieurs choses ou personnes connues → <b>They're</b>.":"On annonce l'existence de quelque chose → <b>"+c+"</b>."));
-[["I love ___ (cook).","cooking"],["She hates ___ (get) up early.","getting"],["They don't like ___ (swim).","swimming"],["Do you like ___ (dance)?","dancing"],["He enjoys ___ (read) in bed.","reading"],["We love ___ (travel).","travelling","traveling"],["I don't mind ___ (wait).","waiting"],["My kids like ___ (play) video games.","playing"],["I prefer ___ (watch) films at home.","watching"],["Do you enjoy ___ (run)?","running"]].forEach(([p,a,us])=>G('like',p,us?[a,us]:[a],"Après love / like / hate / enjoy / prefer / don't mind → verbe en <b>-ing</b> : "+a+".",us?{us:"on écrit <i>"+us+"</i> (un seul l)."}:undefined));
-[['make','making'],['swim','swimming'],['play','playing'],['lie','lying'],['write','writing'],['sit','sitting'],['dance','dancing'],['get','getting'],['travel','travelling'],['stop','stopping'],['die','dying'],['shop','shopping'],['take','taking'],['begin','beginning'],['visit','visiting'],['camp','camping'],['cook','cooking'],['come','coming']].forEach(([v,i])=>G('ing',v+" → ___ (-ing)",i==='travelling'?['travelling','traveling']:[i],"<b>"+i+"</b> : "+(i===v+'ing'?"on ajoute simplement -ing.":/ying$/.test(i)?"-ie devient -ying.":i.length===v.length+4?"verbe court : on double la consonne finale.":"verbe en -e : on enlève le e."),i==='travelling'?{us:"<i>traveling</i> (un seul l)."}:undefined));
-[["There are ___ apples on the table.","some"],["Are there ___ eggs in the fridge?","any"],["We haven't got ___ bread.","any"],["Would you like ___ tea?","some"],["I need ___ new shoes.","some"],["There isn't ___ milk.","any"],["Have you got ___ brothers?","any"],["Could I have ___ juice, please?","some"],["She doesn't have ___ friends here.","any"],["There is ___ cheese in the kitchen.","some"],["If you need ___ help, call me.","any"],["Let's buy ___ flowers for Mum.","some"]].forEach(([p,c])=>M('some',p,[c].concat(['some','any','a','many'].filter(x=>x!==c).slice(0,3)),c==='some'?(/would you|can i/i.test(p)?"Offre ou demande polie → <b>some</b>.":"Phrase affirmative → <b>some</b>."):(/^if/i.test(p)?"Après if → <b>any</b>.":/\?$/.test(p)?"Question → <b>any</b>.":"Phrase négative → <b>any</b>.")));
+[["I love ___ (cook).","cooking"],["She hates ___ (get) up early.","getting"],["They don't like ___ (swim).","swimming"],["Do you like ___ (dance)?","dancing"],["He enjoys ___ (read) in bed.","reading"],["We love ___ (travel).","travelling","traveling"],["I don't mind ___ (wait).","waiting"],["My kids like ___ (play) video games.","playing"],["I prefer ___ (watch) films at home.","watching"],["Do you enjoy ___ (run)?","running"]].forEach(([p,a,us])=>{const v=(p.match(/\((\w+)\)/)||[])[1],to=!/enjoy|mind/.test(p);G('like',p,(us?[a,us]:[a]).concat(to&&v?["to "+v]:[]),to?"Après love / like / hate / prefer → verbe en <b>-ing</b> : "+a+". (<i>to "+v+"</i> est aussi correct.)":"Après enjoy / don't mind → <b>-ing obligatoire</b> : "+a+".",us?{us:"on écrit <i>"+us+"</i> (un seul l)."}:undefined)});
+[['make','making'],['swim','swimming'],['play','playing'],['lie','lying'],['write','writing'],['sit','sitting'],['dance','dancing'],['get','getting'],['travel','travelling'],['stop','stopping'],['die','dying'],['shop','shopping'],['take','taking'],['begin','beginning'],['visit','visiting'],['camp','camping'],['cook','cooking'],['come','coming']].forEach(([v,i])=>G('ing',v+" → ___ (-ing)",i==='travelling'?['travelling','traveling']:[i],"<b>"+i+"</b> : "+(i==='beginning'?"accent sur la fin (be<b>GIN</b>) → on double le n.":i==='travelling'?"en anglais britannique, on double le l final.":i===v+'ing'?"on ajoute simplement -ing.":/ying$/.test(i)?"-ie devient -ying.":i.length===v.length+4?"verbe court : on double la consonne finale.":"verbe en -e : on enlève le e."),i==='travelling'?{us:"<i>traveling</i> (un seul l)."}:undefined));
+[["There are ___ apples on the table.","some"],["Are there ___ eggs in the fridge?","any"],["We haven't got ___ bread.","any"],["Would you like ___ tea?","some"],["I need ___ new shoes.","some"],["There isn't ___ milk.","any"],["Have you got ___ brothers?","any"],["Could I have ___ juice, please?","some"],["She doesn't have ___ friends here.","any"],["There is ___ cheese in the kitchen.","some"],["If you need ___ help, call me.","any"],["Let's buy ___ flowers for Mum.","some"]].forEach(([p,c])=>M('some',p,[c].concat(['some','any','a','many'].filter(x=>x!==c).slice(0,3)),c==='some'?(/would you|can i|could i/i.test(p)?"Offre ou demande polie → <b>some</b>.":"Phrase affirmative → <b>some</b>."):(/^if/i.test(p)?"Après if → <b>any</b>.":/\?$/.test(p)?"Question → <b>any</b>.":"Phrase négative → <b>any</b>.")));
 [["How ___ sugar do you want?","much"],["How ___ chairs are there?","many"],["There isn't ___ time.","much"],["I haven't got ___ friends in London.","many"],["How ___ money have you got?","much"],["How ___ people are coming?","many"],["We don't have ___ homework today.","much"],["There aren't ___ cars in the street.","many"],["How ___ water do you drink?","much"],["Are there ___ shops in your village?","many"]].forEach(([p,c])=>M('much',p,c==='much'?['much','many']:['many','much'],c==='much'?"Indénombrable → <b>much</b>.":"Pluriel, on peut compter → <b>many</b>."));
-[["She drinks ___ coffee.","a lot of"],["There are ___ tourists in July.","a lot of"],["He has got ___ money.","a lot of"]].forEach(([p,c])=>M('much',p+" (affirmatif)",[c,'much','many','any'],"Phrase affirmative → <b>a lot of</b> (avec dénombrable ou indénombrable)."));
+[["She drinks ___ coffee.","a lot of"],["There are ___ tourists in July.","a lot of"],["He has got ___ money.","a lot of"]].forEach(([p,c])=>M('much',p+" (affirmatif)",/tourists/.test(p)?[c,'much','a little','any']:[c,'many','a few','any'],"Phrase affirmative → <b>a lot of</b> (avec dénombrable ou indénombrable)."));
 [["___ love chocolate.","I"],["My mum calls ___ every Sunday.","me"],["Can you help ___?","me"],["Anna and ___ are in the same class.","I"],["This letter is for ___.","me"],["Paul and ___ live in Liège.","I"],["Come with ___!","me"],["The teacher asked Tom and ___ a question.","me"],["Let ___ help you.","me"],["Yesterday ___ went to the cinema.","I"]].forEach(([p,c])=>M('ime',p,c==='I'?['I','me']:['me','I'],c==='I'?"C'est moi qui fais l'action (sujet) → <b>I</b>.":"Je reçois l'action, ou après une préposition / let → <b>me</b>."));
 })();
 
@@ -1326,12 +1327,41 @@ function norm(s){
   return s.split(' ').map(w=>CONTR[w]||w).join(' ');
 }
 
+/* ---------- réponses libres : on vérifie aussi les fautes typiques ---------- */
+const FREE_BAD=[
+  [/\b(am|is|are|'m) agree\b/,"<b>agree</b> est un verbe : on dit <b>I agree</b> (pas « I am agree »)."],
+  [/\b(have|has|'ve)( got)? (\d+|[\p{L}-]+) years\b|\b(have|has) \d+$/u,"L'âge se dit avec <b>to be</b> : <b>I'm 33</b> (pas « I have 33 years »)."],
+  [/\b(i) (is|are)\b|\b(he|she|it) (am|are)\b|\b(you|we|they) (am|is)\b/,"Le verbe <b>to be</b> ne va pas avec ce sujet : I <b>am</b> · he/she/it <b>is</b> · you/we/they <b>are</b>."],
+  [/^(i|you|we|they) (goes|does|has|plays|likes|lives|loves|wants|gets|drinks|eats|watches|works|hates)\b/,"Avec <b>I / you / we / they</b>, pas de -s au verbe : I <b>go</b>, I <b>play</b>."],
+  [/^(he|she|it) (go|do|have|play|like|live|love|want|get|drink|eat|watch|work|hate)\b/,"Avec <b>he / she / it</b>, le verbe prend un -s : she <b>goes</b>, he <b>plays</b>."],
+  [/^there (is|are) any\b|^i (have|'ve)( got)? any\b|^i have got any\b/,"Phrase affirmative → <b>some</b>. <b>any</b> sert pour les questions et les phrases négatives."],
+  [/\b(enjoy|don't mind|do not mind) to \p{L}+/u,"Après <b>enjoy</b> et <b>don't mind</b>, toujours <b>-ing</b> : I enjoy swimming."],
+  [/\b(je|tu|nous|vous|les|des|une|est|et|avec|suis|mange|mes|dans|chez|pour|pas|aime|habite)\b/,"Écris ta phrase <b>en anglais</b> 🙂."],
+];
+const FREE_LEAD=/^(hi|hello|hey|well|yes|no|ok|okay|oh|so|nice to meet you( too)?|thank you|thanks)( [\p{L}-]+[,.!]|[,.!]?) /u;
+function freeCheck(q,given){
+  let g=norm(given);
+  for(const [re,msg] of FREE_BAD){if(q.bare&&/Écris/.test(msg))continue;if(re.test(g))return {ok:false,fe:msg}}
+  const R=new RegExp(q.re,'iu');
+  const parts=[g].concat(g.split(/[.!?]+\s*/).map(x=>x.trim()).filter(Boolean));
+  for(let x of parts){for(let i=0;i<3&&FREE_LEAD.test(x);i++)x=x.replace(FREE_LEAD,'');x=x.replace(/[,.!?]? (and you|what about you|how about you)$/,'').replace(/[.!?,;:]+$/,'');
+    if(R.test(x))return {ok:true};if(q.bare&&/^[\p{L}'-]{2,20}$/u.test(x))return {ok:true,fe:"Parfait ! En phrase complète : <b>My name is "+esc(given.replace(/[.!]+$/,''))+".</b>"}}
+  return {ok:false};
+}
+/* majuscules : l'appli ne pénalise pas, mais on le rappelle (sur papier, la prof le compte) */
+const CAPW={};("Monday Tuesday Wednesday Thursday Friday Saturday Sunday January February March April May June July August September October November December "+
+ "Belgium Belgian France French Italy Italian Spain Spanish Germany German Poland Polish Ireland Irish Wales Welsh England English Scotland Scottish Portugal Portuguese Greece Greek "+
+ "Britain British America American Japan Japanese China Chinese Morocco Moroccan Turkey Turkish Russia Russian Brazil Brazilian Mexico Mexican Canada Canadian London Liège Brussels").split(' ').forEach(w=>CAPW[w.toLowerCase()]=w);
+function capNote(q,given,ok){if(!ok||!(q.type==='gap'||q.type==='dict'))return '';const w=String(given).trim();
+  const fix=w.split(/\s+/).map(x=>CAPW[x.toLowerCase()]&&x===x.toLowerCase()?CAPW[x.toLowerCase()]:x).join(' ');
+  return fix!==w?`<p class="mine">✍️ Bonne réponse ! Sur papier, n'oublie pas la majuscule : <b>${esc(fix)}</b></p>`:''}
+
 /* ---------- explications des fautes ----------
    TRAP : « mauvaise réponse > bonne réponse » → explication ciblée de la confusion. */
 const TRAP={};
 const T=(w,r,html)=>[].concat(w).forEach(x=>[].concat(r).forEach(y=>{TRAP[norm(x)+'>'+norm(y)]=html}));
-T(["they're","it's"],["there is","there are"],"Tu as mis un <b>pronom</b> (it's = c'est, they're = ils sont). Mais ici on <b>annonce</b> qu'une chose existe → <b>there is / there are</b> (= il y a). Astuce : si tu dirais « il y a » en français, c'est there.");
-T(["there is","there are"],["they're","it's"],"Tu as mis <b>there is/are</b> (= il y a), mais la chose est <b>déjà connue</b> : on en a parlé juste avant. On la reprend avec un pronom → <b>it's</b> (une chose) / <b>they're</b> (plusieurs). Astuce : si tu dirais « c'est » ou « ils sont », ce n'est pas there.");
+T(["they're","it's"],["there is","there are"],"Tu as mis un <b>pronom</b> (it's = c'est, they're = ils sont). Mais ici on <b>annonce</b> qu'une chose existe → <b>there is / there are</b> (= il y a). Astuce : si tu dis « il y a » en français, c'est there.");
+T(["there is","there are"],["they're","it's"],"Tu as mis <b>there is/are</b> (= il y a), mais la chose est <b>déjà connue</b> : on en a parlé juste avant. On la reprend avec un pronom → <b>it's</b> (une chose) / <b>they're</b> (plusieurs). Astuce : si tu dis « c'est » ou « ils sont », ce n'est pas there.");
 T("there is","there are","Le nom qui suit est au <b>pluriel</b> (un -s, un nombre, a lot of…) → there <b>are</b>.");
 T("there are","there is","Le nom qui suit est au <b>singulier</b> (a, an, un seul) ou indénombrable → there <b>is</b>. Dans une énumération, c'est le <b>premier</b> nom qui décide.");
 T("it's","they're","Il y a <b>plusieurs</b> choses (des clés, des enfants…) → <b>they're</b>. It's = une seule.");
@@ -1411,9 +1441,10 @@ function explainBlock(a){
   const q=a.q,d=diagnose(a),s=SKM[q.skill];
   return `<p class="ans"><b>Bonne réponse :</b> ${esc(ansText(q))}</p>
   ${a.given&&q.type!=='match'?`<p class="mine">Ta réponse : <s>${esc(a.given)}</s></p>`:''}
-  ${d?`<div class="diag"><b>Ce qui coince</b><div>${d}</div></div>`:''}
-  <div class="why"><b>La règle</b><div>${q.why}</div></div>
-  <details class="d"><summary>Relire la fiche « ${esc(q.room&&s.rooms?s.rooms[q.room]:s.name)} »</summary>${q.room&&s.roomSheet?s.roomSheet[q.room]:s.sheet}</details>`;
+  ${d?`<div class="diag"><b>Ce qui coince</b><div>${d}</div></div>
+  <details class="d"><summary>Voir la règle et la fiche</summary><div class="why"><b>La règle</b><div>${q.why}</div></div>${q.room&&s.roomSheet?s.roomSheet[q.room]:s.sheet}</details>`
+  :`<div class="why"><b>La règle</b><div>${q.why}</div></div>
+  <details class="d"><summary>Relire la fiche « ${esc(q.room&&s.rooms?s.rooms[q.room]:s.name)} »</summary>${q.room&&s.roomSheet?s.roomSheet[q.room]:s.sheet}</details>`}`;
 }
 
 const TN={eleanor:'Miss Kokkinis',k:'Miss Kokkinis'};
@@ -1563,7 +1594,7 @@ function teapot(sz,hop){
 <ellipse cx="0" cy="22" rx="84" ry="78" fill="#FBF9F4"/><path d="M-84 22a84 78 0 0 0 168 0" fill="#F1ECE2"/>
 <path d="M-80 52Q0 74 80 52" stroke="#22408F" stroke-width="7" fill="none"/>
 <g fill="#22408F"><circle cx="-50" cy="70" r="4"/><circle cx="-16" cy="78" r="4"/><circle cx="18" cy="78" r="4"/><circle cx="52" cy="70" r="4"/></g>
-<ellipse cx="0" cy="-52" rx="52" ry="12" fill="#22408F"/><path d="M-40 -56Q0 -92 40 -56Z" fill="#FBF9F4"/><circle cx="0" cy="-86" r="11" fill="#D7263D"/>
+<ellipse cx="0" cy="-52" rx="52" ry="12" fill="#22408F"/><path d="M-40 -56Q0 -92 40 -56Z" fill="#FBF9F4"/><circle cx="0" cy="-86" r="11" fill="#D02B27"/>
 <path d="M-38 6Q-26 -6 -14 6M14 6Q26 -6 38 6" stroke="#23262D" stroke-width="6" fill="none" stroke-linecap="round"/>
 <circle cx="-26" cy="8" r="17" fill="none" stroke="#8E2A44" stroke-width="4"/><circle cx="26" cy="8" r="17" fill="none" stroke="#8E2A44" stroke-width="4"/><path d="M-9 6Q0 0 9 6" stroke="#8E2A44" stroke-width="4" fill="none"/>
 <ellipse cx="-46" cy="30" rx="10" ry="6" fill="#F2A7A0" opacity=".8"/><ellipse cx="46" cy="30" rx="10" ry="6" fill="#F2A7A0" opacity=".8"/>
@@ -1576,7 +1607,7 @@ const bubble=(who,mood,en,fr,size)=>`<div class="say"><div class="tch">${teacher
 /* =====================================================================
    3. MOTEUR
    ===================================================================== */
-const S={screen:'home',play:null,res:null,course:null,newT:'eleanor',newMode:'class',newName:'',code:'',msg:'',confirmDel:false};
+const S={screen:'home',play:null,res:null,course:null,newT:'eleanor',newMode:'',newName:'',code:'',msg:'',confirmDel:false};
 let tId=null;
 const stopTimer=()=>{if(tId){clearInterval(tId);tId=null}};
 
@@ -1620,8 +1651,8 @@ function errPool(){const p=cur().q;return Q.filter(q=>{const r=p[q.id];return r&
 /* ---------- les 4 étapes d'une station (façon Duolingo) ---------- */
 const ETAPES=[
  {k:'disc',n:'Découvre',d:"Miss Kokkinis t'explique, tu écoutes et tu répètes, puis des questions faciles."},
- {k:'train',n:'Entraîne-toi',d:"Reconnaître et compléter, pour fixer ce que tu viens d'apprendre."},
- {k:'write',n:'Écris',d:"Écrire toi-même : compléter, construire la phrase, dictée."},
+ {k:'train',n:'Entraîne-toi',d:"Reconnaître et compléter, pour fixer ce que tu viens d'apprendre. 60 % pour passer."},
+ {k:'write',n:'Écris',d:"Écrire toi-même : compléter, construire la phrase, dictée. 60 % pour passer."},
  {k:'defi',n:'Défi',d:"Le test de la station, avec un peu de révision. 70 % pour la valider."}];
 const etOf=sid=>{const pr=cur();return(pr&&pr.et&&pr.et[sid])||0};
 function pickFresh(n,pool,exclude){
@@ -1669,7 +1700,7 @@ function startSession(mode,o){
   S.screen='play';render();startTimer();autoSay();
 }
 function startTimer(){
-  stopTimer();const P=S.play;if(!P||!P.timer||P.phase!=='ask')return;
+  stopTimer();const P=S.play;if(!P||!P.timer||DB.noTimer||P.phase!=='ask')return;
   const it=P.items[P.i];P.max=it.q.type==='mcq'?30:45;P.left=P.max;
   tId=setInterval(()=>{
     P.left--;const el=$('#tm'),b=$('#tmb');
@@ -1699,7 +1730,7 @@ function submit(timeout){
   const it=P.items[P.i],q=it.q;let ok=false,given='';
   if(timeout){given='⏱ temps écoulé'}
   else if(q.type==='mcq'){if(it.sel==null)return;given=it.opts[it.sel].t;ok=it.opts[it.sel].ok}
-  else if(q.type==='free'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}ok=new RegExp(q.re,'iu').test(norm(given))}
+  else if(q.type==='free'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}const fc=freeCheck(q,given);ok=fc.ok;it.fe=fc.fe}
   else if(q.type==='gap'||q.type==='dict'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}ok=q.acc.map(norm).includes(norm(given))}
   else if(q.type==='ord'){if(!it.ans.length)return;given=it.ans.map(t=>t.w).join(' ');ok=norm(given)===norm(q.sentence)}
   else if(q.type==='match'){ok=it.miss<=1;given=it.miss?it.miss+' erreur'+(it.miss>1?'s':''):''}
@@ -1714,7 +1745,7 @@ function submit(timeout){
     r.box=Math.min(4,r.box+1);r.hi=Math.max(r.hi||0,r.box);P.combo++;P.maxCombo=Math.max(P.maxCombo,P.combo);gain=10+Math.min(P.combo-1,5)*2}
   else{r.box=0;r.wrong++;r.lastWrong=Date.now();P.combo=0}
   pr.xp+=gain;P.xp+=gain;
-  P.answers.push({q,ok,given,gain,retry:!!it.rt});persist();
+  P.answers.push({q,ok,given,gain,retry:!!it.rt,fe:q.type==='free'?it.fe:''});persist();
   track('ans',{k:q.skill,q:q.id,qt:q.type,ok,p:String(promptText(q)).replace(/<[^>]+>/g,'').slice(0,110)});
   beep(ok);
   if(P.fb){P.phase='fb';render()}
@@ -1732,12 +1763,12 @@ function next(){
 function finish(){
   stopTimer();const P=S.play,pr=cur();
   const first=P.answers.filter(a=>!a.retry),total=Math.max(1,first.length),ok=first.filter(a=>a.ok).length,pct=ok/total;
-  const bonus=20;pr.xp+=bonus;touchStreak(pr);
+  const bonus=pct>=.4?20:5;pr.xp+=bonus;touchStreak(pr);
   const tday=dayStr(new Date());if(!pr.days.includes(tday)){pr.days.push(tday);pr.days=pr.days.slice(-60)}
   let ET=null;
   if(P.etape){const {sid,k}=P.etape,ix=ETAPES.findIndex(e=>e.k===k);pr.et=pr.et||{};const before=pr.et[sid]||0;
     if(k==='defi'){const pass=pct>=.7;if(pass)pr.et[sid]=4;ET={sid,k,pass,advanced:pass&&before<4}}
-    else{if(before<=ix)pr.et[sid]=ix+1;ET={sid,k,pass:true,advanced:before<=ix}}}
+    else{const pass=ix===0||pct>=.6;if(pass&&before<=ix)pr.et[sid]=ix+1;ET={sid,k,pass,advanced:pass&&before<=ix}}}
   const moved=Object.keys(P.snap||{}).map(k=>{const I=skillInfo(k),b=P.snap[k];return{k,name:SKM[k].name,b:b.st,a:I.st,gain:I.c.ok-b.ok}});
   pr.stamps=pr.stamps||{};const newStamps=(ET&&ET.k==='defi'&&ET.pass&&!pr.stamps[ET.sid])?[ET.sid]:[];newStamps.forEach(k=>{pr.stamps[k]=Date.now()});
   pr.hist.unshift({t:Date.now(),label:P.label,ok,total,exam:P.mode==='exam'});pr.hist=pr.hist.slice(0,30);
@@ -1790,14 +1821,14 @@ function stepPct(sid,types){
 const PATHALL=L1.concat(PATH);
 const isSolo=()=>{const p=cur();return !!p&&p.mode==='solo'};
 const myPath=()=>isSolo()?PATHALL:PATH;
-// Parcours débutant : une leçon se débloque quand la précédente est réussie à 50 % (ou acquise).
+// Parcours débutant : une station se débloque quand la précédente est validée (défi réussi à 70 %).
 const UNLOCK=50;
 function unlocked(sid){
   if(!isSolo())return true;
   const i=PATHALL.findIndex(s=>s.id===sid);if(i<=0)return true;
   return etOf(PATHALL[i-1].id)>=4;
 }
-// Leçon du moment : la première pas encore réussie à 50 % ; au-delà, elle se consolide par les révisions.
+// Station du moment : la première dont le défi n'est pas encore validé.
 function focusSkill(){return myPath().filter(s=>unlocked(s.id)).find(s=>etOf(s.id)<4)||null}
 function isDue(q){const r=cur().q[q.id];if(!r)return false;const iv=[0,1,3,7,16][Math.min(r.box,4)];return Date.now()-(r.last||0)>=iv*DAYMS}
 const todayN=pr=>pr.dg&&pr.dg.d===dayStr(new Date())?pr.dg.n:0;
@@ -1849,16 +1880,16 @@ function viewProfiles(){
   ${ps.length?`<h2 class="h2">Qui joue ?</h2>${ps.map(p=>`<button class="card prow" data-act="login" data-id="${p.id}"><div><b>${esc(p.name)}</b><small>${rank(p.xp)} · ${p.xp} XP</small></div></button>`).join('')}`:''}
   <h2 class="h2">${ps.length?'Nouveau profil':'Ton prénom'}</h2>
   <input id="pname" class="inp" maxlength="16" placeholder="Ton prénom…" autocomplete="off" value="${esc(S.newName)}">
-  <p class="lbl" style="margin-top:18px">Ton parcours</p>
+  <p class="lbl" style="margin-top:18px">Où en es-tu en anglais ? Choisis ton parcours</p>
   <div class="choice">
-  <button class="card${S.newMode==='class'?' on':''}" data-act="newMode" data-m="class"><b>Je suis le cours de Miss Kokkinis</b><small>Niveau 2, au rythme de la classe, avec des révisions du niveau 1.</small></button>
-  <button class="card${S.newMode==='solo'?' on':''}" data-act="newMode" data-m="solo"><b>Je commence l'anglais</b><small>Je pars du niveau 1 et je débloque les leçons une à une, jusqu'aux dernières.</small></button>
+  <button class="card${S.newMode==='class'?' on':''}" data-act="newMode" data-m="class"><b>Je suis le cours de Miss Kokkinis</b><small>J'ai déjà fait de l'anglais. Niveau 2, au rythme de la classe, avec des révisions du niveau 1.</small></button>
+  <button class="card${S.newMode==='solo'?' on':''}" data-act="newMode" data-m="solo"><b>Je débute en anglais</b><small>Je pars de zéro, au niveau 1 et je débloque les leçons une à une, jusqu'aux dernières.</small></button>
   </div>
   <button class="btn red full" data-act="create" style="margin-top:8px">Commencer</button>
   <small style="text-align:center;margin-top:8px">Des statistiques anonymes (jamais ton prénom) aident à améliorer l'appli. Désactivable dans Profil.</small>
   ${storageOK?'':'<div class="warn">Ce navigateur bloque la sauvegarde : ouvre le lien dans Safari ou Chrome pour garder ta progression.</div>'}`;
 }
-const GC={quiz:'#1F4FB5',gap:'#D7263D',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
+const GC={quiz:'#1F4FB5',gap:'#D02B27',ord:'#2E7D32',match:'#E08A00',dict:'#7A4FB5',errors:'#23262D'};
 const BD={ok:'Acquise',frag:'Fragile',cur:'En cours',new:'Nouvelle'};
 const bd=st=>`<span class="bd ${st}">${BD[st]}</span>`;
 const short=sid=>SKM[sid].name.split(' · ')[0];
@@ -1867,7 +1898,7 @@ const lineColor=s=>s.lvl===1?'var(--line1)':'var(--line2)';
 function heroHtml(f){
   const P=myPath().filter(s=>unlocked(s.id));
   const nxt=f?P.slice(P.indexOf(f)+1).find(s=>skillInfo(s.id).st!=='ok'):null;
-  const l1=(f?short(f.id):'Révisions').slice(0,18),l2=nxt?short(nxt.id).slice(0,18):'Terminus';
+  const cut=(x,n)=>x.length>n?x.slice(0,n-1)+'…':x,l1=cut(f?short(f.id):'Révisions',24),l2=nxt?cut(short(nxt.id),28):'Terminus',fit=(x,w,n)=>x.length>n?` textLength="${w}" lengthAdjust="spacingAndGlyphs"`:'';
   const anim=!S.heroSeen;S.heroSeen=true;
   return `<div class="hero${anim?' anim':''}" aria-hidden="true"><svg viewBox="0 60 800 520" preserveAspectRatio="xMidYMid slice">
 <defs><linearGradient id="hwl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9A988"/><stop offset=".3" stop-color="#E9DFC8"/><stop offset="1" stop-color="#F1E9D6"/></linearGradient>
@@ -1883,8 +1914,8 @@ function heroHtml(f){
 <rect y="318" width="800" height="16" fill="#2F5D4E"/><rect y="338" width="800" height="5" fill="#8E2A44"/>
 <g transform="translate(262 196)"><rect width="276" height="62" rx="6" fill="#1C2E5E"/><rect x="4" y="4" width="268" height="54" rx="4" fill="none" stroke="#F4E9D2" stroke-width="2"/><text x="138" y="42" font-size="30" font-weight="700" text-anchor="middle" fill="#fff" letter-spacing="5" font-family="Andika,sans-serif">TEA TIME</text></g>
 <g transform="translate(270 112)"><path d="M40 -40V0M220 -40V0" stroke="#3A3F49" stroke-width="3"/><rect width="260" height="60" rx="6" fill="#111317"/><rect x="5" y="5" width="250" height="50" rx="3" fill="#050607"/>
-<g filter="url(#hled)" fill="#FFA21A" font-family="'Courier New',monospace" font-weight="700"><text x="16" y="25" font-size="14">1  ${esc(l1)}</text><text x="244" y="25" font-size="14" text-anchor="end" class="blink">due</text><text x="16" y="45" font-size="12" opacity=".85">2  ${esc(l2)}</text><text x="244" y="45" font-size="12" text-anchor="end" opacity=".85">next</text></g></g>
-<g transform="translate(46 150)"><rect width="150" height="150" rx="4" fill="#1C1F25"/><rect x="6" y="6" width="138" height="138" fill="#F4E9D2"/><circle cx="75" cy="64" r="40" fill="#D7263D"/><path d="M52 52h40v18a20 20 0 0 1-40 0z" fill="#fff"/><path d="M92 56a9 9 0 0 1 0 16" stroke="#fff" stroke-width="5" fill="none"/><rect x="44" y="86" width="56" height="5" rx="2.5" fill="#fff"/><text x="75" y="122" font-size="15" font-weight="700" text-anchor="middle" fill="#1C1F25" font-family="Andika,sans-serif">TEA TIME</text></g>
+<g filter="url(#hled)" fill="#FFA21A" font-family="'Courier New',monospace" font-weight="700"><text x="16" y="25" font-size="14"${fit(l1,186,17)}>1  ${esc(l1)}</text><text x="244" y="25" font-size="14" text-anchor="end" class="blink">due</text><text x="16" y="45" font-size="12" opacity=".85"${fit(l2,214,24)}>2  ${esc(l2)}</text><text x="244" y="45" font-size="12" text-anchor="end" opacity=".85">next</text></g></g>
+<g transform="translate(46 150)"><rect width="150" height="150" rx="4" fill="#1C1F25"/><rect x="6" y="6" width="138" height="138" fill="#F4E9D2"/><circle cx="75" cy="64" r="40" fill="#D02B27"/><path d="M52 52h40v18a20 20 0 0 1-40 0z" fill="#fff"/><path d="M92 56a9 9 0 0 1 0 16" stroke="#fff" stroke-width="5" fill="none"/><rect x="44" y="86" width="56" height="5" rx="2.5" fill="#fff"/><text x="75" y="122" font-size="15" font-weight="700" text-anchor="middle" fill="#1C1F25" font-family="Andika,sans-serif">TEA TIME</text></g>
 <g transform="translate(604 150)"><rect width="150" height="150" rx="4" fill="#1C1F25"/><rect x="6" y="6" width="138" height="138" fill="#24447A"/><circle cx="110" cy="40" r="16" fill="#F2C230"/><g fill="#F4E9D2"><rect x="58" y="44" width="30" height="96"/><path d="M58 44 73 14 88 44Z"/><rect x="20" y="104" width="38" height="36"/><rect x="88" y="96" width="44" height="44"/></g><circle cx="73" cy="62" r="8" fill="#24447A"/></g>
 <g class="train"><g clip-path="url(#htc)">
 <rect x="-40" y="340" width="840" height="340" fill="url(#hbd)"/><rect x="-40" y="352" width="840" height="20" fill="#C9C8C1"/>
@@ -1941,6 +1972,19 @@ function fwHtml(){
   const ls=a=>a.length?a.slice(0,2).map(x=>x.s.name).join(' · '):'<span style="color:var(--mute)">Pas encore, ça vient.</span>';
   return `<div class="fw"><div><div class="t" style="color:var(--green)">Tu maîtrises</div>${ls(good)}</div><div><div class="t" style="color:var(--amber)">À retravailler</div>${ls(weak)}</div></div>`;
 }
+/* Conseil d'installation : tant que l'appli n'est pas sur l'écran d'accueil */
+const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
+function installHtml(){
+  if(isStandalone()||DB.noInstall)return '';
+  const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent),inApp=/FBAN|FBAV|Instagram|WhatsApp|Line\/|wv\)/i.test(navigator.userAgent);
+  const steps=inApp?["Ouvre d'abord ce lien dans <b>"+(ios?'Safari':'Chrome')+"</b> (menu ⋯ → « Ouvrir dans le navigateur »)."]:[]
+  .concat(ios?["Touche le bouton <b>Partager</b> (le carré avec une flèche ↑).","Choisis <b>« Sur l'écran d'accueil »</b>, puis <b>Ajouter</b>."]
+             :["Touche le menu <b>⋮</b> en haut à droite de Chrome.","Choisis <b>« Ajouter à l'écran d'accueil »</b> ou <b>« Installer l'appli »</b>."]);
+  return `<div class="card inst"><b>📲 Ajoute Tea Time à ton écran d'accueil</b><small>Comme une vraie appli : elle s'ouvre en un geste et ta progression est mieux protégée.</small>
+  <ol>${steps.map(x=>`<li>${x}</li>`).join('')}</ol>${S.bip?'<button class="btn red full" data-act="install">Installer maintenant</button>':''}
+  <button class="lnk" data-act="noInstall">C'est fait / plus tard</button></div>`;
+}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();S.bip=e;try{render()}catch(x){}});
 function viewHome(){
   const pr=cur(),sc=pr.scope,eN=errPool().length,f=focusSkill(),P=dayPlan(),m=homeMsg(f),done=todayN(pr)>=GOAL;
   const items=[];
@@ -1949,13 +1993,14 @@ function viewHome(){
   if(P.nErr)items.push(['#F28C7E',P.nErr+' erreur'+(P.nErr>1?'s':'')+' à corriger']);
   items.push(['#B9E3C6',P.nDue?P.nDue+(P.nDue>1?' révisions qui reviennent':' révision qui revient'):'Un peu de révision du niveau 1']);
   const lines=isSolo()
-    ?`<h2 class="h2">Ligne Niveau 1</h2><p class="mut">Chaque station se débloque quand la précédente est réussie à ${UNLOCK} %.</p>${lineHtml(L1,f&&f.id)}<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,f&&f.id)}`
+    ?`<h2 class="h2">Ligne Niveau 1</h2><p class="mut">Chaque station se débloque quand le défi de la précédente est réussi à 70 %.</p>${lineHtml(L1,f&&f.id)}<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,f&&f.id)}`
     :`<h2 class="h2">Ligne Niveau 2</h2><p class="mut">Les stations du cours de Miss Kokkinis, dans l'ordre. Touche une station pour l'ouvrir.</p>${lineHtml(PATH,f&&f.id)}
       <button class="xchg" data-act="go" data-to="course"><span class="l" style="background:var(--line1)"></span><b>Correspondance · Ligne Niveau 1</b><span style="margin-left:auto;color:var(--mute)">${L1.length} stations ›</span></button>`;
   return `${heroHtml(f)}
   ${bubble('k',m[0],m[1],m[2])}
   <button class="board${done?' done':''}" data-act="play" data-m="day"><span class="ticket">${done?'RETURN':'SINGLE · 8 MIN'}</span><b>${done?'Objectif du jour atteint ✓':'Monter dans le train'}</b><span class="s">${done?"Envie d'un autre trajet ?":'Ta prochaine étape, quelques minutes'}</span>
   <ul>${items.map(t=>`<li><i style="background:${t[0]}"></i>${t[1]}</li>`).join('')}</ul><span class="go">${done?'Encore un trajet ›':'All aboard! ›'}</span></button>
+  ${installHtml()}
   ${fwHtml()}
   ${lines}
   <h2 class="h2">Entraînement libre</h2>
@@ -1967,11 +2012,11 @@ function viewHome(){
   <div class="grid2" style="margin-top:12px">${GAMES.map(g=>g.k==='errors'
      ?`<button class="card game" style="--c:${GC[g.k]}" data-act="play" data-m="errors"><b>${g.n}</b><small>${eN?eN+' à revoir':'Rien à revoir'}</small></button>`
      :`<button class="card game" style="--c:${GC[g.k]}" data-act="game" data-g="${g.k}"><b>${g.n}</b><small>${g.d}</small></button>`).join('')}
-  <button class="card game wide" data-act="play" data-m="exam"><div><b>Examen blanc</b><small>20 questions chronométrées, corrigées à la fin. Il faut 17 pour réussir.${pr.bestExam?' Ton record : '+pr.bestExam+'/20.':''}</small></div><span class="hand">/20</span></button></div>`;
+  <button class="card game wide" data-act="play" data-m="exam"><div><b>Examen blanc</b><small>20 questions${DB.noTimer?'':' chronométrées'}, corrigées à la fin. Il faut 15 pour réussir.${pr.bestExam?' Ton record : '+pr.bestExam+'/20.':''}</small></div><span class="hand">/20</span></button></div>`;
 }
 function viewCourse(){
   const f=focusSkill(),fid=f&&f.id;
-  return `${bubble('k','think','Your lines',"Chaque station se travaille en 3 arrêts : le cours, je reconnais, puis je produis moi-même.")}
+  return `${bubble('k','think','Your lines',"Chaque station se travaille en 4 étapes : je découvre, je m'entraîne, j'écris, puis le défi.")}
   ${isSolo()
     ?`<h2 class="h2">Ligne Niveau 1</h2>${lineHtml(L1,fid)}<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,fid)}`
     :`<h2 class="h2">Ligne Niveau 2</h2>${lineHtml(PATH,fid)}<h2 class="h2">Ligne Niveau 1 · révisions</h2>${lineHtml(L1,fid)}`}`;
@@ -2026,14 +2071,14 @@ function viewProgress(){
   const nSt=(isSolo()?PATHALL:PATH.concat(L1)).filter(x=>(pr.stamps||{})[x.id]||skillInfo(x.id).st==='ok').length;
   return `<h2 class="h2">Mon passeport · ${nSt} tampon${nSt>1?'s':''}</h2><p class="mut">Un tampon par station acquise.</p>${passportHtml()}
   ${bubble('k',weak.length?'think':'happy',weak.length?'Let\'s work on this':'Keep going!',weak.length?'À retravailler : '+weak.map(w=>w.s.name).join(', ')+'.':'Joue quelques parties : tes points faibles apparaîtront ici.')}
-  ${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D7263D')}
-  <small>Une question compte comme acquise après 3 bonnes réponses d'affilée.</small>
+  ${pbar('Niveau 1',lvlPct(1),'#1F4FB5')}${pbar('Niveau 2',lvlPct(2),'#D02B27')}
+  <small>Une question est acquise quand tu l'as réussie 3 fois, sur au moins 2 jours différents. Une station est acquise quand son défi est réussi à 70 %.</small>
   <h2 class="h2">Par fiche</h2>
   ${stats.map(x=>pbar(x.s.name+'<span class="lv">N'+x.s.lvl+'</span> '+bd(skillInfo(x.s.id).st),x.pct,x.s.c)).join('')}
   <h2 class="h2">Mes erreurs</h2>
   ${errs.length?errs.map(x=>`<details class="d"><summary>${esc(promptText(x.q))} <small style="display:inline">(ratée ${x.r.wrong} fois)</small></summary><p><b>Bonne réponse :</b> ${esc(ansText(x.q))}</p><div>${x.q.why}</div></details>`).join('')+`<button class="btn red full" data-act="play" data-m="errors">Refaire mes erreurs</button>`:'<p class="mut">Aucune erreur pour l\'instant.</p>'}
   <h2 class="h2">Dernières parties</h2>
-  ${pr.hist.length?pr.hist.slice(0,8).map(h=>`<div class="card" style="padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px"><div><b>${esc(h.label)}</b><small>${new Date(h.t).toLocaleDateString('fr-BE')}${h.exam?(h.ok>=17?' · réussi':' · à repasser'):''}</small></div><span class="hand" style="font-size:24px;color:var(--red)">${h.ok}/${h.total}</span></div>`).join(''):'<p class="mut">Pas encore de partie.</p>'}`;
+  ${pr.hist.length?pr.hist.slice(0,8).map(h=>`<div class="card" style="padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px"><div><b>${esc(h.label)}</b><small>${new Date(h.t).toLocaleDateString('fr-BE')}${h.exam?(h.ok>=15?' · réussi':' · à repasser'):''}</small></div><span class="hand" style="font-size:24px;color:var(--red)">${h.ok}/${h.total}</span></div>`).join(''):'<p class="mut">Pas encore de partie.</p>'}`;
 }
 function viewSettings(){
   const pr=cur();
@@ -2043,9 +2088,10 @@ function viewSettings(){
   <h2 class="h2">Mon parcours</h2>
   <div class="seg" role="group" aria-label="Parcours"><button class="${!isSolo()?'on':''}" data-act="myMode" data-m="class">Cours de Miss Kokkinis</button><button class="${isSolo()?'on':''}" data-act="myMode" data-m="solo">Depuis le niveau 1</button></div>
   <small>${isSolo()?"Tu pars du niveau 1 et tu débloques les leçons une à une.":"Tu suis le niveau 2 au rythme de la classe."} Ta progression est gardée si tu changes.</small>
-  <h2 class="h2">Voix</h2>
+  <h2 class="h2">Confort</h2>
   <label class="sw"><input type="checkbox" data-act="voice" ${DB.phoneVoice?'':'checked'}> Voix naturelle (Draco)</label>
   <small>Une vraie voix anglaise, bien plus claire. Sans internet, l'appli utilise la voix du téléphone.</small>
+  <label class="sw"><input type="checkbox" data-act="timer" ${DB.noTimer?'':'checked'}> Chrono à l'examen blanc</label>
   <h2 class="h2">Statistiques anonymes</h2>
   <label class="sw"><input type="checkbox" data-act="stats" ${DB.noStats?'':'checked'}> Aider à améliorer l'appli</label>
   <small>Envoie des chiffres d'utilisation <b>anonymes</b> : jamais ton prénom, juste ce qu'on utilise et ce qui est difficile. Ta progression reste sur ce téléphone.</small>
@@ -2124,7 +2170,7 @@ function sheetHtml(a,P){
   const q=a.q,end=P.i+1>=P.items.length;
   return `<div class="sheet ${a.ok?'':'bad'}" role="status"><div class="sh-in">
   <div class="sh-t">${teacher('k',a.ok?'cheer':'oops',46)}<div><h3>${a.ok?pickOne(PRAISE):pickOne(OOPS)}</h3>${a.ok?`<small>+${a.gain} XP${P.combo>2?' · '+P.combo+' bonnes réponses d\'affilée':''}</small>`:'<small>Regardons ça ensemble.</small>'}</div></div>
-  ${a.ok?(q.type==='free'?`<p class="ans">Parfait : « ${esc(a.given)} » 👏</p><div class="why"><b>À retenir</b><div>${q.why}</div></div>`:`<details class="d"><summary>Pourquoi ?</summary>${q.why}</details>`):(q.type==='free'?`<p class="ans"><b>Exemple :</b> ${esc(q.acc[0])}</p><p class="mine">Ta réponse : <s>${esc(a.given)}</s></p><div class="why"><b>La règle</b><div>${q.why}</div></div>`:explainBlock(a))}
+  ${a.ok?(q.type==='free'?`<p class="ans">${a.fe?a.fe:`Parfait : « ${esc(a.given)} » 👏`}</p><div class="why"><b>À retenir</b><div>${q.why}</div></div>`:capNote(q,a.given,true)+`<details class="d"><summary>Pourquoi ?</summary>${q.why}</details>`):(q.type==='free'?`<p class="ans"><b>Exemple :</b> ${esc(q.acc[0])}</p><p class="mine">Ta réponse : <s>${esc(a.given)}</s></p>${a.fe?`<div class="why"><b>Ce qui coince</b><div>${a.fe}</div></div>`:''}<div class="why"><b>La règle</b><div>${q.why}</div></div>`:explainBlock(a))}
   ${q.us?`<div class="us">Aux États-Unis : ${q.us}</div>`:''}
   <button class="btn ${a.ok?'green':'red'} full" data-act="next">${end?'Terminer':'Continuer'}</button></div></div>`;
 }
@@ -2137,7 +2183,7 @@ function confettiHtml(){const c=['#D02B27','#F2C230','#1F57B5','#2E6E4F','#8E2A4
 function viewResult(){
   const R=S.res,p=R.pct,pr=cur(),tn=todayN(pr);
   const msg=p>=.9?['cheer',"Brilliant!","Excellent travail."]:p>=.7?['happy',"Very good!","Quelques détails à revoir, c'est tout."]:p>=.4?['think',"Good effort.","Regardons tes erreurs ensemble."]:['oops',"Don't worry!","C'est comme ça qu'on apprend. Relis les corrections ci-dessous."];
-  const pass=R.mode==='exam'?(R.ok>=17):null;
+  const pass=R.mode==='exam'?(R.ok>=15):null;
   const mv=(R.moved||[]).filter(m=>m.a!==m.b||m.gain>0);
   const ns=R.newStamps||[];
   const others=Object.keys(pr.stamps||{}).filter(k=>!ns.includes(k)&&SKM[k]).slice(-4);
@@ -2150,13 +2196,13 @@ function viewResult(){
     :`<div class="rewhead"><span class="hand">${msg[1]}</span><small>${R.mode==='day'?'Séance du jour terminée':esc(R.label)} · ${msg[2]}</small></div>`;
   const E=R.et;let etHead='';
   if(E&&!ns.length){const e=etOf(E.sid);
-    etHead=E.k==='defi'&&!E.pass?`<div class="rewhead"><span class="hand">Presque !</span><small>Il faut 70 % au défi pour valider « ${esc(short(E.sid))} ». Tes erreurs vont revenir : refais-le quand tu veux.</small></div>`
+    etHead=!E.pass?`<div class="rewhead"><span class="hand">Presque !</span><small>${E.k==='defi'?`Il faut 70 % au défi pour valider « ${esc(short(E.sid))} ».`:`Il faut 60 % pour passer à l'étape suivante.`} Refais-la : les questions changent et tes erreurs reviennent.</small></div>`
       :`<div class="rewhead"><span class="hand">Étape réussie !</span><small>${esc(short(E.sid))} · ${ETAPES.findIndex(x=>x.k===E.k)+1}/4 « ${ETAPES.find(x=>x.k===E.k).n} »</small></div><div class="etdots">${ETAPES.map((x,i)=>`<span class="${i<e?'y':''}"></span>`).join('')}</div>`}
-  const nf=focusSkill(),nextLbl=nf?(nf.id===(E&&E.sid)?'Étape suivante : '+ETAPES[etOf(nf.id)].n:'Prochaine station : '+short(nf.id)):'';
+  const nf=focusSkill(),nextLbl=nf?(nf.id===(E&&E.sid)?(E.pass?'Étape suivante : ':'Refaire : ')+ETAPES[etOf(nf.id)].n:'Prochaine station : '+short(nf.id)):'';
   const party=ns.length||p>=.9||pass;
   return `${party?confettiHtml():''}${E&&!ns.length?etHead:head}
   <div class="potrow">${p>=.7||pass?teapot(110,true):teacher('k',msg[0],86)}<div><div class="hand">${R.ok}/${R.total}</div><small>${p>=.7?'Earl Grey est fier de toi !':'Miss Kokkinis t\'explique tout en dessous.'}</small></div></div>
-  ${pass===null?'':`<div class="pass ${pass?'y':'n'}">${pass?'Examen réussi !':'À repasser : il faut 17/20.'}</div>`}
+  ${pass===null?'':`<div class="pass ${pass?'y':'n'}">${pass?'Examen réussi !':'À repasser : il faut 15/20.'}</div>`}
   <p class="mut" style="text-align:center">+${R.xp} XP${R.maxCombo>2?' · '+R.maxCombo+' bonnes réponses d\'affilée':''} · objectif du jour ${Math.min(tn,GOAL)}/${GOAL}${tn>=GOAL?' ✓':''}</p>
   ${mv.length?`<h2 class="h2">Ce qui a bougé aujourd'hui</h2><div class="card" style="padding:4px 14px">${mv.map(m=>`<div class="mv"><b>${m.name}</b><span>${m.a!==m.b?bd(m.b)+'<span class="ar">→</span>'+bd(m.a):bd(m.a)}${m.gain>0?`<small style="display:block;text-align:right">+${m.gain} question${m.gain>1?'s':''} acquise${m.gain>1?'s':''}</small>`:''}</span></div>`).join('')}</div>`:''}
   ${R.wrong.length?`<p class="mut">Les ${R.wrong.length} question${R.wrong.length>1?'s':''} ratée${R.wrong.length>1?'s':''} reviendront dans tes prochains trajets.</p>`:''}
@@ -2201,6 +2247,7 @@ const A={
   create:()=>{
     const el=$('#pname'),name=((el&&el.value)||'').trim();
     if(!name){toast('Écris ton prénom 🙂');if(el)el.focus();return}
+    if(!S.newMode){S.newName=name;toast('Choisis ton parcours 🙂');return}
     newProfile(name,S.newT,S.newMode);S.newName='';S.screen='home';render();window.scrollTo(0,0);
   },
   scope:d=>{cur().scope=d.k;persist();render()},
@@ -2241,6 +2288,9 @@ const A={
   quit:()=>{stopTimer();if(S.play)track('quit',{k:S.play.mk,a:S.play.i});flush();S.play=null;go('home')},
   myT:d=>{cur().teacher=d.t;persist();render()},
   voice:()=>{DB.phoneVoice=!DB.phoneVoice;persist();render();speak("Hello! Let's have a cup of tea.")},
+  noInstall:()=>{DB.noInstall=true;persist();render()},
+  install:()=>{const e=S.bip;if(!e)return;S.bip=null;e.prompt();(e.userChoice||Promise.resolve()).then(()=>render())},
+  timer:()=>{DB.noTimer=!DB.noTimer;persist();render()},
   stats:()=>{DB.noStats=!DB.noStats;if(DB.noStats){SQ=[];saveQ()}persist();render()},
   snd:()=>{const pr=cur();pr.sound=!pr.sound;persist();render()},
   export:()=>{
@@ -2277,7 +2327,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 track('open');setTimeout(flush,4000);
 render();
-window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak}; // utile pour les tests
+window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck}; // utile pour les tests
 })();
 </script>
 <script>
