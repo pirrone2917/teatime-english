@@ -1,0 +1,6 @@
+{
+  "name": "teatime-tools",
+  "private": true,
+  "description": "Outils de fabrication et de test de Tea Time English",
+  "dependencies": { "jsdom": "^24.1.0" }
+}

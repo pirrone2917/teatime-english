@@ -404,7 +404,7 @@ const SKM={};SK.forEach(s=>SKM[s.id]=s);
 
 const Q=[];
 const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)};
-const add=o=>{o.lvl=SKM[o.skill].lvl;o.id=o.skill+'_'+hash(o.type+(o.prompt||o.word||o.title)+(o.say||'')+(o.opts?o.opts[0]:'')+(o.acc?o.acc[0]:'')+(o.sentence||'')+(o.pairs?o.pairs[0][0]:''));Q.push(o)};
+const add=o=>{if(o.why)o.why=o.why.replace(/([?!.])(<\/b>)?\./g,'$1$2');o.lvl=SKM[o.skill].lvl;o.id=o.skill+'_'+hash(o.type+(o.prompt||o.word||o.title)+(o.say||'')+(o.opts?o.opts[0]:'')+(o.acc?o.acc[0]:'')+(o.sentence||'')+(o.pairs?o.pairs[0][0]:''));Q.push(o)};
 const M=(skill,prompt,opts,why,x)=>add(Object.assign({type:'mcq',skill,prompt,opts,why},x));
 const G=(skill,prompt,acc,why,x)=>add(Object.assign({type:'gap',skill,prompt,acc,why},x));
 const O=(skill,prompt,sentence,why,x)=>add(Object.assign({type:'ord',skill,prompt,sentence,why},x));
@@ -415,7 +415,7 @@ const F=(skill,prompt,re,example,why,x)=>add(Object.assign({type:'free',skill,pr
 /* ---------- Niveau 1 ---------- */
 M('num',"The number after twelve →",["thirteen","fourteen","thirty","eleven"],"13 = <b>thirteen</b> (-teen, accent à la fin). <b>thirty</b> = 30 (accent au début). Même piège : fourteen / forty, fifteen / fifty.");
 G('num',"The day before Friday → ___",["thursday"],"<b>Thursday</b>. Les jours de la semaine prennent toujours une <b>majuscule</b> en anglais.");
-G('num',"You use it to write. → a ___",["pen"],"<b>a pen</b> = un stylo. Un crayon = a pencil.");
+G('num',"You use it to write. → a ___",["pen","pencil"],"<b>a pen</b> = un stylo. <b>a pencil</b> = un crayon : les deux servent à écrire.");
 M('num',"You open it to enter a room. →",["the door","the window","the sofa","the desk"],"<b>The door</b> = la porte. Window = fenêtre, sofa = canapé, desk = bureau.");
 G('num',"The number before nineteen → ___",["eighteen"],"<b>eighteen</b> : attention au « eigh- » (pas « eit »).");
 M('num',"You sit on it. →",["a sofa","a door","a pen","a window"],"<b>A sofa</b> = un canapé.",{us:"Aux États-Unis, on dit très souvent <i>a couch</i>."});
@@ -439,7 +439,7 @@ O('dlg',"Traduis : « Désolé, peux-tu répéter ? »","Sorry, can you repeat t
 O('dlg',"Traduis : « Bienvenue dans la classe ! »","Welcome to the class!","<b>Welcome to</b> + lieu (pas « in »).");
 M('dlg',"Quelqu'un parle trop vite. Tu dis…",["Sorry, can you repeat that?","Where are you from?","Welcome to the class!","My surname is Rossi."],"<b>Sorry, can you repeat that?</b> (Désolé, peux-tu répéter ?)");
 M('dlg',"« Nice to meet you. » — Ta réponse :",["Nice to meet you too.","I'm fine, thanks.","Yes, of course.","It's Monday."],"On répond <b>Nice to meet you too.</b> « I'm fine » répond à « How are you? ».");
-M('dlg',"« Are you a new student? » — Réponds :",["Yes, I am.","Yes, I do.","Yes, I'm.","Yes, I have."],"Réponse courte avec <b>to be</b> : Yes, I am. On ne contracte jamais en fin de phrase (<span class='no'>✗</span> Yes, I'm).");
+M('dlg',"« Are you a new student? » — Réponds :",["Yes, I am.","Yes, I do.","Yes, I'm.","Yes, I have."],"Réponse courte avec <b>to be</b> : Yes, I am. Dans un oui court, on ne contracte pas en fin de phrase (<span class='no'>✗</span> Yes, I'm).");
 M('dlg',"« I'm from Italy, from Rome. ___ »",["And you?","And yours?","And me?","And your?"],"<b>And you?</b> pour renvoyer la question.");
 
 M('wh',"Q : ___ ? — A : I'm 32 years old.",["How old are you?","What age are you?","How many years have you?","Which age do you have?"],"<b>How old are you?</b> avec <b>to be</b> (jamais « have » pour l'âge).");
@@ -480,11 +480,11 @@ G('this',"Pluriel de « woman » →",["women"],"woman → <b>women</b> (prononc
 M('this',"___ (là-bas) is my sister's bedroom.",["That","This","These","Those"],"Singulier + loin → <b>that</b>.");
 G('this',"___ (là-bas) shoes are hers.",["those"],"shoes = pluriel, loin → <b>those</b>.");
 
-G('hg',"Tom ✓ a car. → Tom ___ a car.",["has got"],"he / she / it → <b>has got</b> · I / you / we / they → <b>have got</b>.",{us:"En américain, on dit plutôt <i>Tom has a car</i> / <i>Does Tom have a car?</i> (sans got)."});
-G('hg',"Tom ✗ children. → Tom ___ children.",["hasn't got","has not got"],"Négatif : <b>hasn't got</b> (he/she/it) · <b>haven't got</b> (I/you/we/they).");
-G('hg',"Sara and Jim ✗ a car. → They ___ a car.",["haven't got","have not got"],"They → <b>haven't got</b>.");
-G('hg',"Sara and Jim ✓ a garden. → They ___ a garden.",["have got"],"They → <b>have got</b>.");
-G('hg',"My parents ✗ a dog. → My parents ___ a dog.",["haven't got","have not got"],"My parents = they → <b>haven't got</b>.");
+G('hg',"Tom ✓ a car. → Tom ___ a car.",["has got","has"],"he / she / it → <b>has got</b> · I / you / we / they → <b>have got</b>.",{us:"En américain, on dit plutôt <i>Tom has a car</i> / <i>Does Tom have a car?</i> (sans got)."});
+G('hg',"Tom ✗ children. → Tom ___ children.",["hasn't got","has not got","doesn't have"],"Négatif : <b>hasn't got</b> (he/she/it) · <b>haven't got</b> (I/you/we/they).");
+G('hg',"Sara and Jim ✗ a car. → They ___ a car.",["haven't got","have not got","don't have"],"They → <b>haven't got</b>.");
+G('hg',"Sara and Jim ✓ a garden. → They ___ a garden.",["have got","have"],"They → <b>have got</b>.");
+G('hg',"My parents ✗ a dog. → My parents ___ a dog.",["haven't got","have not got","don't have"],"My parents = they → <b>haven't got</b>.");
 M('hg',"___ Tom got a garden? — No, he hasn't.",["Has","Have","Does","Is"],"Question : on inverse. <b>Has</b> + he/she/it · <b>Have</b> + I/you/we/they.");
 M('hg',"Have your parents got children? — Yes, they ___.",["have","have got","has","do"],"Réponse courte : <b>Yes, they have.</b> On ne répète pas « got ».");
 O('hg',"Traduis : « Sara et Jim n'ont pas de voiture. »","Sara and Jim haven't got a car.","Négation avec « they » : <b>haven't got</b>.",{more:["hasn't","has"]});
@@ -621,16 +621,16 @@ D('voc',"campervan","<b>campervan</b> = camper + van.",{hint:"Un véhicule dans 
 /* ---------- Niveau 2 : some / any ---------- */
 M('some',"There are ___ things on my list.",["some","any","much","a"],"Phrase <b>affirmative</b> → <b>some</b>.");
 M('some',"They don't buy ___ apples.",["any","some","many a","a"],"Phrase <b>négative</b> → <b>any</b>.");
-M('some',"Do you need ___ strawberries?",["any","some","much","a lot"],"Question « normale » → <b>any</b>.");
+M('some',"Are there ___ strawberries in the fridge?",["any","much","a","a lot"],"Question « normale » → <b>any</b>.");
 M('some',"Would you like ___ coffee? (tu offres)",["some","any","many","a"],"On <b>offre</b> quelque chose → <b>some</b>, même dans une question.");
 M('some',"Can I have ___ water, please?",["some","any","many","a"],"<b>Demande polie</b> : on attend un oui → <b>some</b>.");
 M('some',"Choose ___ book. (n'importe lequel)",["any","some","many","much"],"<b>any</b> en phrase affirmative = « n'importe quel » : choose any book.");
-M('some',"If you have ___ questions, ask me.",["any","some","many a","much"],"Après <b>if</b>, <b>unless</b>, <b>whether</b> → <b>any</b>.");
-G('some',"They don't spend ___ money.",["any"],"Négatif → <b>any</b>.");
+M('some',"If you have ___ questions, ask me.",["any","much","a","a lot"],"Après <b>if</b> → <b>any</b> le plus souvent (« some » se dit aussi).");
+G('some',"They don't spend ___ money.",["any","much"],"Négatif → <b>any</b> (much se dit aussi : pas beaucoup).");
 G('some',"Let's go get ___ ice cream.",["some"],"Affirmatif → <b>some</b> (ice cream est indénombrable : pas de « an »).",{us:"<i>Let's go get…</i> est très américain et familier. En anglais britannique : <i>Let's go and get some ice cream</i>."});
-G('some',"There aren't ___ eggs in the fridge.",["any"],"Négatif (aren't) → <b>any</b>.");
-G('some',"Is there ___ milk in the fridge?",["any"],"Question → <b>any</b>.");
-G('some',"I've got ___ friends in London.",["some"],"Affirmatif → <b>some</b> = quelques.");
+G('some',"There aren't ___ eggs in the fridge.",["any","many"],"Négatif (aren't) → <b>any</b> (many se dit aussi : pas beaucoup).");
+G('some',"Is there ___ milk in the fridge?",["any","much","some"],"Question → <b>any</b>.");
+G('some',"I've got ___ friends in London.",["some","a few","many","a lot of","lots of"],"Affirmatif → <b>some</b> = quelques.");
 M('some',"Laquelle est correcte ?",["I don't have any money.","I don't have some money.","I have any money.","I don't have no money."],"Négatif → <b>any</b>. <span class='no'>✗</span> « don't… no » : double négation interdite en anglais.");
 O('some',"Traduis : « Tu veux du café ? » (tu en offres)","Would you like some coffee?","Offre → <b>some</b> : Would you like some coffee?",{more:["any"]});
 O('some',"Traduis : « Ils n'achètent pas de pommes. »","They don't buy any apples.","Négatif → <b>any</b>.",{more:["some","doesn't"]});
@@ -698,14 +698,14 @@ CU('coffee',0,"En général <b>U</b> : some coffee. Mais au café on commande «
 CU('friend',1,"a friend, many friends ✓ → <b>C</b>.");
 CU('music',0,"→ <b>U</b> : some music. (Une chanson, a song, se compte.)");
 G('count',"I'd like ___ glass of water, please.",["a"],"On compte des <b>verres</b> : glass est dénombrable et au singulier → <b>a</b>.");
-G('count',"Is there ___ milk in the fridge?",["any"],"milk est indénombrable + c'est une <b>question</b> → <b>any</b>.");
+G('count',"Is there ___ milk in the fridge?",["any","much","some"],"milk est indénombrable + c'est une <b>question</b> → <b>any</b>.");
 G('count',"I have ___ banana for lunch.",["a"],"Une seule banane, son consonne → <b>a</b>.");
-G('count',"We don't have ___ eggs left.",["any"],"Pluriel + phrase <b>négative</b> → <b>any</b>.");
+G('count',"We don't have ___ eggs left.",["any","many"],"Pluriel + phrase <b>négative</b> → <b>any</b>.");
 G('count',"There's ___ orange on the table.",["an"],"orange commence par un son voyelle → <b>an</b>.");
-G('count',"She buys ___ apples at the market.",["some"],"Pluriel + phrase affirmative → <b>some</b>.");
-G('count',"I need ___ bread to make a sandwich.",["some"],"bread est indénombrable (<span class='no'>✗</span> a bread) + affirmatif → <b>some</b>.");
-G('count',"Do you have ___ friends in Paris?",["any"],"Pluriel + question → <b>any</b>.");
-G('count',"He hasn't got ___ money today.",["any"],"money est indénombrable + négatif → <b>any</b>.");
+G('count',"She buys ___ apples at the market.",["some","a lot of","lots of","many","a few"],"Pluriel + phrase affirmative → <b>some</b>.");
+G('count',"I need ___ bread to make a sandwich.",["some","a little","a lot of"],"bread est indénombrable (<span class='no'>✗</span> a bread) + affirmatif → <b>some</b>.");
+G('count',"Do you have ___ friends in Paris?",["any","many"],"Pluriel + question → <b>any</b>.");
+G('count',"He hasn't got ___ money today.",["any","much"],"money est indénombrable + négatif → <b>any</b>.");
 G('count',"There's ___ book on the chair.",["a"],"Un seul livre → <b>a</b>.");
 G('count',"Une heure → ___ hour",["an"],"Le h de hour ne se prononce pas : on entend une voyelle → <b>an</b> hour. C'est le <b>son</b> qui compte, pas la lettre.");
 M('count',"Can you give me ___?",["some advice","an advice","advices","a advice"],"<b>advice</b> est indénombrable : ni « an advice », ni « advices » → some advice (ou a piece of advice).");
@@ -829,12 +829,15 @@ W("around","the ground floor","le rez-de-chaussée",{us:"the first floor",tip:"P
     M('house',"« "+w.en+" » en français ?",[w.fr].concat(others),"<b>"+w.en+"</b> = "+w.fr+"."+tip,{room:w.room,us:x.us,wd:w.en});
     G('house',"Traduis en anglais : "+w.fr,acc,w.fr+" = <b>"+w.en+"</b>."+tip,x);
     /* image → mot anglais */
-    if(OMI[w.en]){const oth=mix(HW.filter(o=>o.en!==w.en&&OMI[o.en]!==OMI[w.en])).slice(0,3).map(o=>o.en);
+    if(OMI[w.en]){/* faux choix sans ambiguïté : pas d'objet qui ressemble au même dessin */
+      const SIM=[['a painting','pictures / photos'],['a pan','a pot / a saucepan'],['a clock','an alarm clock'],['a plug','a socket'],['sheets','a duvet','pillows','a bed','a cot'],['a toilet','the toilet / the WC','the bathroom'],['a fridge','a freezer'],['a cup','a glass','a bowl'],['a door','the hallway / the hall'],['the garden','plants'],['the garage','a flat'],['a sofa','an armchair'],['a bath / a bathtub','a shower','the bathroom'],['a lift','the stairs'],['a key','a door']];
+      const near=o=>SIM.some(g=>g.includes(w.en)&&g.includes(o.en));
+      const oth=mix(HW.filter(o=>o.en!==w.en&&OMI[o.en]!==OMI[w.en]&&!near(o))).slice(0,3).map(o=>o.en.split(' / ')[0]);
       M('house',"Qu'est-ce que c'est ? (en anglais)",[w.en].concat(oth),"C'est <b>"+w.en+"</b> = "+w.fr+"."+tip,{room:w.room,wd:w.en,pic:1})}
     /* le mot dans une phrase complète */
     const RN={kitchen:'the kitchen',living:'the living room',bedroom:'the bedroom',bathroom:'the bathroom'}[w.room];
     if(RN&&!/ \/ /.test(w.en)){const art=/^(a|an) /.test(w.en),pl=!art&&/s$/.test(w.en);
-      G('house',(art?"There is ___ in ":pl?"There are some ___ in ":"There is some ___ in ")+RN+". ("+w.fr+")",art?[w.en]:[w.en,'the '+w.en],(art?"Un seul objet → <b>There is "+w.en+"</b>.":pl?"Pluriel → <b>There are some "+w.en+"</b>.":"Indénombrable → <b>There is some "+w.en+"</b>.")+tip,{room:w.room,wd:w.en,ctxs:1})}
+      G('house',(art?"There is ___ in ":pl?"There are some ___ in ":"There is some ___ in ")+RN+". ("+w.fr+")",[w.en],(art?"Un seul objet → <b>There is "+w.en+"</b>.":pl?"Pluriel → <b>There are some "+w.en+"</b>.":"Indénombrable → <b>There is some "+w.en+"</b>.")+(/Indénombrable/.test(tip)&&!art&&!pl?'':tip),{room:w.room,wd:w.en,ctxs:1})}
   });
   Object.keys(HOUSE).forEach(room=>{
     const ws=HW.filter(w=>w.room===room);const n=Math.ceil(ws.length/5);
@@ -1144,7 +1147,7 @@ TIMES.forEach(([h,m],i)=>{
   else if(m<30)d=[nw(m)+' to '+hw(h),nw(m)+' past '+hw(nx),nw(60-m)+' past '+hw(h)];
   else d=[nw(60-m)+' to '+hw(h),nw(60-m)+' past '+hw(h),nw(m)+' to '+hw(nx)];
   M('time',lab+" →",[c].concat(d),"<b>"+lab+" = "+c+"</b>. "+(m===0?"Heure pile → o'clock.":m<=30?"Entre 1 et 30 minutes : <b>past</b> + l'heure.":"Après 30 minutes : <b>to</b> + l'heure <b>suivante</b>."),m&&m<=30?{us:"on entend aussi <i>"+(m===30?hw(h)+' thirty':(m===15?'a quarter after':nw(m)+' after')+' '+hw(h))+"</i>."}:undefined);
-  if(i%2===0)G('time',"Écris l'heure en anglais (avec past / to) : "+lab,[c,'a '+c],"<b>"+c+"</b>.");
+  if(i%2===0)G('time',"Écris l'heure en anglais (avec past / to) : "+lab,/^quarter/.test(c)?[c,'a '+c]:[c],"<b>"+c+"</b>."+(/^quarter/.test(c)?" (On dit aussi <i>a "+c+"</i>.)":""));
 });
 /* ---- pays & nationalités ---- */
 const CN=[['Belgium','Belgian'],['France','French'],['Spain','Spanish'],['Italy','Italian'],['Germany','German'],['Poland','Polish'],['Portugal','Portuguese'],['England','English'],['the UK','British'],['Ireland','Irish'],['Wales','Welsh'],['Scotland','Scottish'],['the USA','American'],['China','Chinese'],['Japan','Japanese'],['Brazil','Brazilian'],['Morocco','Moroccan'],['Turkey','Turkish'],['Greece','Greek'],['the Netherlands','Dutch'],['Switzerland','Swiss'],['Mexico','Mexican']];
@@ -1175,20 +1178,22 @@ PS.forEach(([ctx,nn,p])=>G('tobe',ctx+" ___ "+nn+" is great.",[p],"Le possesseur
 [['child','children'],['man','men'],['woman','women'],['person','people'],['tooth','teeth'],['foot','feet']].forEach(([a,b])=>G('this',"one "+a+", two ___",[b],"Pluriel irrégulier : "+a+" → <b>"+b+"</b>."));
 /* ---- have got ---- */
 const HS=[['I','have'],['She','has'],['They','have'],['My brother','has'],['We','have'],['Paul','has'],['You','have'],['The cat','has']];
-const HO=['a new car','two sisters','a big garden','blue eyes','a dog','a lot of friends','a headache','long hair'];
+const HO={I:['a new car','a dog','a big garden'],She:['two sisters','a car','blue eyes'],They:['a big garden','a dog','a new car'],'My brother':['blue eyes','long hair','a lot of friends'],We:['a dog','a new car','a big garden'],Paul:['a lot of friends','two sisters','a new bike'],You:['a nice house','a big garden','a new car'],'The cat':['long hair','blue eyes','a ball']};
 HS.forEach(([s,h],i)=>{
-  G('hg',s+" ___ "+HO[i]+". (have got)",[h+' got'],s+" → <b>"+h+" got</b>.",{us:"on dit plutôt <i>"+s+" "+(h==='has'?'has':'have')+" "+HO[i]+"</i>."});
-  G('hg',s+" ___ "+HO[(i+4)%8]+". (have got, négatif)",h==='has'?["hasn't got","has not got"]:["haven't got","have not got"],"Négatif : <b>"+(h==='has'?"hasn't":"haven't")+" got</b>.");
-  const H=h==='has'?'Has':'Have';M('hg',"___ "+lc(s)+" got "+HO[(i+2)%8]+"?",[H].concat(['Has','Have','Does','Is'].filter(x=>x!==H).slice(0,3)),"Question : <b>"+H+"</b> + sujet + got ?");
+  const [o1,o2,o3]=HO[s],neg=h==='has'?"doesn't have":"don't have";
+  G('hg',s+" ___ "+o1+". (have got)",[h+' got',h],s+" → <b>"+h+" got</b>.",{us:"on dit plutôt <i>"+s+" "+h+" "+o1+"</i>."});
+  G('hg',s+" ___ "+o2+". (have got, négatif)",h==='has'?["hasn't got","has not got",neg]:["haven't got","have not got",neg],"Négatif : <b>"+(h==='has'?"hasn't":"haven't")+" got</b> (on entend aussi <i>"+neg+"</i>).");
+  const H=h==='has'?'Has':'Have';M('hg',"___ "+lc(s)+" got "+o3+"?",[H].concat(['Has','Have','Does','Is'].filter(x=>x!==H).slice(0,3)),"Question : <b>"+H+"</b> + sujet + got ?");
 });
 /* ---- famille ---- */
 const FR=[["Your mother's brother",'uncle'],["Your father's sister",'aunt'],["Your sister's son",'nephew'],["Your brother's daughter",'niece'],["Your father's father",'grandfather'],["Your mother's mother",'grandmother'],["Your son's son",'grandson'],["Your daughter's daughter",'granddaughter'],["Your aunt's son",'cousin'],["Your parents' son",'brother'],["Your parents' daughter",'sister'],["Your mother's husband",'father']];
 const FW=FR.map(x=>x[1]);
-FR.forEach(([r,a],i)=>M('fam',r+" is your ___.",[a].concat(oth(FW,a,3,i*2+1)),r+" = ton <b>"+a+"</b>."));
-[['la mère',['mother','mum','mom']],['le père',['father','dad']],['la fille (ton enfant)',['daughter']],['le fils',['son']],['la sœur',['sister']],['le frère',['brother']],["l'oncle",['uncle']],['la tante',['aunt']],['la nièce',['niece']],['le neveu',['nephew']],['le mari',['husband']],["l'épouse",['wife']],['le grand-père',['grandfather','grandad','granddad']],['les parents',['parents']]].forEach(([fr,acc])=>G('fam',"Traduis : "+fr,acc,"<b>"+fr+" = "+acc[0]+"</b>."));
+const FRW={uncle:'ton oncle',aunt:'ta tante',nephew:'ton neveu',niece:'ta nièce',grandfather:'ton grand-père',grandmother:'ta grand-mère',grandson:'ton petit-fils',granddaughter:'ta petite-fille',cousin:'ton cousin / ta cousine',brother:'ton frère',sister:'ta sœur',father:'ton père',mother:'ta mère'};
+FR.forEach(([r,a],i)=>M('fam',r+" is your ___.",[a].concat(oth(FW,a,3,i*2+1)),r+" = "+(FRW[a]||'')+" → <b>"+a+"</b>."));
+[['la mère',['mother','mum','mom']],['le père',['father','dad']],['la fille (ton enfant)',['daughter']],['le fils',['son']],['la sœur',['sister']],['le frère',['brother']],["l'oncle",['uncle']],['la tante',['aunt']],['la nièce',['niece']],['le neveu',['nephew']],['le mari',['husband']],["l'épouse",['wife']],['le grand-père',['grandfather','grandad','granddad','grandpa']],['les parents',['parents']]].forEach(([fr,acc])=>G('fam',"Traduis : "+fr,acc,"<b>"+fr+" = "+acc[0]+"</b>."));
 /* ---- possessif 's ---- */
 [['the car','my father',"my father's car"],['the bag','Anna',"anna's bag"],['the house','my parents',"my parents' house"],['the toys','the children',"the children's toys"],['the dog','Tom',"tom's dog"],['the room','my sisters',"my sisters' room"],['the books','the students',"the students' books"],['the phone','James',"james's phone"],['the shoes','the women',"the women's shoes"],['the name','my teacher',"my teacher's name"],['the garden','my grandparents',"my grandparents' garden"],['the bike','my brother',"my brother's bike"]].forEach(([t,o,a])=>{
-  const pl=/s'/.test(a);G('pos',"Réécris avec 's : "+t+" of "+o+" →",/s's /.test(a)?[a,a.replace("s's ","s' ")]:[a],(pl?"Pluriel en -s → apostrophe seule : ":"Propriétaire + 's : ")+"<b>"+a.replace(o.toLowerCase(),o)+"</b>.");
+  const pl=/s' /.test(a),ss=/s's /.test(a);G('pos',"Réécris avec 's : "+t+" of "+o+" →",ss?[a,a.replace("s's ","s' ")]:[a],(pl?"Pluriel en -s → apostrophe seule : ":"Propriétaire + 's : ")+"<b>"+a.replace(o.toLowerCase(),o)+"</b>."+(ss?" Un prénom en -s garde 's (on accepte aussi l'apostrophe seule : "+o+"' "+t.replace(/^the /,'')+").":""));
 });
 /* ---- présent simple ---- */
 const VB=[['play','plays','football on Saturdays'],['work','works','in an office'],['live','lives','in Liège'],['like','likes','chocolate'],['cook','cooks','dinner every evening'],['read','reads','the newspaper'],['speak','speaks','three languages'],['eat','eats','a lot of fruit'],['drink','drinks','coffee in the morning'],['swim','swims','every Sunday'],['watch','watches','TV after dinner'],['go','goes','to school by bus'],['do','does','the shopping on Saturdays'],['wash','washes','the car on Sundays'],['finish','finishes','work at five'],['teach','teaches','English'],['study','studies','Spanish'],['fly','flies','to Spain every summer'],['have','has','two brothers'],['fix','fixes','old bikes'],['miss','misses','the bus every morning'],['buy','buys','bread every day'],['love','loves','music'],['get up','gets up','at seven']];
@@ -1203,17 +1208,17 @@ VB.forEach(([v,v3,c],i)=>{
 /* ---- âge & accord ---- */
 [["Il a 40 ans.","He's 40.",["He has 40 years.","He has 40.","He's 40 years."]],["Nous avons 30 ans.","We're 30 years old.",["We have 30 years.","We are 30 years.","We have 30 years old."]],["Ma fille a 8 ans.","My daughter is 8.",["My daughter has 8 years.","My daughter has 8.","My daughter is 8 years."]],["Quel âge a-t-elle ?","How old is she?",["How old has she?","How many years has she?","What age has she?"]],["Ils ont 12 ans.","They're 12 years old.",["They have 12 years.","They have 12 years old.","They're 12 years."]],["Tu as quel âge ?","How old are you?",["How many years have you?","How old have you?","What age have you?"]]].forEach(([fr,c,d])=>M('age',"« "+fr+" » →",[c].concat(d),"L'âge se dit avec <b>to be</b> : <b>"+c+"</b>."));
 [["Tu es d'accord ?","Do you agree?",["Are you agree?","Do you are agree?","You are agree?"]],["Je ne suis pas d'accord.","I don't agree.",["I'm not agree.","I am not agree.","I don't am agree."]],["Elle est d'accord avec moi.","She agrees with me.",["She is agree with me.","She agree with me.","She's agreeing me."]]].forEach(([fr,c,d])=>M('age',"« "+fr+" » →",[c].concat(d),"<b>agree</b> est un verbe : <b>"+c+"</b>."));
-[['She','is',25],['My parents','are',60],['I','am',33],['Tom','is',12],['We','are',18],['The baby','is',1]].forEach(([s,b,n])=>G('age',s+" ___ "+n+" years old.",[b],"L'âge avec to be : <b>"+s+" "+b+" "+n+"</b>."));
+[['She','is',25],['My parents','are',60],['I','am',33],['Tom','is',12],['We','are',18],['The baby','is',1]].forEach(([s,b,n])=>G('age',s+" ___ "+n+(n===1?" year old.":" years old."),[b],"L'âge avec to be : <b>"+s+" "+b+" "+n+"</b>."+(n===1?" (Avec 1 : <b>year</b>, sans s.)":"")));
 /* ---- questions en Wh- ---- */
 const WQ=[['Where','do you live? — In Liège.'],['What','is your name? — Anna.'],['How old','is your son? — He is ten.'],['Where','are you from? — From Italy.'],['What','do you do? — I am a nurse.'],['How','are you? — Fine, thanks.'],['When','is your birthday? — In May.'],['Who','is your English teacher? — Miss Kokkinis.'],['What','is your phone number? — It is 0475 12 34 56.'],['What time','is the lesson? — At seven o\'clock.'],['Where','is the station? — Near the park.'],['Who','is that man? — He is my uncle.'],['How many','brothers have you got? — Two.'],['When','do you study English? — On Mondays.'],['What','is your favourite colour? — Blue.'],['How old','are your parents? — They are sixty.']];
 const WW=['Where','What','How old','How','When','Who','What time','How many'];
 const WE={Where:"un lieu → <b>Where</b> (où)",What:"une chose, une info → <b>What</b> (quoi, quel)",'How old':"l'âge → <b>How old</b>",How:"la manière, la santé → <b>How</b> (comment)",When:"un moment → <b>When</b> (quand)",Who:"une personne → <b>Who</b> (qui)",'What time':"une heure précise → <b>What time</b>",'How many':"une quantité qu'on compte → <b>How many</b>"};
-WQ.forEach(([w,r],i)=>{if(i%3===2)G('wh',"___ "+r,[w.toLowerCase()],"La réponse donne "+WE[w]+".");else M('wh',"___ "+r,[w].concat(oth(WW,w,3,i)),"La réponse donne "+WE[w]+".")});
+WQ.forEach(([w,r],i)=>{if(i%3===2)G('wh',"___ "+r,[w.toLowerCase()],"La réponse donne "+WE[w]+".");else{/* pas de faux choix qui serait juste aussi : When ↔ What time */const EXCL={When:['What time'],'What time':['When'],What:['What time']};M('wh',"___ "+r,[w].concat(oth(WW.filter(x=>!(EXCL[w]||[]).includes(x)),w,3,i)),"La réponse donne "+WE[w]+".")}});
 /* ---- épeler ---- */
 [['Rossi','R-O-double S-I',['R-O-S-I','R-double O-S-I','R-O-S-S-Y']],['Emma','E-double M-A',['E-M-A','E-M-M-E-A','double E-M-A']],['Kelly','K-E-double L-Y',['K-E-L-Y','K-E-double L-I','K-double E-L-Y']],['Anna','A-double N-A',['A-N-A','double A-N-A','A-N-N-E']],['Matteo','M-A-double T-E-O',['M-A-T-E-O','M-double A-T-E-O','M-A-double T-O']],['Jenny','J-E-double N-Y',['G-E-double N-Y','J-E-N-Y','J-E-double N-I']],['Russell','R-U-double S-E-double L',['R-U-S-E-L','R-U-double S-E-L','R-O-double S-E-double L']],['Bobby','B-O-double B-Y',['B-O-B-Y','B-double O-B-Y','B-O-double B-I']]].forEach(([n,c,d])=>M('spell',"Comment épelle-t-on « "+n+" » ?",[c].concat(d),"<b>"+n+" = "+c+"</b>. Lettre doublée → <b>double</b> + lettre."));
 [['Monday','lundi'],['Thursday','jeudi'],['Saturday','samedi'],['February','février'],['friend','un ami'],['family','la famille'],['beautiful','beau / belle'],['address','une adresse'],['coffee','le café'],['sister','une sœur'],['people','les gens'],['because','parce que'],['school','l\'école'],['English','anglais'],['tomorrow','demain'],['breakfast','le petit-déjeuner']].forEach(([w,fr])=>D('spell',w,"<b>"+w+"</b>"+({February:" : n'oublie pas le r après Feb-.",address:" : double d et double s.",beautiful:" : b-e-a-u-t-i-f-u-l (un seul l à la fin).",coffee:" : double f, double e.",tomorrow:" : un m, deux r.",friend:" : i avant e.",because:" : be-cause."}[w]||"."),{hint:fr}));
 /* ---- se présenter : réponses courtes ---- */
-[['Are you a new student?','Yes, I am.',["Yes, I'm.","Yes, I do.","Yes, am."]],['Is she your sister?','Yes, she is.',["Yes, she's.","Yes, she does.","Yes, is she."]],['Are they from Spain?',"No, they aren't.",["No, they not.","No, they don't.","No, aren't."]],['Is it your bag?','Yes, it is.',["Yes, it's.","Yes, it does.","Yes, is."]],['Are you tired?',"No, I'm not.",["No, I amn't.","No, I don't.","No, I not."]],['Is he a teacher?',"No, he isn't.",["No, he not.","No, he doesn't.","No, isn't he."]]].forEach(([q,c,d])=>M('dlg',q+" — ___",[c].concat(d),"Réponse courte avec to be : <b>"+c+"</b> (pas de contraction à la fin d'un oui)."));
+[['Are you a new student?','Yes, I am.',["Yes, I'm.","Yes, I do.","Yes, am."]],['Is she your sister?','Yes, she is.',["Yes, she's.","Yes, she does.","Yes, is she."]],['Are they from Spain?',"No, they aren't.",["No, they not.","No, they don't.","No, aren't."]],['Is it your bag?','Yes, it is.',["Yes, it's.","Yes, it does.","Yes, is."]],['Are you tired?',"No, I'm not.",["No, I amn't.","No, I don't.","No, I not."]],['Is he a teacher?',"No, he isn't.",["No, he not.","No, he doesn't.","No, isn't he."]]].forEach(([q,c,d])=>M('dlg',q+" — ___",[c].concat(d),/^Yes/.test(c)?"Réponse courte avec to be : <b>"+c+"</b>. Dans un <b>oui</b> court, pas de contraction à la fin (<span class='no'>✗</span> Yes, I'm).":"Réponse courte avec to be : <b>"+c+"</b>. Dans un <b>non</b>, on contracte normalement."));
 })();
 
 /* ---------- Cours enseignés du niveau 2 (cours de Miss Kokkinis) ---------- */
@@ -1303,7 +1308,7 @@ Object.assign(TEACH,{
  count:[
   Lc("an apple → two apples","une pomme → deux pommes","<b>Dénombrable</b> : on peut compter. On peut dire a / an, ou mettre au pluriel."),
   Lc("water · bread · money · advice","de l'eau · du pain · de l'argent · des conseils","<b>Indénombrable</b> : on ne compte pas. Pas de a/an, pas de pluriel."),
-  Lc("Test : « two … » ?","Le test magique","two apples ✓ → dénombrable. two breads ✗ → indénombrable."),
+  Lc("two apples · two chairs","deux pommes · deux chaises","Le test magique : peux-tu dire « two … » ? two apples ✓ → dénombrable. two breads ✗ → indénombrable."),
   Qm('count',"« bread » est…",["indénombrable","dénombrable"],"On ne dit pas two breads → <b>indénombrable</b> (some bread, a loaf of bread)."),
   Lc("some advice · some information","des conseils · des informations","<span class='wn'>!</span> Pièges pour un francophone : jamais « advices », jamais « informations »."),
   Qm('count',"Can you give me some ___?",["advice","advices","an advice","many advice"],"advice est indénombrable → <b>some advice</b>."),
@@ -1326,11 +1331,13 @@ Object.assign(TEACH,{
 /* ---------- Pratique niveau 2 (générée) ---------- */
 (function(){
 [['a sofa','is'],['two armchairs','are'],['a big window','is'],['three bedrooms','are'],['some milk in the fridge','is'],['a lot of books','are'],['an old piano','is'],['four chairs','are'],['a garden behind the house','is'],['some apples on the table','are'],['a lot of noise','is'],['two bathrooms and a kitchen','are'],['a kitchen and two bathrooms','is'],['many shops nearby','are']].forEach(([x,v])=>G('there',"There ___ "+x+".",[v],(v==='is'?"singulier ou indénombrable":"pluriel")+" → <b>There "+v+"</b>."+(/ and /.test(x)?" (le verbe suit le premier nom)":"")));
-[["___ there a lift in your building?","Is"],["___ there any shops near here?","Are"],["How many students ___ there in your class?","are"],["There ___ any eggs. (négatif)","aren't"],["There ___ a supermarket in my street. (négatif)","isn't"],["___ there any milk?","Is"]].forEach(([p,c])=>{const all=['Is','Are',"isn't","aren't",'is','are'].filter(x=>x.toLowerCase()!==c.toLowerCase());M('there',p,[c].concat(all.filter((x,i,a)=>a.findIndex(y=>y.toLowerCase()===x.toLowerCase())===i).slice(0,3)),"<b>"+c+"</b> : "+(/is|isn/i.test(c)?"singulier ou indénombrable":"pluriel")+".")});
+[["___ there a lift in your building?","Is"],["___ there any shops near here?","Are"],["How many students ___ there in your class?","are"],["There ___ any eggs. (négatif)","aren't"],["There ___ a supermarket in my street. (négatif)","isn't"],["___ there any milk?","Is"]].forEach(([p,c])=>{const cap=/^___/.test(p),fx=x=>cap?x.charAt(0).toUpperCase()+x.slice(1):x.toLowerCase();const all=['is','are',"isn't","aren't"].filter(x=>x!==c.toLowerCase()).map(fx);M('there',p,[fx(c)].concat(all.slice(0,3)),"<b>"+c+"</b> : "+(/is|isn/i.test(c)?"singulier ou indénombrable":"pluriel")+".")});
 [["Look at the sky! ___ beautiful today.","It's"],["I love these shoes. ___ so comfortable.","They're"],["___ a museum in the town centre.","There's"],["___ a lot of tourists in summer.","There are"],["My parents are in Spain. ___ on holiday.","They're"],["What time is it? ___ ten o'clock.","It's"],["Do you know my cousins? ___ very funny.","They're"],["___ some cake in the kitchen.","There's"]].forEach(([p,c])=>M('its',p,[c].concat(["It's","They're","There's","There are","Their"].filter(x=>x!==c).slice(0,3)),c==="It's"?"Une chose connue, ou l'heure, la météo → <b>It's</b>.":c==="They're"?"Plusieurs choses ou personnes connues → <b>They're</b>.":"On annonce l'existence de quelque chose → <b>"+c+"</b>."));
 [["I love ___ (cook).","cooking"],["She hates ___ (get) up early.","getting"],["They don't like ___ (swim).","swimming"],["Do you like ___ (dance)?","dancing"],["He enjoys ___ (read) in bed.","reading"],["We love ___ (travel).","travelling","traveling"],["I don't mind ___ (wait).","waiting"],["My kids like ___ (play) video games.","playing"],["I prefer ___ (watch) films at home.","watching"],["Do you enjoy ___ (run)?","running"]].forEach(([p,a,us])=>{const v=(p.match(/\((\w+)\)/)||[])[1],to=!/enjoy|mind/.test(p);G('like',p,(us?[a,us]:[a]).concat(to&&v?["to "+v]:[]),to?"Après love / like / hate / prefer → verbe en <b>-ing</b> : "+a+". (<i>to "+v+"</i> est aussi correct.)":"Après enjoy / don't mind → <b>-ing obligatoire</b> : "+a+".",us?{us:"on écrit <i>"+us+"</i> (un seul l)."}:undefined)});
-[['make','making'],['swim','swimming'],['play','playing'],['lie','lying'],['write','writing'],['sit','sitting'],['dance','dancing'],['get','getting'],['travel','travelling'],['stop','stopping'],['die','dying'],['shop','shopping'],['take','taking'],['begin','beginning'],['visit','visiting'],['camp','camping'],['cook','cooking'],['come','coming']].forEach(([v,i])=>G('ing',v+" → ___ (-ing)",i==='travelling'?['travelling','traveling']:[i],"<b>"+i+"</b> : "+(i==='beginning'?"accent sur la fin (be<b>GIN</b>) → on double le n.":i==='travelling'?"en anglais britannique, on double le l final.":i===v+'ing'?"on ajoute simplement -ing.":/ying$/.test(i)?"-ie devient -ying.":i.length===v.length+4?"verbe court : on double la consonne finale.":"verbe en -e : on enlève le e."),i==='travelling'?{us:"<i>traveling</i> (un seul l)."}:undefined));
-[["There are ___ apples on the table.","some"],["Are there ___ eggs in the fridge?","any"],["We haven't got ___ bread.","any"],["Would you like ___ tea?","some"],["I need ___ new shoes.","some"],["There isn't ___ milk.","any"],["Have you got ___ brothers?","any"],["Could I have ___ juice, please?","some"],["She doesn't have ___ friends here.","any"],["There is ___ cheese in the kitchen.","some"],["If you need ___ help, call me.","any"],["Let's buy ___ flowers for Mum.","some"]].forEach(([p,c])=>M('some',p,[c].concat(['some','any','a','many'].filter(x=>x!==c).slice(0,3)),c==='some'?(/would you|can i|could i/i.test(p)?"Offre ou demande polie → <b>some</b>.":"Phrase affirmative → <b>some</b>."):(/^if/i.test(p)?"Après if → <b>any</b>.":/\?$/.test(p)?"Question → <b>any</b>.":"Phrase négative → <b>any</b>.")));
+[['make','making'],['swim','swimming'],['play','playing'],['lie','lying'],['write','writing'],['sit','sitting'],['dance','dancing'],['get','getting'],['travel','travelling'],['stop','stopping'],['die','dying'],['shop','shopping'],['take','taking'],['begin','beginning'],['visit','visiting'],['camp','camping'],['cook','cooking'],['come','coming']].forEach(([v,i])=>G('ing',v+" → ___ (-ing)",i==='travelling'?['travelling','traveling']:[i],"<b>"+i+"</b> : "+(i==='beginning'?"accent sur la fin (be<b>GIN</b>) → on double le n.":i==='visiting'?"accent au début (<b>VI</b>-sit) → pas de doublement, on ajoute simplement -ing.":i==='camping'?"deux consonnes à la fin (mp) → pas de doublement.":i==='travelling'?"en anglais britannique, on double le l final.":i===v+'ing'?"on ajoute simplement -ing.":/ying$/.test(i)?"-ie devient -ying.":i.length===v.length+4?"verbe court : on double la consonne finale.":"verbe en -e : on enlève le e."),i==='travelling'?{us:"<i>traveling</i> (un seul l)."}:undefined));
+[["There are ___ apples on the table.","some"],["Are there ___ eggs in the fridge?","any"],["We haven't got ___ bread.","any"],["Would you like ___ tea?","some"],["I need ___ new shoes.","some"],["There isn't ___ milk.","any"],["Have you got ___ brothers?","any"],["Could I have ___ juice, please?","some"],["She doesn't have ___ friends here.","any"],["There is ___ cheese in the kitchen.","some"],["If you need ___ help, call me.","any"],["Let's buy ___ flowers for Mum.","some"]].forEach(([p,c])=>{/* aucun faux choix ne doit être juste : « many » est correct avec un pluriel (many friends), « some » est correct après if */
+  const plural=/(apples|eggs|shoes|brothers|friends|flowers)\b/.test(p),D=/^if/i.test(p)?['a','many','one']:['some','any','a',plural?'much':'many'].filter(x=>x!==c);
+  M('some',p,[c].concat(D.slice(0,3)),c==='some'?(/would you|can i|could i/i.test(p)?"Offre ou demande polie → <b>some</b>.":"Phrase affirmative → <b>some</b>."):(/^if/i.test(p)?"Après if → <b>any</b>.":/\?$/.test(p)?"Question → <b>any</b>.":"Phrase négative → <b>any</b>."))});
 [["How ___ sugar do you want?","much"],["How ___ chairs are there?","many"],["There isn't ___ time.","much"],["I haven't got ___ friends in London.","many"],["How ___ money have you got?","much"],["How ___ people are coming?","many"],["We don't have ___ homework today.","much"],["There aren't ___ cars in the street.","many"],["How ___ water do you drink?","much"],["Are there ___ shops in your village?","many"]].forEach(([p,c])=>M('much',p,c==='much'?['much','many']:['many','much'],c==='much'?"Indénombrable → <b>much</b>.":"Pluriel, on peut compter → <b>many</b>."));
 [["She drinks ___ coffee.","a lot of"],["There are ___ tourists in July.","a lot of"],["He has got ___ money.","a lot of"]].forEach(([p,c])=>M('much',p+" (affirmatif)",/tourists/.test(p)?[c,'much','a little','any']:[c,'many','a few','any'],"Phrase affirmative → <b>a lot of</b> (avec dénombrable ou indénombrable)."));
 [["___ love chocolate.","I"],["My mum calls ___ every Sunday.","me"],["Can you help ___?","me"],["Anna and ___ are in the same class.","I"],["This letter is for ___.","me"],["Paul and ___ live in Liège.","I"],["Come with ___!","me"],["The teacher asked Tom and ___ a question.","me"],["Let ___ help you.","me"],["Yesterday ___ went to the cinema.","I"]].forEach(([p,c])=>M('ime',p,c==='I'?['I','me']:['me','I'],c==='I'?"C'est moi qui fais l'action (sujet) → <b>I</b>.":"Je reçois l'action, ou après une préposition / let → <b>me</b>."));
@@ -1552,6 +1559,7 @@ const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
     [/\bI love (\w+ing)\b/,"I love to $1"],[/\bI prefer (\w+ing)\b/,"I prefer to $1"],[/\bThere is\b/,"It is"],[/\bThere are\b/,"They are"],[/\bThere's\b/,"It's"],
     [/\bI've got\b/,"I've"],[/\bhave got\b/,"have get"],[/\bsome\b/,"any"],[/\bany\b/,"some"],[/\bdoesn't (\w+)\b/,"doesn't $1s"],[/\bdon't\b/,"doesn't"],[/\bis\b/,"are"],[/\bare\b/,"is"]];
   const mutate=t=>{const out=[];for(const [re,rep] of MUT){if(re.test(t)){const m=t.replace(re,rep);if(m!==t&&!out.includes(m))out.push(m)}if(out.length>=2)break}return out};
+  const NAMES=new Set(dlgs.flatMap(g=>g.d.map(l=>l[0])).concat(['Anna','Tom','Paul','Lucas','Sara','Lisa','Kate','Emma','Sofia','Max','Lucy']));
   dlgs.forEach((g,gi)=>{for(let j=1;j<g.d.length;j++){const prev=g.d[j-1],l=g.d[j];
     /* même forme que la bonne réponse (question ↔ question, réponse ↔ réponse) : on ne peut pas l'éliminer à la forme */
     const isQ=t=>/\?\s*$/.test(t),sameForm=t=>isQ(t)===isQ(l[1]);
@@ -1561,9 +1569,10 @@ const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
     if(d.length<2)continue;
     M(g.sid,"Dialogue : que répond "+l[0]+" ?",[l[1]].concat(d.slice(0,2)),"La réponse logique à « "+esc(prev[1])+" » : <b>"+esc(l[1])+"</b> ("+esc(l[2])+")",{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1});
     /* version à taper : on masque la réplique (répliques courtes seulement) */
-    const core=t=>{const v=[t];let x=t;for(let k=0;k<2;k++){const y=x.replace(/^(Hi|Hello|Hey|Yes|No|Oh|Well|Cool|OK|Okay)( [A-Z][a-z]+)?[!,.]? */,'');if(y!==x&&y){x=y;v.push(x)}}
+    const core=t=>{const v=[t];let x=t;for(let k=0;k<2;k++){const y=x.replace(/^(Hi|Hello|Hey|Oh|Well|Cool|OK|Okay)( [A-Z][a-z]+)?[!,.]? */,'');if(y!==x&&y){x=y;v.push(x)}}
       v.slice().forEach(z=>{const w=z.replace(/[,.]? *And you\?$/,'').trim();if(w&&w!==z)v.push(w)});
-      v.slice().forEach(z=>{if(/My name is (\w+)/.test(z))v.push(z.replace(/My name is (\w+)/,"I'm $1"));if(/I'm ([A-Z]\w+)/.test(z))v.push(z.replace(/I'm ([A-Z]\w+)/,"My name is $1"))});
+      v.slice().forEach(z=>{const w=z.replace(/, [A-Z][a-z]+([.!?])$/,'$1');if(w!==z)v.push(w);const f=z.match(/^([^.!?]+[.!])\s+(How are you|And you|What about you)\?$/);if(f)v.push(f[1])});
+      v.slice().forEach(z=>{if(/My name is (\w+)/.test(z))v.push(z.replace(/My name is (\w+)/,"I'm $1"));const nm=z.match(/I'm ([A-Z]\w+)/);if(nm&&NAMES.has(nm[1]))v.push(z.replace(/I'm ([A-Z]\w+)/,"My name is $1"))});
       return [...new Set(v)]};
     if(l[1].split(' ').length<=8)G(g.sid,"Dialogue : réponds comme "+l[0]+". (En français : « "+l[2]+" »)",core(l[1]),"<b>"+l[0]+"</b> : "+esc(l[1]),{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1,loose:1});
   }});
@@ -1955,13 +1964,24 @@ function ansText(q){
 }
 const promptText=q=>q.type==='dict'?'Dictée : « '+q.word+' »':q.type==='match'?q.title:q.prompt.replace(/^🎧 /,'');
 
+/* LE juge : une seule fonction décide si une réponse tapée est juste (utilisée par l'appli ET par la banque de tests) */
+function judge(q,given){
+  given=String(given||'').trim();
+  if(q.type==='free')return freeCheck(q,given);
+  if(q.type==='gap'||q.type==='dict'){
+    if((q.type==='dict'&&/ /.test(q.word))||q.loose){const t=q.type==='dict'?[q.word]:q.acc;const ok=t.some(x=>looseEq(x,given));
+      return {ok,fe:ok&&!t.some(x=>normLoose(x)===normLoose(given))?"Juste ! Écrit exactement : <b>"+esc(t[0])+"</b>":''}}
+    return {ok:q.acc.map(norm).includes(norm(given))}}
+  if(q.type==='ord')return {ok:norm(given)===norm(q.sentence)};
+  return {ok:false};
+}
 function submit(timeout){
   const P=S.play;if(!P||P.phase!=='ask')return;
   const it=P.items[P.i],q=it.q;let ok=false,given='';
   if(timeout){given='Temps écoulé'}
   else if(q.type==='mcq'){if(it.sel==null)return;given=it.opts[it.sel].t;ok=it.opts[it.sel].ok}
-  else if(q.type==='free'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}const fc=freeCheck(q,given);ok=fc.ok;it.fe=fc.fe}
-  else if(q.type==='gap'||q.type==='dict'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}it.fe='';if((q.type==='dict'&&/ /.test(q.word))||q.loose){const t=q.type==='dict'?[q.word]:q.acc;ok=t.some(x=>looseEq(x,given));if(ok&&!t.some(x=>normLoose(x)===normLoose(given)))it.fe="Juste ! Écrit exactement : <b>"+esc(t[0])+"</b>"}else ok=q.acc.map(norm).includes(norm(given))}
+  else if(q.type==='free'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}const j=judge(q,given);ok=j.ok;it.fe=j.fe||''}
+  else if(q.type==='gap'||q.type==='dict'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}const j=judge(q,given);ok=j.ok;it.fe=j.fe||''}
   else if(q.type==='ord'){if(!it.ans.length)return;given=it.ans.map(t=>t.w).join(' ');ok=norm(given)===norm(q.sentence)}
   else if(q.type==='match'){ok=it.miss<=1;given=it.miss?it.miss+' erreur'+(it.miss>1?'s':''):''}
   stopTimer();
@@ -2377,7 +2397,7 @@ function viewSettings(){
   <p class="lbl">Récupérer ma progression</p><input id="imp" class="inp" autocomplete="off" autocapitalize="characters" placeholder="Ex : K7P-4QX">
   <button class="btn ghost full" data-act="import">Récupérer</button>${S.msg?`<div class="warn">${esc(S.msg)}</div>`:''}
   <h2 class="h2">Autre</h2>
-  <small>Version de l'appli : 25/10/2026 14:54 · ebc1e5b5</small>
+  <small>Version de l'appli : 25/10/2026 15:59 · 6943e2c7</small>
   <small>Icônes des objets : <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji</a> (licence CC BY-SA 4.0). Voix : Deepgram Aura via Cloudflare.</small>
   <button class="btn ghost full" data-act="switch">Changer de profil</button><button class="btn dng full" data-act="askdel">Supprimer ce profil</button>
   ${storageOK?'':'<div class="warn">Sauvegarde indisponible dans ce navigateur : ouvre le lien dans Safari ou Chrome.</div>'}
@@ -2638,7 +2658,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 track('open');setTimeout(flush,4000);
 render();
-window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,looseEq,diagnose,ansText,instrOf,pick,speakSeq,voiceOf,render,prep}; // utile pour les tests
+window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,looseEq,diagnose,judge,ansText,instrOf,pick,speakSeq,voiceOf,render,prep}; // utile pour les tests
 })();
 </script>
 <script>
