@@ -3,6 +3,11 @@ main = "src/index.js"
 compatibility_date = "2025-06-01"
 workers_dev = true
 preview_urls = false
+# garde les variables ajoutées dans le tableau de bord Cloudflare lors des mises à jour
+keep_vars = true
+
+[ai]
+binding = "AI"
 
 [[d1_databases]]
 binding = "DB"
