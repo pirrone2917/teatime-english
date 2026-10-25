@@ -3,6 +3,8 @@
 // et affiche un tableau de bord global, protégé par le mot de passe DASH_KEY.
 import { voixRoute, ttsRoute, warm } from './tts.js';
 import { leagueRoute } from './league.js';
+import { icsRoute } from './ics.js';
+import { transferRoute } from './transfer.js';
 const ORIGINS = ['https://pirrone2917.github.io', 'http://localhost:8781'];
 const TZ = 'Europe/Brussels';
 let ready = false;
@@ -168,6 +170,8 @@ export default {
     if (url.pathname.startsWith('/voix')) return voixRoute(url, env);
     if (url.pathname === '/tts' || url.pathname === '/tts/etat') return ttsRoute(url, env);
     if (url.pathname === '/lg') return leagueRoute(req, url, env, cors);
+    if (url.pathname === '/ics') return icsRoute(url);
+    if (url.pathname === '/sv') return transferRoute(req, url, env, cors);
     if (url.pathname === '/dash' || url.pathname === '/') {
       if (!env.DASH_KEY) return html(loginPage("Le mot de passe n'est pas encore configuré : ajoute la variable secrète <b>DASH_KEY</b> dans Cloudflare."));
       const good = await sha('tt:' + env.DASH_KEY);

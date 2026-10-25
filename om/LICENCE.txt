@@ -1,0 +1,2 @@
+Icônes OpenMoji (https://openmoji.org) — licence CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+Fichiers copiés sans modification depuis le paquet openmoji 17.0.0.
