@@ -348,6 +348,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .inst{border:2px dashed var(--red);background:#FFF8EC;margin-top:12px}.inst ol{margin:8px 0 6px;padding-left:20px;font-size:15px;line-height:1.45}.inst .lnk{display:block;margin:6px auto 0}
 .lgc{display:flex;align-items:center;gap:12px;text-align:left;margin-top:12px;width:100%}.lgc .lgi{font-size:28px}.lgc .ar{margin-left:auto;color:var(--mute);font-size:22px}.lgc div{flex:1}
 .lgt{padding:6px 12px}.lgr{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:16px}.lgr:last-child{border-bottom:0}.lgr .n{width:30px;text-align:center;font-weight:700}.lgr .nm{flex:1}.lgr .xp{font-weight:700;color:var(--mute)}.lgr.me{background:var(--hl);border-radius:8px}
+.lrep .mic{display:block;width:100%;margin-top:10px}.lrep .mic.on{background:var(--hl)}.micfb{margin-top:8px;padding:8px 10px;border-radius:8px;font-size:15px}.micfb.ok{background:var(--green-bg);color:var(--green)}.micfb.ko{background:#FFF3DC;color:#7A4B00}
 </style>
 </head>
 <body>
@@ -1324,6 +1325,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const pickOne=a=>a[Math.floor(Math.random()*a.length)];
 const CONTR={"it's":"it is","that's":"that is","there's":"there is","what's":"what is","where's":"where is","who's":"who is","they're":"they are","we're":"we are","you're":"you are","i'm":"i am","he's":"he is","she's":"she is","haven't":"have not","hasn't":"has not","don't":"do not","doesn't":"does not","isn't":"is not","aren't":"are not"};
+const normLoose=x=>norm(x).replace(/[.,!?;:"«»()—–]/g,' ').replace(/\s+/g,' ').trim();
 function norm(s){
   s=String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/-/g,' ').trim().replace(/[.!?,;:]+$/,'').replace(/\s+/g,' ');
   return s.split(' ').map(w=>CONTR[w]||w).join(' ');
@@ -1455,6 +1457,30 @@ const OOPS=["Not quite…","So close!","Nearly there!","Oops, mind the gap!","Do
 const TIPS=["On dit « I am 36 », jamais « I have 36 ».","Après does / doesn't, le verbe reste à la base : she doesn't play.","There is = il y a (singulier) · There are = il y a (pluriel).","Their, there, they're : trois mots, une seule prononciation !","love, like, hate + verbe en -ing : I love cooking.","Pays et nationalités : toujours une majuscule en anglais.","half past nine = 9 h 30 · quarter to three = 2 h 45.","« Also » veut dire aussi, pas beaucoup !","some en phrase affirmative, any en négatif et en question.","many + ce qui se compte, much + ce qui ne se compte pas.","Test magique : enlève l'autre personne pour choisir entre I et me.","❌ advices, ❌ informations : ces mots ne prennent jamais de -s.","Au Royaume-Uni, the first floor = le 1er étage. Le rez-de-chaussée = the ground floor.","knife → knives · shelf → shelves : le f devient ves."];
 const RANKS=[[0,'Tourist'],[150,'Student'],[400,'Commuter'],[800,'Local'],[1500,'Londoner'],[3000,'Professor']];
 const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
+/* ---------- ORAL : écoute de phrases, dictées de phrases, dialogues à jouer (générés depuis les cours) ---------- */
+(function gen_oral(){
+  const items=[],seen=new Set(),dlgs=[];
+  for(const sid in TEACH){if(!SKM[sid])continue;TEACH[sid].forEach(c=>{
+    if(c.learn){const {en,fr}=c.learn;if(en&&fr&&!/[→·=…]/.test(en+fr)&&en.split(' ').length>=2&&!seen.has(en)){seen.add(en);items.push({sid,en,fr})}}
+    if(c.dialog){dlgs.push({sid,d:c.dialog});c.dialog.forEach(l=>{if(!seen.has(l[1])){seen.add(l[1]);items.push({sid,en:l[1],fr:l[2],who:l[0]})}})}})}
+  const lv=sid=>SKM[sid].lvl;
+  const pickD=(it,pool,n,key)=>{const same=pool.filter(x=>x.sid===it.sid),oth=pool.filter(x=>x.sid!==it.sid);const out=[];let h=0;for(const ch of it.en)h=(h*31+ch.charCodeAt(0))|0;
+    for(const P of [same,oth])for(let i=0;i<P.length&&out.length<n;i++){const x=P[Math.abs(h+i*7919)%P.length];if(!out.includes(x[key])&&x[key]!==it[key])out.push(x[key])}
+    return out};
+  items.forEach(it=>{
+    const W=t=>new Set(t.toLowerCase().replace(/[^\p{L}' ]/gu,' ').split(/\s+/).filter(Boolean)),ov=(a,b)=>{const A=W(a),B=W(b);let c=0;A.forEach(x=>{if(B.has(x))c++});return c/Math.max(1,Math.min(A.size,B.size))};
+    const pool=items.filter(x=>lv(x.sid)===lv(it.sid)&&x.fr!==it.fr&&ov(x.fr,it.fr)<.5&&ov(x.en,it.en)<.5);
+    const d=pickD(it,pool,3,'fr');if(d.length<3)return;
+    M(it.sid,"🎧 Écoute : que veut dire cette phrase ?",[it.fr].concat(d),"Tu as entendu : <b>"+esc(it.en)+"</b>",{say:it.en,sayw:it.who||'',aud:1});
+    if(it.en.split(' ').length<=9&&!/[—–]/.test(it.en))D(it.sid,it.en,"Tu as entendu : <b>"+esc(it.en)+"</b> ("+esc(it.fr)+")",{aud:1,sayw:it.who||'',hint:"En français : "+it.fr});
+  });
+  const lines=[];dlgs.forEach((g,gi)=>g.d.forEach((l,j)=>lines.push({gi,j,sid:g.sid,who:l[0],en:l[1],fr:l[2]})));
+  dlgs.forEach((g,gi)=>{for(let j=1;j<g.d.length;j++){const prev=g.d[j-1],l=g.d[j];
+    const it={sid:g.sid,en:l[1]};const pool=lines.filter(x=>x.gi!==gi&&x.j>0&&x.en!==l[1]);
+    const d=pickD(it,pool,2,'en');if(d.length<2)continue;
+    M(g.sid,"🎭 Dialogue : que répond "+l[0]+" ?",[l[1]].concat(d),"La réponse logique à « "+esc(prev[1])+" » : <b>"+esc(l[1])+"</b> ("+esc(l[2])+")",{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1});
+  }});
+})();
 const GAMES=[
  {k:'quiz',i:'⚡',n:'Quiz éclair',d:'QCM, réponds vite',t:['mcq'],n10:10},
  {k:'gap',i:'🕳️',n:'Mind the gap',d:'Complète la phrase',t:['gap'],n10:10},
@@ -1576,6 +1602,24 @@ function speak(t,rate,v,onend,inSeq){
     a.playbackRate=a.defaultPlaybackRate=rate<0.7?0.75:0.95;try{a.preservesPitch=true}catch(e){}
     const pr=a.play();if(pr&&pr.catch)pr.catch(()=>{clearTimeout(tm);fail()});
   }catch(e){clearTimeout(tm);fail()}
+}
+/* Micro (optionnel) : le navigateur écoute et on compare avec la phrase. Rien n'est envoyé à notre serveur. */
+const SRc=(()=>{try{return window.SpeechRecognition||window.webkitSpeechRecognition||null}catch(e){return null}})();
+const wordsOf=x=>normLoose(x).split(' ').filter(Boolean);
+function sayScore(target,heard){const T=wordsOf(target),H=new Set(wordsOf(heard));if(!T.length)return 0;return T.filter(w=>H.has(w)).length/T.length}
+function micFb(it){const m=it.mic;if(!m||m.st==='on')return '';
+  if(m.st==='err')return `<div class="micfb ko">${m.msg}</div>`;
+  return `<div class="micfb ${m.ok?'ok':'ko'}">${m.ok?'✅ Bien dit !':'🔁 Presque, réessaie.'} J'ai entendu : « ${esc(m.heard||'…')} »</div>`}
+function micListen(it,target){
+  if(!SRc)return;stopSpeak();
+  let r;try{r=new SRc()}catch(e){it.mic={st:'err',msg:"Micro indisponible sur ce téléphone. Répète simplement à voix haute 🙂"};render();return}
+  r.lang='en-GB';r.interimResults=false;r.maxAlternatives=4;let got=false;
+  it.mic={st:'on'};render();
+  r.onresult=e=>{got=true;const alts=[...e.results[0]].map(x=>x.transcript);let best=alts[0]||'',sc=0;alts.forEach(a=>{const v=sayScore(target,a);if(v>sc){sc=v;best=a}});
+    it.mic={st:'done',heard:best,ok:sc>=.75};track('mic',{ok:sc>=.75});render()};
+  r.onerror=e=>{got=true;it.mic={st:'err',msg:e.error==='not-allowed'||e.error==='service-not-allowed'?"Le micro n'est pas autorisé. Tu peux l'activer dans les réglages du téléphone, ou juste répéter à voix haute.":e.error==='no-speech'?"Je n'ai rien entendu. Appuie et parle tout de suite.":"Micro indisponible ici. Répète simplement à voix haute 🙂"};render()};
+  r.onend=()=>{if(!got){it.mic={st:'err',msg:"Je n'ai rien entendu. Appuie et parle tout de suite."};render()}};
+  try{r.start()}catch(e){it.mic={st:'err',msg:"Micro indisponible ici. Répète simplement à voix haute 🙂"};render()}
 }
 /* un dialogue entier : chaque réplique avec la voix de son personnage, l'une après l'autre */
 function speakSeq(lines){
@@ -1715,9 +1759,10 @@ function buildEtape(sid,k){
     const extra=TEACH[sid]?[]:pickFresh(5,T(REC));
     return cards.concat(extra.map(q=>({q})));
   }
-  if(k==='train'){take(pickFresh(5,T(['mcq','match'])));take(pickFresh(8-out.length,T(['gap','free']),used));}
-  if(k==='write'){take(pickFresh(8,T(['gap','ord','dict','free'])));}
-  if(k==='defi'){take(pickFresh(7,all));const prev=myPath().filter(x=>x.id!==sid&&etOf(x.id)>=4);take(pickFresh(3,Q.filter(q=>prev.some(x=>x.id===q.skill)),used));}
+  const AUD=all.filter(q=>q.aud&&q.type==='mcq'),ROLE=all.filter(q=>q.role),SDICT=all.filter(q=>q.aud&&q.type==='dict'),base=t=>T(t).filter(q=>!q.aud&&!q.role);
+  if(k==='train'){take(pickFresh(2,AUD));take(pickFresh(ROLE.length?2:0,ROLE,used));take(pickFresh(7-out.length,base(['mcq','match']),used));take(pickFresh(10-out.length,base(['gap','free']),used));}
+  if(k==='write'){take(pickFresh(2,SDICT));take(pickFresh(9-out.length,base(['gap','ord','dict','free']),used));}
+  if(k==='defi'){take(pickFresh(1,AUD));take(pickFresh(7-out.length,all.filter(q=>!q.aud&&!q.role),used));const prev=myPath().filter(x=>x.id!==sid&&etOf(x.id)>=4);take(pickFresh(3,Q.filter(q=>prev.some(x=>x.id===q.skill)),used));}
   if(out.length<6)take(pickFresh(8-out.length,all,used));
   return shuffle(out).map(q=>({q}));
 }
@@ -1756,8 +1801,9 @@ function autoSay(){
   const P=S.play;if(!P||P.phase!=='ask')return;const cur_=P.items[P.i];
   if(cur_.learn&&cur_.learn.en){setTimeout(()=>speak(cur_.learn.en,.8),400);return}
   if(!cur_.q)return;const q=cur_.q;
-  if(q.type==='dict')setTimeout(()=>speak(q.word),350);
-  else if(q.type==='mcq'&&q.say)setTimeout(()=>speak(q.say),350);
+  const vv=q.sayw?voiceOf(q.sayw):undefined;
+  if(q.type==='dict')setTimeout(()=>speak(q.word,undefined,vv),350);
+  else if(q.type==='mcq'&&q.say)setTimeout(()=>speak(q.say,undefined,vv),350);
 }
 function ansText(q){
   if(q.type==='free')return q.acc[0];
@@ -1775,7 +1821,7 @@ function submit(timeout){
   if(timeout){given='⏱ temps écoulé'}
   else if(q.type==='mcq'){if(it.sel==null)return;given=it.opts[it.sel].t;ok=it.opts[it.sel].ok}
   else if(q.type==='free'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}const fc=freeCheck(q,given);ok=fc.ok;it.fe=fc.fe}
-  else if(q.type==='gap'||q.type==='dict'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}ok=q.acc.map(norm).includes(norm(given))}
+  else if(q.type==='gap'||q.type==='dict'){given=(it.val||'').trim();if(!given){const el=$('[data-input]');if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus()}return}ok=q.type==='dict'&&/ /.test(q.word)?normLoose(q.word)===normLoose(given):q.acc.map(norm).includes(norm(given))}
   else if(q.type==='ord'){if(!it.ans.length)return;given=it.ans.map(t=>t.w).join(' ');ok=norm(given)===norm(q.sentence)}
   else if(q.type==='match'){ok=it.miss<=1;given=it.miss?it.miss+' erreur'+(it.miss>1?'s':''):''}
   stopTimer();
@@ -2171,7 +2217,7 @@ function learnView(P,it){
     <div class="len">${esc(L.en)}</div><div class="lfr">${esc(L.fr)}</div>
     <div class="spk"><button class="btn" data-act="sayl">🔊 Écouter</button><button class="btn" data-act="sayls">Plus lent</button></div>
     ${L.note?`<div class="lnote">${L.note}</div>`:''}
-    <div class="lrep">🗣️ <b>À toi :</b> répète la phrase <b>à voix haute</b>, deux fois.</div></div>`;
+    <div class="lrep">🗣️ <b>À toi :</b> répète la phrase <b>à voix haute</b>, deux fois.${SRc?`<button class="btn mic${it.mic&&it.mic.st==='on'?' on':''}" data-act="mic">${it.mic&&it.mic.st==='on'?'🎙️ Je t\'écoute…':'🎤 Dis-la au micro'}</button>${micFb(it)}`:''}</div></div>`;
   }
   h+=`<div class="foot"><button class="btn red full" data-act="learnNext">${P.i+1>=n?'Terminer':'Continuer'}</button></div>`;
   if(P.quit)h+=`<div class="ov"><div class="card"><b>Quitter la leçon ?</b><p class="mut">Tu pourras la reprendre depuis la station.</p><button class="btn red full" data-act="quit">Quitter</button><button class="btn ghost full" data-act="noquit">Continuer</button></div></div>`;
@@ -2186,7 +2232,7 @@ function viewPlay(){
   h+=`<div class="tag">${it.rt?'🔁 On revoit ton erreur — ':''}${SKM[q.skill].name} — ${P.mode==='exam'?'question '+(P.i+1)+' / '+n:INSTR[q.type]}</div>`;
   if(q.ctx)h+=`<div class="ctx">${q.ctx}</div>`;
   if(q.type==='dict'){
-    h+=`<div class="q">Écoute et écris le mot.</div><div class="spk"><button class="btn" data-act="say">🔊 Écouter</button><button class="btn" data-act="slow">Plus lent</button><button class="btn" data-act="hint">Indice</button></div>${it.hint?`<div class="ctx">${esc(q.hint||'Pas d\'indice pour celui-ci.')}</div>`:''}`;
+    h+=`<div class="q">${/ /.test(q.word)?'Écoute et écris la phrase ('+q.word.split(' ').length+' mots).':'Écoute et écris le mot.'}</div><div class="spk"><button class="btn" data-act="say">🔊 Écouter</button><button class="btn" data-act="slow">Plus lent</button><button class="btn" data-act="hint">Indice</button></div>${it.hint?`<div class="ctx">${esc(q.hint||'Pas d\'indice pour celui-ci.')}</div>`:''}`;
   }else if(q.type==='match'){
     h+=`<div class="q">${esc(q.title)}</div>`;
   }else{
@@ -2305,6 +2351,7 @@ const A={
   myMode:d=>{cur().mode=d.m;persist();render();toast(d.m==='solo'?'Parcours : depuis le niveau 1':'Parcours : cours de Miss Kokkinis')},
   learnNext:()=>{const P=S.play,it=P.items[P.i];it.res='seen';stopSpeak();next()},
   sayl:()=>{const it=S.play.items[S.play.i];speak(it.learn.en,.8)},
+  mic:()=>{const it=S.play.items[S.play.i];if(it.learn)micListen(it,it.learn.en)},
   sayls:()=>{const it=S.play.items[S.play.i];speak(it.learn.en,.55)},
   sayline:d=>{const it=S.play.items[S.play.i],l=it.dialog[+d.i];speak(l[1],.8,voiceOf(l[0]))},
   sayall:()=>{const it=S.play.items[S.play.i];speakSeq(it.dialog.map(l=>[l[1],voiceOf(l[0])]))},
@@ -2319,8 +2366,8 @@ const A={
   pick:d=>{const P=S.play;if(P.phase!=='ask')return;P.items[P.i].sel=+d.i;render()},
   check:()=>submit(false),
   next:()=>next(),
-  say:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word)},
-  slow:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word,.6)},
+  say:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word,undefined,q.sayw?voiceOf(q.sayw):undefined)},
+  slow:()=>{const q=S.play.items[S.play.i].q;speak(q.say||q.word,.6,q.sayw?voiceOf(q.sayw):undefined)},
   hint:()=>{const it=S.play.items[S.play.i];it.hint=true;render()},
   tile:d=>{const P=S.play,it=P.items[P.i];if(P.phase!=='ask')return;const t=it.bank.find(x=>x.i===+d.k);if(t&&!it.ans.some(a=>a.i===t.i)){it.ans.push(t);render()}},
   untile:d=>{const P=S.play,it=P.items[P.i];if(P.phase!=='ask')return;it.ans=it.ans.filter(a=>a.i!==+d.k);render()},
@@ -2377,7 +2424,7 @@ app.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches('[data-
 if(DB.current&&DB.profiles[DB.current]){S.screen='home'}else{S.screen='profiles'}
 track('open');setTimeout(flush,4000);
 render();
-window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,speakSeq,voiceOf}; // utile pour les tests
+window.__app={TEACH,S,Q,SK,DB:()=>DB,A,startSession,submit,norm,skillInfo,qState,buildDay,dayPlan,bestVoice,unlocked,focusSkill,SQ:()=>SQ,flush,speak,stopSpeak,freeCheck,speakSeq,voiceOf,render,prep}; // utile pour les tests
 })();
 </script>
 <script>
