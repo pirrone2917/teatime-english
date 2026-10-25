@@ -1,7 +1,7 @@
-// Tea Time English - version 303fa6b4
+// Tea Time English - version 2e1be31f
 // Réseau d'abord (les nouveaux cours arrivent tout de suite), copie locale si hors-ligne.
 // La progression (localStorage) n'est jamais touchée par ce fichier.
-const C='tte-303fa6b4';
+const C='tte-2e1be31f';
 const CORE=['./','index.html','manifest.webmanifest','icons/icon-192.png','icons/icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(CORE)).catch(()=>{}))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});

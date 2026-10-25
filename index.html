@@ -346,6 +346,8 @@ details.d summary{cursor:pointer;font-weight:700}
 .etdots span{width:44px;height:8px;border-radius:4px;background:var(--grey)}.etdots span.y{background:var(--green)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 .inst{border:2px dashed var(--red);background:#FFF8EC;margin-top:12px}.inst ol{margin:8px 0 6px;padding-left:20px;font-size:15px;line-height:1.45}.inst .lnk{display:block;margin:6px auto 0}
+.lgc{display:flex;align-items:center;gap:12px;text-align:left;margin-top:12px;width:100%}.lgc .lgi{font-size:28px}.lgc .ar{margin-left:auto;color:var(--mute);font-size:22px}.lgc div{flex:1}
+.lgt{padding:6px 12px}.lgr{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:16px}.lgr:last-child{border-bottom:0}.lgr .n{width:30px;text-align:center;font-weight:700}.lgr .nm{flex:1}.lgr .xp{font-weight:700;color:var(--mute)}.lgr.me{background:var(--hl);border-radius:8px}
 </style>
 </head>
 <body>
@@ -1487,6 +1489,36 @@ function flush(){
   SQ=SQ.slice(batch.length);saveQ();
 }
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush()});
+/* ---------- Ligue de la semaine : volontaire, avec un pseudo ---------- */
+function weekKey(){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function addXP(pr,n){pr.xp+=n;const w=weekKey();if(!pr.wk||pr.wk.w!==w)pr.wk={w,xp:0};pr.wk.xp+=n}
+const wxp=pr=>pr&&pr.wk&&pr.wk.w===weekKey()?pr.wk.xp:0;
+const lgId=pr=>DB.dev+'-'+pr.id;
+const lgName=m=>m==='solo'?'Débutants':'Cours de Miss Kokkinis';
+let LG=null,LGload=false;
+function lgPost(body){return fetch(API+'/lg?mode='+(body.mode==='solo'?'solo':'class')+'&id='+encodeURIComponent(body.id),{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body),keepalive:true}).then(r=>r.json())}
+function lgSync(){const pr=cur();if(!pr||!pr.lg||!pr.lg.nick||navigator.onLine===false)return Promise.resolve(null);LGload=true;
+  return lgPost({id:lgId(pr),nick:pr.lg.nick,mode:pr.mode,week:weekKey(),xp:wxp(pr)}).then(j=>{LG=Object.assign(j,{pid:pr.id,mode:pr.mode,at:Date.now()});LGload=false;return j}).catch(()=>{LGload=false;LG=LG||{err:1,pid:pr.id,at:Date.now()};return null})}
+function lgRank(){const pr=cur();if(!LG||LG.pid!==pr.id||!LG.rows)return null;const i=LG.rows.findIndex(r=>r.me);return i<0?null:{r:i+1,n:LG.rows.length}}
+function lgCard(){const pr=cur();
+  if(!pr.lg)return `<button class="card lgc" data-act="go" data-to="league"><span class="lgi">🏆</span><div><b>Ligue de la semaine</b><small>Défie les autres avec un pseudo. Volontaire, désactivable.</small></div><span class="ar">›</span></button>`;
+  if((!LG||LG.pid!==pr.id||Date.now()-LG.at>300000)&&!LGload)lgSync().then(()=>{if(S.screen==='home')render()});
+  const k=lgRank();
+  return `<button class="card lgc" data-act="go" data-to="league"><span class="lgi">🏆</span><div><b>${k?(k.r===1?'1er':k.r+'e')+' sur '+k.n+' cette semaine':'Ligue de la semaine'}</b><small>${esc(pr.lg.nick)} · ${wxp(pr)} XP cette semaine</small></div><span class="ar">›</span></button>`}
+function viewLeague(){const pr=cur();
+  if(!pr.lg)return `${bubble('k','cheer','Ready for a challenge?',"Chaque semaine, on compte les XP gagnés. Le classement repart à zéro le lundi.")}
+  <h2 class="h2">Rejoindre la ligue · ${lgName(pr.mode)}</h2>
+  <input id="lgnick" class="inp" maxlength="16" placeholder="Ton pseudo…" autocomplete="off" value="${esc(S.lgNick||'')}">
+  <small>Choisis un pseudo (pas forcément ton prénom). Les autres joueurs de ta ligue verront <b>seulement</b> ton pseudo et tes XP de la semaine. Tu peux quitter quand tu veux.</small>
+  <button class="btn red full" data-act="lgJoin" style="margin-top:14px">Rejoindre la ligue</button>
+  <button class="lnk" data-act="go" data-to="home" style="display:block;margin:12px auto">Pas maintenant</button>`;
+  if((!LG||LG.pid!==pr.id||Date.now()-LG.at>60000)&&!LGload)lgSync().then(()=>{if(S.screen==='league')render()});
+  const rows=LG&&LG.pid===pr.id&&LG.rows?LG.rows:null,med=['🥇','🥈','🥉'];
+  return `<h2 class="h2">Ligue de la semaine · ${lgName(pr.mode)}</h2>
+  <p class="mut">Tu as <b>${wxp(pr)} XP</b> cette semaine. Le classement repart à zéro lundi.</p>
+  <div class="card lgt">${rows?(rows.length?rows.map((r,i)=>`<div class="lgr${r.me?' me':''}"><span class="n">${i<3?med[i]:i+1}</span><span class="nm">${esc(r.nick)}${r.me?' (toi)':''}</span><span class="xp">${r.xp} XP</span></div>`).join(''):'<p class="mut">Personne encore cette semaine : à toi de lancer la course !</p>'):(LG&&LG.err&&!LGload?'<p class="mut">Classement indisponible (pas de connexion ?). Réessaie plus tard.</p>':'<p class="mut">Chargement du classement…</p>')}</div>
+  <p class="mut" style="margin-top:14px">Ton pseudo : <b>${esc(pr.lg.nick)}</b></p>
+  <button class="lnk" data-act="lgLeave">Quitter la ligue</button>`}
 function newProfile(name,teacher,mode){
   const id='p'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
   DB.profiles[id]={id,name,teacher,created:Date.now(),xp:0,streak:0,lastDay:'',sound:true,scope:'mix',q:{},hist:[],bestExam:0,days:[],read:{},stamps:{},mode:mode==='solo'?'solo':'class'};
@@ -1756,7 +1788,7 @@ function submit(timeout){
   if(ok){if(r.d==null)r.d=r.box>=3?2:r.box>=1?1:0;if(r.ld!==tday){r.d++;r.ld=tday}
     r.box=Math.min(4,r.box+1);r.hi=Math.max(r.hi||0,r.box);P.combo++;P.maxCombo=Math.max(P.maxCombo,P.combo);gain=10+Math.min(P.combo-1,5)*2}
   else{r.box=0;r.wrong++;r.lastWrong=Date.now();P.combo=0}
-  pr.xp+=gain;P.xp+=gain;
+  addXP(pr,gain);P.xp+=gain;
   P.answers.push({q,ok,given,gain,retry:!!it.rt,fe:q.type==='free'?it.fe:''});persist();
   track('ans',{k:q.skill,q:q.id,qt:q.type,ok,p:String(promptText(q)).replace(/<[^>]+>/g,'').slice(0,110)});
   beep(ok);
@@ -1775,7 +1807,7 @@ function next(){
 function finish(){
   stopTimer();const P=S.play,pr=cur();
   const first=P.answers.filter(a=>!a.retry),total=Math.max(1,first.length),ok=first.filter(a=>a.ok).length,pct=ok/total;
-  const bonus=pct>=.4?20:5;pr.xp+=bonus;touchStreak(pr);
+  const bonus=pct>=.4?20:5;addXP(pr,bonus);touchStreak(pr);
   const tday=dayStr(new Date());if(!pr.days.includes(tday)){pr.days.push(tday);pr.days=pr.days.slice(-60)}
   let ET=null;
   if(P.etape){const {sid,k}=P.etape,ix=ETAPES.findIndex(e=>e.k===k);pr.et=pr.et||{};const before=pr.et[sid]||0;
@@ -1786,6 +1818,7 @@ function finish(){
   pr.hist.unshift({t:Date.now(),label:P.label,ok,total,exam:P.mode==='exam'});pr.hist=pr.hist.slice(0,30);
   if(P.mode==='exam')pr.bestExam=Math.max(pr.bestExam||0,ok);
   if(P.mode==='last')pr.lastDone=LAST.id;
+  if(pr.lg)setTimeout(lgSync,300);
   persist();
   S.res={label:P.label,mode:P.mode,ok,total,pct,xp:P.xp+bonus,maxCombo:P.maxCombo,wrong:P.answers.filter(a=>!a.ok&&!a.retry&&!a.q.teach),unit:P.unit,room:P.room,g:P.g,step:P.step,moved,newStamps,et:ET};
   track('end',{k:P.mk,a:ok,b:total,p:String(Math.round((Date.now()-P.t0)/1000))});newStamps.forEach(k=>track('stamp',{k}));flush();
@@ -2012,6 +2045,7 @@ function viewHome(){
   ${bubble('k',m[0],m[1],m[2])}
   <button class="board${done?' done':''}" data-act="play" data-m="day"><span class="ticket">${done?'RETURN':'SINGLE · 8 MIN'}</span><b>${done?'Objectif du jour atteint ✓':'Monter dans le train'}</b><span class="s">${done?"Envie d'un autre trajet ?":'Ta prochaine étape, quelques minutes'}</span>
   <ul>${items.map(t=>`<li><i style="background:${t[0]}"></i>${t[1]}</li>`).join('')}</ul><span class="go">${done?'Encore un trajet ›':'All aboard! ›'}</span></button>
+  ${lgCard()}
   ${installHtml()}
   ${fwHtml()}
   ${lines}
@@ -2238,6 +2272,7 @@ function render(){
     case 'course':h=SC+hdr()+(S.course&&SKM[S.course]?viewLesson():viewCourse())+nav('course');break;
     case 'progress':h=SC+hdr()+viewProgress()+nav('progress');break;
     case 'settings':h=SC+hdr()+viewSettings()+nav('settings');break;
+    case 'league':h=SC+hdr()+viewLeague()+nav('home');break;
     case 'play':h=viewPlay();break;
     case 'result':h=viewResult();break;
   }
@@ -2302,6 +2337,9 @@ const A={
   voice:()=>{DB.phoneVoice=!DB.phoneVoice;persist();render();speak("Hello! Let's have a cup of tea.")},
   noInstall:()=>{DB.noInstall=true;persist();render()},
   install:()=>{const e=S.bip;if(!e)return;S.bip=null;e.prompt();(e.userChoice||Promise.resolve()).then(()=>render())},
+  lgJoin:()=>{const el=$('#lgnick'),n=((el&&el.value)||'').replace(/[<>&"]/g,'').trim().slice(0,16);if(n.length<2){toast('Choisis un pseudo (2 lettres minimum) 🙂');if(el)el.focus();return}
+    const pr=cur();pr.lg={nick:n,since:Date.now()};persist();LG=null;S.lgNick='';track('lg',{k:'join'});render();lgSync().then(()=>{if(S.screen==='league')render()})},
+  lgLeave:()=>{const pr=cur();if(!pr.lg)return;lgPost({id:lgId(pr),leave:1,mode:pr.mode}).catch(()=>{});delete pr.lg;LG=null;persist();track('lg',{k:'leave'});toast('Tu as quitté la ligue.');render()},
   timer:()=>{DB.noTimer=!DB.noTimer;persist();render()},
   stats:()=>{DB.noStats=!DB.noStats;if(DB.noStats){SQ=[];saveQ()}persist();render()},
   snd:()=>{const pr=cur();pr.sound=!pr.sound;persist();render()},
