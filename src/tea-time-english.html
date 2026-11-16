@@ -341,7 +341,7 @@ details.d summary{cursor:pointer;font-weight:700}
 .lrep .mic{display:block;width:100%;margin-top:10px}.lrep .mic.on{background:var(--hl)}.micfb{margin-top:8px;padding:8px 10px;border-radius:8px;font-size:15px}.micfb.ok{background:var(--green-bg);color:var(--green)}.micfb.ko{background:#FFF3DC;color:#7A4B00}
 .wch{margin-top:12px}.wch .wh{display:flex;justify-content:space-between;align-items:center;gap:8px}.wch .week{margin-top:8px}.wchd{border:2px solid var(--green);background:var(--green-bg)}
 .rem{display:flex;gap:10px;align-items:center}.rem .inp{flex:0 0 120px;font-size:18px;min-width:0}.rem .btn{flex:1;text-decoration:none;text-align:center;padding-left:8px;padding-right:8px}
-.omw{display:flex;justify-content:center;margin:4px 0 6px}.omi{width:96px;height:96px;background:#fff;border-radius:20px;border:2px solid var(--line);padding:6px}
+.omw{display:flex;justify-content:center;margin:4px 0 6px}.swt{display:block;width:96px;height:96px;border-radius:20px;border:2px solid var(--line);box-shadow:inset 0 0 0 5px #fff}.swd{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line);vertical-align:-2px;margin-right:7px}.omi{width:96px;height:96px;background:#fff;border-radius:20px;border:2px solid var(--line);padding:6px}
 .trd{display:block;font-size:13px;color:var(--mute);font-style:italic;margin:-2px 0 2px}
 .code6{font:700 34px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-align:center;background:#fff;border:2px dashed var(--ink);border-radius:12px;padding:12px;margin:10px 0 4px}
 .ico{width:1.15em;height:1.15em;vertical-align:-.2em;flex:none}.btn .ico{margin-right:4px}.chip .ico{color:#E2571E}.frz{margin-left:6px;color:#3B82C4;display:inline-flex;align-items:center;gap:1px;font-size:13px}.frz .ico{color:#3B82C4;width:1em;height:1em}
@@ -390,6 +390,13 @@ const SK=[
  {id:'count',lvl:2,name:'Dénombrables · a / an / some / any',ic:'',c:'#E08A00',sheet:"<p><b>Dénombrable (C)</b> : on peut compter → a chair, two books, an egg, three friends.</p><p><b>Indénombrable (U)</b> : pas de pluriel, pas de a/an → water, bread, money, rice, sugar, coffee, music, advice, information.</p><p>Test : peux-tu dire « two … » ? two apples ✓ → C · two waters ✗ → U.</p><p><b>a / an</b> → dénombrable au singulier (an devant un <b>son</b> voyelle : an orange, an hour).</p><p><b>some / any</b> → pluriel ou indénombrable. some = affirmatif et offre polie · any = négatif et question.</p><p><span class='wn'>!</span> Pièges pour un francophone : <span class='no'>✗</span> advices · <span class='no'>✗</span> informations · <span class='no'>✗</span> a bread → some advice, some information, some bread.</p>"}
 ];
 SK.push({id:'house',lvl:2,name:'Vocabulaire : la maison',ic:'',c:'#7A4FB5',sheet:''});
+SK.push(
+ {id:'shop',lvl:2,name:'Les magasins (Shops)',ic:'',c:'#00A4A7',sheet:''},
+ {id:'buy',lvl:2,name:'Au magasin : Can I help you?',ic:'',c:'#9B0056',sheet:"<p><b>Le vendeur</b> (sales assistant) : Can I help you? · Do you need any help? · Yes, they're over there. · They're on the second floor. · Anything else? / Would you like anything else? · Would you like a bag? · That's £17.50, please. · Your PIN number, please. · Here's your change and your receipt.</p><p><b>Le client</b> (customer) : Have you got any guide books? · Do you sell suitcases? · Can I have four stamps, please? · I'll have this one, please. · How much is this map? · How much are these lamps? · No, that's all, thanks. · Here you are. · Thanks for your help.</p><p><b>How much is</b> + une chose · <b>How much are</b> + plusieurs choses.</p><p><b>one</b> remplace un nom au singulier : Would you like a bag? — No, thanks. I've got <b>one</b>. <b>ones</b> remplace un pluriel : The big <b>ones</b> are £25.</p><p><b>I'll have</b> (= I will have) = je vais prendre : on décide sur le moment.</p><p><span class='wn'>!</span> <b>a receipt</b> (le p est muet) = le ticket de caisse. <b>a ticket</b> = un billet (train, cinéma).</p><p>Les prix : £17.50 = <i>seventeen pounds fifty</i> · 50p = <i>fifty p</i> (ou fifty pence).</p>"},
+ {id:'clo',lvl:2,name:'Vêtements (Clothes)',ic:'',c:'#B36305',sheet:''},
+ {id:'col',lvl:2,name:'Couleurs & accessoires',ic:'',c:'#6950A1',sheet:''},
+ {id:'pc',lvl:2,name:'Présent continu',ic:'',c:'#0098D4',sheet:"<p><b>be + verbe en -ing</b> : I <b>am</b> working · he <b>isn't</b> working · <b>Are</b> you working? — Yes, I <b>am</b>. / No, I'm not.</p><p>Orthographe : chute du -e (make → making), doublement (run → running) : voir la station « Orthographe en -ing ».</p><p><b>Emplois</b> : 1) une action <b>en cours</b>, pas terminée (= être en train de) : The children are playing in the park. 2) une <b>description</b> de ce qu'on voit maintenant : She is wearing a blue dress.</p><p>Une <b>habitude</b> → présent simple : She always <b>wears</b> a hat in summer.</p><p><span class='wn'>!</span> <b>Pas de -ing</b> avec les verbes d'état : pensée (think = croire, believe, understand, know, remember, forget, mean, suppose, realise, recognise, imagine) · sentiments (like, love, hate, prefer, want, wish) · perception (see, hear, smell, taste) · et have (= posséder), own, belong to, need, cost, contain, seem…</p><p>Certains verbes changent de sens : I think you're right (croire) ↔ I'm thinking (réfléchir) · I have a car (posséder) ↔ I'm having lunch (manger) · He's stupid (de nature) ↔ He's being stupid (en ce moment).</p><p><b>see, hear</b> = involontaire (pas de -ing) ↔ <b>look, watch, listen</b> = volontaire (-ing possible). <b>feel, hurt</b> : les deux formes (I feel ill / I'm feeling ill).</p>"}
+);
 const SKM={};SK.forEach(s=>SKM[s.id]=s);
 
 const Q=[];
@@ -876,6 +883,273 @@ D('house',"mirror","<b>mirror</b> : double r.",{room:'bathroom',hint:"Un miroir.
 D('house',"toothbrush","<b>toothbrush</b> = tooth + brush.",{room:'bathroom',hint:"Une brosse à dents."});
 D('house',"pillow","<b>pillow</b> : double l.",{room:'bedroom',hint:"Un oreiller."});
 
+/* ---------- Niveau 2 : vocabulaire par thème (magasins, vêtements, couleurs) ----------
+   Même principe que la maison : chaque mot donne un QCM (anglais → français), une traduction à taper,
+   une image ou une pastille de couleur quand il y en a une, et des « associe » par thème.
+   w.pair : « a pair of … » accepté · w.plOnly : mot toujours pluriel (on explique « a jeans ») ·
+   w.sg : formes au singulier fautives · w.unc : indénombrable · w.ex : faux choix interdits pour l'image. */
+function VOC(sk,groups,words,o){
+  o=o||{};const s=SKM[sk];
+  const strip=x=>x.replace(/^(a|an|the|some)\s+/i,'');
+  const mix=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const SIM=o.sim||[],near=(a,b)=>a===b||SIM.some(g=>g.includes(a)&&g.includes(b));
+  s.rooms=groups;s.roomLbl=o.lbl||'thème par thème';s.words=words;
+  words.forEach(w=>{w.room=w.g;if(w.pic)OMI[w.en]=w.pic});
+  words.forEach(w=>{
+    const forms=w.en.split(' / ').concat(w.also||[]);
+    const acc=[],A=v=>{if(!acc.includes(v))acc.push(v)};
+    forms.forEach(f=>{const b=strip(f),art=/^(a|an) /.test(f);A(f);A(b);A('the '+b);if(!art&&(/s$/.test(b)||w.unc))A('some '+b);if(w.pair&&!art)A('a pair of '+b)});
+    (w.acc||[]).forEach(A);
+    const tip=w.tip?' '+w.tip:'';
+    const x={room:w.g,wd:w.en};if(w.sw)x.sw=w.sw;
+    const wr={};
+    if(w.us){x.us="on dit <i>"+w.us+"</i>.";if(w.usOk)[w.us,strip(w.us),'the '+strip(w.us)].forEach(A);
+      else{const u=strip(w.us);[w.us,u,'the '+u,'a '+u,'an '+u].forEach(k=>{if(!acc.includes(k))wr[k]="C'est le mot <b>américain</b> ! Au Royaume-Uni, on dit <b>"+w.en+"</b>."})}}
+    if(w.plOnly){const b=strip(w.en);['a '+b,'one '+b].concat(w.sg||[]).forEach(k=>{if(!acc.includes(k))wr[k]="<b>"+b+"</b> est <b>toujours au pluriel</b> en anglais, même pour un seul objet : <b>"+b+"</b> ou <b>a pair of "+b+"</b> (pas « "+k+" »)."})}
+    if(w.who){const b=strip(w.en).replace(/'s$/,'');['a '+b,b,'the '+b].forEach(k=>{if(!acc.includes(k))wr[k]="Presque ! <b>a "+b+"</b>, c'est la <b>personne</b>. Le magasin = <b>"+w.en+"</b> (avec <b>'s</b> = « chez le… »)."})}
+    Object.assign(wr,w.wr||{});if(Object.keys(wr).length)x.wr=wr;
+    const pool=words.filter(v=>!near(v.en,w.en)&&v.fr!==w.fr&&v.mcq!==false),pd=mix(pool.filter(v=>v.g===w.g)).concat(mix(pool.filter(v=>v.g!==w.g))).slice(0,3);
+    if(w.mcq!==false&&pd.length>=3)M(sk,"« "+w.en+" » en français ?",[w.fr].concat(pd.map(v=>v.fr)),"<b>"+w.en+"</b> = "+w.fr+"."+tip,{room:w.g,us:x.us,wd:w.en});
+    G(sk,"Traduis en anglais : "+w.fr,acc,w.fr+" = <b>"+w.en+"</b>."+tip,x);
+    if(w.pic||w.sw){
+      const oth=words.filter(v=>v!==w&&!near(v.en,w.en)&&!(w.pic&&v.pic===w.pic)&&!(w.ex||[]).includes(v.en));
+      const same=mix(oth.filter(v=>v.g===w.g)),rest=mix(oth.filter(v=>v.g!==w.g));
+      const d=(w.sw||w.picq?same:same.concat(rest)).slice(0,3).map(v=>v.en.split(' / ')[0]);
+      if(d.length>=3)M(sk,w.picq||(w.sw?(o.swq&&o.swq[w.g])||"Quelle est cette couleur ?":"Qu'est-ce que c'est ? (en anglais)"),[w.en.split(' / ')[0]].concat(d),"C'est <b>"+w.en+"</b> = "+w.fr+"."+tip,Object.assign({room:w.g,wd:w.en,pic:1},w.sw?{sw:w.sw}:{}));
+    }
+  });
+  Object.keys(groups).forEach(g=>{const ws=words.filter(w=>w.g===g),n=Math.ceil(ws.length/5);
+    for(let k=0;k<n;k++){const part=ws.slice(Math.floor(k*ws.length/n),Math.floor((k+1)*ws.length/n));
+      if(part.length>=3)add({type:'match',skill:sk,room:g,title:"Associe : "+groups[g].toLowerCase()+(n>1?" ("+(k+1)+"/"+n+")":""),pairs:part.map(w=>[w.en.split(' / ')[0],w.fr.split(' / ')[0]]),why:groups[g]+"."})}});
+  const tbl=g=>'<table class="vt">'+words.filter(w=>w.g===g).map(w=>'<tr><td>'+(w.sw?'<span class="swd" style="background:'+w.sw+'"></span>':'')+w.en+(w.us?' <small>US : '+w.us+'</small>':'')+'</td><td>'+w.fr+'</td></tr>').join('')+'</table>';
+  s.roomSheet={};Object.keys(groups).forEach(g=>s.roomSheet[g]='<p class="lbl">'+groups[g]+'</p>'+(o.notes&&o.notes[g]||'')+tbl(g));
+  s.sheet=(o.rules||'')+Object.keys(groups).map(g=>s.roomSheet[g]).join('');
+}
+
+/* ---------- Niveau 2 : les magasins (cours du 16/11, Face2face 7C) ---------- */
+const SHOPX=["a supermarket","a department store"];
+VOC('shop',{shops:"Les magasins",things:"Les achats"},[
+ {g:'shops',en:"a bookshop",fr:"une librairie",us:"a bookstore",pic:'1F4DA',picq:"Où achètes-tu ça ? (le magasin spécialisé)",ex:SHOPX.concat(["a newsagent's","a kiosk"]),tip:"<span class='wn'>!</span> Faux ami : <b>a library</b> = une bibliothèque.",wr:{"a library":"Faux ami ! <b>a library</b> = une bibliothèque (on emprunte les livres). La librairie (on les achète) = <b>a bookshop</b>.","library":"Faux ami ! <b>a library</b> = une bibliothèque. La librairie = <b>a bookshop</b>.","the library":"Faux ami ! <b>a library</b> = une bibliothèque. La librairie = <b>a bookshop</b>."}},
+ {g:'shops',en:"a clothes shop",fr:"un magasin de vêtements",also:["a clothing shop"],tip:"<b>clothes</b> (les vêtements) est toujours au pluriel."},
+ {g:'shops',en:"a shoe shop",fr:"un magasin de chaussures",pic:'1F45E',picq:"Où achètes-tu ça ? (le magasin spécialisé)",ex:SHOPX.concat(["a clothes shop"]),tip:"Devant <b>shop</b>, le nom reste au singulier : a <b>shoe</b> shop.",wr:{"a shoes shop":"Devant <b>shop</b>, le nom qui précise reste au <b>singulier</b> : a <b>shoe</b> shop (comme a book<b>shop</b>).","shoes shop":"Devant <b>shop</b>, le nom qui précise reste au <b>singulier</b> : a <b>shoe</b> shop."}},
+ {g:'shops',en:"a supermarket",fr:"un supermarché"},
+ {g:'shops',en:"a kiosk",fr:"un kiosque"},
+ {g:'shops',en:"a newsagent's",fr:"un marchand de journaux",who:1,pic:'1F4F0',picq:"Où achètes-tu ça ? (le magasin spécialisé)",ex:SHOPX.concat(["a kiosk","a bookshop"]),tip:"Journaux, magazines, timbres, bonbons… Le <b>'s</b> = « chez le marchand de journaux »."},
+ {g:'shops',en:"a department store",fr:"un grand magasin (comme l'Inno)",tip:"Un grand magasin à plusieurs étages, comme l'Inno."},
+ {g:'shops',en:"a post office",fr:"un bureau de poste / la poste"},
+ {g:'shops',en:"a bank",fr:"une banque",pic:'1F3E6'},
+ {g:'shops',en:"a chemist's",fr:"une pharmacie",also:["a pharmacy"],us:"a drugstore",who:1,pic:'1F48A',picq:"Où achètes-tu ça ? (le magasin spécialisé)",ex:SHOPX,tip:"Le <b>'s</b> = « chez le pharmacien » (a chemist = le pharmacien). On dit aussi <b>a pharmacy</b>."},
+ {g:'shops',en:"a butcher's",fr:"une boucherie",who:1,pic:'1F969',picq:"Où achètes-tu ça ? (le magasin spécialisé)",ex:SHOPX,tip:"Le <b>'s</b> = « chez le boucher » (a butcher = le boucher)."},
+ {g:'shops',en:"a baker's",fr:"une boulangerie",also:["a bakery"],who:1,pic:'1F956',picq:"Où achètes-tu ça ? (le magasin spécialisé)",ex:SHOPX,tip:"Le <b>'s</b> = « chez le boulanger » (a baker = le boulanger). On dit aussi <b>a bakery</b>."},
+ {g:'things',en:"stamps",fr:"des timbres"},
+ {g:'things',en:"a map",fr:"une carte / un plan (de ville)",also:["a street map","a city map"],pic:'1F5FA',tip:"Une carte <b>postale</b> = a postcard.",wr:{"a card":"<b>a card</b> = une carte (de vœux, bancaire, à jouer). La carte routière, le plan = <b>a map</b>.","card":"<b>a card</b> = une carte (de vœux, bancaire, à jouer). La carte routière, le plan = <b>a map</b>."}},
+ {g:'things',en:"a suitcase",fr:"une valise",pic:'1F9F3'},
+ {g:'things',en:"tissues",fr:"des mouchoirs (en papier)"},
+ {g:'things',en:"aspirin",fr:"de l'aspirine",unc:1,also:["aspirins"],pic:'1F48A'},
+ {g:'things',en:"a lamp",fr:"une lampe"},
+ {g:'things',en:"postcards",fr:"des cartes postales",also:["post cards"]},
+ {g:'things',en:"a cake",fr:"un gâteau",pic:'1F382'},
+ {g:'things',en:"a guide book",fr:"un guide (touristique)",also:["a guidebook","a guide"]},
+ {g:'things',en:"a newspaper",fr:"un journal",pic:'1F4F0',tip:"Faux ami : <b>a journal</b> = un journal intime ou une revue spécialisée.",wr:{"a journal":"Faux ami ! <b>a journal</b> = un journal intime ou une revue spécialisée. Le journal qu'on achète = <b>a newspaper</b>.","journal":"Faux ami ! <b>a journal</b> = un journal intime. Le journal qu'on achète = <b>a newspaper</b>."}},
+ {g:'things',en:"cigarettes",fr:"des cigarettes",pic:'1F6AC',tip:"Accent sur la fin : ciga<b>RETTES</b>."},
+ {g:'things',en:"chocolate",fr:"du chocolat",unc:1,pic:'1F36B',tip:"Se prononce en 2 syllabes : « TCHOK-lət ». Indénombrable : some chocolate, a bar of chocolate."}
+],{lbl:'thème par thème',sim:[["a kiosk","a newsagent's"]],
+ rules:"<p>Le <b>'s</b> des petits commerces = « <b>chez le</b>… » : a baker's (chez le boulanger) · a butcher's (chez le boucher) · a chemist's (chez le pharmacien) · a newsagent's (chez le marchand de journaux). Sans 's, c'est la <b>personne</b> : a baker = un boulanger.</p><p><b>You can buy</b> stamps <b>at the</b> post office. · <b>Which</b> shops do you go to every week? (which = quel·s, quelle·s)</p><p><span class='wn'>!</span> Faux amis : a library = une bibliothèque (la librairie = a bookshop) · a journal = un journal intime (le journal = a newspaper).</p>"});
+M('shop',"Where can you buy meat?",["at the butcher's","at the baker's","at the post office","at the bookshop"],"La viande s'achète chez le boucher → <b>at the butcher's</b>.");
+M('shop',"Where can you buy aspirin?",["at the chemist's","at the butcher's","at the shoe shop","at the bank"],"Les médicaments → <b>at the chemist's</b> (la pharmacie).");
+M('shop',"Where can you send letters?",["at the post office","at the bank","at the baker's","at the chemist's"],"On envoie des lettres → <b>at the post office</b>.");
+M('shop',"Where can you change money?",["at the bank","at the post office","at the butcher's","at the shoe shop"],"Changer de l'argent → <b>at the bank</b>.");
+M('shop',"Where can you buy furniture and TVs?",["at a department store","at a kiosk","at a baker's","at a chemist's"],"Meubles, télés, vêtements… sur plusieurs étages → <b>a department store</b> (un grand magasin, comme l'Inno).");
+M('shop',"« a library », c'est…",["une bibliothèque","une librairie","un libraire","une papeterie"],"Faux ami ! <b>a library</b> = une bibliothèque (on emprunte les livres). La librairie = <b>a bookshop</b>.",{wr:{"une librairie":"C'est le piège ! On achète les livres dans <b>a bookshop</b>. <b>a library</b>, c'est la bibliothèque, où on les emprunte."}});
+M('shop',"« a baker » (sans 's), c'est…",["un boulanger (la personne)","une boulangerie (le magasin)","une pâtisserie","un gâteau"],"Sans 's : la <b>personne</b>. Avec 's (a baker's) : le magasin, « chez le boulanger ».");
+M('shop',"Which shops do you go to every week? — « which » veut dire…",["quel(s), quelle(s)","pourquoi","où","quand"],"<b>Which</b> = quel·s, quelle·s, quand on choisit dans un groupe : which shops = quels magasins.");
+G('shop',"« Chez le boulanger » → at the ___",["baker's","bakery"],"<b>at the baker's</b> : le 's = « chez le ».",{wr:{"baker":"Il manque le <b>'s</b> : a baker = le boulanger (la personne). Chez le boulanger = at the <b>baker's</b>."}});
+G('shop',"« Chez le boucher » → at the ___",["butcher's"],"<b>at the butcher's</b> : le 's = « chez le ».",{wr:{"butcher":"Il manque le <b>'s</b> : a butcher = le boucher (la personne). Chez le boucher = at the <b>butcher's</b>."}});
+X('shop',"Associe le magasin et ce qu'on y achète",[["a baker's","bread"],["a butcher's","meat"],["a chemist's","aspirin"],["a bookshop","books"],["a shoe shop","boots"]],"Chaque commerce a sa spécialité.");
+X('shop',"Associe le magasin et ce qu'on y fait",[["a bank","change money"],["a post office","send letters"],["a department store","buy furniture"],["a clothes shop","buy coats"],["a supermarket","buy food"]],"Ce qu'on fait dans chaque endroit.");
+O('shop',"Traduis : « On peut acheter des timbres à la poste. »","You can buy stamps at the post office.","<b>You can buy</b> + chose + <b>at the</b> + magasin.",{more:["a","stamp"]});
+O('shop',"Traduis : « Dans quels magasins vas-tu chaque semaine ? »","Which shops do you go to every week?","<b>Which</b> = quels. Question au présent simple : <b>do you</b> go…? La préposition <b>to</b> reste à la fin.",{more:["does","in"]});
+D('shop',"chocolate","<b>chocolate</b> : choc-o-late, mais on ne prononce que 2 syllabes (« TCHOK-lət »).",{hint:"Du chocolat."});
+D('shop',"suitcase","<b>suitcase</b> = suit + case.",{hint:"Une valise."});
+D('shop',"newspaper","<b>newspaper</b> = news + paper.",{hint:"Un journal."});
+D('buy',"receipt","<b>receipt</b> : le p ne se prononce pas (« ri-SIIT »).",{hint:"Le ticket de caisse."});
+
+/* ---------- Niveau 2 : au magasin (vendeur / client) ---------- */
+M('buy',"Le vendeur te propose son aide →",["Can I help you?","Can I help to you?","Do you help me?","Can you help me?"],"Le vendeur dit <b>Can I help you?</b> (help + la personne, sans to). « Can you help me? », c'est le client qui demande de l'aide.");
+M('buy',"Do you need ___ help?",["any","a","an","the"],"Question → <b>any</b> : Do you need any help? (help ne se compte pas : jamais a help).");
+M('buy',"« Vous vendez des valises ? » →",["Do you sell suitcases?","Do you sale suitcases?","Sell you suitcases?","Does you sell suitcases?"],"Question au présent simple : <b>Do you sell…?</b> <b>sell</b> = le verbe vendre · <b>sale</b> = le nom (les soldes, la vente).");
+M('buy',"How much ___ this map?",["is","are"],"this map = une seule chose → <b>How much is</b>.");
+M('buy',"How much ___ these lamps?",["are","is"],"these lamps = plusieurs choses → <b>How much are</b>.");
+M('buy',"How much ___ these postcards?",["are","is"],"postcards = pluriel → <b>are</b>.");
+M('buy',"How much ___ the suitcase?",["is","are"],"the suitcase = une seule chose → <b>is</b>.");
+M('buy',"How much ___ these jeans?",["are","is"],"<b>jeans</b> est toujours pluriel (même pour un seul jean) → <b>are</b>.",{wr:{"is":"Piège ! Un jean = <b>jeans</b>, toujours au pluriel en anglais → How much <b>are</b> these jeans?"}});
+M('buy',"Would you like a bag? — No, thanks. I've got ___.",["one","ones","it","a one"],"<b>one</b> remplace « a bag » pour ne pas le répéter. Ones = pour un pluriel.");
+M('buy',"The big suitcases are £45 and the small ___ are £35.",["ones","one","them","those one"],"suitcases = pluriel → <b>ones</b> (the small ones = les petites).");
+M('buy',"OK. I'll have this small ___, please. (une valise)",["one","ones","it","them"],"Une seule valise → <b>one</b> : this small one = cette petite-là.");
+M('buy',"« Je vais prendre celui-ci. » →",["I'll have this one.","I go to take this one.","I will take me this.","I have this one."],"<b>I'll have</b> = je vais prendre (on décide sur le moment). ✗ I go to take : calque du français. « I have this one » = j'ai celui-ci.",{wr:{"I go to take this one.":"Calque du français « je vais prendre ». En magasin, on dit <b>I'll have</b> (= I will have) : I'll have this one."}});
+M('buy',"« Autre chose ? » →",["Anything else?","Other thing?","Something other?","Else anything?"],"<b>Anything else?</b> (ou Would you like anything else?). « Other thing » est un calque du français.");
+M('buy',"« Non, ce sera tout, merci. » →",["No, that's all, thanks.","No, it's all, thanks.","No, that's every, thanks.","No, all is that, thanks."],"<b>That's all</b> = c'est tout, ce sera tout.",{wr:{"No, it's all, thanks.":"Calque de « c'est tout ». L'anglais dit <b>that's all</b>."}});
+M('buy',"« Voilà. » (en donnant l'argent) →",["Here you are.","Here are you.","Here is you.","There are you."],"<b>Here you are</b> = voilà, tenez. L'ordre est fixe : here + <b>you are</b>.");
+M('buy',"« un ticket de caisse » →",["a receipt","a ticket","a recipe","a bill"],"<b>a receipt</b> (p muet). <b>a ticket</b> = un billet (train, cinéma) · <b>a recipe</b> = une recette de cuisine · <b>a bill</b> = une facture, l'addition.",{wr:{"a ticket":"Faux ami ! <b>a ticket</b> = un billet (de train, de cinéma). Le ticket de caisse = <b>a receipt</b>."}});
+M('buy',"« Voici votre monnaie. » →",["Here's your change.","Here's your exchange.","Here's your monnaie.","Here's your coin."],"<b>change</b> = la monnaie qu'on vous rend.");
+M('buy',"« Votre code PIN, s'il vous plaît. » →",["Your PIN number, please.","Your number PIN, please.","Your code number PIN, please."],"En anglais, le mot qui précise vient <b>avant</b> : PIN number (comme a shoe shop).");
+M('buy',"« Ils sont là-bas. » →",["They're over there.","Their over there.","There over there.","They're there over."],"<b>They're</b> (= they are) <b>over there</b> (= là-bas). Their = leur · there = là / il y a.");
+M('buy',"« Ils sont au deuxième étage. » →",["They're on the second floor.","They're at the second stage.","They're in the second floor.","They're on the second stage."],"Étage = <b>floor</b>, avec <b>on</b> : on the second floor. (a stage = une scène, une étape.)",{wr:{"They're at the second stage.":"Faux ami ! <b>a stage</b> = une scène, une étape. L'étage = <b>a floor</b>, avec <b>on</b> : on the second floor."}});
+M('buy',"£17.50 se dit…",["seventeen pounds fifty","seventeen fifty pounds","seventy pounds fifty","seventeen point fifty pounds"],"On dit d'abord les livres, puis les pence : <b>seventeen pounds fifty</b>. (seventy = 70 !)");
+M('buy',"50p se dit…",["fifty p","fifty pounds","five pence","fifty points"],"<b>p</b> = pence (les centimes de la livre) : fifty p, ou fifty pence.");
+G('buy',"___ you got any guide books for London?",["have"],"Question avec have got : <b>Have</b> you got any…?");
+G('buy',"Do you ___ suitcases?",["sell","have"],"<b>Do you sell…?</b> = Vous vendez… ? (Do you have…? marche aussi.)",{wr:{"sale":"<b>sale</b> est un nom (la vente, les soldes). Le verbe vendre = <b>sell</b>."}});
+G('buy',"Can I ___ four stamps for Europe, please?",["have","get","buy"],"<b>Can I have…?</b> = Je peux avoir… ? C'est la façon polie de demander.");
+G('buy',"Thanks ___ your help.",["for"],"<b>Thanks for</b> + nom : thanks for your help.");
+G('buy',"Here's your change and your ___. (le ticket de caisse)",["receipt"],"<b>receipt</b> : le p ne se prononce pas.",{wr:{"ticket":"Faux ami ! <b>a ticket</b> = un billet (train, cinéma). Le ticket de caisse = <b>a receipt</b>.","recipe":"<b>a recipe</b> = une recette de cuisine. Le ticket de caisse = <b>a receipt</b>."}});
+G('buy',"Would you like ___ else?",["anything"],"<b>anything else</b> = autre chose (dans une question).");
+G('buy',"No, ___ all, thanks.",["that's","that is"],"<b>That's all</b> = ce sera tout.",{wr:{"it's":"Calque de « c'est tout ». L'anglais dit <b>that's all</b>.","it is":"Calque de « c'est tout ». L'anglais dit <b>that's all</b>."}});
+O('buy',"Traduis : « Combien coûtent ces lampes ? »","How much are these lamps?","Plusieurs lampes → <b>How much are</b> these lamps?",{more:["is","this"]});
+O('buy',"Traduis : « Vous avez des guides pour Londres ? »","Have you got any guide books for London?","Question → <b>Have you got any</b>…? (any dans une question).",{more:["has","a"]});
+O('buy',"Traduis : « Je vais prendre celui-ci, s'il vous plaît. »","I'll have this one, please.","<b>I'll have</b> = je vais prendre · <b>this one</b> = celui-ci.",{more:["go","to"]});
+O('buy',"Traduis : « Non, ce sera tout, merci. »","No, that's all, thanks.","<b>That's all</b> = ce sera tout.",{more:["it's","every"]});
+
+/* ---------- Niveau 2 : les vêtements ---------- */
+const PLW="<b>jeans, trousers, shorts, leggings, pyjamas</b> : toujours au <b>pluriel</b>, même pour UN seul vêtement → <b>my jeans are new</b>. Pour compter : <b>a pair of</b> jeans, two pairs of trousers.";
+VOC('clo',{wear:"Les vêtements",pl:"Toujours au pluriel",feet:"Aux pieds"},[
+ {g:'wear',en:"a T-shirt",fr:"un t-shirt",also:["a tee shirt","a tshirt"],pic:'1F455'},
+ {g:'wear',en:"a shirt",fr:"une chemise",tip:"<span class='wn'>!</span> a <b>sh</b>irt = une chemise · a <b>sk</b>irt = une jupe.",wr:{"a skirt":"Attention : <b>a skirt</b> = une jupe. Une chemise = <b>a shirt</b>.","skirt":"Attention : <b>a skirt</b> = une jupe. Une chemise = <b>a shirt</b>."}},
+ {g:'wear',en:"a top",fr:"un haut",tip:"Tout ce qu'on porte en haut : t-shirt, débardeur, blouse…"},
+ {g:'wear',en:"a jumper / a sweater",fr:"un pull",also:["a pullover"],tip:"<b>a jumper</b> (UK) ou <b>a sweater</b> : les deux se disent."},
+ {g:'wear',en:"a hoodie",fr:"un sweat à capuche"},
+ {g:'wear',en:"a jacket",fr:"une veste"},
+ {g:'wear',en:"a coat",fr:"un manteau",pic:'1F9E5'},
+ {g:'wear',en:"a suit",fr:"un costume / un tailleur",tip:"Se prononce « soute » /suːt/."},
+ {g:'wear',en:"a tracksuit",fr:"un jogging / un training",tip:"Le « training » belge = <b>a tracksuit</b>. Faux ami : <b>training</b> = l'entraînement, la formation.",wr:{"a training":"Faux ami ! En anglais, <b>training</b> = l'entraînement, la formation. Le vêtement = <b>a tracksuit</b>.","training":"Faux ami ! En anglais, <b>training</b> = l'entraînement, la formation. Le vêtement = <b>a tracksuit</b>.","a jogging":"<b>jogging</b> = l'activité (courir). Le vêtement = <b>a tracksuit</b>.","jogging":"<b>jogging</b> = l'activité (courir). Le vêtement = <b>a tracksuit</b>."}},
+ {g:'wear',en:"a dress",fr:"une robe",pic:'1F457'},
+ {g:'wear',en:"a skirt",fr:"une jupe",tip:"Se prononce « skeurt » /skɜːt/. Ne confonds pas avec a shirt (une chemise).",wr:{"a shirt":"Attention : <b>a shirt</b> = une chemise. Une jupe = <b>a skirt</b>.","shirt":"Attention : <b>a shirt</b> = une chemise. Une jupe = <b>a skirt</b>."}},
+ {g:'wear',en:"a swimsuit",fr:"un maillot de bain",also:["a swimming costume","a bathing suit"],pic:'1FA71'},
+ {g:'wear',en:"underwear",fr:"des sous-vêtements",unc:1,tip:"Indénombrable : some underwear (jamais « underwears »).",wr:{"underwears":"<b>underwear</b> ne prend jamais de -s : some underwear."}},
+ {g:'pl',en:"trousers",fr:"un pantalon",pair:1,plOnly:1,sg:["trouser","a trouser"],us:"pants",wr:{"pants":"Attention ! <b>pants</b> = pantalon aux États-Unis, mais au Royaume-Uni <b>pants</b> = un slip, une culotte ! Le pantalon = <b>trousers</b>.","a pants":"Attention ! Au Royaume-Uni <b>pants</b> = un slip ! Le pantalon = <b>trousers</b> (toujours pluriel)."}},
+ {g:'pl',en:"jeans",fr:"un jean",pair:1,plOnly:1,sg:["jean","a jean","one jean"],pic:'1F456'},
+ {g:'pl',en:"shorts",fr:"un short",pair:1,plOnly:1,sg:["short","a short"]},
+ {g:'pl',en:"leggings",fr:"un legging",pair:1,plOnly:1,sg:["legging","a legging"]},
+ {g:'pl',en:"pyjamas",fr:"un pyjama",pair:1,plOnly:1,sg:["pyjama","a pyjama"],us:"pajamas",usOk:1},
+ {g:'feet',en:"shoes",fr:"des chaussures",pair:1,pic:'1F45E'},
+ {g:'feet',en:"socks",fr:"des chaussettes",pair:1,pic:'1F9E6'},
+ {g:'feet',en:"trainers",fr:"des baskets",pair:1,us:"sneakers",pic:'1F45F'},
+ {g:'feet',en:"boots",fr:"des bottes",pair:1,pic:'1F462'},
+ {g:'feet',en:"heels",fr:"des talons",pair:1,also:["high heels"],pic:'1F460'}
+],{lbl:'thème par thème',sim:[["a T-shirt","a top","a shirt"],["a jumper / a sweater","a hoodie"],["a jacket","a coat","a suit"],["trousers","jeans","leggings","pyjamas"],["shoes","trainers","boots","heels"]],
+ notes:{pl:"<p>"+PLW+"</p>"},
+ rules:"<p>"+PLW+"</p><p><b>clothes</b> (« klo-ouz ») est toujours pluriel : These clothes <b>are</b> quite expensive. Un seul vêtement = <b>an item of clothing</b>.</p><p>shoes, socks, boots, trainers : singulier possible (a shoe), mais on compte aussi par paires : a pair of shoes.</p><p>UK / US : trousers = pants · trainers = sneakers · a jumper = a sweater. <span class='wn'>!</span> Au Royaume-Uni, <b>pants</b> = un slip !</p>"});
+M('clo',"My jeans ___ new.",["are","is"],"<b>jeans</b> est toujours pluriel → <b>are</b>, même pour un seul jean.",{wr:{"is":"Piège du français « mon jean <b>est</b> » : en anglais <b>jeans</b> est pluriel → my jeans <b>are</b> new."}});
+M('clo',"These trousers ___ very big.",["are","is"],"<b>trousers</b> est toujours pluriel → <b>are</b>.",{wr:{"is":"« Ce pantalon <b>est</b> » en français, mais <b>trousers</b> est pluriel en anglais → these trousers <b>are</b>."}});
+M('clo',"Those shorts ___ nice.",["are","is"],"<b>shorts</b> est toujours pluriel → <b>are</b>.");
+M('clo',"Your pyjamas ___ on the bed.",["are","is"],"<b>pyjamas</b> est toujours pluriel → <b>are</b>.");
+M('clo',"This T-shirt ___ too small.",["is","are"],"a T-shirt = un seul objet, au singulier → <b>is</b>.");
+M('clo',"These clothes ___ quite expensive.",["are","is"],"<b>clothes</b> est toujours pluriel → <b>are</b>.");
+M('clo',"« un jean » →",["a pair of jeans","a jean","a jeans","one jean"],"<b>jeans</b> est toujours pluriel : on dit <b>jeans</b> ou <b>a pair of jeans</b>.");
+M('clo',"« un vêtement » (un seul) →",["an item of clothing","a clothe","a clothes","one clothes"],"<b>clothes</b> n'a pas de singulier. Un seul vêtement = <b>an item of clothing</b>.");
+M('clo',"« pants », au Royaume-Uni, c'est…",["un slip / une culotte","un pantalon","un short","des chaussettes"],"Piège ! En anglais britannique, <b>pants</b> = un slip, une culotte. Le pantalon = <b>trousers</b>. (Aux États-Unis, pants = pantalon.)",{wr:{"un pantalon":"Aux États-Unis, oui. Mais au Royaume-Uni, <b>pants</b> = un slip ! Le pantalon = <b>trousers</b>."}});
+M('clo',"trainers (UK) = ___ (US)",["sneakers","pants","sweaters","boots"],"<b>trainers</b> (UK) = <b>sneakers</b> (US) = des baskets.");
+M('clo',"Une jupe →",["a skirt","a shirt","a suit","a dress"],"<b>a skirt</b> = une jupe. a shirt = une chemise · a suit = un costume · a dress = une robe.",{wr:{"a shirt":"Presque ! <b>a shirt</b> = une chemise. La jupe = a <b>sk</b>irt."}});
+G('clo',"I've got a ___ of red shoes.",["pair"],"<b>a pair of</b> = une paire de : a pair of shoes, a pair of jeans.");
+G('clo',"Deux jeans → two ___ of jeans",["pairs"],"Pour compter les vêtements « doubles » : <b>two pairs of</b> jeans.");
+G('clo',"I want ___ new shorts. (des)",["some"],"Phrase affirmative → <b>some</b> : I want some new shorts.");
+G('clo',"Have you got ___ black jeans? (des)",["any"],"Question → <b>any</b> : Have you got any black jeans?");
+O('clo',"Traduis : « Mon jean est neuf. »","My jeans are new.","<b>jeans</b> est pluriel en anglais → <b>are</b>.",{more:["is","jean"]});
+O('clo',"Traduis : « J'ai une paire de chaussures rouges. »","I've got a pair of red shoes.","<b>a pair of</b> + couleur <b>avant</b> le nom, sans -s : red shoes.",{more:["reds","shoe"]});
+O('clo',"Traduis : « Ces vêtements sont assez chers. »","These clothes are quite expensive.","<b>clothes</b> est toujours pluriel → these… <b>are</b>.",{more:["is","this"]});
+D('clo',"clothes","<b>clothes</b> : se prononce « klo-ouz », presque comme close.",{hint:"Les vêtements."});
+D('clo',"trousers","<b>trousers</b> : trou-sers, toujours avec un s.",{hint:"Un pantalon."});
+D('clo',"jacket","<b>jacket</b> : avec ck.",{hint:"Une veste."});
+
+/* ---------- Niveau 2 : couleurs, motifs, accessoires ---------- */
+VOC('col',{colours:"Les couleurs",patterns:"Les motifs",acc:"Les accessoires"},[
+ {g:'colours',en:"red",fr:"rouge",mcq:false,sw:'#D7262B'},
+ {g:'colours',en:"blue",fr:"bleu(e)",mcq:false,sw:'#1F5FD0'},
+ {g:'colours',en:"green",fr:"vert(e)",mcq:false,sw:'#2E9E44'},
+ {g:'colours',en:"yellow",fr:"jaune",mcq:false,sw:'#F4C70F'},
+ {g:'colours',en:"orange",fr:"orange",mcq:false,sw:'#F07C10'},
+ {g:'colours',en:"pink",fr:"rose",mcq:false,sw:'#F27BB0'},
+ {g:'colours',en:"purple",fr:"violet(te), mauve",mcq:false,sw:'#7A3FA8'},
+ {g:'colours',en:"brown",fr:"brun(e), marron",mcq:false,sw:'#7B4A1E'},
+ {g:'colours',en:"black",fr:"noir(e)",mcq:false,sw:'#161616'},
+ {g:'colours',en:"white",fr:"blanc / blanche",mcq:false,sw:'#FFFFFF'},
+ {g:'colours',en:"grey",fr:"gris(e)",mcq:false,us:"gray",usOk:1,sw:'#9A9A9A'},
+ {g:'colours',en:"beige",fr:"beige",mcq:false,sw:'#D9C3A0'},
+ {g:'colours',en:"navy blue",fr:"bleu marine",mcq:false,also:["navy"],sw:'#1B2A57'},
+ {g:'colours',en:"gold",fr:"doré(e)",mcq:false,also:["golden"],sw:'linear-gradient(135deg,#A97C10,#FFE27A 50%,#A97C10)'},
+ {g:'colours',en:"silver",fr:"argenté(e)",mcq:false,sw:'linear-gradient(135deg,#8E9399,#F1F3F5 50%,#8E9399)'},
+ {g:'colours',en:"light blue",fr:"bleu clair",mcq:false,sw:'#9CCBF0'},
+ {g:'colours',en:"light green",fr:"vert clair",mcq:false,sw:'#9BD770'},
+ {g:'colours',en:"dark green",fr:"vert foncé",mcq:false,sw:'#1E5631'},
+ {g:'patterns',en:"plain",fr:"uni(e)",sw:'#3A7BD5'},
+ {g:'patterns',en:"striped",fr:"rayé(e)",sw:'repeating-linear-gradient(45deg,#1F4FB5 0 10px,#fff 10px 20px)'},
+ {g:'patterns',en:"checked",fr:"à carreaux",sw:'conic-gradient(#D02B27 25%,#fff 0 50%,#D02B27 0 75%,#fff 0) 0 0/24px 24px'},
+ {g:'patterns',en:"floral",fr:"fleuri(e)"},
+ {g:'patterns',en:"colourful",fr:"coloré(e)",us:"colorful",usOk:1,sw:'linear-gradient(135deg,#E32017,#F4C70F,#2E9E44,#1F5FD0,#7A3FA8)'},
+ {g:'acc',en:"a bag",fr:"un sac"},
+ {g:'acc',en:"a handbag",fr:"un sac à main",pic:'1F45C',us:"a purse",wr:{"a purse":"Piège ! Aux États-Unis, a purse = un sac à main, mais au Royaume-Uni, <b>a purse</b> = un porte-monnaie. Le sac à main = <b>a handbag</b>.","purse":"Piège ! Au Royaume-Uni, <b>a purse</b> = un porte-monnaie. Le sac à main = <b>a handbag</b>."}},
+ {g:'acc',en:"a backpack",fr:"un sac à dos",also:["a rucksack"],pic:'1F392'},
+ {g:'acc',en:"a hat",fr:"un chapeau",pic:'1F452'},
+ {g:'acc',en:"a cap",fr:"une casquette",pic:'1F9E2'},
+ {g:'acc',en:"a scarf",fr:"une écharpe",pic:'1F9E3',tip:"Pluriel : two scarves (f → ves)."},
+ {g:'acc',en:"gloves",fr:"des gants",pair:1,pic:'1F9E4'},
+ {g:'acc',en:"a belt",fr:"une ceinture"},
+ {g:'acc',en:"a tie",fr:"une cravate"},
+ {g:'acc',en:"a bow tie",fr:"un nœud papillon",also:["a bowtie"]},
+ {g:'acc',en:"sunglasses",fr:"des lunettes de soleil",pair:1,plOnly:1,sg:["sunglass","a sunglass"],pic:'1F576'},
+ {g:'acc',en:"a watch",fr:"une montre",pic:'231A'},
+ {g:'acc',en:"a bracelet",fr:"un bracelet"},
+ {g:'acc',en:"a necklace",fr:"un collier"},
+ {g:'acc',en:"a ring",fr:"une bague",pic:'1F48D'},
+ {g:'acc',en:"earrings",fr:"des boucles d'oreilles",also:["ear rings"]},
+ {g:'acc',en:"a wallet",fr:"un portefeuille"},
+ {g:'acc',en:"an umbrella",fr:"un parapluie",pic:'2602',tip:"<b>an</b> umbrella : le mot commence par un son voyelle."}
+],{lbl:'thème par thème',swq:{colours:"Quelle est cette couleur ?",patterns:"Quel est ce motif ?"},
+ sim:[["blue","navy blue","light blue"],["green","light green","dark green"],["grey","silver","white"],["yellow","gold","orange","beige"],["brown","beige","gold"],["red","pink","orange"],["purple","pink"],["black","navy blue","dark green"],["a bag","a handbag","a backpack","a wallet"],["a hat","a cap"],["a tie","a bow tie"],["a watch","a bracelet"]],
+ rules:"<p>La couleur se place <b>AVANT</b> le nom et ne prend <b>jamais de -s</b> : <b>a red dress</b> (une robe rouge) · <b>black shoes</b> (pas « blacks shoes »).</p><p><b>light</b> = clair · <b>dark</b> = foncé, devant la couleur : light blue (bleu clair) · dark green (vert foncé). Bleu marine = <b>navy blue</b>.</p><p>Les motifs aussi se placent avant le nom : a <b>striped</b> shirt (une chemise rayée) · a <b>checked</b> skirt (une jupe à carreaux).</p><p><b>sunglasses</b> et <b>gloves</b> : au pluriel (a pair of sunglasses).</p>"});
+M('col',"« des chaussures noires » →",["black shoes","shoes black","blacks shoes","shoes blacks"],"La couleur se place <b>avant</b> le nom et ne prend <b>jamais de -s</b> : black shoes.",{wr:{"blacks shoes":"La couleur est un adjectif : en anglais, les adjectifs ne prennent <b>jamais de -s</b> → black shoes.","shoes black":"En anglais, la couleur se place <b>avant</b> le nom : black shoes."}});
+M('col',"« une robe rouge » →",["a red dress","a dress red","a reds dress","red a dress"],"La couleur <b>avant</b> le nom : a red dress.");
+M('col',"« un pull bleu clair » →",["a light blue jumper","a blue light jumper","a jumper light blue","a clear blue jumper"],"<b>light</b> + couleur, puis le nom : a light blue jumper. ✗ clear (calque de « clair »).",{wr:{"a clear blue jumper":"Calque de « clair » ! Pour une couleur, clair = <b>light</b> : a light blue jumper."}});
+M('col',"« une chemise rayée » →",["a striped shirt","a shirt striped","a stripes shirt","a rayed shirt"],"Le motif aussi se place <b>avant</b> le nom : a striped shirt.");
+G('col',"Traduis : des chaussettes vert foncé → ___ socks",["dark green"],"<b>dark</b> = foncé, devant la couleur : dark green socks.",{wr:{"green dark":"En anglais, <b>dark</b> se place <b>avant</b> la couleur : dark green.","greens dark":"<b>dark</b> avant la couleur, et jamais de -s : dark green."}});
+G('col',"Traduis : un manteau noir → a ___",["black coat"],"La couleur <b>avant</b> le nom : a black coat.",{wr:{"coat black":"La couleur se place <b>avant</b> le nom : a <b>black coat</b>."}});
+G('col',"Traduis : des baskets blanches → ___",["white trainers","white sneakers"],"La couleur avant le nom, sans -s : white trainers.",{wr:{"whites trainers":"La couleur ne prend <b>jamais de -s</b> : white trainers.","trainers white":"La couleur se place <b>avant</b> le nom : white trainers."}});
+O('col',"Traduis : « Elle porte une robe rouge. »","She is wearing a red dress.","Description de ce qu'on voit → présent continu (<b>is wearing</b>), et la couleur <b>avant</b> le nom.",{more:["wears","reds"]});
+O('col',"Traduis : « J'aime tes lunettes de soleil. »","I like your sunglasses.","<b>sunglasses</b> : toujours au pluriel.",{more:["sunglass","a"]});
+D('col',"purple","<b>purple</b> = violet. (Pas « violet » : en anglais, violet est un mauve très clair.)",{hint:"Violet."});
+D('col',"necklace","<b>necklace</b> = neck (le cou) + lace.",{hint:"Un collier."});
+D('col',"umbrella","<b>umbrella</b> : double l.",{hint:"Un parapluie."});
+
+/* ---------- Niveau 2 : présent continu ---------- */
+[["She ___ (read) a book at the moment.",["is reading","'s reading"]],["I ___ (wear) a blue jumper today.",["am wearing","'m wearing"]],["They ___ (play) in the park.",["are playing","'re playing"]],["He ___ (cook) dinner right now.",["is cooking","'s cooking"]],["Look! The children ___ (run).",["are running","'re running"],{"are runing":"Verbe court (r-u-n) : on double le n → <b>running</b>."}],["I ___ (sit) on the sofa.",["am sitting","'m sitting"],{"am siting":"Verbe court (s-i-t) : on double le t → <b>sitting</b>."}],["My mum ___ (make) a cake.",["is making","'s making"],{"is makeing":"Verbe en -e : on enlève le e → <b>making</b>."}],["We ___ (not / watch) TV.",["are not watching","aren't watching","'re not watching"]],["It ___ (not / rain) now.",["is not raining","isn't raining","'s not raining"]],["I ___ (not / work) today.",["am not working","'m not working"]]].forEach(([p,a,wr])=>{
+  G('pc',p,a,"Présent continu = <b>be + -ing</b> → <b>"+a[0]+"</b>.",Object.assign({wr:Object.assign({[a[0].replace(/^(am|is|are)( not)? /,'').replace(/ing$/,'')]:"Il manque <b>be</b> et la terminaison <b>-ing</b> : "+a[0]+".",[a[0].replace(/^(am|is|are)( not)? /,'')]:"Il manque l'auxiliaire <b>be</b> : "+a[0]+"."},wr||{})}))});
+G('pc',"___ you listening to me?",["are"],"Question : on inverse <b>be</b> et le sujet → <b>Are</b> you listening?",{wr:{"do":"Au présent continu, la question se fait avec <b>be</b>, pas avec do : <b>Are</b> you listening?"}});
+G('pc',"Are you working? — Yes, I ___.",["am"],"Réponse courte : <b>Yes, I am.</b> Jamais de contraction dans un oui (✗ Yes, I'm).",{wr:{"i'm":"Dans une réponse courte affirmative, pas de contraction : <b>Yes, I am.</b>","'m":"Pas de contraction dans un oui : <b>Yes, I am.</b>"}});
+G('pc',"Is she sleeping? — No, she ___.",["isn't","is not"],"Réponse courte négative : <b>No, she isn't.</b>");
+G('pc',"What ___ you wearing today?",["are"],"Question au présent continu : What <b>are</b> you wearing?");
+M('pc',"Look! It ___.",["is raining","rains","raining","rain"],"<b>Look!</b> = ça se passe maintenant → présent continu : It <b>is raining</b>.");
+M('pc',"Listen! The baby ___.",["is crying","cries","crying","cry"],"<b>Listen!</b> = maintenant → <b>is crying</b>.");
+M('pc',"She usually ___ a hat in summer.",["wears","is wearing","wear","wearing"],"<b>usually</b> = une habitude → présent simple : she <b>wears</b>.",{wr:{"is wearing":"Ici on parle d'une <b>habitude</b> (usually, in summer) → présent simple : she <b>wears</b>."}});
+M('pc',"Today I ___ jeans and a white T-shirt.",["am wearing","wear","wearing","am wear"],"Ce que je porte <b>maintenant</b> → présent continu : I <b>am wearing</b>.");
+M('pc',"I ___ the answer.",["know","am knowing"],"<b>know</b> = verbe de pensée → jamais en -ing : I know.",{wr:{"am knowing":"<b>know</b> exprime un état (ce qu'on sait), pas une action en cours → pas de -ing : I <b>know</b>."}});
+M('pc',"I ___ you're right.",["think","am thinking"],"<b>think</b> = croire, avoir une opinion → pas de -ing : I think you're right.");
+M('pc',"Ssh! I ___.",["am thinking","think"],"Ici <b>think</b> = réfléchir (une action en cours) → <b>I'm thinking</b>.");
+M('pc',"This bag ___ to my sister.",["belongs","is belonging"],"<b>belong to</b> = appartenir à : un état → pas de -ing.");
+M('pc',"I ___ a new coat for the winter.",["need","am needing"],"<b>need</b> = un état → pas de -ing : I need.");
+M('pc',"This jacket ___ £80.",["costs","is costing"],"<b>cost</b> = un état → pas de -ing : it costs £80.");
+M('pc',"We ___ lunch at the moment.",["are having","have"],"Ici <b>have</b> = manger (une action) → -ing possible : we're having lunch.");
+M('pc',"She ___ two cars.",["has","is having"],"Ici <b>have</b> = posséder → pas de -ing : she has two cars.");
+M('pc',"« Tu vois ce que je veux dire ? » →",["Do you see what I mean?","Are you seeing what I mean?"],"<b>see</b> (= comprendre) et <b>mean</b> : pas de -ing.");
+M('pc',"Can you ___ that noise?",["hear","listen","be hearing","listening"],"<b>hear</b> = entendre (involontaire). <b>listen</b> = écouter (volontaire, et toujours suivi de <b>to</b>).");
+M('pc',"I'm ___ to the radio.",["listening","hearing","hear","listen"],"Écouter volontairement → <b>listen to</b>, et -ing possible : I'm listening to the radio.");
+M('pc',"Right now, we're ___ a film on TV.",["watching","looking","hearing","seeing at"],"Regarder (volontairement) la télé, un film → <b>watch</b> : we're watching a film.");
+M('pc',"« I feel ill » ou « I'm feeling ill » ?",["Les deux sont correctes","Seulement « I feel ill »","Seulement « I'm feeling ill »"],"<b>feel</b>, <b>hurt</b>, <b>ache</b> (sensations physiques) : forme simple <b>et</b> forme en -ing possibles.");
+M('pc',"« He's being stupid. » veut dire…",["Il se comporte bêtement (en ce moment)","Il est bête (de nature)","Il devient bête","Il était bête"],"<b>He's stupid</b> = de nature. <b>He's being stupid</b> = en ce moment, il se comporte bêtement.");
+M('pc',"Laquelle est correcte ?",["I understand what you mean.","I'm understanding what you mean.","I understanding what you mean.","I'm understand what you mean."],"<b>understand</b> et <b>mean</b> = verbes de pensée → présent simple.");
+O('pc',"Traduis : « Je porte un jean et des baskets. »","I'm wearing jeans and trainers.","Ce que je porte maintenant → <b>I'm wearing</b>. Et jeans est déjà pluriel (pas de a).",{more:["wear","a"]});
+O('pc',"Traduis : « Qu'est-ce que tu portes ? »","What are you wearing?","Question au présent continu : What + <b>are you</b> + -ing ?",{more:["do","wear"]});
+O('pc',"Traduis : « Les enfants jouent dans le parc (en ce moment). »","The children are playing in the park.","Action en cours → <b>are playing</b>.",{more:["play","is"]});
+O('pc',"Traduis : « Je comprends ce que tu veux dire. »","I understand what you mean.","<b>understand</b> = verbe de pensée : pas de -ing.",{more:["am","understanding"]});
+
 
 /* =====================================================================
    COURS ENSEIGNÉS — Miss Kokkinis montre AVANT de demander.
@@ -1315,6 +1589,98 @@ Object.assign(TEACH,{
   Qm('house',"On range ses vêtements dans a ___",["wardrobe","pillow","sink","rug"],"<b>a wardrobe</b> = une armoire."),
   Lc("In the bathroom: a shower, a bath, a mirror, a toothbrush","Dans la salle de bains : une douche, une baignoire, un miroir, une brosse à dents",""),
   Qf('house',"À toi ! Décris ta cuisine ou ton salon : « In my kitchen, there is … »","^(in my [\\p{L} ]{3,},? )?there (is|are) [\\p{L}0-9' ,-]{3,}$","In my kitchen, there is a big fridge.","<b>In my</b> + pièce, <b>there is / there are</b> + objets.")
+ ],
+ shop:[
+  Lc("a supermarket · a bank · a post office","un supermarché · une banque · un bureau de poste","Les endroits de base : presque les mêmes mots qu'en français."),
+  Lc("a bookshop","une librairie","<span class='wn'>!</span> Faux ami : <b>a library</b> = une bibliothèque. La librairie = <b>a bookshop</b>."),
+  Qm('shop',"Une librairie →",["a bookshop","a library","a books shop","a librairy"],"<b>a bookshop</b>. Faux ami : a library = une bibliothèque."),
+  Lc("a baker's · a butcher's · a chemist's","une boulangerie · une boucherie · une pharmacie","Le <b>'s</b> veut dire « <b>chez le</b>… » : a baker's = chez le boulanger. Sans 's, c'est la personne : a baker = un boulanger."),
+  Qm('shop',"Where can you buy aspirin?",["at the chemist's","at the butcher's","at the baker's","at the bookshop"],"Les médicaments → <b>at the chemist's</b> (la pharmacie)."),
+  Lc("a newsagent's · a kiosk","un marchand de journaux · un kiosque","Journaux, magazines, timbres, bonbons…"),
+  Lc("a department store","un grand magasin","Un grand magasin à plusieurs étages, comme l'Inno."),
+  Lc("You can buy stamps at the post office.","On peut acheter des timbres à la poste.","<b>You can buy</b> + chose + <b>at the</b> + magasin."),
+  Lc("a map · a suitcase · a guide book · a newspaper","un plan · une valise · un guide · un journal","<span class='wn'>!</span> Faux ami : <b>a journal</b> = un journal intime. Le journal = <b>a newspaper</b>."),
+  Lc("stamps · postcards · tissues · chocolate","des timbres · des cartes postales · des mouchoirs · du chocolat","chocolate se prononce en 2 syllabes : « TCHOK-lət »."),
+  Qx('shop',"Associe le magasin et l'achat",[["a baker's","bread"],["a butcher's","meat"],["a chemist's","aspirin"],["a shoe shop","boots"]],"Chaque commerce a sa spécialité."),
+  Lc("Which shops do you go to every week?","Dans quels magasins vas-tu chaque semaine ?","<b>Which</b> = quel·s, quelle·s : on choisit dans un groupe."),
+  Qf('shop',"À toi ! Dans quels magasins vas-tu chaque semaine ? « I go to the … »","^i (often |usually |always |sometimes )?go to (the |a )?[\\p{L}' ,-]{3,}$","I go to the supermarket and the baker's.","<b>I go to the</b> + magasin. (Avec I, pas de -s : I go.)")
+ ],
+ buy:[
+  Lc("Can I help you?","Je peux vous aider ?","Ce que dit le <b>vendeur</b> (sales assistant). Aussi : <b>Do you need any help?</b>"),
+  Lc("Have you got any guide books? — Yes, they're over there.","Vous avez des guides ? — Oui, ils sont là-bas.","Pour demander si le magasin a quelque chose : <b>Have you got any…?</b> ou <b>Do you sell…?</b> · <b>over there</b> = là-bas."),
+  Qm('buy',"« Vous vendez des valises ? » →",["Do you sell suitcases?","Do you sale suitcases?","Sell you suitcases?","Does you sell suitcases?"],"<b>Do you sell…?</b> (sell = vendre ; sale = la vente, les soldes)."),
+  Lc("How much is this map? — How much are these lamps?","Combien coûte ce plan ? — Combien coûtent ces lampes ?","<b>How much is</b> + une chose · <b>How much are</b> + plusieurs choses."),
+  Qm('buy',"How much ___ these postcards?",["are","is"],"postcards = pluriel → <b>How much are</b>."),
+  Lc("I'll have this one, please.","Je vais prendre celui-ci, s'il vous plaît.","<b>I'll have</b> (= I will have) = je vais prendre : on décide sur le moment. <b>this one</b> = celui-ci (one évite de répéter le nom)."),
+  Lc("The big ones are twenty pounds.","Les grands coûtent vingt livres.","<b>ones</b> remplace un nom au pluriel (the big ones = les grands)."),
+  Qm('buy',"Would you like a bag? — No, thanks. I've got ___.",["one","ones","it","a one"],"<b>one</b> remplace « a bag ». (ones = pour un pluriel.)"),
+  Lc("Anything else? — No, that's all, thanks.","Autre chose ? — Non, ce sera tout, merci.","<b>That's all</b> = c'est tout. ✗ It's all."),
+  Lc("Here you are.","Voilà. / Tenez.","Quand on <b>donne</b> quelque chose (l'argent, l'article). ✗ Here are you."),
+  Lc("Here's your change and your receipt.","Voici votre monnaie et votre ticket de caisse.","<span class='wn'>!</span> <b>receipt</b> : le p est muet (« ri-SIIT »). <b>a ticket</b> = un billet (train, cinéma), pas le ticket de caisse."),
+  Qm('buy',"« un ticket de caisse » →",["a receipt","a ticket","a recipe","a bill"],"<b>a receipt</b>. a ticket = un billet · a recipe = une recette · a bill = une facture, l'addition."),
+  DLG([["Lucy (vendeuse)","Hello. Can I help you?","Bonjour. Je peux vous aider ?",["Hi. Can I help you?","Can I help you?","Do you need any help?","Hello. Do you need any help?"]],
+   ["Lucas","Yes, please. Have you got any maps of London?","Oui, s'il vous plaît. Vous avez des plans de Londres ?",["Have you got any maps of London?","Do you have any maps of London?","Do you sell maps of London?","Yes, please. Do you have any maps of London?","Yes, please. Do you sell maps of London?"]],
+   ["Lucy (vendeuse)","Yes, they're over there.","Oui, ils sont là-bas.",["They're over there.","Yes, we have. They're over there.","Yes, we do. They're over there.","Yes. They're over there."]],
+   ["Lucas","Thanks. I'll have this one. How much is it?","Merci. Je vais prendre celui-ci. Combien coûte-t-il ?"],
+   ["Lucy (vendeuse)","It's five pounds. Anything else?","Il coûte cinq livres. Autre chose ?",["It's £5. Anything else?","It costs five pounds. Anything else?","Five pounds. Anything else?","It's five pounds. Would you like anything else?","It's five pounds. Something else?"]],
+   ["Lucas","Yes. Can I have two stamps for Europe, please?","Oui. Je peux avoir deux timbres pour l'Europe, s'il vous plaît ?"],
+   ["Lucy (vendeuse)","Of course. That's six pounds fifty, please.","Bien sûr. Ça fait six livres cinquante, s'il vous plaît.",["That's six pounds fifty, please.","Of course. That's £6.50, please.","That's £6.50, please.","Sure. That's six pounds fifty, please."]],
+   ["Lucas","Here you are.","Voilà.",["Here you go.","Here it is."]],
+   ["Lucy (vendeuse)","Thank you. Here's your change and your receipt.","Merci. Voici votre monnaie et votre ticket de caisse.",["Here's your change and your receipt.","Thanks. Here's your change and your receipt.","Thank you. Here is your change and your receipt.","Thank you. Here's your receipt and your change."]],
+   ["Lucas","Thanks a lot. Bye!","Merci beaucoup. Au revoir !",["Thanks a lot. Goodbye!","Thank you very much. Bye!","Thank you very much. Goodbye!","Thanks a lot!","Thank you. Bye!","Thanks. Bye!","Thanks a lot."]]]),
+  DLG([["Tom (vendeur)","Hello. Do you need any help?","Bonjour. Vous avez besoin d'aide ?",["Hello. Can I help you?","Do you need any help?","Can I help you?"]],
+   ["Emma","Yes, please. Do you sell umbrellas?","Oui, s'il vous plaît. Vous vendez des parapluies ?",["Do you sell umbrellas?","Yes, please. Have you got any umbrellas?","Have you got any umbrellas?","Yes, please. Do you have any umbrellas?","Do you have any umbrellas?","Yes, please. Do you have umbrellas?","Do you have umbrellas?","Yes, please. Do you sell any umbrellas?"]],
+   ["Tom (vendeur)","Yes, we do. They're on the second floor.","Oui. Ils sont au deuxième étage.",["They're on the second floor.","Yes. They're on the second floor.","Yes, we have. They're on the second floor.","Yes, they're on the second floor."]],
+   ["Emma","Thanks. How much are these umbrellas?","Merci. Combien coûtent ces parapluies ?",["How much are these umbrellas?","Thank you. How much are these umbrellas?","Thanks. How much do these umbrellas cost?","How much do these umbrellas cost?"]],
+   ["Tom (vendeur)","The big ones are twenty pounds and the small ones are twelve.","Les grands coûtent vingt livres et les petits douze."],
+   ["Emma","I'll have a small one, please.","Je vais en prendre un petit, s'il vous plaît.",["I'll have a small one.","I'll take a small one, please.","I'll take a small one.","I'll have the small one, please.","I'll take the small one, please.","I'll have this small one, please.","I'll take this small one, please."]],
+   ["Tom (vendeur)","Would you like anything else?","Désirez-vous autre chose ?",["Anything else?","Do you need anything else?","Would you like something else?"]],
+   ["Emma","No, that's all, thanks.","Non, ce sera tout, merci.",["No, that's all, thank you.","No, thanks. That's all.","No, thank you. That's all.","That's all, thanks.","No, that's everything, thanks.","No, that's all."]],
+   ["Tom (vendeur)","That's twelve pounds. Your PIN number, please.","Ça fait douze livres. Votre code PIN, s'il vous plaît.",["That's £12. Your PIN number, please.","Twelve pounds, please. Your PIN number, please.","That's twelve pounds, please. Your PIN number, please."]],
+   ["Emma","Thanks for your help. Bye!","Merci pour votre aide. Au revoir !",["Thanks for your help. Goodbye!","Thank you for your help. Bye!","Thank you for your help. Goodbye!","Thanks for your help.","Thank you for your help."]]]),
+  Qf('buy',"À toi ! Tu es au magasin : demande s'ils ont des cartes postales.","^((excuse me|hello|hi|please),? )*(have you got|do you have|do you sell|can i have|could i have|can i get|i'd like|i would like|i want|i'll have|i will have)( (any|some|a few|a|one|two|three|four|five|six|ten))? post ?cards?( for [\\p{L} ]+)?(,? please)?$","Have you got any postcards?","<b>Have you got any…?</b> ou <b>Do you sell…?</b> pour savoir s'ils en ont · <b>Can I have…, please?</b> pour en demander.")
+ ],
+ clo:[
+  Lc("a T-shirt · a shirt · a jumper","un t-shirt · une chemise · un pull","<b>a jumper</b> (UK) = <b>a sweater</b> : les deux se disent."),
+  Lc("a dress · a skirt","une robe · une jupe","<span class='wn'>!</span> Ne confonds pas a <b>sk</b>irt (une jupe) et a <b>sh</b>irt (une chemise)."),
+  Qm('clo',"Une jupe →",["a skirt","a shirt","a dress","a suit"],"<b>a skirt</b> = une jupe. a shirt = une chemise."),
+  Lc("a jacket · a coat · a suit","une veste · un manteau · un costume","<b>a suit</b> se prononce « soute » /suːt/. Le « training » belge = <b>a tracksuit</b>."),
+  Lc("My jeans are new.","Mon jean est neuf.","<b>jeans, trousers, shorts, leggings, pyjamas</b> sont <b>toujours au pluriel</b>, même pour UN seul vêtement → verbe au pluriel : <b>are</b>."),
+  Qm('clo',"These trousers ___ very big.",["are","is"],"<b>trousers</b> (un pantalon) est toujours pluriel → <b>are</b>."),
+  Lc("I've got a pair of red jeans.","J'ai un jean rouge.","Pour compter : <b>a pair of</b> (une paire de) → a pair of jeans, two pairs of socks."),
+  Qm('clo',"« un jean » →",["a pair of jeans","a jean","a jeans","one jean"],"<b>jeans</b> ou <b>a pair of jeans</b>, jamais « a jean »."),
+  Lc("These clothes are quite expensive.","Ces vêtements sont assez chers.","<b>clothes</b> (« klo-ouz ») est toujours pluriel. Un seul vêtement = <b>an item of clothing</b>."),
+  Lc("shoes · socks · trainers · boots","des chaussures · des chaussettes · des baskets · des bottes","<b>trainers</b> (UK) = sneakers (US). <span class='wn'>!</span> Au Royaume-Uni, <b>pants</b> = un slip : le pantalon = trousers."),
+  Qx('clo',"Associe",[["trousers","un pantalon"],["a jumper","un pull"],["trainers","des baskets"],["a coat","un manteau"]],"Les vêtements du cours."),
+  Qf('clo',"À toi ! Qu'y a-t-il dans ton armoire ? « In my wardrobe, there are … »","^(there (is|are)|i('ve| have)( got)?|i have got) [\\p{L}0-9' ,-]{3,}$","In my wardrobe, there are some jeans and two jumpers.","<b>There are</b> + pluriel (jeans, trousers… sont toujours pluriels).")
+ ],
+ col:[
+  Lc("red · blue · green · yellow · black · white","rouge · bleu · vert · jaune · noir · blanc","Les couleurs de base."),
+  Lc("grey · brown · pink · purple · orange · beige","gris · brun · rose · violet · orange · beige","<b>grey</b> (UK) = gray (US). Violet = <b>purple</b>."),
+  {q:TQ('col',{type:'mcq',prompt:"Quelle est cette couleur ?",opts:["purple","pink","brown","blue"],why:"C'est <b>purple</b> = violet.",sw:'#7A3FA8'})},
+  Lc("a red dress · black shoes","une robe rouge · des chaussures noires","En anglais, la couleur se place <b>AVANT</b> le nom et ne prend <b>jamais de -s</b> (✗ blacks shoes)."),
+  Qm('col',"« des chaussures noires » →",["black shoes","shoes black","blacks shoes","shoes blacks"],"La couleur <b>avant</b> le nom, sans -s : black shoes."),
+  Lc("light blue · dark green · navy blue","bleu clair · vert foncé · bleu marine","<b>light</b> = clair · <b>dark</b> = foncé, toujours devant la couleur."),
+  Lc("plain · striped · checked · floral","uni · rayé · à carreaux · fleuri","Les motifs se placent aussi avant le nom : a striped shirt (une chemise rayée)."),
+  {q:TQ('col',{type:'mcq',prompt:"Quel est ce motif ?",opts:["striped","checked","plain","floral"],why:"C'est <b>striped</b> = rayé.",sw:'repeating-linear-gradient(45deg,#1F4FB5 0 10px,#fff 10px 20px)'})},
+  Lc("a bag · a scarf · a belt · gloves","un sac · une écharpe · une ceinture · des gants","Les accessoires."),
+  Lc("a watch · a ring · a necklace · earrings","une montre · une bague · un collier · des boucles d'oreilles",""),
+  Lc("sunglasses · an umbrella","des lunettes de soleil · un parapluie","<b>sunglasses</b> : toujours pluriel. <b>an</b> umbrella (son voyelle)."),
+  Qx('col',"Associe",[["a scarf","une écharpe"],["a belt","une ceinture"],["a wallet","un portefeuille"],["a necklace","un collier"]],"Les accessoires."),
+  Qf('col',"À toi ! Décris un vêtement ou un accessoire que tu as, avec sa couleur : « I've got a black coat. »","^(i('ve| have)( got)?|i have got|my [\\p{L} ]+ (is|are)|i like my|i love my|i am wearing) .*\\b(red|blue|green|yellow|orange|pink|purple|brown|black|white|grey|gray|beige|navy|gold|silver|golden|striped|checked|floral|plain|colourful|colorful)\\b.*$","I've got a black coat.","La couleur <b>avant</b> le nom : a black coat, blue jeans.")
+ ],
+ pc:[
+  Lc("I am working. — He isn't working. — Are you working?","Je travaille. — Il ne travaille pas. — Tu travailles ?","Présent continu = <b>be + verbe en -ing</b>. Négatif : be + not. Question : on inverse be et le sujet."),
+  Qg('pc',"She ___ (read) a book at the moment.",["is reading","'s reading"],"<b>be + -ing</b> → she <b>is reading</b>."),
+  Lc("The children are playing in the park.","Les enfants jouent dans le parc.","Une action <b>en cours</b>, pas terminée (= être en train de). Le français dit juste « jouent » ; l'anglais marque que ça se passe <b>maintenant</b>."),
+  Lc("She is wearing a blue dress.","Elle porte une robe bleue.","Pour <b>décrire</b> ce qu'on voit maintenant. What are you wearing? — I'm wearing jeans and trainers."),
+  Lc("She always wears a hat in summer.","Elle porte toujours un chapeau en été.","Une <b>habitude</b> → présent simple, pas de -ing."),
+  Qm('pc',"Look! It ___.",["is raining","rains","raining","rain"],"<b>Look!</b> = maintenant → <b>is raining</b>."),
+  Lc("I know. — I understand. — I like it.","Je sais. — Je comprends. — Ça me plaît.","<span class='wn'>!</span> Ces verbes d'<b>état</b> ne prennent <b>pas</b> -ing : pensée (know, understand, believe, remember…), sentiments (like, love, hate, want, prefer), perception (see, hear), possession (have, own, belong), et need, cost… ✗ I'm knowing."),
+  Qm('pc',"I ___ the answer.",["know","am knowing"],"<b>know</b> = un état → pas de -ing : I know."),
+  Lc("I think you're right. — Ssh! I'm thinking.","Je crois que tu as raison. — Chut ! Je réfléchis.","Certains verbes changent de sens : <b>think</b> = croire (pas de -ing) ou réfléchir (-ing possible). Pareil pour <b>have</b> : I have a car (posséder) / I'm having lunch (manger)."),
+  Qm('pc',"We ___ lunch at the moment.",["are having","have"],"Ici <b>have</b> = manger, une action → <b>are having</b>."),
+  Qf('pc',"À toi ! Qu'est-ce que tu portes aujourd'hui ? « I'm wearing … »","^((today|right now|now),? )?i am wearing [\\p{L}0-9' ,-]{3,}$","I'm wearing jeans and a white T-shirt.","<b>I'm wearing</b> + vêtements, la couleur <b>avant</b> le nom.")
  ]
 });
 
@@ -1334,7 +1700,7 @@ Object.assign(TEACH,{
 })();
 
 /* Dernière leçon : à mettre à jour à chaque nouveau cours */
-const LAST={id:'2026-10-12b',skills:['ime','count','house'],label:'I ou me ? · Dénombrables · La maison'};
+const LAST={id:'2026-11-16',skills:['shop','buy','clo','col','pc'],label:'Shopping · Vêtements & couleurs · Présent continu'};
 
 /* =====================================================================
    2. OUTILS
@@ -1368,6 +1734,14 @@ const FREE_BAD=[
   [/^there (is|are) any\b|^i (have|'ve)( got)? any\b|^i have got any\b/,"Phrase affirmative → <b>some</b>. <b>any</b> sert pour les questions et les phrases négatives."],
   [/\b(enjoy|don't mind|do not mind) to \p{L}+/u,"Après <b>enjoy</b> et <b>don't mind</b>, toujours <b>-ing</b> : I enjoy swimming."],
   [/\b(je|tu|nous|vous|les|des|une|est|et|avec|suis|mange|mes|dans|chez|pour|pas|aime|habite)\b/,"Écris ta phrase <b>en anglais</b>."],
+  /* vêtements, couleurs, présent continu (3e élément = stations concernées) */
+  [/\b(a|one) (jeans|trousers|shorts|leggings|pyjamas|sunglasses)\b/,"<b>jeans, trousers, shorts…</b> sont toujours au pluriel : pas de <b>a</b> devant. Dis <b>jeans</b> ou <b>a pair of jeans</b>.",['clo','col','pc']],
+  [/\b(jeans|trousers|shorts|leggings|pyjamas|sunglasses|clothes) is\b/,"Ce mot est <b>toujours pluriel</b> → verbe au pluriel : my jeans <b>are</b>.",['clo','col','pc']],
+  [/\b(reds|blues|greens|yellows|blacks|whites|greys|pinks|purples|browns|oranges|beiges) (shoes|socks|trousers|jeans|boots|trainers|shorts|gloves|t shirts|shirts|dresses|jumpers|bags|earrings|sunglasses|leggings)\b/,"La couleur ne prend <b>jamais de -s</b> en anglais : <b>black shoes</b> (pas « blacks shoes »).",['clo','col','pc']],
+  [/\b(dress|shirt|t shirt|top|jumper|sweater|hoodie|jacket|coat|suit|skirt|hat|cap|scarf|bag|handbag|belt|tie|jeans|trousers|shoes|socks|trainers|boots) (red|blue|green|yellow|black|white|grey|gray|pink|purple|brown|orange|beige)\b/,"La couleur se place <b>avant</b> le nom : <b>a red dress</b>, <b>black shoes</b>.",['clo','col','pc']],
+  [/^(i|you|we|they|he|she) (?!(bring|sing|ring|sting|swing|cling|fling|spring|wring)\b)\p{L}+ing\b/u,"Il manque <b>be</b> : <b>I'm</b> wearing, she<b>'s</b> reading (be + verbe en -ing).",['pc','clo','col']],
+  [/\b(am|is|are) (wear|play|read|watch|work|eat|drink|go|cook|listen|sleep|write|run|swim|make|wait|study|talk|speak|sit|walk|look|do)\b/,"Présent continu : <b>be + verbe en -ing</b> → I'm <b>wearing</b>, she's <b>reading</b>.",['pc']],
+  [/\b(am|is|are) (knowing|liking|loving|wanting|needing|hating|preferring|understanding|believing|owning|belonging|remembering|meaning)\b/,"Ce verbe exprime un <b>état</b> (pensée, sentiment, possession) : pas de forme en -ing. Dis <b>I know</b>, <b>I like</b>, <b>I need</b>…",['pc']],
 ];
 const FREE_LEAD=/^(hi|hello|hey|well|yes|no|ok|okay|oh|so|nice to meet you( too)?|thank you|thanks)( [\p{L}-]+[,.!]|[,.!]?) /u;
 const FREE_PLACE=/^(in|at|on) (my|the|our) [\p{L} ]{2,25}, ?/u;
@@ -1381,7 +1755,7 @@ function freeCands(q,g){
 }
 function freeCheck(q,given){
   const g=norm(given),cands=freeCands(q,g),sh=(q.short||q.bare)&&SHORT[q.skill];
-  for(const [re,msg] of FREE_BAD){if(sh&&/Écris/.test(msg))continue;if(re.test(g)||cands.some(x=>re.test(x)))return {ok:false,fe:msg}}
+  for(const [re,msg,sk] of FREE_BAD){if(sk&&!sk.includes(q.skill))continue;if(sh&&/Écris/.test(msg))continue;if(re.test(g)||cands.some(x=>re.test(x)))return {ok:false,fe:msg}}
   const R=new RegExp(q.re,'iu');
   for(const x of cands)if(R.test(x))return {ok:true};
   if(sh){for(const x of cands){if(sh[0].test(x)&&x.split(' ').length<=4){const raw=given.trim().replace(/[.!]+$/,'').replace(/^(from|in|at) /i,'');
@@ -1543,7 +1917,7 @@ const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
     if(it.en.split(' ').length<=9)D(it.sid,it.en,"Tu as entendu : <b>"+esc(it.en)+"</b> ("+esc(it.fr)+")",{aud:1,sayw:it.who||'',hint:"En français : "+it.fr});
   });
   /* dialogues joués : faux choix PLAUSIBLES = la bonne réplique avec une faute typique, ou une autre réplique du même dialogue */
-  const MUT=[[/\bI'm (\d+)\b/,"I have $1 years."],[/\bI'm (one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty)\b/,"I have $1 years"],[/\bNice to meet you, (\w+)/,"Nice to meet you to, $1"],[/\bYes, I am\b/,"Yes, I'm"],[/\bYes, (he|she|it) is\b/,"Yes, $1's"],[/\bNo, I'm not\b/,"No, I not"],
+  const MUT=[/* au magasin : calques du français */[/\bCan I help you\?/,"Can I help to you?"],[/\bDo you need any help\?/,"Do you need of help?"],[/\bHave you got any\b/,"Do you have got any"],[/\bHave you got any\b/,"Are you got any"],[/\bDo you sell\b/,"Do you sale"],[/\bDo you sell\b/,"Are you sell"],[/\bCan I have\b/,"Can I to have"],[/\bfor Europe\b/,"for the Europe"],[/\bthey're over there\b/,"their over there"],[/\bYes, we do\b/,"Yes, we are"],[/\bon the second floor\b/,"at the second stage"],[/\bI'll have\b/,"I go to take"],[/\bHow much is it\?/,"How much it is?"],[/\bHow much are\b/,"How much is"],[/\bWould you like anything else\?/,"Do you like anything else?"],[/\bAnything else\?/,"Other thing?"],[/\bthat's all\b/,"it's all"],[/^Here you are\.$/,"Here are you."],[/\breceipt\b/,"ticket"],[/\bThat's (\w+) pounds\b/,"It makes $1 pounds"],[/\bYour PIN number\b/,"Your number PIN"],[/\bThanks for your help\b/,"Thanks to your help"],[/\bThanks a lot\b/,"Thank a lot"],[/\ba small one\b/,"a small"],[/\bones\b/,"one"],[/\bI'm (\d+)\b/,"I have $1 years."],[/\bI'm (one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty)\b/,"I have $1 years"],[/\bNice to meet you, (\w+)/,"Nice to meet you to, $1"],[/\bYes, I am\b/,"Yes, I'm"],[/\bYes, (he|she|it) is\b/,"Yes, $1's"],[/\bNo, I'm not\b/,"No, I not"],
     [/\bNice to meet you too\b/,"Nice to meet you also"],[/\bMy name is\b/,"My name it's"],[/\bI'm from\b/,"I am of"],[/\bI live in\b/,"I live at"],
     [/\bHow are you\?/,"How you are?"],[/\bWhat's your name\?/,"What is you name?"],[/\bthanks\b/,"thanks you"],[/\b(He|She) (\w+)s\b/,"$1 $2"],
     [/\bI love (\w+ing)\b/,"I love to $1"],[/\bI prefer (\w+ing)\b/,"I prefer to $1"],[/\bThere is\b/,"It is"],[/\bThere are\b/,"They are"],[/\bThere's\b/,"It's"],
@@ -1564,7 +1938,7 @@ const rank=xp=>RANKS.slice().reverse().find(r=>xp>=r[0])[1];
       v.slice().forEach(z=>{const w=z.replace(/, [A-Z][a-z]+([.!?])$/,'$1');if(w!==z)v.push(w);const f=z.match(/^([^.!?]+[.!])\s+(How are you|And you|What about you)\?$/);if(f)v.push(f[1])});
       v.slice().forEach(z=>{if(/My name is (\w+)/.test(z))v.push(z.replace(/My name is (\w+)/,"I'm $1"));const nm=z.match(/I'm ([A-Z]\w+)/);if(nm&&NAMES.has(nm[1]))v.push(z.replace(/I'm ([A-Z]\w+)/,"My name is $1"))});
       return [...new Set(v)]};
-    if(l[1].split(' ').length<=8)G(g.sid,"Dialogue : réponds comme "+l[0]+". (En français : « "+l[2]+" »)",core(l[1]),"<b>"+l[0]+"</b> : "+esc(l[1]),{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1,loose:1});
+    if(l[1].split(' ').length<=8)G(g.sid,"Dialogue : réponds comme "+l[0]+". (En français : « "+l[2]+" »)",[...new Set(core(l[1]).concat((l[3]||[]).flatMap(core)))],"<b>"+l[0]+"</b> : "+esc(l[1]),{ctx:"<b>"+esc(prev[0])+"</b> : "+esc(prev[1]),say:prev[1],sayw:prev[0],role:1,loose:1});
   }});
 })();
 /* « C'est … » se traduit aussi par « This is … » : on l'accepte partout */
@@ -1699,8 +2073,8 @@ function speakPhone(t,rate,onend){
 }
 /* Voix naturelles fabriquées par le serveur (mises en cache) : Draco (homme), Pandora (femme pour les personnages féminins).
    Voix du téléphone en secours. */
-const FEM=/^(Anna|Kate|Sofia|Emma|Mia|Lisa|Sarah|Lily|Julia|Sophie|Lucy|Miss Kokkinis)$/;
-const voiceOf=name=>FEM.test(name)?'pandora':'draco';
+const FEM=/^(Anna|Kate|Sofia|Emma|Mia|Lisa|Sarah|Lily|Julia|Sophie|Lucy|Clare|Miss Kokkinis)$/;
+const voiceOf=name=>FEM.test(String(name||'').replace(/ \(.*\)$/,''))?'pandora':'draco';
 let AU=null,AUid=0,SEQ=0;
 function audioEl(){if(!AU){try{AU=new Audio();AU.preload='auto'}catch(e){}}return AU}
 function stopSpeak(){AUid++;SEQ++;try{AU&&AU.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}
@@ -1831,7 +2205,7 @@ function pick(n,o){
   if(free&&scope==='1')base=base.filter(q=>q.lvl===1);
   if(free&&scope==='2')base=base.filter(q=>q.lvl===2);
   const byLvl={1:base.filter(q=>q.lvl===1),2:base.filter(q=>q.lvl===2)};
-  const out=[],used=new Set();let hN=0;
+  const out=[],used=new Set(),hc={},capd=q=>free&&BIGV.has(q.skill)&&(hc[q.skill]||0)>=3;
   while(out.length<n){
     let cand;
     if(free&&scope==='mix'){
@@ -1839,13 +2213,13 @@ function pick(n,o){
       if(!byLvl[lv].some(q=>!used.has(q.id)))lv=3-lv;
       cand=byLvl[lv].filter(q=>!used.has(q.id));
     }else cand=base.filter(q=>!used.has(q.id));
-    if(free&&hN>=3)cand=cand.filter(q=>q.skill!=='house'); /* la maison : 3 questions max par séance */
-    if(!cand.length)cand=base.filter(q=>!used.has(q.id)&&!(free&&hN>=3&&q.skill==='house'));
+    cand=cand.filter(q=>!capd(q)); /* gros vocabulaires (maison, magasins, vêtements, couleurs) : 3 questions max chacun par séance */
+    if(!cand.length)cand=base.filter(q=>!used.has(q.id)&&!capd(q));
     if(!cand.length)cand=base.filter(q=>!used.has(q.id));
     if(!cand.length)break;
     const tot=cand.reduce((s,q)=>s+weight(q),0);let r=Math.random()*tot,ch=cand[cand.length-1];
     for(const q of cand){r-=weight(q);if(r<=0){ch=q;break}}
-    out.push(ch);used.add(ch.id);if(ch.skill==='house')hN++;
+    out.push(ch);used.add(ch.id);hc[ch.skill]=(hc[ch.skill]||0)+1;
   }
   return out;
 }
@@ -2039,6 +2413,7 @@ function lvlPct(l){
 
 /* ---------- états d'apprentissage : Nouveau → En cours → Fragile → Acquis ---------- */
 const REC=['mcq','match'],PROD=['gap','ord','dict'];
+const BIGV=new Set(['house','shop','clo','col']); /* gros vocabulaires : 3 questions max par séance mélangée */
 const DAYMS=864e5,GOAL=20;
 const PATH=SK.filter(s=>s.lvl===2),L1=SK.filter(s=>s.lvl===1);
 // Acquis = boîte 3 (une boîte par jour au maximum, donc 3 jours différents). Redevient fragile après 30 jours sans révision.
@@ -2080,7 +2455,7 @@ function isDue(q){const r=cur().q[q.id];if(!r)return false;const iv=IV[Math.min(
 function dueList(excl){const p=cur().q,now=Date.now();return Q.filter(q=>(!excl||q.skill!==excl)&&isDue(q)).map(q=>{const r=p[q.id];return{q,k:(now-(r.last||0))/(Math.max(.5,IV[Math.min(r.box,4)])*DAYMS)+Math.random()*.1}}).sort((a,b)=>b.k-a.k).map(x=>x.q)}
 const BIGDUE=25;
 /* varier les révisions : pas plus de k questions d'une même station (la maison ne prend pas toute la place) */
-function spread(list,n,k){const c={},out=[];for(const q of list){if(out.length>=n)break;if((c[q.skill]||0)<Math.min(k,q.skill==='house'?3:k)){c[q.skill]=(c[q.skill]||0)+1;out.push(q)}}for(const q of list){if(out.length>=n)break;if(!out.includes(q))out.push(q)}return out}
+function spread(list,n,k){const c={},out=[];for(const q of list){if(out.length>=n)break;if((c[q.skill]||0)<Math.min(k,BIGV.has(q.skill)?3:k)){c[q.skill]=(c[q.skill]||0)+1;out.push(q)}}for(const q of list){if(out.length>=n)break;if(!out.includes(q))out.push(q)}return out}
 const needReview=pr=>{const n=dueList().length;return n>=BIGDUE&&pr.rv!==dayStr(new Date())};
 const todayN=pr=>pr.dg&&pr.dg.d===dayStr(new Date())?pr.dg.n:0;
 function dayPlan(){
@@ -2299,12 +2674,12 @@ function viewCourse(){
 }
 const FMT={mcq:'QCM',match:'Associer',gap:'Compléter',ord:'Construire la phrase',dict:'Dictée'};
 function wordsHtml(s){
-  if(s.id!=='house'||typeof HW==='undefined')return '';
+  const WL=s.words||(s.id==='house'&&typeof HW!=='undefined'?HW:null);if(!WL)return '';
   const p=cur().q;
-  const wst=w=>{const qs=Q.filter(q=>q.wd===w.en);const st=qs.map(q=>qState(p[q.id]));
+  const wst=w=>{const qs=Q.filter(q=>q.wd===w.en&&q.skill===s.id);const st=qs.map(q=>qState(p[q.id]));
     if(st.every(x=>x==='new'))return 'new';if(st.includes('frag'))return 'frag';if(st.every(x=>x==='ok'))return 'ok';return 'cur'};
   return `<h2 class="h2">Mes mots</h2>`+Object.keys(s.rooms).map(r=>{
-    const ws=HW.filter(w=>w.room===r),sts=ws.map(wst),nOk=sts.filter(x=>x==='ok').length;
+    const ws=WL.filter(w=>w.room===r),sts=ws.map(wst),nOk=sts.filter(x=>x==='ok').length;
     return `<details class="wl"><summary><span>${s.rooms[r]}</span><span class="bd ${nOk===ws.length?'ok':nOk?'cur':'new'}">${nOk}/${ws.length} acquis</span></summary>${ws.map((w,i)=>`<div class="wrow"><span><b>${w.en}</b> <small>${w.fr}</small></span>${bd(sts[i])}</div>`).join('')}</details>`;
   }).join('');
 }
@@ -2326,7 +2701,7 @@ function viewLesson(){
   <div class="counts"><div><b style="color:var(--green)">${I.c.ok}</b>${bd('ok')}</div><div><b style="color:var(--blue)">${I.c.cur}</b>${bd('cur')}</div><div><b style="color:var(--amber)">${I.c.frag}</b>${bd('frag')}</div><div><b style="color:var(--mute)">${I.c.new}</b>${bd('new')}</div></div>
   <small>Sur ${I.n} questions. Une question est retenue quand tu l'as réussie 3 fois, sur au moins 2 jours différents : c'est ce qui prouve que tu ne l'oublies pas.</small>
   ${wordsHtml(s)}
-  ${s.rooms?`<p class="lbl" style="margin-top:16px">S'entraîner pièce par pièce</p><div class="grid2" style="margin-bottom:14px">${Object.entries(s.rooms).map(([k,n])=>`<button class="btn" style="margin:0;font-size:15px" data-act="unit" data-id="${s.id}" data-room="${k}">${n}</button>`).join('')}</div>`:''}`;
+  ${s.rooms?`<p class="lbl" style="margin-top:16px">S'entraîner ${s.roomLbl||'pièce par pièce'}</p><div class="grid2" style="margin-bottom:14px">${Object.entries(s.rooms).map(([k,n])=>`<button class="btn" style="margin:0;font-size:15px" data-act="unit" data-id="${s.id}" data-room="${k}">${n}</button>`).join('')}</div>`:''}`;
 }
 /* ---------- passeport ---------- */
 const STC=['#2E6E4F','#1F57B5','#8E2A44','#D02B27','#B06A0C'];
@@ -2435,7 +2810,8 @@ function viewPlay(){
   if(P.timer)h+=`<div class="tm"><i id="tmb" style="width:${P.left?P.left/P.max*100:100}%"></i></div><small id="tm">${P.left||''} s</small>`;
   h+=`<div class="tag">${it.rt?'On revoit ton erreur — ':''}${SKM[q.skill].name} — ${P.mode==='exam'?'question '+(P.i+1)+' / '+n:instrOf(q)}</div>`;
   if(q.ctx)h+=`<div class="ctx">${q.ctx}</div>`;
-  if(q.wd&&OMI[q.wd]&&(q.pic||q.type==='gap'))h+=`<div class="omw">${omImg(q.wd,'omi')}</div>`;
+  if(q.sw)h+=`<div class="omw"><span class="swt" style="background:${q.sw}"></span></div>`;
+  else if(q.wd&&OMI[q.wd]&&(q.pic||q.type==='gap'))h+=`<div class="omw">${omImg(q.wd,'omi')}</div>`;
   if(q.type==='dict'){
     h+=`<div class="q"><span class="qi">${IC.ear}</span>${/ /.test(q.word)?'Écoute et écris la phrase ('+q.word.split(' ').length+' mots).':'Écoute et écris le mot.'}</div><div class="spk"><button class="btn" data-act="say">${IC.spk} Écouter</button><button class="btn" data-act="slow">Plus lent</button><button class="btn" data-act="hint">Indice</button></div>${it.hint?`<div class="ctx">${esc(q.hint||'Pas d\'indice pour celui-ci.')}</div>`:''}`;
   }else if(q.type==='match'){
